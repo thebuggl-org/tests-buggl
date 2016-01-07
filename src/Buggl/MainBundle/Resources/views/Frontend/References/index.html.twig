@@ -1,0 +1,34 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Buggl Local Reference{% endblock %}
+
+{% block main_content %}
+	<div id="seventh" class="expert-subscription row">
+		<div class="bd-reveal">
+			<h2>Buggl Local Reference</h2>
+	    	<div class="content">
+				{{ form_errors(form) }} 
+				<form action="" method="post" novalidate>
+					<label><span>Name</span>		
+					{{ form_widget(form.name) }}
+					{{ form_errors(form.name) }}
+					</label>
+					
+					<label><span>Email</span>
+					{{ form_widget(form.referenceEmail) }}
+					{{ form_errors(form.referenceEmail) }}
+					</label>
+					<label><span>Reference</span>
+					{{ form_widget(form.comment) }}
+					{{ form_errors(form.comment) }}
+					</label>
+					{{ form_rest( form ) }}
+					
+					<div class="submit-section">
+						<input class="btn fr" type="submit" value="Submit" />					
+					</div>
+				</form>
+			</div>
+	    </div>
+	</div> 
+{% endblock %}

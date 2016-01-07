@@ -1,0 +1,38 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<article class="column grid_12 mission-page">
+			<div class="row">			
+				<article class="column grid_12">
+					<section>
+						<h1>Our Reason for Being</h1>
+						<p>Allow people to have delightful and enriching travel experiences through innovative and passionate insiders.</p>
+						<img src="{{ asset('bundles/bugglmain/images/mission.jpg') }}" />
+					</section>
+				</article>
+			</div>
+			<div class="row">		
+				<article class="column grid_6">
+					<h2>Reliance on people, not on companies</h2>
+					<p>Everything is getting easier today in travel and with that comes laziness and complacency. People now consider hotel booking engines, flight fare searchers and review sites before trusted veteran advice to take them around the world. Yet, despite all this new technology, it's still impossible to create a trip that is guarateed to deliver on what you want. Traveling is unpredicable, and to travel well you have to be willing to take a risk to get out of your comfort zone.  Buggl is a safe environment where people can connect to trade stories and travel guides. We want to give the reigns of travel advice back in the hands of the people who deserve it. Where would any review or recommendation site be without the people who are reviewing? Why aren't they being rewarded for providing those recommendations?  </p>
+				</article>
+				<article class="column grid_6">
+					<h2>Increase the likelihood of unique moments</h2>
+					<p>Everyone who comes home from a trip remembers the small glimpses that made it feel worthwhile and special.  Technology cannot replicate a pathway to discover those authentic moments, you have to find them on your own.  We want everyone who joins Buggl to have the same opportunity to discover and share in what well-traveled people have been experiencing for centuries; Life.   </p>
+				</article>
+			</div>	
+			<div class="row">
+				<article class="column grid_12">
+					<h2>Fullfill your travel potential</h2>
+					<p>We Live in a world where everything is shared constantly.  In travel, people watch tv, social status updates and photo libraries revolving around travel, but tune out of really traveling. If you haven't visited destinations seen online or on tv, then you're simply squandering your travel potential. Travel makes you a better human being, it makes you look at the world abroad and at home differently and it also gives you creativity and knowledge you can't find online. This is an ecosystem to encourage chance encounters with people or places that speak to you to go visit. Once you leave here with that knowledge, there are no more excuses why you can't visit something on your bucket list. Take a dose of travel and call us when you return.</p>
+				</article>	
+			</div>	
+		</article>
+	</div>
+{% endblock %}

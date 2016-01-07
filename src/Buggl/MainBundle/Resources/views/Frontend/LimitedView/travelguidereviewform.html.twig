@@ -1,0 +1,23 @@
+{% if allowed %}
+    <img border="0" align="left" src="{{ asset(app.user | userPic) }}" width='60' height='60'>
+    <form>
+        <div class="rateme">
+            <p> Rate this Travel Guide</p>
+            <div>
+                <span class='star-rating'><a star-rating="1">on</a></span>
+                <span class='star-rating'><a star-rating="2">on</a></span>
+                <span class='star-rating'><a star-rating="3">on</a></span>
+                <span class='star-rating'><a star-rating="4">on</a></span>
+                <span class='star-rating'><a star-rating="5">on</a></span>
+            </div>
+            <input id='rating' type='hidden' value="0" />
+        </div>
+        <textarea id='rating-content'></textarea>
+        <a class="btn fr" href="{{ path('buggl_post_guide_review') }}" id="post-review">Post Review</a>
+		<div class="fr" style="margin-top:10px">
+			<span id="postReviewLoader" class="loader" style="display:none"> Loading... </span>
+		</div>
+    </form>
+{% else %}
+    <p class="inform">Purchase Travel Guide to add Review</p>
+{% endif %}

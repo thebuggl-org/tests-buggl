@@ -1,0 +1,10 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<p>You have a new message from: {{ messageToUser.sender.name }}<p>
+	<p>Subject:  {{ messageToUser.thread.subject }}</p>
+	<p>Read and respond to all of your messages on Buggl <a href="{{ replyLink }}">here</a></p>
+	
+	<p>Best,</p>
+ 	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

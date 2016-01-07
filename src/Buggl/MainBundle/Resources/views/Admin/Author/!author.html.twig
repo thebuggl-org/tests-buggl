@@ -1,0 +1,65 @@
+{% extends "BugglMainBundle:Markup/Markup:adminAuthorLayout.html.twig" %}
+
+{% block title %}Local Author{% endblock %}
+
+{% block list %}
+    {% include "BugglMainBundle:Admin/Author:list.html.twig" %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/backbone.localauthor.js' filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+
+                $.backbone({
+                    cityUrl: "{{ path('admin_ajax_get_city_in_options') }}",
+                    searchLocalAuthor: "{{ path('admin_ajax_local_author') }}",
+                    toggleSuspensionUrl: "{{ path('admin_suspend_local_author') }}"
+                });
+
+                var countries = {{ countries|raw }};
+                var authors = {{ lists|raw }};
+
+                searchParams = new SearchParams();
+
+                var countryCollection = new Countries();
+                countryCollection.add(countries);
+
+                var cities = new Cities();
+                var pagination = new PaginationModel({
+                    totalCount: {{ totalCount }},
+                    limit: {{ limit }}
+                });
+
+                local = new LocalAuthors([],{ pagination: pagination });
+                local.add(authors);
+
+                new CountryView({countries: countryCollection, cities: cities, parameters: searchParams });
+                new CityView({cities: cities, parameters: searchParams });
+                new PaginationView({model:pagination,parameters:searchParams});
+                new ResultView({collection: local, pagination: pagination, parameters: searchParams});
+
+                $('input[name=search]').on('keypress',function(e){
+
+                    var code = (e.keyCode ? e.keyCode : e.which);
+                    if (code == 13) { //Enter keycode
+
+                        var value = $(this).val();
+
+                        searchParams.set({ name: value, page: 1 });
+                        pagination.set({ currentPage: 1 });
+                    }
+                });
+            });
+
+        })(jQuery);
+    </script>
+    {% endjavascripts %}
+{% endblock %}

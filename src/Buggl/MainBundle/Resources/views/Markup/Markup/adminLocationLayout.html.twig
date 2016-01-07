@@ -1,0 +1,58 @@
+{% extends 'BugglMainBundle:Markup:adminLayout.html.twig' %}
+
+{% set current = 'location' %}
+
+{% block modal %}
+    <div id="countryModal" style="display:none" class="reveal-modal">
+        <h2>Country<a class="close-reveal-modal">&#215;</a></h2>
+        <div name="country-content" class="content">
+        </div>
+        <span class="loader"></span>
+    </div>
+    <div id="categoryModal" style="display:none" class="reveal-modal">
+        <h2>Activity/Interest<a class="close-reveal-modal">&#215;</a></h2>
+        <div name="category-content" class="content"></div>
+        <span class="loader"></span>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+        <section>
+        	<div class="reg_box">
+		        <p class="admin-breadcrumbs">
+		            <a href="">{% block tab_title %}{{ 'Locations'|capitalize }}{% endblock %}</a>
+		        </p>
+		
+		        <div class="content"> 
+		            <ul class="site-admin-tabs horizontalize">
+		            
+		            	<!-- if viewing pending tab -->
+		            	{#<li class="{{ tab|selected('main','active') }}">
+                                                    <a href="{{ path('admin_locations') }}">locations for approval</a>
+                                                </li> #}
+		                {#<li class="{{ tab|selected('continent','active') }}">
+		                                    <a href="{{ path('admin_continents') }}">continents</a>
+		                                </li>#}
+		                <li class="{{ tab|selected('country','active') }}">
+		                    <a href="{{ path('admin_countries') }}">countries</a>
+		                </li> 
+						<!--
+			                <li class="{{ tab|selected('city','active') }}">
+			                    <a href="{{ path('admin_cities') }}">cities</a>
+			                </li>
+						-->	
+		                <!-- end -->
+		                
+		            </ul>
+		        </div>
+		        {% block page_actions %}
+		        {% endblock %}
+		        
+		        {% block list %}
+		        	
+		        {% endblock %}
+        	</div>        
+        <section>
+    </article>
+{% endblock %}

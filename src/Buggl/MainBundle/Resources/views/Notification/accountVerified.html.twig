@@ -1,0 +1,18 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+    <p class="font-size: 10px;  ">You really exist.  That's great news! </p>
+
+	<p>Welcome to Buggl.  A platform where you can discover and design beautiful travel guides.</p>
+
+	<p>Would you like to share your travel knowledge?  It's easy and free! Just click <a href="{{ createGuide }}">here.</a> </p>
+
+	<p>Find out where to travel based on your interests, activities and passions.  Discover hundreds of travel guides written by insiders <a href="{{ homepage }}">here!</a> </p>
+
+	<p>For more information, check out our <a href="{{ story }}">story</a>.  Follow @Buggl on twitter for cool updates as we grow around the world. </p>
+
+	<p>Thanks for joining the movement! </p>
+
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block modal %} 
+    {% render 'BugglMainBundle:LocalAuthor/EGuideRequest:eGuideRequestModal' with {'id':null,'email':null} %}
+{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<article class="column grid_12">
+			<div class="row">
+				<section class="column custom cpage grid_12">
+					<div class="intro">
+						<h1>Buggl F.A.Q.</h1>
+						<p>Buggl let’s you make money sharing your travel knowledge</p>
+					</div>
+					<div class="tribe">
+					<div class="bx">
+						<img src="{{ asset('/bundles/bugglmain/images/faq.jpg') }}" border="0" alt=" ">
+						<h2>Designing a Guide</h2>
+						<ul class="faq"> 
+							<li>
+								<h3>How do I design a travel guide?</h3>
+								<p>That’s easy. Click on the link above to design a guide and share your travel knowledge.  In a matter of minutes, you’ll be able to create a beautiful, unique travel guide that you can easily share to social networks, price on our platform or your website and make accessible to any device both on and offline.</p>											
+							</li>
+							<li>
+								<h3>What is the point of spending time building a travel guide?</h3>
+								<p>We know people have knowledge about where they live or traveled that they give out for free to friends, family, on travel forums and on their websites.  Most of the time they do this for no cost and spent hours remembering places and forgetting others.  We wanted to create an easier way to answer the usual questions of “Hey I’m going here and you were there last year, so tell me what to do!”  Travel guides are meant to be about anything related to a destination that you have information about. While you may just want to share out a travel guide for free, your knowledge might be worth something, so charge accordingly.  If you know an area well and you get requests all the time to share tips about it, then ask people to pay a little bit for that information - your time is money.</p>
+							</li>  
+							<li>
+								<h3>How Much Should I Charge For My Travel Guide?</h3>
+								<p>You can charge anything, but be realistic and fair. If you’re sharing it out with friends visiting or sharing bars for your upcoming bachelor party then make it free.  If you decide to price it, the best travel guides will sell no matter what the price. We recommend writing one or two travel guides for free to give the traveler a taste for your knowledge. The following may help you decide how to price your travel guides:</p>
+								<ol>
+									<li>A range from $0 - $25. This depends on how much information you’re providing, how long it took you to create and whether or not you include an itinerary.</li>	
+									<li>Are you sharing insider access to a vineyard, helping them get hard to book club or restaurant reservations or anything that’s unique and not offered anywhere else? It might call for a higher price.</li>
+								</ol>
+							</li>
+							<li>
+								<h3>How Do I Get Paid?</h3>
+								<p>Each time a travel guide is purchased on our platform we pay you directly into PayPal, under the name LocalEyes, Inc. We’re working on building out other methods of payment, but for now this is the trusted partner we’ve decided to work with. For more information on setting up and opening a PayPal account please go to <a href="http://www.paypal.com" target="_blank">www.paypal.com</a>. You earn 80% every time someone purchases your guide, while we take 20%.</p>
+							</li>
+							<li>
+								<h3>What Are References On My Profile And Why Do I Need Them?</h3>
+								<p>You don’t, but the guidebook designers who do will be more trusted. Your biography on our platform is your travel resume. Receiving references will highlight your expertise and background, giving travelers trust in you.  You should seek references from people who know you and can vouch for your knowledge.</p>
+							</li>
+							<li>
+								<h3>Can I Write A Travel Guide If I Run A Tour Operator Or Travel Agency?</h3>
+								<p>Yes, as long as you disclose that you’re a travel agent or tour operator and provide full details about all the places and insider tips you’ve recommended. Don’t leave information out or only recommend your tour company. Be honest, people will see right through you and it would be a shame to have you be booted off a great resource for you to meet future clients.</p>
+							</li>
+							<li>
+								<h3>What If A Traveler Asks Me To Meet While They Are On Their Trip?</h3>
+								<p>We encourage you to keep in contact with other users by building travel guides and through direct messaging on our platform. Be respectful and considerate and if there arises a need to communicate outside our platform you’re free to do so, but please use your judgment, as Buggl is not responsible for such communication and interactions. You may not sell or purchase Travel Guides except for through our platform. If there arises an instance where you have insider knowledge that requires a booking, no solicitation of credit card or other information should be asked for over our platform. Please refer to our <a href="{{ path('buggl_static_terms') }}" target='_blank'>Terms of Service</a> and <a href="{{ path('buggl_static_privacy_policy') }}" target='_blank'>Privacy Policy</a> for more information.</p>
+							</li>
+							<li>
+								<h3>How Do I Sell More Guides?</h3>
+								<p>We’re working hard with other distribution platforms to share your travel guides out to constantly and if you have ideas share them with us.  We’re spending money, time and effort to drive tons of traffic your way to promote you and your travel knowledge.</p>
+								<p>Our success also depends on how loudly you scream to your networks about the travel guides you’ve built.  We made this platform for people to earn income with their travel knowledge. We sincerely hope that you will promote your travel guides to your friends and followers on all your social media as well as any personal blogs or travel forums that you contribute to. Think of this as your side business as well as your passion!</p>
+								<p>We’re creating a place for quality travel advice so think of us the next time a friend or traveler asks you for advice on what to do. Don’t just use us to promote your guides, help us by spreading the word to other people around the world who would be great travel guide writers!</p>
+							</li>
+							<li>
+								<h3>What the heck should I write about in a travel guide?</h3>
+								<p>Write about whatever you want, that’s the fun part.  We built this platform to inspire you to turn your travel stories and local knowledge into a part time and maybe full time business.  The more unique, strange and secret the better, without being offensive or suggesting any illegal activities! We don’t want you to follow in the footsteps of all the cookie cutter travel guides out there, so put yourself in the shoes of a visiting traveler. You have the opportunity to write about anything you want, so highlight your skills, experience and passions!</p>
+							</li>
+							<li>
+								<h3>Here are some top tips for writing the best travel guides and refer to our terms and privacy policy for more information:</h3>
+								<ol>
+									<li>Take your time and highlight what makes you and your travel guide great!</li>	
+									<li>Include information that is not found elsewhere on the Internet.</li>
+									<li>Don’t be afraid to share strange and unique travel guides in addition to standard material!</li>
+									<li>Be sure to include authentic travel advice and tips – the more content you can provide on a place, day or just on what to bring will help travelers around the world immensely.</li>
+								</ol>
+							</li>
+						</ul>
+					</div>
+					<div class="bx">
+						<h2>Travelers Buying A Travel Guide:</h2>	
+						<ul class="faq"> 
+							<li>
+								<h3>Why Buy A Travel Guide On Buggl?</h3>
+								<p>What are your other options? Guidebooks that are 2 years out of date, time spent on review sites and travel forums or travel agents who have never been there? At Buggl you are getting a living breathing travel guide that full of concise nuggets of information matched to you. Give Buggl a go you will not be disappointed.</p>
+							</li>
+							<li>
+								<h3>How Do I Contact A Travel Guide Writer?</h3>
+								<p>Once logged in as a user, you are able to message other users, including travel guidebook writers and submit custom travel guide requests.</p>
+							</li>
+							<li>
+								<h3>How Do Reviews Work?</h3>
+								<p>We love reviews, but not the ones you see everywhere else. Our reviews are only for customers, not for window shoppers. If you purchase a travel guide you are able to write a review. All the reviews shared are from users who have purchased or downloaded the travel guides.</p>
+							</li>
+							<li>
+								<h3>How Is Pricing Set On Buggl?</h3>
+								<p>It’s up to our guidebook writers how they want to set price. Some of the travel guides are short and only on one day, while others are several days and locations, so price will vary accordingly. You’ll be able to preview parts of the travel guide before purchase and if  you’re not happy we’re here to help.</p>
+							</li>
+							<li>
+								<h3>Are Buggl Travel Guide Authors Trustworthy?</h3>
+								<p>Trust is our main priority for you. While we can’t look through high tech spy satellites to watch their every move, we have searched the world to bring you amazing people who we feel are experts at what they do. We’ve also included authentic reviews only written by users who buy their guides to decrease fake reviews that are widespread on other sites. Features like references also allow for you to see other people who have vouched for the local.</p>
+							</li>
+							<li>
+								<h3>My Travel Guidebook Writer Is Offering Some Other Cool Perks And Experiences That I Didn’t Purchase On Buggl. What Should I Do?</h3>
+								<p>You’re guidebook should include most if not all of what you want, but sometimes there will be additional insider tips that a writer can help with outside of our platform. While you are under no obligation to purchase anything else, nor should you need to in most cases, you might see a cool person who you might want to keep in touch with after purchase. This decision is up to you, but please use your judgment, as Buggl is not responsible for your communication or interaction with other users of our platform. Please refer to our Terms of Service and our Privacy Policy for more information.</p>
+							</li>
+							<li>
+								<h3>I Want To Meet One Of The Travel Guides Writers On My Trip, Is That Safe?</h3>
+								<p>Again, we do not monitor what happens on your trip, that part of the responsibility falls onto you. If you want to connect with a travel guidebook writer outside of our platform you do so at your own responsibility. We don’t monitor what happens on a trip.</p>
+							</li>
+							<li>
+								<h3>What If I Want A Custom Experience Or A Travel Guide Tailored To My Interests?</h3>
+								<p>That’s cool, just fill out the custom request form on a guidebook writer’s profile and have him or her design a guidebook matched to you.</p>
+							</li>
+							<li>
+								<h3>I Want To Become A Travel Guide Writer. Now What?</h3>
+								<p>
+									Start writing your first travel guide. 
+									{% if app.user %}
+									    <a href="{{ path('add_travel_guide_info') }}">Click Here!</a>
+									{% else %}
+									    <a href="#" data-reveal-id="loginModal">Click Here!</a>
+									{% endif %}
+								</p>
+							</li>
+						</ul>	
+					</div>		
+					</div>				
+				</section>
+			</div>
+		</article>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{% javascripts 
+		'@BugglMainBundle/Resources/public/js/Frontend/eguiderequest.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+{% endblock %}

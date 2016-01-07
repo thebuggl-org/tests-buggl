@@ -1,0 +1,24 @@
+<!-- pagination -->
+{% if totalPages > 1 %}
+    <section class="page bugglPagination" current-page="{{ currentPage }}" >
+        <nav>
+        
+            <a href="{{ currentPage == 1 ? '#' : path(url,{'page':currentPage - 1}) }}" class="bugglPaginationLink {{ currentPage == 1 ? 'disabled' : ''}}" page="{{ currentPage - 1 }}">&lsaquo;</a>
+            {% if startPage > 1 %}
+                <a href="{{ path(url, {'page': 1}) }}" class="bugglPaginationLink" page="{{ 1 }}">1</a>
+                <a href="{{ path(url, {'page': startPage - 1}) }}" class="more bugglPaginationLink" page="{{ startPage - 1 }}">...</a>
+            {% endif %}
+    
+            {% for i in startPage .. endPage %}
+                <a href="{{ path(url,{'page': i}) }}" class="bugglPaginationLink {{ currentPage | selected(i,'selected') }}" page="{{ i }}">{{ i }}</a>
+            {% endfor %}
+    
+            {% if endPage < totalPages %}
+                <a href="{{ path(url,{'page':startPage + pageLimit}) }}" class="more bugglPaginationLink" page="{{ startPage + pageLimit }}">...</a>
+                <a href="{{ path(url,{'page':totalPages}) }}" class="bugglPaginationLink {{ currentPage | selected(totalPages,'selected') }}" page="{{ totalPages }}">{{ totalPages }}</a>
+            {% endif %}
+
+            <a href="{{ currentPage == totalPages ? '#' : path(url,{'page':currentPage+1}) }}" class="bugglPaginationLink {{ currentPage == totalPages ? 'disabled' : ''}}" page="{{ currentPage + 1}}">&rsaquo;</a>
+        </nav>
+    </section>
+{% endif %}

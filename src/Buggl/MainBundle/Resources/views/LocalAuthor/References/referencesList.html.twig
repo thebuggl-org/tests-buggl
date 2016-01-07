@@ -1,0 +1,30 @@
+<section class="lista bugglPaginationContents">
+	<h3> 
+		{{ activeTab == 'list' ? 'Local References' : 'Pending Reference Requests' }} 		
+		<nav class="adminOpt">
+			<a id="add-new-spot" class="btn" href="{{ path('buggl_vouch') }}">Add References</a>
+		</nav>
+	</h3>
+	{% for reference in references %}
+		<div class="{{ (reference.localReference.isFeatured ? 'approved' : '')}}">
+			<img border="0" align="left" src="{{ reference.localReference.referenceEmail | gravatar }}" width="40" height="40" alt="{{ reference.localReference.name }}">
+			{% if activeTab == 'list' %}
+				<span class="name">{#<input type='checkbox' class="referenceCheckBox" value="{{ reference.localReference.id }}"/>#}{{ reference.localReference.name ~ ' (' ~ reference.localReference.referenceEmail ~ ')' }}<span class="subtext fr">{{ reference.localReference.dateUpdated | showTimeElapsed }}</span></span>
+				<span class="desc">{{ reference.localReference.comment }}</span>
+				<nav class="mini">
+					<a class="feature btn fr" href="{{ path('feature_reference_ajax', {'id':reference.localReference.id} ) }}" {{ 'style=display:'~(reference.localReference.isFeatured ? 'none' : 'block')}} onclick="return false">Feature In Profile</a>
+					<a class="feature btn fr" href="{{ path('unfeature_reference_ajax', {'id':reference.localReference.id} ) }}" {{ 'style=display:'~(reference.localReference.isFeatured ? 'block' : 'none')}} onclick="return false">Unfeature From Profile</a>
+					<span class="loader" style="display:none">Loading...</span>
+				</nav>
+			{% else %}	
+				<span class="name">{{ reference.localReference.referenceEmail }}<span class="subtext fr">{{ reference.localReference.dateUpdated | showTimeElapsed }}</span></span>
+			{% endif %}	
+		</div>
+	{% else %}	
+		<div>
+			<p class="inform">No records found!</p>
+		</div>	
+	{% endfor %}
+</section>
+
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':references|length,'dataUrl':dataUrl, 'itemLimit':itemLimit} %}

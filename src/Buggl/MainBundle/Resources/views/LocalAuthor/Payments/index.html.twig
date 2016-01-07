@@ -1,0 +1,91 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% set title = activeTab == 'history' ? 'Transaction History' : 'Payment Settings'%}
+
+{% block title %}Account{% endblock %}
+
+{% block precontent_title %}
+	Account
+{% endblock %}
+
+{% set active = 'account' %}
+
+{% block main_content %}
+	<div class="row">
+		<aside class="column grid_4">
+			{% if false %}
+			<section class="profile">
+				<nav class="clearfix clear">
+					{#<a class="{{ activeTab | selected('purchased','active') }}" href="{{ path('local_author_payments_purchased') }}"><span class="ico"></span>Purchased Travel Guides</a>#}
+					{#<a class="{{ activeTab | selected('sold','active') }}" href="{{ path('local_author_payments_sold') }}"><span class="ico"></span>Sold Travel Guides</a>#}
+					<a class="{{ activeTab | selected('history','active') }}" href="{{ path('local_author_payments') }}"><span class="ico"></span>Transaction History</a>
+					{% if app.user.isLocalAuthor %}	
+						<a class="{{ activeTab | selected('settings','active') }}" href="{{ path('local_author_payments_settings') }}"><span class="ico"></span>Payment Settings</a>
+					{% endif %}
+				</nav>
+			</section>
+			{% endif %}
+			{% include "BugglMainBundle:LocalAuthor:accountNavigation.html.twig" with {'activeTab':activeTab} %}
+        </aside>
+
+		{% block payment_content %}
+			<article class="grid_8 column">
+				<section>
+				<h3>Purchase History</h3>
+				<table class="payments-list" width="100%" cellspacing="0" cellpadding="0">
+					<tr>
+						<th width="20%">ID</th>
+						<th width="40%">Invoice Details</th>
+						<th width="40%">Amount </th>
+					</tr>
+					{% for i in 1..8 %}
+						<tr>
+							<div>
+								<td class="payment-id">
+									001
+								</td>
+								<td class="payment-invoice-details">
+									<p>JULY 20 2013 - <span>3 eGuides</span></p>
+								</td>
+								<td class="payment-amount">
+									<nav class="mini">
+										<a href="" class="btn fr">View invoice</a>
+									</nav>
+									<span>USD 20.00</span>
+								</td>
+							</div>
+						</tr>
+					{% endfor %}
+				</table>
+				</section>
+			</article>
+		{% endblock %}
+	</div>
+{% if app.user.isLocalAuthor %}
+<div id="reqcount" class="reveal-modal">
+<h2>  <a class="close-reveal-modal">&#215;</a> </h2>
+    <div class="content">
+   
+<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span> You have {{ newRequestCount }} new Itinerary Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+</div></div>{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.pagination.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+		<script>
+			$(document).ready(function(){
+if({{newRequestCount}}>=1)
+{		
+	$("div#reqcount").reveal();
+}
+				$('.bugglPagination').paginate();
+			});
+		</script>
+	{% endjavascripts %}
+{% endblock %}

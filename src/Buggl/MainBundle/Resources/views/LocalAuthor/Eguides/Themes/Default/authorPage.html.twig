@@ -1,0 +1,42 @@
+<section class="step-2 steps" id="{{ eguide.slug }}">
+	<div class="create-guide-pages clearfix">
+		
+		{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:guidePageSections.html.twig" with { 'travel_guide_id' : eguide.id, name : 'author'} %}
+
+		<div class="pages">
+			<div class="page">
+				<div class="main-page guide-profile clearfix">
+					<div class="first-half half to-left generic">
+						<div class="generic-header">									
+							<h1>About Me</h1>
+						</div>
+						<div class="generic-content">
+							<div class="about-local-author">
+								<a class="client-profile-pic to-left" id="uploadProfilePic" data-modal-title="Profile Pic" data-file-name="{{ app.user.profile | nullObjectPlaceHolder('getImageWebPath') }}" href="" onclick="return false">
+									<span>CHANGE PHOTO</span>
+									<img class="profilePicture" src="{{ asset(app.user.profile | profilePic) }}" width="230" height="230" />
+								</a>
+								<span class="profileInfoContainerv1">
+								<div id="profileContent_authorPageBasicInfo" class="editProfileInfoContainer generic-sections">
+									{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'authorPageBasicInfo'} %}
+								</div>
+								</span>
+								<span class="profileInfoContainer">
+								<strong>Who Am I?</strong>
+								<div id="profileContent_aboutYou" class="editProfileInfoContainer generic-sections">
+									{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'aboutYou'} %}
+								</div>
+								<strong>What I know about travel?</strong>
+								<div id="profileContent_selfComment" class="editProfileInfoContainer generic-sections">
+									{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'selfComment'} %}
+								</div>
+								</span>
+							</div>
+						</div>
+					</div>					
+				</div>
+				{% include 'BugglMainBundle:LocalAuthor/Eguides/Themes/Default:pageNavigation.html.twig' with {'travel_guide_id' : eguide.id,'prev_page':'before-you-go', 'status' : eguide.status} %}	
+			</div>
+		</div>
+	</div>
+</section>

@@ -1,0 +1,15 @@
+<li>
+    <img border="0" align="left" src="{{ asset(app.user.profile | profilePic) }}" width='60' height='60'>
+    <form>
+        <textarea id="review-content"></textarea>
+        <a href="{{ path('buggl_post_local_author_review') }}" id="post-review" class="btn fl">Post Review</a>
+		<div>
+			<span id="postReviewLoader" class="loader" style="display:none"> Loading... </span>
+		</div>
+    </form>
+</li>
+<li id="thank-you-msg" style="display:none">
+	<div>
+		<p class="inform">Thank you for your review.</p>
+	</div>
+</li>

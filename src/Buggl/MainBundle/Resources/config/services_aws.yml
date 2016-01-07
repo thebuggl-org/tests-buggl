@@ -1,0 +1,10 @@
+parameters:
+
+
+services:
+    buggl_aws.asset_dump:
+        class: Buggl\MainBundle\Helper\BugglAssetsDumpHelper
+        arguments:
+              path: "%kernel.root_dir%/../src/Buggl/MainBundle/Resources/public/"
+    buggl_aws.wrapper:
+        class: Buggl\MainBundle\Helper\BugglS3Helper

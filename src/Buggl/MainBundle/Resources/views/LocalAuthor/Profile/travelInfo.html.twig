@@ -1,0 +1,8 @@
+<li id="{{ 'travelInfo_' ~ fieldId }}">
+	<p>
+		<a href="{{ path('get_travel_info_form',{'fieldId':fieldId}) }}" class="editable editTravelInfo">
+			{{ travelInfo|renderByField(fieldId) }}
+			<span class="client-edit-button">EDIT</span>
+		</a>
+	</p>
+</li>

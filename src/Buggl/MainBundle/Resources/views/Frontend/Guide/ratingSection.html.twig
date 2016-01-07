@@ -1,0 +1,22 @@
+{% block reviews %}
+<section class="reference multi ratings-section">
+    <ul>
+		<li class="selected"><a href="#">The Local Chatter</a></li>
+    </ul>
+    <div id="reviewContainer" data-page="1">
+        <ul class="comments">
+			{% if app.user is not null and app.user.id != guide.localAuthor.id %}
+            	<li>
+                    {% render 'BugglMainBundle:Frontend/LimitedView:addTravelGuideReviewForm' with {eguide:guide} %}
+            	</li>
+				<li class="notification" style="display:none">
+					<p class="inform">Thank you for your review</p>
+				</li>
+			{% endif %}
+            {% render 'BugglMainBundle:Frontend/Reviews:travelGuideReviews' with {travelGuide:guide} %}
+        </ul>
+		<a href="" onclick="return false" id="moreReviews" style="display:none"> Load More </a>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+<section class="profile">
+	<nav class="clearfix clear">
+		{% if false %}
+		<a href="{{ path('local_author_social_media') }}" class="{{ activeTab | selected('socialmedia','active') }}">Social Connect</a>
+		{% endif %}
+		<a href="{{ path('local_author_payments') }}" class="{{ activeTab | selected('history','active') }}">Transaction History</a>
+		{% if app.user.isLocalAuthor %}
+			<a href="{{ path('local_author_payments_settings') }}" class="{{ activeTab | selected('settings','active') }}">Payment Settings</a>
+		{% endif %}
+		<a href="{{ path('local_author_login_details') }}" class="{{ activeTab | selected('logindetails','active') }}">Settings</a>
+	</nav>
+</section>
+
+{% if activeTab == 'history' %}
+	<p> <span><em>* Types: P = purchased, S = sold.</em></span> </p>
+	<p> <span><em>** Some amounts maybe subject to Paypal fees.</em></span> </p>
+{% endif %}

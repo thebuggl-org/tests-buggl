@@ -1,0 +1,22 @@
+<header class="header">
+    <div class="row">
+        <nav class="column grid_12">
+            <h2><a href="{{path('buggl_homepage')}}"><img src="{{ asset('bundles/bugglmain/images/buggl_logo.png') }}"  border="0" align="" width="120" alt="Buggl.com"></a></h2>
+            <div class="dmy">
+	           	 {% render 'BugglMainBundle:Frontend/Main:searchBar' %}
+                 <ul class="fr">
+                    <li><a href="{{ path('login') }}" id="loginButton">Login</a></li>
+                    <li><a href="{{ path('registration') }}" id="homepageSignupButton">Sign Up</a></li>
+                    <li class="down">
+                        <a href="#">Help<img src="{{ asset('bundles/bugglmain/images/select.png') }}" border="0" align=""></a>
+                        <ul>
+                            <li><a href="{{ path('buggl_how_it_works') }}">How it Works</a></li>
+                            <li><a href="{{ path('buggl_static_contact_us') }}">Contact Us</a></li>
+                        </ul>
+                    </li>
+                    <li class="lighted"><a class="design-a-guide" href="{{ path('buggl_write_a_guide') }}">Design A guide</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>

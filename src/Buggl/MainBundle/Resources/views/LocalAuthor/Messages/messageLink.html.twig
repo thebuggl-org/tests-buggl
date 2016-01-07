@@ -1,0 +1,10 @@
+{% if count %}
+    <li class="messages new">
+        <a href="{{ path('local_author_messages', {'type':'inbox'}) }}"><span class="ico"></span></a>
+    </li>
+{% else %}
+    <li class="messages">
+        <a href="{{ path('local_author_messages', {'type':'inbox'}) }}"><span class="ico"></span></a>
+    </li>
+{% endif %}
+

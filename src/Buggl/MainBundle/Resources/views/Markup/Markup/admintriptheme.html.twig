@@ -1,0 +1,33 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% set current = 'trip-theme' %}
+
+{% block modal %}
+    <div class="reveal-modal" style="display:none" id="modal">
+        <h2>Add Trip Theme<a class="close-reveal-modal">&#215;</a></h2>
+        <span class="loader">Fetching Information</span>
+        <div class="content"></div>
+    </div>
+{% endblock %}
+
+{% block content%}
+    <article class="site-admin-content column grid_8">
+        <section>
+        	<div class="reg_box">
+		        <p class="admin-breadcrumbs">
+		            <a href="">Trip Themes</a>
+		        </p>
+				<a id="add-category" class="site-admin-button" style="margin:0;" href="{{ path('admin_trip_theme_add_form') }}">+ trip theme</a>
+		        {% block list %}
+		        {% endblock %}
+        	</div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/category.js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

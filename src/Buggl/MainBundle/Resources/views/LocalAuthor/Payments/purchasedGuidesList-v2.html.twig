@@ -1,0 +1,11 @@
+<ul>
+	{% for payment in payments %}
+		<li>
+			{% include 'BugglMainBundle:LocalAuthor/Payments:list.html.twig' %}
+		</li>
+	{% else %}
+		<li class="payment-type"><span>{{ default }}</span></li>
+	{% endfor %}
+</ul>
+
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':payments|length,'dataUrl':dataUrl, 'itemLimit':itemLimit} %}

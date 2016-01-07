@@ -1,0 +1,97 @@
+{% extends "BugglMainBundle::layout.html.twig" %}
+
+{% block title %}Buggl | Win A Trip{% endblock %}
+
+{% block meta_tags %}
+	<meta name="description" content="Design A Guide. Spread the Love. Win A Trip">
+{% endblock %}
+
+{% block og_meta %}
+	<meta property="og:title" content="Design A Guide. Spread the Love. Win A Trip" />
+    <meta property="og:description" content="Buggl is spreading the love! Build a guide in the month of February and automatically be entered to win a free airline ticket and $500 spending cash!" />
+	<meta property="og:image" content="http://buggl.com{{ asset('/bundles/bugglmain/images/winatrip-ad.jpg') }}"/>
+{% endblock%}
+
+{% block body %}
+<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+
+<div class="contest-landing">
+	<div>
+		<div class="header">
+			<ul class="contest-connect">
+				<li class="fb"><a href='javascript:void(0)' id="facebook-btn"></a></li>
+				<li class="twt"><a href='javascript:void(0)' id="twitter-btn" tw-text="Design A Guide. Spread the Love. Win A Trip."></a></li>
+			</ul>	
+			<h1>
+				<span class="sketch">
+					<span class="lightblue">DESIGN</span> A<br/>
+					<span class="lightred">GUIDE.</span>
+				</span><br/>
+				<span class="georgia">Spread the L<img class="heart" src="{{ asset('/bundles/bugglmain/images/heart.png') }}" />ve.</span><br/>
+				<span class="bree">Win A Trip.</span>			
+			</h1>
+		</div>
+		<div class="intro">
+			<p>Buggl is spreading the love! Build a guide in the month of February<br/> and automatically be entered to win a <span class="lightblue">free airline ticket<br/> and <span class="lightblue">$500 spending cash!</span></p>
+		</div>		
+		<div class="details">
+			<section>
+				<h2>THE DETAILS</h2>
+				<ul>
+					<li><p>A Guide can be about anything. Share your insider knowledge on famous events in town, the best dive bars in Chicago, or how to have an intimate experience of walking with lions in Namibia.</p></li>
+					<li><p>Too many ideas to choose from? Great! There is no limit to the number of guides you can enter, the more guides you build increases the chances of winning.</p></li>
+					<li><p>Share the guides on your social media networks! It helps you win additional brownie points!</p></li>				
+					<li><p>We recommend making your guide free, but if you price a guide, make sure you integrate paypal to get money every time it’s purchased.</p></li>				
+					<li><p>The winner will be announced on March 1st via Buggl’s Social Media.</p></li>				
+				</ul>
+				<a class="design-a-guide" href="{{ path('add_travel_guide_info') }}">DESIGN A GUIDE</a>
+				<p class="be-insider">Not an Insider? <a href="{{ path('registration') }}">Sign Up Today!</a></p>
+			</section>	
+		</div>
+		<div class="intro">
+			<p>Need some inspiration? Here are some of our top guides:</p>
+			<ul class="contest-sample-list">
+				<li><a href="http://www.buggl.com/reliving-the-life-and-times-of-nelson-mandela-192/overview"><img src="{{ asset('/bundles/bugglmain/images/guide-sample-1.jpg') }}" ></a></li>
+				<li><a href="http://www.buggl.com/leicester-like-a-local-for-the-study-abroad-student-227/overview"><img src="{{ asset('/bundles/bugglmain/images/guide-sample-2.jpg') }}" ></a></li>
+				<li><a href="http://www.buggl.com/the-ultimate-breaking-bad-tour-of-albuquerque-191/overview"><img src="{{ asset('/bundles/bugglmain/images/guide-sample-3.jpg') }}" ></a></li>
+				<li><a href="http://www.buggl.com/into-the-wild-namibia-self-drive-121/overview"><img src="{{ asset('/bundles/bugglmain/images/guide-sample-4.jpg') }}" ></a></li>
+			</ul>
+		</div>
+		<div class="fine-print">
+			<h3>THE FINE PRINT</h3>
+			<ul>
+				<li><p>You must be 18 years of age or older.</p></li>
+				<li><p>You must have a valid passport.</p></li>
+				<li><p>You must be able to enter the country you select.</p></li>
+				<li><p>All elements of the prize are non-transferable and there are no cash alternatives for the plane ticket.</p></li>
+				<li><p>Winner absolves Buggl and LocalEyes, Inc., of any liability regarding accidents, mishaps, problems with airlines and anything that might be bad, prior to, during and after their trip.</p></li>
+				<li><p>Void where prohibited</p></li>
+				<li><p>Any associated visa costs are the responsibility of the winner.</p></li>
+				<li><p>The flight is one round trip economy class ticket subject to carrier availability from your home airport.  Additional fees or ticket changes are the responsibility of the winner.  The cost of the flight can not exceed $1500, including taxes.</p></li>
+				<li><p>The trip has to be planned at least 30 days in advance, valid for a year at contest end.</p></li>
+				<li><p>Winner must create one travel guide detailing their trip upon return.</p></li>
+				<li><p>Please refer to our terms of service and privacy policy, as well as FAQ’s for anymore questions related to safety, security, etc.</p></li>			
+			</ul>
+			<p><a href="/"><img src="{{ asset('/bundles/bugglmain/images/contest-logo.png') }}" /></a></p>	
+		</div>	
+	</div>
+</div>	
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/socialshare.js' | s3Cdn) }}"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+		        var info = SocialShare.getDefaultValues();
+		    	Facebook.enable(info);
+		    	var twInfo = {'via': 'Buggl', 'title': $('#twitter-btn').attr('tw-text'), 'hashtags' : '' };
+		    	Twitter.enable(twInfo);
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+
+{% block title %}Press Release Markup{% endblock %}
+
+{% block main_content %}    
+    <div class="row">
+        <article class="column grid_12">
+            <div class="row">
+                <section class="column grid_12">
+                    <div class="row">
+                        <section class="column grid_8">
+                        	<div class="db_box !">
+	                        	<h2>Press Release</h2>
+                        	</div>	
+                            <div class="db_box">
+                                <h3><a href="">A wind investment deep in the heart of Texas</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                            <div class="db_box">
+                                <h3><a href="">Finding the inner programmer in every Googler</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                            <div class="db_box">
+                                <h3><a href="">Make some New Year’s resolutions for your business</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                            <div class="db_box">
+                                <h3><a href="">The Federal Trade Commission closes its antitrust review</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                            <div class="db_box">
+                                <h3><a href="">A wind investment deep in the heart of Texas</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                            <div class="db_box">
+                                <h3><a href="">Finding the inner programmer in every Googler</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                            <div class="db_box">
+                                <h3><a href="">Make some New Year’s resolutions for your business</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>
+                            <div class="db_box">
+                                <h3><a href="">The Federal Trade Commission closes its antitrust review</a><br><em>01/10/2013</em></h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            </div>                                                                                                                                                                          
+                        </section>
+                        {% block about_navigation %}
+                         <aside class="column grid_4">
+                            <section class="sidelist">
+                                <ul>
+                                    <li class="selected"><a href="{{ path('press_release_mark_up') }}"><span class="ico"></span>Press Release</a></li>
+                                    <li><a href="{{ path('our_story_mark_up') }}"><span class="ico"></span>Our Story</a></li>
+                                    <li><a href="{{ path('our_mission_mark_up') }}"><span class="ico"></span>Our Mission</a></li>
+                                    <li><a href="{{ path('about_us_mark_up') }}"><span class="ico"></span>The Buggl Team</a></li>
+                                    <li><a href="{{ path('contact_us_mark_up') }}"><span class="ico"></span>Contact Us</a></li>
+                                </ul>
+                            </section>
+                        </aside>
+                        {% endblock %}
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var header = $('.sidelist');
+            var start = $(header).offset().top;
+            $.event.add(window, "scroll", function() {
+                var p = $(window).scrollTop();
+                $(header).css('position',((p)>start) ? 'fixed' : 'static');
+                $(header).css('top',((p)>start) ? '0px' : '');
+                $(header).css('border-bottom',((p)>start) ? '1px solid #ddd' : '');
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% set current = 'content' %}
+{% set status = 'published' %}
+
+{% block title %}Content Management{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+    	<section>
+    		<div class="reg_box">
+        		
+		        <p class="admin-breadcrumbs">
+					<a href="{{ path('admin_content') }}">Content Management</a>
+					{% block breadCrumbs %}
+						
+					{% endblock %}	
+		        </p>
+		        
+				{% if false %}
+			        <div class="content"> 
+			            <ul class="site-admin-tabs horizontalize">
+			                <li class="active"><a href="">buggl content</a></li>						
+			                <li class=""><a href="">automated travel guide email</a></li>
+			                <li class=""><a href="">automated traveler email</a></li>
+			            </ul>	
+			        </div>
+				{% endif %}
+		        
+				{% block inner_content %}
+				    <ul class="content-list site-admin-list">
+				        <li class="clearfix">
+				            <div class="to-left">
+				                <h3>Our Mission</h3>
+				                <p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p>
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>
+				        </li>
+				        <li class="clearfix">
+				            <div class="to-left">
+				                <h3>Our Story</h3>
+				                <p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p>       
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>
+				        </li>
+				        <li class="clearfix">
+				            <div class="to-left">
+				                <h3>About</h3>
+								<p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p>     
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>	
+				        </li>
+				        <li class="clearfix">
+				            <div class="to-left">
+				                <h3>Jobs</h3>       
+								<p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p> 	                
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>
+				        </li>	        
+				        <li class="clearfix">
+				            <div class="to-left">
+				                <h3>Press</h3>
+				                <p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p>        
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>
+				        </li>	        	        	        	        
+						<li class="clearfix">
+				            <div class="to-left">
+				                <h3>Blog</h3>
+				                <p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p>        
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>
+				        </li>	        
+				        <li class="clearfix">
+				            <div class="to-left">
+				                <h3>Contact</h3>
+			 					<p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p> 	                       
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>
+				        </li>	        	
+				        <li class="clearfix">
+				            <div class="to-left">
+				                <h3>FAQ</h3>       
+			 					<p>The three men at her mast-head wore long streamers of narrow red bunting at their hats; from the stern, a whale-boat was suspended, bottom down; and hanging captive from the bowsprit was seen.</p> 	                
+				            </div>
+				            <ul class="site-admin-list-actions to-right horizontalize"> 
+				                <li><a href="">edit</a></li>
+				            </ul>
+				        </li>	        	                
+				    </ul>
+				{% endblock %}
+    		</div>
+    	</section>    				    
+    </article>
+{% endblock %}
+
+

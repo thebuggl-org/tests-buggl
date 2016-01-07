@@ -1,0 +1,25 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Buggl | Your Places{% endblock %}
+
+{% block precontent_title %}
+	Your Places
+{% endblock %}
+
+{% set active = 'gallery' %}
+
+{% block main_content %}
+	<div class="row">
+		<!-- @admin-tabs -->
+		{% include 'BugglMainBundle:LocalAuthor/MediaGallery:mediaGalleryTabs.html.twig' with {'active':activeTab} %}
+		<!-- *end -->
+
+		{% block galleryList %}
+
+		{% endblock %}
+
+		{% block modal %}
+			{{ parent() }}
+		{% endblock %}
+	</div>
+{% endblock %}

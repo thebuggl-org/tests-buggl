@@ -1,0 +1,72 @@
+{% extends "BugglMainBundle::layout.html.twig" %}
+
+{% block meta %}
+	<!--[if gt IE 8]><!--> <html class="admin no-js"> <!--<![endif]-->
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Questrial' type='text/css'>
+{% endblock %}
+
+{% block title %} 
+	Buggl Profile Html Markup
+{% endblock %}
+
+{% block header %}
+	<header class="header client-admin-header">
+		<div class="row">
+			<nav class="column grid_12">
+				<h1><a href="{{path('local_author_dashboard')}}"><img src="{{ asset('bundles/bugglmain/images/buggl_logo.png') }}"  border="0" align="" width="120" alt="Buggl.com"></a></h1>
+		  		<div class="dmy">
+
+		  			{% block navigation %}
+						<ul class="fl client-profile-nav">
+							<li><a href="{{ path('local_author_dashboard') }}">Dashboard</a></li>
+			   				<li class="active"><a href="{{ path('local_author_profile') }}">Profile</a></li>
+			   				<li><a href="{{ path('local_author_eguides', {'status':published}) }}">eGuides</a></li>
+			   				<li><a href="{{ path('local_author_gallery') }}">Media Gallery</a></li>
+			   				<li><a href="#">Messages</a></li>
+			   				<li><a href="#">Payments</a></li>
+				  		</ul>
+			  		{% endblock %}
+
+			  		{% block local_author_navigation_links %}
+				  		<ul class="fr client-admin-header-actions">
+			  				<li>
+			  					<a href="">
+				  					<img src="{{ asset('bundles/bugglmain/images/custom/adele_320.jpg')}}" width="30" height="30" /><span>Adele Laurie Blue Adkins</span>
+				  				</a>
+
+			  					<ul class="profile-settings">
+			  						<li><a href="">Login Detials</a></li>
+			  						<li><a href="">Social Media</a></li>
+			  						<li><a href="{{ path('logout') }}">Logout</a></li>
+			  					</ul>	
+			  				</li>
+			  			</ul>
+			  		{% endblock %}
+		  		</div>
+			</nav>
+		</div>
+	</header>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="alt_header admin-alt-header column grid_12">
+
+			<h2 class="fl">
+				{% block precontent_title %}
+					My Buggl Profile
+				{% endblock %}
+			</h2>
+			<form class="fr search">
+				<a class="create-guide admin-button big">CREATE A GUIDE</a>
+			</form>
+		</div>
+	</div>
+
+	{% block main_content %}
+	{% endblock %}
+{% endblock %}

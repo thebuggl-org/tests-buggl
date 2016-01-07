@@ -1,0 +1,8 @@
+<div class="column grid_4">
+	<h3 class="stnd"><a href="{{ path('buggl_guide_browse_all') ~ '?sort=recent'}}">Recent Itineraries</a><span class="ico"></span></h3>
+	<ul class="box">
+		{% for post in posts %}
+			<li><a href="{{ post.link }}">{{ post.title }}</a></li>
+		{% endfor %}
+	</ul>
+</div>

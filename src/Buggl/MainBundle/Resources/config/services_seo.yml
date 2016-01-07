@@ -1,0 +1,20 @@
+parameters:
+
+
+services:
+    buggl_seo.search_results:
+        class: Buggl\MainBundle\Service\SEO\SearchResultsPageService
+    buggl_seo.full_guide:
+        class: Buggl\MainBundle\Service\SEO\FullGuidePageService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+    buggl_seo.full_spot:
+        class: Buggl\MainBundle\Service\SEO\FullSpotPageService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+    buggl_seo.author_profile:
+        class: Buggl\MainBundle\Service\SEO\LocalAuthorPageService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+    buggl_seo.static_page:
+        class: Buggl\MainBundle\Service\SEO\StaticPageService

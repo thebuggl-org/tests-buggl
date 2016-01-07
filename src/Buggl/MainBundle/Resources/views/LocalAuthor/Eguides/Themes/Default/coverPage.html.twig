@@ -1,0 +1,112 @@
+<section class="step-2 steps" id="{{ eguide.slug }}" data-hasitinerary="{{hasItinerary}}">
+	<div class="create-guide-pages clearfix">
+		
+		{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:guidePageSections.html.twig" with { 'travel_guide_id' : eguide.id, name : 'cover'} %}
+
+		<div class="pages">
+			<div class="page">
+				<div class="main-page cover clearfix">
+					{% set bgphoto = (eguidePhoto is not null) ? eguidePhoto.photo : asset('/bundles/bugglmain/images/custom/cover-guide.jpg') %}
+					<div class="half cover" style="background: url({{bgphoto}}) #ffffff;padding-top:0;">
+						<ul class="spot-actions clearfix">
+							<li class="edit"><a title="CHANGE PHOTO" href="{{bgphoto}}" name="change-background-image" data-eguideid="{{eguide.id}}" data-phototype="{{ constant('Buggl\\MainBundle\\Entity\\EGuidePhoto::COVER_PHOTO') }}"><span>ADD COVER IMAGE</span></a></li>
+						</ul>
+						<img src="{{ asset("/bundles/bugglmain/images/guide-header.png") }}" width="515px" height="105px" />
+						<h1 id="title-field" name="popup-edit" data-fieldname="title" data-content="{{ eguide.title }}" style="font-size:{{ eguide.plainTitle|length > 40 ? '48' : '60' }}px">
+							
+							{% if eguide.title is not null %}
+								{{ eguide.title|raw }}
+								<a class="editable">
+									<strong>EDIT.</strong>								
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							{% else %}
+								<a class="editable">
+									<strong>ADD TITLE HERE.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							{% endif %}
+							
+						</h1>
+						
+						<div class="cover-teaser" name="popup-edit" data-fieldname="excerpts" data-content="{{ eguide.excerpts }}">
+							{% if eguide.excerpts is not null %}
+								{{ eguide.excerpts|raw }}
+								<a class="editable">
+									<strong>EDIT.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							{% else %}
+								<a class="editable">
+									<strong>ADD YOUR CONTENT HERE.</strong>
+									Before You Go Intro.
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							{% endif %}
+						</div>
+						
+					
+						<div class="cover-footer-container"> 
+							<div class="cover-footer clearfix">
+								<div class="to-left">
+									<img class="profile" src="{{ asset(eguide.localAuthor.profile | profilePic) }}" />
+									<span class="author">{{ eguide.localAuthor.getName }}</span>
+									<span class="profession">{{ eguide.localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+								</div>
+								<!-- 
+								<span class="price to-right" name="popup-edit" data-fieldname="price" data-type="text" data-content="{{ eguide.price }}">
+									${{ eguide.price|number_format(2) }}
+									<a class="editable">
+										<span class="client-edit-button"></span>
+									</a>
+									 $1<span>.50</span> 
+								</span> -->
+							</div>
+							<div class="copyright">
+								<p>Buggl.com. All Rights Reserved.</p>
+							</div>
+						</div>	
+					</div>
+				</div>
+				{% include 'BugglMainBundle:LocalAuthor/Eguides/Themes/Default:pageNavigation.html.twig' with {'travel_guide_id' : eguide.id,'next_page':'localplaces', 'status' : eguide.status} %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{#
+<div id="buggl-modal-guide-bgphoto-upload-v2" class="custom-modal" style="">
+	<div class="shadow"></div>
+	<div>
+		<h2>Edit Cover Image<a class="close to-right">x</a></h2>
+		<div class="type">
+			<a class="button">Upload photo</a>
+			<a class="button">Search google</a>
+		</div>	
+
+		<!--
+		<div class="crop-area">
+		
+		</div>	
+		-->
+
+
+		<div class="search-area">
+			<div class="searcher">
+				<input type="text" /><input type="submit" value="search"/>
+			</div>
+			<ul class="horizontalize ">
+				<li><img src="" /></li>	
+				<li><img src="" /></li>	
+				<li><img src="" /></li>	
+			</ul>	
+		</div>
+
+	
+		<div class="action-area">
+			<a class="button">Save</a>
+			<a class="button">Cancel</a>
+		</div>	
+	</div>
+</div>
+#}

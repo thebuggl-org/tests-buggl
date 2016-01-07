@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Buggl Full Page Html Markup</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="../bundles/bugglmain/css/vanilla/normalize.min.css">
+        <link rel="stylesheet" href="../bundles/bugglmain/css/buggl.css" type="text/css" media="screen, projection">
+		<link rel="stylesheet" href="../bundles/bugglmain/css/reveal.css" type="text/css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" type="text/css">
+		        
+		        
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href="../bundles/bugglmain/images/favicon.png">
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">        
+        <script src="js/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+        
+    </head>
+    <body>
+    
+    <!-- @topNavigation -->
+    <header class="header">
+        <div class="row">
+            <nav class="column grid_12">
+                <h1><a href="/app_dev.php/"><img width="120" border="0" align="" alt="Buggl.com" src="../bundles/bugglmain/images/buggl_logo.png"></a></h1>
+                <div class="dmy">
+                     <form class="fl search">
+                     	<span class="ico"></span>
+                        <input type="text" class="trans_wid" placeholder="Where are you going?" size="22">
+                    </form>
+                    <ul class="fr">
+                        <li class="social">
+                        	<a class="fb" href="#">like us on facebook</a>
+                        </li>
+                        <li class="social">
+                        	<a class="tw" href="#">follow us on twitter</a>	
+                        </li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a data-reveal-id="loginModal" href="#">Login</a></li> 
+                        <li class="lighted"><a href="/app_dev.php/become-a-guide">Be a Guide!</a></li>
+                        <li class="down">
+                        	<a data-reveal-id="loginModal" href="#">How it Works<img border="0" align="" src="../bundles/bugglmain/images/select.png"></a>
+                        	<ul>
+	                        	<li><a href="#">Browse guides</a></li>
+	                        	<li><a href="#">Purchase guides</a></li>
+	                        	<li class="divider"></li>
+	                        	<li><a href="#">Get updated into before and during your</a></li>
+	                        </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+	 <!-- *end -->
+     <!-- @full page -->
+		<!-- @breadcrumb -->	
+	<div class="row">
+        <ul class="breadcrumb column grid_12">
+            <li><a href="#">Home</a></li>
+            <li>Become of True Boracayan with Janvan</li>
+            <li class="socials">
+            	<!-- AddThis Button BEGIN -->
+            	<div class="addthis_toolbox addthis_default_style fr">
+            		<a class="addthis_button_preferred_2"></a>
+            		<a class="addthis_button_preferred_1"></a>
+            		<a class="addthis_button_preferred_12"></a>
+            		<a class="addthis_button_preferred_11"></a>
+            		<a class="addthis_button_compact"></a>
+            	</div>
+            	<script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5107791d5735eece"></script>
+            	<!-- AddThis Button END -->
+            </li>	
+       </ul>
+    </div>
+		<!-- *end -->
+		
+		<div class="row">
+			<header class="hd sd column grid_12">
+	            <h2>{{ guide.title }}</h2>
+	            <nav>
+	                <ul>
+	                    <li><a href="{{ path('guide_overview_mark_up')  }}">Overview</a></li>
+	                    <li><a href="#" class="selected">Full GuideBook</a></li>
+	                    <li class="buynow"><a href="#"><span>$9.99 Buy</span></a></li>
+	                </ul>
+	            </nav> 	
+            </header>
+            <article class="column grid_12">
+            	<section class="it_map">
+            		<div class="nav_day">
+	            		<h2>Day 1</h2>
+	            		<ul>
+	            			<li><a href="#"><span class="ico"></span></a></li>
+	            			<li><a href="#"><span class="ico"></span></a></li>
+	            		</ul>	
+            		</div>
+	            	<img src="../bundles/bugglmain/images/custom/itinerary_map2.jpg" border="0" align="left" alt=" ">
+            	</section>		
+            </article>
+			<aside class="column grid_4">
+				<section class="guide_stats">
+					<h3 class="stnd">Is this GuideBook for me?<span class="ico"></span></h3>
+					<ul>
+						<li>
+							<h4>Trip Theme</h4>
+							<em>Only Local. Romatics</em>
+						</li>
+						<li>
+							<h4>Activities</h4>
+							<em>Nightlife, Historical, Food &amp; Wine</em>
+						</li>
+						<li>
+							<h4>Good for</h4>
+							<em>Solo, Couples, Family</em>
+						</li>	
+						<li class="star">
+							<h4>Budget</h4>
+							<span class="ico"></span>
+							<span class="ico"></span>
+							<span class="ico"></span>							
+						</li>											
+					</ul>
+				</section>
+	            <section class="list">
+	                <h2>Request an E-Guides</h2>
+	                <p>You cant find an ideal guide for your trip? try to ask <a href="#">Noel Bacarisas</a> to make you a guide suitable for your trip.</p>
+	                <a class="btn msg fl nomrg" href="#">Request Here</a>            
+	            </section> 				
+			</aside>
+			<article class="column grid_8">
+				<section>
+					<div class="reg_box">
+						<h2>Boston</h2>
+						<p>Nunc mattis metus nec magna aliquam quis aliquet metus fringilla. Integer adipiscing dignissim eleifend. Etiam et suscipit diam. Donec nulla dolor, rutrum eu commodo vel, suscipit non tortor. Integer molestie dolor sed justo vestibulum luctus. Sed pretium mi auctor lectus viverra volutpat. Donec rhoncus tortor at enim congue a commodo elit congue. </p>
+						
+						<h3>Economy</h3>
+						<p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the country and 12th-largest in the world.</p>
+						<p>Boston's colleges and universities have a significant effect on the regional economy, with students contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major employers and attract industries to the city and surrounding region. Boston is home to a number of technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from the National Institutes of Health of all cities in the United States.</p>	
+						
+						<h3>Culture</h3>
+						<p>Boston shares many cultural roots with greater New England, including a dialect of the non-rhotic Eastern New England accent known as Boston English, and a regional cuisine with a large emphasis on seafood, salt, and dairy products. Irish Americans are a major influence on Boston's politics and religious institutions. Boston also has its own collection of neologisms known as Boston slang.</p>
+						
+						<h3>Music</h3>
+						<p>The city has a number of ornate theatres, including the Cutler Majestic Theatre, Boston Opera House, Citi Performing Arts Center, the Colonial Theater, and the Orpheum Theatre. Renowned performing-arts organizations include the Boston Symphony Orchestra, Boston Ballet, Boston Early Music Festival, Boston Lyric Opera Company, OperaBoston, Boston Baroque, and the Handel and Haydn Society (one of the oldest 1 choral companies in the United States). The city is also a major center for contemporary classical music, with a number of performing groups, some of which are associated with the city's conservatories and universities. These include Boston Modern Orchestra Project, Boston Musica Viva, Calluthumpian Consort, and Dinosaur Annex. There are also many major annual events such as First Night, which occurs on New Year's Eve, the annual Boston Arts Festival at Christopher Columbus Waterfront Park, Italian summer feasts in the North End honoring Catholic saints, and several events during the Fourth of July period. These events include the week-long Harborfest festivities and a Boston Pops concert accompanied by fireworks on the banks of the Charles River.</p>												
+
+					</div>
+				</section>
+			<!-- *end -->
+			
+				<section class="reference multi">
+                <ul>
+                    <li><a href="#">Local References</a></li>
+                    <li class="selected"><a href="#">Traveler Reviews</a></li>
+                </ul>
+                <div class="reg_box">
+                    <ul class="comments">
+                    	<li>
+                    		<img border="0" align="left" src="../bundles/bugglmain/images/custom/janvan_60px.jpg">
+                    		<form>
+                    			<textarea></textarea>
+                    			<a class="btn fl" href="#">Post Review</a>
+                    		</form>
+                    	</li>
+                        <li>
+                            <img src="../bundles/bugglmain/images/custom/janvan_60px.jpg" border="0" align="left" />
+                            <p><a href="#" class="name">Jan Van La Lou</a>Everything was all right. The room was clean and nice and Adele is very kind person. She recommended us what we needed to know.</p>
+                        </li>
+                        <li>
+                            <img src="../bundles/bugglmain/images/custom/xtina_60px.jpg" border="0" align="left" />
+                            <p><a href="#" class="name">Xtina</a>This was our first time using buggl and it was a great experience! The arrangements were easy to make and all went smoothly. Adele was a wonderful host. What a sweet person and very helpful and interesting. Her apartment is in a great location.. <a href="">show more</a></p>
+                        </li>
+                        <li>
+                            <img src="../bundles/bugglmain/images/custom/matt_60px.jpg" border="0" align="left" />
+                            <p><a href="#" class="name">Matt</a>This was our first time using buggl and it was a great experience! The arrangements were easy to make and all went smoothly. Adele was a wonderful host. What a sweet person and very helpful and interesting. Her apartment is in a great location.. <a href="">show more</a></p>
+                        </li>
+                        <li>
+                            <img src="../bundles/bugglmain/images/custom/janvan_60px.jpg" border="0" align="left" />
+                            <p><a href="#" class="name">Jan Van La Lou</a>Everything was all right. The room was clean and nice and Adele is very kind person. She recommended us what we needed to know.</p>
+                        </li>
+                        <li>
+                            <img src="../bundles/bugglmain/images/custom/matt_60px.jpg" border="0" align="left" />
+                            <p><a href="#" class="name">Matt</a>This was our first time using buggl and it was a great experience! The arrangements were easy to make and all went smoothly. Adele was a wonderful host. What a sweet person and very helpful and interesting. Her apartment is in a great location.. <a href="">show more</a></p>
+                        </li>                                                                     
+                    </ul>   
+                </div>  
+            </section>  				
+				
+			</article>
+		</div>		
+			
+		<!-- *end -->
+	<!-- @footer-->
+<footer class="footer">
+                <article class="row">
+            <section class="column grid_8">
+                <div class="row"> 
+                    <div class="column grid_3">
+						<h3 class="stnd">Hottest Travels Guides<span class="ico"></span></h3>
+						<ul class="box">
+							<li><a href="#">Going to Mount Everest Special Edition</a></li>
+							<li><a href="#">Feeling Lost? V&amp;G Travel Manual</a></li>
+							<li><a href="#">If you walk away for me today</a></li>
+							<li><a href="#">Oh Holy Night, Christmas Island Travel Guide</a></li>
+							<li><a href="#">And now the end is near, Ending Village Travel Guide</a></li>
+						</ul>
+                    </div>
+                    <div class="column grid_3">
+						<h3 class="stnd">Latest Blog Post<span class="ico"></span></h3>
+						<ul class="box">
+							<li><a href="#">Beyonce electrifies at Super Bowl halftime show</a></li>
+							<li><a href="#">Robert De Niro cements place in Hollywood movies</a></li>
+							<li><a href="#">1. Top Priority: Knicks Looking To Unseat Heat</a></li>
+							<li><a href="#">Fossil of Flying Dino-Age Reptile Found</a></li>
+							<li><a href="#">Asian shares drop on euro zone worry, soft US data</a></li>
+						</ul>
+                    </div>
+               		<div class="column grid_2">
+               			<h3 class="stnd">About Buggl<span class="ico"></span></h3>
+               			<ul class="box">
+                		    <li><a href="/app_dev.php/about-us">About Us</a></li>
+                		    <li><a href="/app_dev.php/contact-us">Contact Us</a></li>
+                		    <li><a href="/app_dev.php/our-mission">Our Mission</a></li>
+                		    <li><a href="/app_dev.php/our-story">Our Story</a></li>
+                		    <li><a href="/app_dev.php/press-release">Press Release</a></li>
+                		</ul>
+                    </div>                    
+                </div>
+            </section>        
+            <section class="column grid_4">
+                <h2><img width="250" border="0" align="left" alt=" " src="../bundles/bugglmain/images/buggl_logo_gry.png"></h2>
+                <p>Proin et dui at quam dapibus consequat at sed tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla rhoncus dolor eget est pulvinar consectetur. Nulla lacinia ultricies lectus ut tincidunt. </p>
+                <div class="social">
+					<a href="#" class="fb">like us on facebook</a>
+					<a href="#" class="tw">follow us on twitter</a>
+				</div>                
+            </section>
+        </article>
+                    <div class="row">
+        <nav class="column grid_12">
+            <a href="#"><img width="120" border="0" align="left" alt=" " src="../bundles/bugglmain/images/buggl_logo_gry.png"></a>
+            <p class="legal">
+				<span>&copy; 2013 Buggl, All Rights Reserved.</span>
+				<a href="#">Privacy Policy</a>
+				<a href="#">Terms of Use</a>
+				<a href="#">Trademarks</a>
+				<a href="#">F.A.Q.</a>
+			</p>
+        </nav>
+    
+    </div></footer>	<!-- *end -->
+	<script>
+		$(document).ready(function() {
+		    var header = $('.sd');
+		    var start = $(header).offset().top;
+		    $.event.add(window, "scroll", function() {
+		        var p = $(window).scrollTop();
+		        $(header).css('position',((p)>start) ? 'fixed' : 'static');
+		        $(header).css('top',((p)>start) ? '0px' : '');
+		        $(header).css('border-bottom',((p)>start) ? '1px solid #ddd' : '');
+		    });
+		});
+	</script>
+
+	
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<div class="row recent-guides-search-result">
+    <header class="column grid_12">
+        <h2>Most Recently Updated Guides</h2>
+    </header>
+
+    {% for guide in guides %}
+    <section class="column grid_3">
+        <div class="feature mini">
+            <a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}" class="cover-hover"></a>
+            <div class="tag"><span>{{ guide.price|renderPrice }}</span></div>
+            <h3 class="title"><a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}">{{ guide.plainTitle }}</a><span>{{ guide.excerpts | raw }}</span></h3>
+			<img src="{{ asset( guide | getEguidePhoto ) }}" border="0" alt=" " align="left" width="100%" />
+			<span class="country">{{ guide.country.name }}</span>
+            <span class="update">{{ guide.dateUpdated | showTimeElapsedForEguideUpdate }}</span>
+        </div>
+        <div class="reg_box locals clearfix">
+            <a class="subphoto" href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}">
+				<img border="0" alt=" " width="40" height="40" src="{{ asset(guide.localAuthor.profile | profilePic ) }}">
+			</a>
+                <a href="{{ path('local_author_profile',{slug:guide.localAuthor.slug}) }}" class="subtext">{{ guide.localAuthor.name }}</a>
+                <span class="subtext">{{ guide.localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+        </div>
+    </section>
+    {% endfor %}
+</div>

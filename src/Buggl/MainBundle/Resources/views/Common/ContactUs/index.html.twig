@@ -1,0 +1,75 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block modal %} 
+    {% render 'BugglMainBundle:LocalAuthor/EGuideRequest:eGuideRequestModal' with {'id':null,'email':null} %}
+{% endblock %}
+
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<article class="column grid_12">
+			<div class="row">
+					<section class="column custom cpage sml grid_12">
+			
+					<div class="hd-image" style="background:transparent url('{{ asset('/bundles/bugglmain/images/contactus.jpg') }}') no-repeat left top;">
+						<h1>Contact Us</h1>
+						<p>Have some additional questions? <br>Wanting to learn more about how Buggl works? <br>Just want to say hi?<br><span>Fill out the form below and we will <br>get back to you shortly.</span></p>
+					</div>
+					<div class="bx">
+					<form class="form" action="" method="POST" novalidate>
+						<ul class="threefour">
+							<li>
+								<label><h3>Email</h3>
+									{% if app.user %}
+										{{ form_widget(form.email,{'attr':{'value':app.user.email,'readonly':'readonly'}}) }}
+										{{ form_errors(form.email) }}
+									{% else %}
+										{{ form_widget(form.email,{'attr':{'placeholder':'john.doe@gmail.com'}}) }}
+										{{ form_errors(form.email) }}
+									{% endif %}
+								</label>
+								<div class="label">
+									<h3>Comment</h3>
+									{{ form_widget(form.comment) }}
+									{{ form_errors(form.comment) }}
+								</div>	
+								{{ form_rest( form ) }}
+								<input type="submit" class="btn fl" value="Submit your Comments" />
+							</li>
+							<li>
+								<h3>Want to share your knowledge?</h3> 
+								<p><a href="{{ path('buggl_write_a_guide') }}">Design a Guide</a></p>
+								<h3>Want something custom?</h3>
+								<p>
+									{% if app.user %}
+										<a href="" class="requestbtn">Request A Guide!</a>
+									{% else %}
+										<a href="#" data-reveal-id="loginModal">Request A Guide!</a>
+									{% endif %}									
+								</p>
+							</li>
+						</ul>
+					</form>			
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{#% javascripts 
+		'@BugglMainBundle/Resources/public/js/Frontend/eguiderequest.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js | s3Cdn') }}"></script>
+{% endblock %}

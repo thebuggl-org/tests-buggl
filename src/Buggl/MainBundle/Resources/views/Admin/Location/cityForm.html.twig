@@ -1,0 +1,23 @@
+<form method="post" action="{{ path('admin_locations_save_city') }}">
+    <label>Country</label>
+    {{ form_widget(form.country) }}
+    {{ form_errors(form.country) }}
+
+    <label>Name</label>
+    {{ form_widget(form.name) }}
+    {{ form_errors(form.name) }}
+
+    <label>Longitude</label>
+    {{ form_widget(form.long) }}
+    {{ form_errors(form.long) }}
+
+    <label>Latitude</label>
+    {{ form_widget(form.lat) }}
+    {{ form_errors(form.lat) }}
+
+    {{ form_rest(form) }}   
+
+    <input type="submit" value="save">
+    <input type="hidden" name="form_is_new" value="{{ id }}">
+</form>
+

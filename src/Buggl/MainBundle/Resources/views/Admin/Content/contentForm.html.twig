@@ -1,0 +1,30 @@
+<form class="site-admin-content-form clearfix" id="contentForm" action="{{ actionUrl }}" method="POST" onsubmit="return false;" novalidate>
+	<div class="form-section">
+		<span>
+			<label>Title</label>
+			{{ form_widget(form.title) }}
+			{{ form_errors(form.title) }}
+		</span>
+	</div>
+	<div class="form-section">
+		<span>
+			<label>Url</label>
+			{{ form_widget(form.url) }}
+			{{ form_errors(form.url) }}
+		</span>
+	</div>
+	<div class="form-section">
+		<span>
+			<label>Content</label>
+			{{ form_widget(form.content) }}
+			{{ form_errors(form.content) }}
+		</span>
+	</div>
+	<div class="submit-section form-section">
+	<span>
+		{{ form_rest(form) }}
+		<br/>
+		<input class="button" type="submit" value="Submit">
+		</span>	
+	</div>
+</form>

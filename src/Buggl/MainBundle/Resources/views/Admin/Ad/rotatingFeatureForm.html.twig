@@ -1,0 +1,17 @@
+<h2 style="border: 0 none;padding: 10px 17px 20px;">Rotating Feature</h2>
+<form id="rotatingFeatureForm" action="{{ path('admin_get_rotating_photo_form',{'id':id}) }}" class="spot-light-form" method="POST" {{ form_enctype(form) }} novalidate>
+	<div class="form-section">
+		{{ form_widget(form.guide) }}
+		{{ form_errors(form.guide) }}
+	</div>
+	<div class="form-section">
+		{{ form_widget(form.photo, { 'attr': {'accept': "image/*", 'style':'display:none'} }) }}
+		<a class="site-admin-button blue" href="" id="selectPhoto" onclick="return false;"> Select Photo </a>
+		<img id="previewPic" border="0" width="420" align="left" alt="No Photo Selected" src={{ asset(photoPath)}}/>
+		{{ form_errors(form.photo) }}
+	</div>
+	{{ form_rest(form) }}
+	<div class="form-section">
+		<input class="site-admin-button blue" type="submit" value="Save">
+	</div>
+</form>

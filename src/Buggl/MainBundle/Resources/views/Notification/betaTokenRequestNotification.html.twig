@@ -1,0 +1,6 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h3>Greetings!</h3>
+	<p class="font-size: 10px;	"> {{ firstName~' '~lastName }} would like to be invited to the Buggl Beta site; his/her email address is {{ email }}.</p>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Reviews{% endblock %}
+
+{% block precontent_title %}
+    Reviews
+{% endblock %}
+
+{% set active = '' %}
+
+{% block main_content %}
+    <div class="row">
+        {% render 'BugglMainBundle:LocalAuthor/Review:navigation' with { 'activeTab' : activeTab } %}
+        <article class="grid_8 column"> 
+            <section class="review lista multi">
+                <h3 class="reg_box">{% block review_tab_title %} {{ tabTitle }} 
+{% endblock %}</h3>
+                {#
+            	<ul>
+            		<li class="title"><h3>Approved Reviews</h3></li>
+                    <li><a href="#">Local Author</a></li>
+                    <li class="selected"><a href="#">Travel Guide</a></li>
+                </ul>
+                #}
+                {% block lists %}
+                    {% include 'BugglMainBundle:LocalAuthor/Review:lists.html.twig' %}
+                {% endblock %}
+            </section>    
+        </article>
+        {% render 'BugglMainBundle:LocalAuthor/Pagination:paginationViaPageLoad' 
+            with { 
+                'itemLimit' : limit,
+                'itemCount' : totalCount,
+                'page' : currentPage,
+                'url': url
+            } 
+        %}
+    </div>  
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BugglMainBundle/Resources/public/js/LocalAuthor/Review/jquery.change-review-status.js' filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script type="text/javascript">
+        (function($){
+            $('a[name=change-status]').changeReviewStatus({url:"{{ path('local_author_change_review_status') }}"});
+        })(jQuery);
+    </script>
+{% endblock %}

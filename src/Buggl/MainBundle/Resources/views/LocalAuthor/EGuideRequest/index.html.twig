@@ -1,0 +1,36 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Messages{% endblock %}
+
+{% block precontent_title %}
+    Messages
+{% endblock %}
+
+{% set active = 'guide_request' %}
+
+{% block main_content %}    
+    <div class="row">
+        <aside class="admin-messages column grid_4">
+            {% include 'BugglMainBundle:LocalAuthor/Messages:messagesTabs.html.twig' with {'active':activeTab} %}
+        </aside>
+        {% block inner_content %}
+            <article class="grid_8 column"> 
+            <section class="inbox">
+                <h3>{% block eguide_tab_title %} Guide Request{% endblock %}</h3>
+		
+              {% include 'BugglMainBundle:LocalAuthor/EGuideRequest:eguiderequest.html.twig' %}
+		
+            </section>    
+        </article>
+
+        {% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':page,'itemCount':guideRequestcount,'itemLimit':limit} %}
+	{#{% render 'BugglMainBundle:LocalAuthor/Messages:messageThreadList' with {'type':activeTab,'currentPage':currentPage} %}#}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+<script src='{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js') }}' type='text/javascript'> </script>
+
+{% endblock %}

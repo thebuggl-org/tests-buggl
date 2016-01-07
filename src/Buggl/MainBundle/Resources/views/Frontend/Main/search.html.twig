@@ -1,0 +1,33 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %}Buggl | Search Travel Guides {% endblock %}
+{% block main_content %}
+	<div class="row result">
+	    <section class="column grid_12">
+	    	<!--{% include 'BugglMainBundle:Frontend/Main:searchBar.html.twig' %} -->
+	    	<h3>You are searching for <em>"New Zealand"</em> and <em>"Biking"</em></h3>		
+	    	<p class="overall-result">102038 result</p>
+	    </section>
+	</div>
+	<div class="row">
+		<article class="column grid_12">
+			<section class="multi">
+            	<ul>
+					<li class="selected"><a href="#">Relevant</a></li>
+					<li><a href="#">Latest</a></li>
+					<li><a href="#">Most Downloaded</a></li>
+					<li><a href="#">Most Popular</a></li>
+				</ul>
+			</section>
+        	<section class="travelguide">
+        		{% render 'BugglMainBundle:LocalAuthor/Pagination:paginationViaPageLoad' with { 'url': 'buggl_free_search', 'itemLimit': limit, 'page':page, 'itemCount': totalCount} %}
+				{% for guide in results %}
+		            {% include 'BugglMainBundle:Frontend/Guide:guideList.html.twig' with {guide:guide} %}
+		         {% else %}
+		         	<p class="inform">No Results Found</p>
+		        {% endfor %}
+		        {% render 'BugglMainBundle:LocalAuthor/Pagination:paginationViaPageLoad' with { 'url': 'buggl_free_search', 'itemLimit': limit, 'page':page, 'itemCount': totalCount} %}
+			</section>
+		</article>
+	</div>
+{% endblock %}

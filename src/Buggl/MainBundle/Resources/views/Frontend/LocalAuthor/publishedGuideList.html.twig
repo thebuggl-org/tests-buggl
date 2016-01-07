@@ -1,0 +1,20 @@
+
+		{% for guide in guides %}
+			<li class="feature mini">
+				<a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}" class="cover-hover"></a>
+				<div class="tag"><span>{{ guide.price|renderPrice }}</span></div>
+				<h3 class="title">
+					<a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}">{{ guide.plainTitle }}</a>
+					<span>
+						{{ guide.excerpts | raw }}
+					</span>	
+				</h3>
+				<img border="0" align="left" alt=" " src="{{ asset(guide | getEguidePhoto) }}" width="198" height="296"/>
+				<span class="country">{{ guide.country.name }}</span>
+				<span class="update">{{ guide.dateUpdated | showTimeElapsedForEguideUpdate }}</span>
+			</li>
+		{% endfor %}
+		{% if guides.count == 0 %}
+			<p class="inform">{{localAuthor.name}} has not published a guide yet. </p>
+		{% endif %}											
+	

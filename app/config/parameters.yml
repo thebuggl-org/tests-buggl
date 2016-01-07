@@ -1,0 +1,16 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     localhost
+    database_port:     ~
+    database_name:     buggl_beta_may31
+    database_user:     buggl
+    database_password: FRJbXdmmHCUW5EjM
+
+    mailer_transport:  gmail
+    mailer_host:       smtp.gmail.com
+#    mailer_user:       sampler08@gmail.com
+#    mailer_password:   ga3143password
+    mailer_user:       admin@buggl.com
+    mailer_password:   sleeper16
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt

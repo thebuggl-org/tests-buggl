@@ -1,0 +1,9 @@
+{% if loggedIn %}
+	{% if not isOwned and not isPurchased %}
+		<a href=""  id="wishlistbtn" class="wish btn fr" action="{{  path('buggl_add_to_wishlist') }}" value="{{ exists }}"><span class="ico"></span><span id="sign">{{ sign }}<span></a>
+		<form id="wishlistdiv" method="POST">
+			<input type="hidden" value="{{ currentLocalAuthor.id }}" name="localAuthor" id="localId"></input>
+			<input type="hidden" value="{{ eguideId }}" name="eguide" id="eguideId"></input>
+		</form>
+	{% endif %}
+{% endif %}

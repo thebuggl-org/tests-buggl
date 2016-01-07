@@ -1,0 +1,80 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+
+{% block title %}Contact Us Markup{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <article class="column grid_12">
+            <div class="row">
+                <section class="column grid_12">
+                    <div class="row">
+                        <section class="column grid_8">
+                            <div class="db_box">
+                                <h2>Interested in Buggl?</h2>
+                            </div>
+                            <div class="db_box max">
+                                <ul class="helpful">
+                                    <li><a href="#">Request a Call Back</a></li>
+                                    <li><a href="#">Ask an Expert</a></li>
+                                    <li><a href="#">Request a Brochure</a></li>                                 
+                                </ul>
+                                <p class="clear">Call <span>+44 1800 1456 98</span></p>
+                                <p>Email <a href="#">support@buggl.com</a></p>
+                            </div>
+                            <div class="db_box">
+                                <h2>Headquarters</h2>
+                                <p class="sp"><em>Buggl Inc.<br/>
+                                    1600 Amphitheatre Parkway<br/>
+                                    Mountain View, CA 94043<br/>
+                                    USA<br/>
+                                    telephone: +1 650 253 0000<br/>
+                                    fax: +1 650 253 0001</em></p>
+                            </div>
+                            <div class="db_box">
+                                <h2>Work Hours</h2>
+                                <ul class="sp"> 
+                                    <li><em>Monday      9:00 am – 6:00 pm</em></li>
+                                    <li><em>Tuesday     9:00 am – 6:00 pm</em></li>
+                                    <li><em>Wednesday   9:00 am – 6:00 pm</em></li>
+                                    <li><em>Thursday    9:00 am – 6:00 pm</em></li>
+                                    <li><em>Friday      9:00 am – 6:00 pm</em></li>
+                                    <li><em>Saturday    Closed</em></li>
+                                    <li><em>Sunday      Closed</em></li>    
+                                </ul>   
+                            </div>
+                        </section>
+                        {% block about_navigation %}
+                        <aside class="column grid_4">
+                            <section class="sidelist">
+                                <ul>
+                                    <li><a href="{{ path('press_release_mark_up') }}"><span class="ico"></span>Press Release</a></li>
+                                    <li><a href="{{ path('our_story_mark_up') }}"><span class="ico"></span>Our Story</a></li>
+                                    <li><a href="{{ path('our_mission_mark_up') }}"><span class="ico"></span>Our Mission</a></li>
+                                    <li><a href="{{ path('about_us_mark_up') }}"><span class="ico"></span>The Buggl Team</a></li>
+                                    <li class="selected"><a href="{{ path('contact_us_mark_up') }}"><span class="ico"></span>Contact Us</a></li>
+                                </ul>
+                            </section>
+                        </aside>
+                        {% endblock %}
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var header = $('.sidelist');
+            var start = $(header).offset().top;
+            $.event.add(window, "scroll", function() {
+                var p = $(window).scrollTop();
+                $(header).css('position',((p)>start) ? 'fixed' : 'static');
+                $(header).css('top',((p)>start) ? '0px' : '');
+                $(header).css('border-bottom',((p)>start) ? '1px solid #ddd' : '');
+            });
+        });
+    </script>
+{% endblock %}

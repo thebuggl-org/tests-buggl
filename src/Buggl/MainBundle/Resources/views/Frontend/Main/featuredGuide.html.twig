@@ -1,0 +1,97 @@
+{% if guides %}
+    <div class="row">
+        <header class="column grid_12">
+            <h2>See where people are traveling, all over the world.</h2>
+        </header>
+        {% for i in 0..(guides|length > 3 ? 3 : guides|length - 1) %}
+	        <section class="column grid_3">
+	            <div class="feature mini">
+	                <a href="{{ path('buggl_eguide_overview', {'slug': guides[i].slug}) }}" class="cover-hover"></a>
+	                <div class="tag"><span>{{ guides[i].price|renderPrice }}</div>
+	                <h3 class="title"><a href="{{ path('buggl_eguide_overview', {'slug': guides[i].slug}) }}" style="font-size:{{ guides[i].plainTitle|length > 40 ? '18.4' : '23' }}px">{{ guides[i].title | raw }}</a><span>{{ guides[i].excerpts | raw }}</span></h3>
+	                {#<div class="price"><p>${{ guides[i].price|number_format(0) }}<span>.{{ guides[i].price|decimal }}</span></p></div>#}
+					<img src="{{ asset( guides[i] | getEguidePhoto ) }}" border="0" alt="Guide {{ guides[i].plainTitle }} cover" align="left" width="100%" />
+					<span class="country">{{ guides[i].country.name }}</span>
+		            <span class="update">{{ guides[i].dateUpdated | showTimeElapsedForEguideUpdate }}</span>
+					{% if false %}
+					<ul class="location">
+						{% for location in guides[i].getLocations %}
+							<li>{{location.address}}</li>
+						{% endfor %}
+					</ul>
+					{% endif %}
+		        </div>
+	            <div class="reg_box locals clearfix">
+                    <a class="subphoto" href="{{ path('buggl_eguide_overview', {'slug': guides[i].slug}) }}">
+						<img border="0" alt="{{ guides[i].localAuthor.name }}" width="40" height="40" src="{{ asset(guides[i].localAuthor.profile | profilePic ) }}">
+					</a>
+	                    <a href="{{ path('local_author_profile',{slug:guides[i].localAuthor.slug}) }}" class="subtext">{{ guides[i].localAuthor.name }}</a>
+	                    <span class="subtext">{{ guides[i].localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+                </div>
+	        </section>
+        {% endfor %}
+		
+        {#<section class="winatrip-ad column grid_12">
+			<a href="{{ path("buggl_static_contest3") }}"><img src="{{ asset('/bundles/bugglmain/images/contest/for-homepage.jpg') }}" width="100%" alt="Buggl Contest"></a>
+        </section>#}
+		
+        {% if spotlight %}
+            <section class="feature spotlight column grid_12">
+            	<!--div class="price"><p>$22<span>.78</span></p></div-->
+            	<h3 class="title"><a href="{{ path('buggl_eguide_overview', {'slug': spotlight[0].slug}) }}">{{ spotlight[0].plainTitle }}</a></h3>
+				<div class="spotlight-container">
+					<span></span>
+            		<img src="{{ asset(spotlight[0].spotlightPhotoWebPath) }}" border="0" alt="Guide {{ spotlight[0].plainTitle }} in spotlight" align="left" width="940" />
+				</div>
+                <div class="box">
+                    <a href="{{ path('buggl_eguide_overview', {'slug': spotlight[0].slug}) }}" class="subphoto"><img src="{{ asset(spotlight[0].localAuthor.profile | profilePic) }}" border="0" alt=" " width="60px" height="60px"/></a>
+                    <a href="{{ path('local_author_profile', {'slug':spotlight[0].localAuthor.slug}) }}" class="a-name subtext">{{ spotlight[0].localAuthor.name }}</a>
+					<span class="a-prof subtext">{{ spotlight[0].localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+					<div class="extra">
+						{% if false %}
+						 <a class="star fl" href="#">{{ spotlight[0] | overallRating }}<span class="ico"></span></a>
+						{% endif %}
+						 <span class="subtext fl">{{ spotlight[0].dateUpdated | showTimeElapsedForEguideUpdate }}</span>
+					</div>
+                </div>
+            </section>
+        {% endif %}
+	</div>
+        {% if guides|length - 1 >= 4 %}
+            {% block main_content_bottom %}
+                <div class="row">
+                    {#<header class="column grid_12">
+                                            <a href="#" class="hdlink">want more guides?</a>
+                                            <h2>Country Guides</h2>
+                                        </header>#}
+                    {% for i in 4..(guides|length - 1)%}
+                        <section class="column grid_3">
+                            <div class="feature mini">
+                            	<a href="{{ path('buggl_eguide_overview', {'slug': guides[i].slug}) }}" class="cover-hover"></a>
+                            	<div class="tag"><span>{{ guides[i].price|renderPrice }}</span></div>
+                                <h3 class="title !"><a href="{{ path('buggl_eguide_overview', {'slug': guides[i].slug}) }}" style="font-size:{{ guides[i].plainTitle|length > 40 ? '18.4' : '23' }}px">{{ guides[i].title | raw }}</a><span>{{ guides[i].excerpts | raw }}</span></h3>
+                                <!--div class="price"><p>$9<span>.99</span></p></div-->
+								<img src="{{ asset( guides[i] | getEguidePhoto ) }}" border="0" alt="Guide {{ guides[i].plainTitle }} cover" align="left" width="100%" />
+								<span class="country">{{ guides[i].country.name }}</span>
+								<span class="update">{{ guides[i].dateUpdated | showTimeElapsedForEguideUpdate }}</span>
+								{% if false %}
+								<ul class="location">
+									{% for location in guides[i].getLocations %}
+										<li>{{location.address}}</li>
+									{% endfor %}
+								</ul>
+								{% endif %}
+                            </div>
+                            <div class="reg_box locals clearfix">
+
+                                <a class="subphoto to-left" href="{{ path('buggl_eguide_overview', {'slug': guides[i].slug}) }}"><img border="0" alt="{{ guides[i].localAuthor.name }}" width="40" height="40" src="{{ asset(guides[i].localAuthor.profile | profilePic ) }}"></a>
+								<a href="{{ path('local_author_profile',{slug:guides[i].localAuthor.slug}) }}" class="subtext">{{ guides[i].localAuthor.name }}</a>
+									<span class="subtext">{{ guides[i].localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+                            </div>
+                        </section>
+                    {% endfor %}
+                </div>
+            {% endblock %}
+        {% endif %}
+
+{% endif %}

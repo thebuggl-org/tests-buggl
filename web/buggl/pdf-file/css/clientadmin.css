@@ -1,0 +1,493 @@
+
+.client-edit-button{
+	color: #4E7FE3;
+    font-size: 11px;
+    margin: 0 10px;
+}
+.client-admin-header a{
+	font-size: 13px;
+}
+.client-admin-header div li{
+	line-height: 1.2em;
+    margin-right: 25px;
+    padding: 0;
+}
+.client-admin-header .client-profile-nav{
+	margin: 12px 0 0 0;
+}
+.client-profile-nav .active a{
+	font-weight: bold;
+}
+.client-admin-header span{
+	font-size: 13px;
+    position: relative;
+    top: -10px;
+}
+.profile-settings{
+	background: none repeat scroll 0 0 #FFFFFF;
+    margin: 17px 0 0 -10px !important;
+    position: absolute;
+    width: 208px;
+    display: none;
+}
+.profile-settings li{
+	display: block;
+	float: none !important;
+	text-align: right !important;
+	margin: 0 0 0 0 !important;
+	border-top: 1px solid #f2f2f2;
+}
+.profile-settings a{
+	display: block;
+	padding: 8px 10px;
+}
+.profile-settings a:hover{
+	display: block;
+	padding: 8px 10px;
+	background: #f2f2f2;
+}
+.client-admin-header-actions img{
+	float: none !important;
+    margin: 0 8px 0 0 !important;
+    opacity: 1 !important;
+}
+.client-admin-header-actions > li{
+	padding: 10px 10px 5px !important;
+}	
+.client-admin-header-actions > li:hover{
+	background: none repeat scroll 0 0 #f2f2f2;
+	cursor: pointer;
+}
+.client-admin-header-actions > li:hover .profile-settings{
+	display: block;
+}
+.client-profile-pic .client-edit-button{
+	background: none repeat scroll 0 0 #FFFFFF;
+    margin: 10px 0 0 -310px;
+    padding: 5px 10px;
+    position: absolute;
+    font-weight: 400;
+}
+.editable{
+	color: #222222;
+	cursor: pointer;
+}	
+.editable:hover, .editable:hover em{
+	color: #4E7FE3;
+}
+.local-passion li:last-child, .travel-love li:last-child, .best-local li:last-child{
+	margin-bottom: 0;
+}
+.local-passion li p{
+	margin-bottom: 2px;
+}
+.local-passion li a{
+	cursor: pointer;
+	margin-left: 0;
+}	
+.admin-button{
+	background: none repeat scroll 0 0 #E63A2E !important;
+    color: #FFFFFF !important;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    padding: 8px 45px;
+	font-family: 'Open Sans',Arial,sans-serif;    
+}
+.admin-button:hover{
+	color: #ffffff !important;
+}	
+.admin-results-action{
+	margin-top: 10px;
+}
+.admin-results-action a{
+	background: #529CEA;
+	padding: 5px 10px;
+	color: #fff;
+}
+.admin-results-action > li{
+	margin-right: 0;
+}
+a.mini{
+	font-size: 14px;
+    padding: 7px 10px;
+}
+.admin-tabs{
+	background: #f7f7f7;
+	padding: 10px 10px 0;
+	border-bottom: 1px solid #dddddd;
+	text-align: left;
+}
+.admin-tabs li{
+	padding: 0;
+	margin: 0 5px 0 0;
+}	
+.admin-tabs .active, .admin-tabs li:hover{
+	position: relative;
+	top: 1px;
+}	
+.admin-tabs .active a, .admin-tabs a:hover{
+	border: 1px solid #dddddd;
+	border-bottom: 0;
+	background: #eeeeee;
+}
+.admin-tabs a{
+	display: block;
+	padding: 10px 35px;
+	background: #f2f2f2;
+	color: #222222;
+}	
+ul.admin-gallery{
+	width: 960px;
+	margin-bottom: 20px;
+}
+.admin-gallery > li:first-child{
+	height: 300px;
+	width: 300px;
+}	
+.admin-gallery > li{
+	height: 140px;
+	width: 140px;
+	margin: 10px;
+}
+.admin-gallery-actions{
+	position: absolute;
+	display: none;
+}
+.admin-gallery-actions li{
+	margin: 0 -3px 0 0;
+}
+.admin-gallery-actions .edit{
+	margin-right: -4px;
+}	
+.admin-gallery-actions a{
+	display: block;
+	padding: 10px;
+	color: #000000;
+	background: rgba(255,255,255,0.5);
+}	
+.admin-gallery-actions span{
+	background: url("../../images/icon.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 18px;
+    text-indent: -1000em;
+    width: 18px;
+}	
+.admin-gallery-actions .view span{
+	background-position: -620px -200px;
+	margin-right: 0;
+}
+.admin-gallery-actions .edit span{
+	background-position: -341px -161px;
+}
+.admin-gallery-actions .delete span{
+	background-position: -101px -440px;
+}
+.admin-gallery li:hover .admin-gallery-actions{
+	display: block;
+}
+.admin-messages{
+	margin-right: 0;
+}
+.admin-messages-aside li{
+	border-bottom: 1px solid #DDDDDD;
+    margin: 0;
+}
+.admin-messages-aside a{
+	color: #222222;
+	display: block;
+	padding: 10px;
+}	
+.admin-messages-aside a:hover{
+	background: #dddddd;
+}	
+.admin-messages-content{
+	background: #ffffff;
+	margin: 0;
+	padding: 10px;
+}
+.admin-messages-content span{
+	font-size: 12px;
+}
+.admin-messages-content h2{
+	padding: 10px 10px 0;
+	margin: 0;
+}	
+.admin-messages-content > em{
+	padding: 0 10px 10px;
+	display: block;
+}	
+.admin-messages-content p{
+	padding: 5px 0 0;
+}	
+.admin-messages-content li{
+	background: none repeat scroll 0 0 #FFFFFF;
+    margin: 0;
+    padding: 10px;
+}	
+.admin-messages-content .mine{
+	background: none repeat scroll 0 0 #F0F9FB;
+}	
+.admin-messages-content label{
+	padding: 0 0 10px;
+	margin: 0;
+	font-weight: 400;
+}
+.admin-messages-content form{
+	padding: 10px;
+	background: #f2f2f2;
+}	
+.admin-messages-content textarea{
+	width: 98%;
+	height: 100px !important;
+	min-height: 100px;
+	border: 1px solid #dddddd;
+	margin-bottom: 10px;
+	font-weight: 200;
+}	
+.admin-messages-content input[type="submit"]{
+	padding: 5px 25px;
+}	
+.new-message{
+	margin-bottom: 10px;
+}
+.unread span{
+	font-weight: bold;
+}
+.admin-messages-aside{
+	font-size: 14px;
+}
+.admin-messages-aside span{
+	font-size: 14px !important;
+}	
+/*@group misc*/
+.horizontalize > li{
+	display: inline-block;
+}
+/*@end*/
+
+.guide_stats .name span.ico{
+	background-position: -621px -158px;
+}
+.guide_stats .current-location span.ico{
+	background-position: -819px -158px;
+}
+.guide_stats .children span.ico{
+	background-position: -660px -158px;
+}
+.add-passion{
+	background: none repeat scroll 0 0 #71ADED;
+    color: #FFFFFF;
+    float: right;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+.add-passion:hover{
+	background: none repeat scroll 0 0 #71ADED;
+	color: #ffffff;
+	cursor: pointer;
+}	
+.admin-alt-header{
+	border-bottom: 1px solid #dddddd;
+}
+.client-stats img{
+	background: none repeat scroll 0 0 #DDDDDD;
+    display: block;
+    height: 260px;
+    width: 100%;
+}
+.activites-list li h3{
+	margin-bottom: 5px;
+}
+.activites-list li{
+	padding-bottom: 0;
+}
+.activites-list li:last-child{
+	padding-bottom: 15px;
+}
+.activites-list li:first-child{
+	padding-top: 0;
+}
+.activites-list .activity-date{
+	color: #AAAAAA;
+    float: left;
+    font-size: 14px;
+}	
+.emphasis{
+	color: #222222 !important;
+}
+.red{
+	color: #FF5C5C;
+}
+.activity-added .icon{
+	background: url(../../images/admin-sprite.png) repeat scroll 30px 0 #B1B1B1;
+    display: block;
+    float: left;
+    height: 30px;
+    margin-right: 10px;
+    width: 30px;
+	position: relative;
+    top: 4px;    
+}
+.activity-purchased .icon{
+	background: url(../../images/admin-sprite.png) repeat scroll 0 0 #B1B1B1;
+    display: block;
+    float: left;
+    height: 30px;
+    margin-right: 10px;
+    width: 30px;
+	position: relative;
+    top: 4px;        
+}
+.activity-edited .icon{
+	background: url(../../images/admin-sprite.png) repeat scroll -30px 0 #B1B1B1;
+    display: block;
+    float: left;
+    height: 30px;
+    margin-right: 10px;
+    width: 30px;
+	position: relative;
+    top: 4px;        
+}
+.activity-deleted .icon{
+	background: url(../../images/admin-sprite.png) repeat scroll -60px 0 #B1B1B1;
+    display: block;
+    float: left;
+    height: 30px;
+    margin-right: 10px;
+    width: 30px;
+	position: relative;
+    top: 4px;        
+}
+.email-client-chooser{
+	padding: 25px;
+	display: block;
+	float: none;
+	clear:both;
+	width: 500px;
+	margin: 0 auto;
+	background: #ffffff;
+}
+.email-client-chooser ul{
+	text-align: center;
+}
+.email-client-chooser a{
+	display: block;
+	height: 100px;
+	width: 100px;
+	background: url(../../images/mail-chooser.png) no-repeat transparent;
+	text-indent: -1000em;
+}
+
+.email-client-chooser .your-email a{
+	background-position: 0 0;
+}
+.email-client-chooser .your-email a:hover{
+	background-position: 0px -100px;
+}	
+.email-client-chooser .gmail a{
+	background-position: -114px 0;
+}
+.email-client-chooser .gmail a:hover{
+	background-position: -114px -100px;
+}
+.email-client-chooser .any-email a{
+	background-position: -227px 0;
+}
+.email-client-chooser .any-email a:hover{
+	background-position: -227px -100px;
+}
+
+.email-client-chooser a:hover{
+	background-position: 0px -100px;
+}	
+.email-client-chooser input[type="text"]{
+	padding: 7px 10px 6px;
+}
+.email-client-chooser form{
+	text-align: center;
+}	
+.email-client-chooser input[type="text"]{
+	width: 300px;
+}
+.to-left{
+	float:left;
+}
+.to-right{
+	float:right;
+}
+.references-list > li{
+	padding: 10px 20px;
+}
+.references-list > li:nth-child(2n+1){
+	background: #f2f2f2;
+}
+.references-list li, .references-list h4{
+	margin: 0;
+}
+.references-list a{
+	color: #444444;
+}	
+.references-list h4{
+	position: relative;
+	top: 6px;
+}
+.references-list .to-right a{
+	background: url("../../images/icon.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    height: 20px;
+    padding: 4px 8px;
+    text-indent: -1000em;
+    width: 15px;
+}
+.references-list .to-right a.edit{
+    background-position: -334px -156px;
+}	
+.references-list .to-right a.feature{
+	background-position: -254px -196px;
+}	
+.references-list .to-right a.delete{
+	background-position: -494px -276px;
+}	
+.total-payments{
+	display: block;
+    font-size: 21px;
+    font-weight: 600;
+    text-align: left;
+    color: #0095E2;
+}
+.payments-info h3{
+	border-bottom: 1px solid #AAAAAA;
+    padding-bottom: 4px;
+}
+.payments-info{
+	background: none repeat scroll 0 0 #cccccc;
+    padding: 15px;
+    width: 170px;
+}
+.payments-list th{
+	text-align: left;
+	padding: 10px;
+}
+.payments-list td h3{
+	margin: 0;
+	font-size: 14px
+}
+.payments-list td h3 span{
+	color: #0095E2;
+}
+.payments-list td{
+	vertical-align: top;
+	padding: 10px;
+}
+.view-invoice-button{
+ 	background: none repeat scroll 0 0 #0095E2;
+    color: #FFFFFF;
+    display: inline-block;
+    margin-left: 14px;
+    padding: 3px 5px;	
+}
+.view-invoice-button:hover{
+	color: #ffffff;
+}

@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} Buggl Beta Token Request {% endblock %}
+
+{% block body %}
+	<div class="beta-login">
+		<span class="beta-icon">
+		<img src="/bundles/bugglmain/images/buggl_logo.png">
+		</span>
+	    <form action="" method="POST" novalidate>
+	    	<div>
+		    	<label>First Name</label>
+				{{ form_widget(form.firstName) }}
+				{{ form_errors(form.firstName) }}
+		    </div>    
+	    	<div>
+		    	<label>Last Name</label>
+				{{ form_widget(form.lastName) }}
+				{{ form_errors(form.lastName) }}
+		    </div> 
+	    	<div>
+		    	<label>Email Address</label>
+				{{ form_widget(form.email) }}
+				{{ form_errors(form.email) }}
+		    </div>
+			{{ form_rest(form) }}
+			<input type="submit" value="Submit" />
+	    </form>
+	</div>    
+{% endblock %}

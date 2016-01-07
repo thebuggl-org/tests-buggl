@@ -1,0 +1,8 @@
+<article class="column grid_12">
+	<section class="travelguide">
+	<h3>Featured Guides</h3>
+    {% for guide in guides %}
+        {% include 'BugglMainBundle:Frontend/Guide:guideList.html.twig' with {guide:guide} %}
+    {% endfor %}
+	</section>
+</article>

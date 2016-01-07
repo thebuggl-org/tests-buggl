@@ -1,0 +1,25 @@
+{% set counter = 0 %}
+{% for messageToUser in messages %}
+	<li class="message {{ messageToUser.user.id == messageToUser.sender.id ? 'a' : 'b' }} {{ messageToUser | addOpenClass('unread') }}" id="{{ messageToUser.id }}">
+
+		<a href="{{ path('local_author_profile',{'slug' : messageToUser.sender.slug}) }}" target="_blank"><img width="60" height="60" border="0" align="left" src="{{ asset( messageToUser.sender | userPic) }}"></a>
+		<a href="{{ path('local_author_profile',{'slug' : messageToUser.sender.slug}) }}" target="_blank"><span class="name">{{ messageToUser.sender.name ~ (messageToUser.user.id == messageToUser.sender.id ? ' (me)' : '') }}</span></a>
+		<p>{{ messageToUser.message.content }} 
+		{%if loop.first%}
+{%if(messageToUser.user.id != messageToUser.sender.id)%}
+{#<p><strong>Country:</strong> {{ eguide_request.country.name }} </p>
+	<p><strong>destination:</strong> {{eguide_request.destination }} </p>
+	<p><strong>Who is going:</strong> {{ eguide_request.goodfor.name }} </p>
+        <p><strong>Duration:</strong> {{ eguide_request.duration }} Days</p>
+<p><strong>Food:</strong> {{eguide_request.food}}</p>
+<p><strong>Drinking:</strong> {{eguide_request.drinking}}</p>
+<p><strong>Hotel:</strong> {{eguide_request.hotel}}</p>
+<p><strong>Shopping:</strong> {{eguide_request.shopping}}</p>
+<p><strong>Activities:</strong> {{eguide_request.activities}}</p>
+<p><strong>Special Touches: {{eguide_request.specialtouches}}</p>#}
+<p>To write the Guide <a href={{path('add_travel_guide_info' ,{'request':eguide_thread})}} >Please click here</a></p>
+
+{%endif%}
+{%endif%}<span class="time">{{ messageToUser.message.dateCreated | showTimeElapsed }}</span></p>
+	</li>
+{% endfor %}

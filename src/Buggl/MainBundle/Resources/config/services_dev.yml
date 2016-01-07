@@ -1,0 +1,5 @@
+## YAML Template.
+services:
+
+    buggl_main.local_author_profile:
+        class: Buggl\MainBundle\Service\LocalAuthorProfileService

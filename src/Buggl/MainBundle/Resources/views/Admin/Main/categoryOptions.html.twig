@@ -1,0 +1,6 @@
+<select id="categorySelect">
+    <option value="0">All</option>
+    {% for category in categories %}
+        <option value="{{ category.id }}">{{ category.name }}</option>
+    {% endfor %}
+</select>

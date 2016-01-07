@@ -1,0 +1,7 @@
+<div class="fr">
+    <a href="{{ prev }}"><span class="ico"></span></a>
+    {% for i in start..last %}
+        <a href="{{ path('buggl_guide_results',{slug: baseUrl~i}) }}"  class="{{ i|selected(page,'selected') }}">{{ i }}</a>
+    {% endfor %}  
+    <a href="{{ next }}"><span class="ico"></span></a>
+</div>

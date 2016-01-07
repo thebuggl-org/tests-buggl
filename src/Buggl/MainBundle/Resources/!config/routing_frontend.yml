@@ -1,0 +1,195 @@
+#share
+gplus:
+  pattern: /getGplusCount
+  defaults: { _controller: BugglMainBundle:Common\Share:getGplusCount }
+
+buggl_get_pin_count:
+    pattern: /get-pin-count
+    defaults: { _controller: BugglMainBundle:Common\Share:getPinCount }
+
+#search
+suggest_location:
+  pattern: /suggest-location
+  defaults: { _controller: BugglMainBundle:Frontend\Search:autoSuggestLocation }
+
+suggest_activity:
+  pattern: /suggest-activity
+  defaults: { _controller: BugglMainBundle:Frontend\Search:autoSuggestActivity }
+
+# buggl_guide_search:
+#   pattern: /guide/search
+#   defaults: { _controller: BugglMainBundle:Frontend\Search:search }
+buggl_guide_browse_all:
+  pattern: /browse-all-guides
+  defaults: { _controller: BugglMainBundle:Search\Main:browseAll }
+  
+buggl_guide_search:
+  pattern: /search
+  defaults: { _controller: BugglMainBundle:Search\Main:searchResult }
+
+sort_eguide:
+  pattern: /sort/eguide
+  defaults: { _controller: BugglMainBundle:Frontend\Search:sort }
+
+count_search_guide:
+  pattern: /guide-search/count
+  defaults: { _controller: BugglMainBundle:Frontend\Search:count }
+
+get_empty_search_result_template:
+  pattern: /get-empty-search-result-template
+  defaults: { _controller: BugglMainBundle:Frontend\Search:getEmptySearchResultTemplate }
+
+search_more:
+  pattern: /fetch-more-guides
+  defaults: { _controller: BugglMainBundle:Frontend\Search:fetchMore }
+
+
+#eguide preview
+# bots should not be able to crawl this route
+eguide_preview:
+  pattern: /guide-preview/{eguide_id}
+  defaults: { _controller: BugglMainBundle:Frontend\Guide:eguidePreview }
+# bots should not be able to crawl this route
+eguide_create_html:
+  pattern: /guide-create-html-file/{eguide_id}
+  defaults: { _controller: BugglMainBundle:Frontend\Guide:createHtml }
+eguide_download:
+  pattern: /download-guide/{slug}
+  defaults: { _controller: BugglMainBundle:Frontend\Guide:downloadGuide }
+#eguide preview
+
+buggl_homepage:
+    pattern:  /
+    defaults: { _controller: BugglMainBundle:Frontend\Main:homepage }
+
+buggl_eguide_not_published:
+    pattern: /guide-not-yet-published
+    defaults: { _controller: BugglMainBundle:Frontend\Guide:guideNotPublished}
+
+#local author
+buggl_local_author_profile:
+    pattern: /guide-author/{slug}
+    defaults: { _controller: BugglMainBundle:Frontend\LocalAuthor:profile}
+
+#guides
+buggl_guide_results:
+    pattern: /guides/{slug}
+    defaults: { _controller: BugglMainBundle:Frontend\Guide:resultsPage }
+
+buggl_buy_guide2:
+    pattern:  /buy-guide2
+    defaults: { _controller: BugglMainBundle:Frontend\Main:buyGuide }
+
+buggl_buy_guide_return_url:
+    pattern:  /process-payment-result/{eguideId}/{buyerId}/{trackingId}
+    defaults: { _controller: BugglMainBundle:Frontend\Main:processPayment }
+
+buggl_paypal_ipn_listener:
+    pattern:  /paypal-ipn-listener2/{eguideId}/{buyerId}
+    defaults: { _controller: BugglMainBundle:Frontend\Main:paypalIPNListener }
+
+eguide_publish:
+    pattern: /guide/{id}/{status}
+    defaults: { _controller: BugglMainBundle:Frontend\Guide:guidePublishdByUser }
+
+#guides
+# buggl_guide_newoverview:
+ #    pattern: /buggl/new/one/guide/{slug}
+  #   defaults: { _controller: BugglMainBundle:Frontend\Guide:guideOverview }
+
+#static pages
+# buggl_be_a_guide:
+#     pattern: /become-a-guide
+#     defaults: { _controller: BugglMainBundle:Frontend\Main:beAguide }
+#
+# buggl_static_press_release:
+#     pattern: /press-release
+#     defaults: { _controller: BugglMainBundle:Frontend\Static:pressRelease }
+#
+# buggl_static_our_mission:
+#     pattern: /our-mission
+#     defaults: { _controller: BugglMainBundle:Frontend\Static:ourMission }
+#
+#
+# buggl_static_about_us:
+#     pattern: /about-us
+#     defaults: { _controller: BugglMainBundle:Frontend\Static:aboutUs }
+
+buggl_static_jobs:
+    pattern: /jobs
+    defaults: { _controller: BugglMainBundle:Frontend\Static:jobs }
+
+buggl_static_press:
+    pattern: /press
+    defaults: { _controller: BugglMainBundle:Frontend\Static:press }
+
+buggl_static_faq:
+    pattern: /faq
+    defaults: { _controller: BugglMainBundle:Frontend\Static:faq }
+
+buggl_static_terms:
+    pattern: /terms-of-use
+    defaults: { _controller: BugglMainBundle:Frontend\Static:termsOfUse }
+
+buggl_static_contact_us:
+    pattern: /contact-us
+    defaults: { _controller: BugglMainBundle:Common\ContactUs:contactUs }
+
+buggl_static_our_tribe:
+    pattern: /our-tribe
+    defaults: {  _controller: BugglMainBundle:Frontend\Static:ourTribe }
+
+buggl_static_our_mission:
+    pattern: /our-mission
+    defaults: {  _controller: BugglMainBundle:Frontend\Static:ourMission }
+
+buggl_static_privacy_policy:
+    pattern: /privacy-policy
+    defaults: {  _controller: BugglMainBundle:Frontend\Static:privacyPolicy }
+
+buggl_write_a_guide:
+    pattern: /become-an-expert
+    defaults: { _controller: BugglMainBundle:Frontend\Static:writeAGuide }
+
+buggl_how_it_works:
+    pattern: /how-it-works
+    defaults: { _controller: BugglMainBundle:Frontend\Static:howItWorks }
+
+buggl_post_guide_review:
+    pattern: /post-guide-review
+    defaults: { _controller: BugglMainBundle:Frontend\Reviews:saveTravelGuideReview }
+
+buggl_post_local_author_review:
+    pattern: /post-local-author-review
+    defaults: { _controller: BugglMainBundle:Frontend\Reviews:saveLocalAuthorReview }
+
+buggl_remove_from_wishlist:
+    pattern: /wishlist/remove-this
+    defaults: { _controller: BugglMainBundle:Frontend\Wishlist:removeFromWishlist}
+
+buggl_remove_from_wishlist_guide:
+    pattern: /wishlist/remove-this/guide
+    defaults: { _controller: BugglMainBundle:Frontend\Wishlist:removeFromWishlistGuide}
+
+buggl_add_to_wishlist:
+    pattern: /wishlist/add-this
+    defaults: { _controller: BugglMainBundle:Frontend\Wishlist:addToWishlist}
+
+# buggl_static_contest:
+#     pattern: /winatrip
+#     defaults: {  _controller: BugglMainBundle:Frontend\Static:contest }
+
+# buggl_static_contest2:
+#     pattern: /48hours
+#     defaults: { _controller:  BugglMainBundle:Frontend\Static:contest }
+
+buggl_static_contest3:
+    pattern: /eat-and-drink
+    defaults: { _controller: BugglMainBundle:Frontend\Static:contest }
+
+buggl_static_contest4:
+    pattern: /50aguide
+    defaults: { _controller: BugglMainBundle:Frontend\Static:contest }
+# buggl_free_search:
+#     pattern: /search
+#     defaults: { _controller: BugglMainBundle:Frontend\Main:freeSearch }

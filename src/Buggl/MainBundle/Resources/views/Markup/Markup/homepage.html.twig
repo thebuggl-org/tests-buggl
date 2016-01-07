@@ -1,0 +1,160 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %}Homepage Markup{% endblock %}
+
+{% block precontent %}
+	<div id="slides" class="buggl_feature">
+		<div class="row">
+			<div class="column">
+				<h1 class="clear grid_12">EXPLORE THE WORLD<span>Find unique trips from travel influencers in 100+ countries.</span></h1>
+
+				<form class="search alt" method="get" action="{{ path('buggl_guide_search') }}">
+                    {% block country_search_options %}
+                      <input type="text" placeHolder="Pick a Location?" size="30" class="place" name="location"/>
+                    {% endblock %}
+                    {% block activity_search_options %}
+                       <input type="text" placeHolder="What Activity?" size="30" class="activity" name="activity"/>
+                    {% endblock %}
+                    <input type="submit" value="Search" class="input-search"/>
+                </form>
+                <a href="{{ path('buggl_guide_browse_all') }}" class="browse-all"><span>or</span> SEE ALL TRIP ITINERARIES</a>
+			</div>
+		</div>
+		<div class="slides_container">
+			{% for rotatingFeature in rotatingFeatures %}
+				<div class="feat" style="background: transparent url('{{ asset(rotatingFeature.imageWebPath | s3Cdn) }}') no-repeat center center;">
+		        	<section class="author feature">
+		            	<div class="locals clearfix">
+							<a class="subphoto to-left" href="{{ path('local_author_profile',{'slug':rotatingFeature.eguide.localAuthor.slug}) }}">
+								<img border="0" alt="{{ rotatingFeature.eguide.localAuthor.name }}" src="{{ asset(rotatingFeature.eguide.localAuthor.profile | profilePic) }}" width="60" height="60"/>
+							</a>
+							<div class="to-right">
+			                	<h3 class="title"><a href="{{ path('buggl_eguide_overview',{'slug':rotatingFeature.eguide.slug})}}">{{ rotatingFeature.eguide.plainTitle }}</a></h3>
+			                	<a href="{{ path('local_author_profile',{'slug':rotatingFeature.eguide.localAuthor.slug}) }}" class="subtext">{{ rotatingFeature.eguide.localAuthor.name }}</a>
+			                	<span>{{ rotatingFeature.eguide.localAuthor.profile.work }}</span>
+								<span class="update">{{ rotatingFeature.eguide.dateUpdated | showTimeElapsedForEguideUpdate }}</span>
+							</div>
+		                </div>
+		            </section>
+		        </div>
+			{% else %}
+				<div class="feat" style="background: #000 url('{{ asset("bundles/bugglmain/images/custom/splash01.jpg") }}') no-repeat center center;">
+			    </div>
+				<div class="feat" style="background: #000 url('{{ asset("bundles/bugglmain/images/custom/splash02.jpg") }}') no-repeat center center;">
+			    </div>
+		        <div class="feat" style="background: #000 url('{{ asset("bundles/bugglmain/images/custom/splash03.jpg") }}') no-repeat center center;">
+		        </div>
+			{% endfor %}
+			{#
+				temporary fix
+				slideshow bugs if only 1 guide is featured
+			#}
+			{% if rotatingFeatures|length == 1 %}
+				<div class="feat" style="background: #000 url('{{ asset("bundles/bugglmain/images/custom/splash01.jpg") }}') no-repeat center center;">
+			    </div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block main_content %}
+    {% block featured_guides %}
+        <div class="row">
+            <p> No Travel Guides Yet </p>
+        </div>
+        {#
+        <div class="row">
+            <header class="column grid_12">
+                <h2>Featured Guides</h2>
+            </header>
+            <section class="column grid_4">
+                <div class="feature">
+                	<!--div class="price"><p>$9<span>.99</span></p></div-->
+                    <img src="{{ asset('bundles/bugglmain/images/custom/300_200b.jpg') }}" border="0" alt=" " align="left"/>
+                </div>
+                <div class="reg_box clearfix">
+                        <a class="subphoto" href="{{ path('guide_overview_mark_up') }}"><img border="0" alt=" " src="{{ asset('bundles/bugglmain/images/custom/janvan_60px.jpg') }}"></a>
+                        <h3 class="title"><a href="{{ path('guide_overview_mark_up') }}">Boston Most Wanted Tr ...</a></h3>
+                        <a href="{{ path('profile_mark_up') }}" class="subtext">Galileo Figaro Magnifico</a>
+                        <a class="subtext" href="{{ path('guide_overview_mark_up') }}">Dancer</a>
+                    </div>
+                <div class="sml_box">
+                    <a class="star fl" href="#">3<span class="ico"></span></a>
+                    <a href="#" class="sclink">view more</a>
+                </div>
+            </section>
+            <section class="column grid_4">
+                <div class="feature">
+                    <!--div class="price"><p>$9<span>.99</span></p></div-->
+                    <img src="{{ asset('bundles/bugglmain/images/custom/300_200c.jpg') }}" border="0" alt=" " align="left"/>
+                </div>
+                <div class="reg_box clearfix">
+                    <a class="subphoto" href="{{ path('guide_overview_mark_up') }}"><img border="0" alt=" " src="{{ asset('bundles/bugglmain/images/custom/xtina_60px.jpg') }}"></a>
+                    <h3 class="title"><a href="{{ path('guide_overview_mark_up') }}">Ecuador Best Guide You ...</a></h3>
+                    <a href="{{ path('guide_overview_mark_up') }}" class="subtext">Maria Cristina Petilla</a>
+                    <a class="subtext" href="{{ path('guide_overview_mark_up') }}">Actress and Singer</a>
+                </div>
+                <div class="sml_box">
+                    <a class="star fl" href="#">3<span class="ico"></span></a>
+                    <a href="#" class="sclink">view more</a>
+                </div>
+            </section>
+            <section class="column grid_4">
+                <div class="feature">
+                    <!--div class="price"><p>$9<span>.99</span></p></div-->
+                    <img src="{{ asset('bundles/bugglmain/images/custom/300_200d.jpg') }}" border="0" alt=" " align="left"/>
+                </div>
+                <div class="reg_box clearfix">
+                    <a class="subphoto" href="{{ path('guide_overview_mark_up') }}"><img border="0" alt=" " src="{{ asset('bundles/bugglmain/images/custom/matt_60px.jpg') }}"></a>
+                    <h3 class="title"><a href="{{ path('guide_overview_mark_up') }}">Bonjour</a></h3>
+                    <a href="{{ path('guide_overview_mark_up') }}" class="subtext">Juan Claudio</a>
+                    <a class="subtext" href="{{ path('guide_overview_mark_up') }}">Professional Driver</a>
+                </div>
+                <div class="sml_box">
+                    <a class="star fl" href="#">3<span class="ico"></span></a>
+                    <a href="#" class="sclink">view more</a>
+                </div>
+            </section>
+            <section class="feature column grid_12">
+            	<!--div class="price"><p>$22<span>.78</span></p></div-->
+            	<h3 class="title"><a href="{{ path('guide_overview_mark_up') }}">Somewhere in Turkey</a></h3>
+                <img src="{{ asset('bundles/bugglmain/images/custom/random1_940px.jpg') }}" border="0" alt=" " align="left"/>
+                <div class="box">
+                    <a href="{{ path('guide_overview_mark_up') }}" class="subphoto"><img src="{{ asset('bundles/bugglmain/images/custom/janvan_60px.jpg') }}" border="0" alt=" "/></a>
+                    <a href="{{ path('guide_overview_mark_up') }}" class="subtext">Juan Claudio</a>
+					<span class="subtext">Professional Driver</span>
+					<div class="extra">
+						 <a class="star fl" href="#">4<span class="ico"></span></a>
+						 <span class="subtext fl">42 minutes ago</span>
+					</div>
+                </div>
+            </section>
+        </div>
+        #}
+    {% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/bugglmain/js/slides.min.jquery.js' | s3Cdn) }}"></script>
+	<script>
+		$(function(){
+			$('.slides_container').show();
+            $("#slides").slides({
+		        preload: true,
+		        play: 5000,
+				effect: 'fade',
+                fadeSpeed: 500,
+                crossfade: 10
+		      });
+			  
+			  $("form.search").submit(function(){
+				  
+				  if( $("input[name='location']",this).val().length == 0 && $("input[name='activity']",this).val().length == 0 )
+				 	 return false;
+					 
+				 return true;
+			  });
+        });
+	</script>
+{% endblock %}

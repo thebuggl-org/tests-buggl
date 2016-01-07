@@ -1,0 +1,105 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Country Guide Markup {% endblock %}
+
+{% block breadcrumbs %}
+<div class="row">
+    <ul class="breadcrumb column grid_12">
+        <li><a href="#">Home</a></li>
+        <li>Country: France</li>
+        <li class="socials">
+        	<!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style fr">
+            	<a class="addthis_button_preferred_2"></a>
+            	<a class="addthis_button_preferred_1"></a>
+            	<a class="addthis_button_preferred_12"></a>
+            	<a class="addthis_button_preferred_11"></a>
+            	<a class="addthis_button_compact"></a>
+            </div>
+            <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5107791d5735eece"></script>
+            <!-- AddThis Button END -->
+        </li>    	
+   </ul>
+</div>
+{% endblock %}  
+
+
+{% block main_content %}
+    
+    <div class="act row">
+        <header class="column grid_12">
+            <h2>{% block interest_title %}Title Here{% endblock %}</h2>
+        </header>
+        {% block interests %}
+            <section class="column grid_3">
+                <a href="#"><img border="0" align="left" alt=" " src="{{asset('bundles/bugglmain/images/custom/300_200b.jpg')}}"></a>
+            </section>
+            <section class="column grid_3">
+                <a href="#"><img border="0" align="left" alt=" " src="{{asset('bundles/bugglmain/images/custom/300_200b.jpg')}}"></a>
+            </section>
+            <section class="column grid_3">
+                <a href="#"><img border="0" align="left" alt=" " src="{{asset('bundles/bugglmain/images/custom/300_200b.jpg')}}"></a>
+            </section>
+            <section class="column grid_3">
+                <a href="#"><img border="0" align="left" alt=" " src="{{asset('bundles/bugglmain/images/custom/300_200b.jpg')}}"></a>
+            </section>
+        {% endblock %}
+        <div class="column grid_12">
+            <a href="" id="toggle" class="hdlink">Browse all country interest</a>
+        </div>    
+     </div>
+
+    
+    <div class="row">
+        {#<aside class="column grid_4">
+                    <section>
+                        <img border="0" align="left" alt=" " src="{{ asset('bundles/bugglmain/images/custom/googlemap.jpg') }}">
+                    </section>
+                </aside>#}
+        {% block featured_guides %}
+        <article class="column grid_8">
+            <section>
+                <div class="reg_box clearfix">
+                    <h2 class="title"><a href="#">Welcome the Paris</a></h2>    
+                    <ul class="rating"><li class="star fl"><span class="ico"></span><span class="ico"></span><span class="ico"></span><span class="ico"></span></li><li class="price">$9.99</li></ul>
+                    <p><img border="0" align="left" src="{{asset('bundles/bugglmain/images/custom/220_136.jpg')}}" alt=" " class="fr">Quisque vestibulum sem eget odio tempor tincidunt. Nunc quis neque eros, quis elementum ante. Ut imperdiet risus ut diam semper non dictum tortor tincidunt. Fusce congue bibendum laoreet. Nunc id nisl est, nec iaculis erat. Fusce semper, purus a dictum blandit, lectus nunc fringilla leo, non lacinia nulla nisl at erat. Praesent congue euismod magna sed consequat.</p>
+                </div>
+                <div class="sml_box"> 
+                    <div class="facts fl">
+                        <a href="#">Paris, France<span>Location</span></a>
+                        <a href="#">300 hrs<span>Duration</span></a>
+                        <a href="#">Adventure, Tour, Cool, Famous ...<span>trip theme</span></a><a href="#">365 days<span>good for</span></a>
+                    </div> 
+                </div> 
+                <div class="reg_box">
+                    <a class="subphoto" href="#"><img width="40" border="0" alt=" " src="/bundles/bugglmain/images/custom/janvan_60px.jpg"></a>
+                    <h4 class="title"><a href="#">Roberto Duran</a></h4>
+                    <a href="#" class="subtext fl">Boxer</a>
+                    <a href="#" class="sclink fr">view more</a>
+                </div>
+            </section>
+            <section>
+                <div class="reg_box clearfix">
+                    <h2 class="title"><a href="#">Welcome the Paris</a></h2>    
+                    <ul class="rating"><li class="star fl"><span class="ico"></span><span class="ico"></span><span class="ico"></span><span class="ico"></span></li><li class="price">$9.99</li></ul>
+                    <p><img border="0" align="left" src="{{asset('bundles/bugglmain/images/custom/220_136.jpg')}}" alt=" " class="fr">Quisque vestibulum sem eget odio tempor tincidunt. Nunc quis neque eros, quis elementum ante. Ut imperdiet risus ut diam semper non dictum tortor tincidunt. Fusce congue bibendum laoreet. Nunc id nisl est, nec iaculis erat. Fusce semper, purus a dictum blandit, lectus nunc fringilla leo, non lacinia nulla nisl at erat. Praesent congue euismod magna sed consequat.</p>
+                </div>
+                <div class="sml_box"> 
+                    <div class="facts fl">
+                        <a href="#">Paris, France<span>Location</span></a>
+                        <a href="#">300 hrs<span>Duration</span></a>
+                        <a href="#">Adventure, Tour, Cool, Famous ...<span>trip theme</span></a><a href="#">365 days<span>good for</span></a>
+                    </div> 
+                </div> 
+                <div class="reg_box">
+                    <a class="subphoto" href="#"><img width="40" border="0" alt=" " src="/bundles/bugglmain/images/custom/janvan_60px.jpg"></a>
+                    <h4 class="title"><a href="#">Roberto Duran</a></h4>
+                    <a href="#" class="subtext fl">Boxer</a>
+                    <a href="#" class="sclink fr">view more</a>
+                </div>
+            </section>            
+        </article>
+        {% endblock %}
+    </div>
+    
+{% endblock %}

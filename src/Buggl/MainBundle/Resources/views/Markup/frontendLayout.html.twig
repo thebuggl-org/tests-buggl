@@ -1,0 +1,109 @@
+{% extends "BugglMainBundle::layout.html.twig" %}
+
+{% block modal %}
+	{{ parent() }}
+	{% include 'BugglMainBundle:LocalAuthor/Profile:modals.html.twig' with {'title':'','includeProfilePicModal':false} %}
+{% endblock %}
+
+{% block header %}
+	<!--[IF IE]>
+	     <div class="best-viewed"></div>
+	<![endif]-->
+    <div id="loginModal" class="reveal-modal login">
+    	<h2>Login in to Buggl<a class="close-reveal-modal login">&#215;</a></h2>
+    	<div class="fb-sign">
+    		<h4>Log in through Facebook</h4>
+    		<a href="{{ path('login_via_facebook_url') }}">
+    			<img src="{{ asset('bundles/bugglmain/images/connectfb.png')}}" border="0" alt="Connect to Facebook">
+    		</a>
+			{% if false %}
+				<span>You can also login using <a href="{{ path('login_via_twitter_url') }}">twitter</a> and <a href="{{ path('login_via_google_plus_url') }}">google</a>.</span>
+			{% endif %}
+    	</div>
+    	<div class="content">
+    		<h4>Login with your Buggl account</h4>
+        	<form action="{{ path('login_check') }}" method="post" class="form-section form">
+     	 		<input type="text" name="_username" size="28" placeholder="Username"/>
+    	    	<input type="password" name="_password" size="28" placeholder="Password"/>
+            <div class="forgot-pass">
+            	<p><a href="{{ path('buggl_password_reset_request') }}" target="_blank">Forgot Password?</a></p>
+				<p>No Account? Register <a href="{{ path('registration') }}">Here.</a></p>
+            </div>
+            <div class="submit-section">
+            	<input class="btn msg fr" type="submit" value="Login"/>
+
+            </div>
+         </div>
+
+        </form>
+    </div>
+
+    <div id="loginModal" class="reveal-modal signup">
+        <h2>Sign Up to Buggl<a class="close-reveal-modal">&#215;</a></h2>
+        <div class="fb-sign">
+            <h4>Sign Up through Facebook</h4>
+            <a href="{{ path('login_via_facebook_url') }}">
+                <img src="{{ asset('bundles/bugglmain/images/connectfb.png')}}" border="0" alt="Connect to Facebook">
+            </a>
+			{% if false %}
+            <span>You can also sign up using <a href="{{ path('login_via_twitter_url') }}">twitter</a> and <a href="{{ path('login_via_google_plus_url') }}">google</a>.</span>
+			{% endif %}
+        </div>
+        <div class="content">
+            <h4>Sign Up For A Buggl account</h4>
+            <form action="{{ path('registration_via_modal') }}" method="post" class="form-section form">
+                <input type="text" name="first_name" size="28" placeholder="First Name"/>
+                <input type="text" name="last_name" size="28" placeholder="Last Name"/>
+                <input type="text" name="email" size="28" placeholder="Email"/>
+                {#<input type="password" name="password" size="28" placeholder="Password"/>
+                <input type="password" name="confirm_password" size="28" placeholder="Confirm Password"/>#}
+                <div class="submit-section">
+                     <input class="btn msg fr" type="submit" value="Sign Up"/>
+                </div>
+            </form>
+        </div>
+    </div>
+	<!--[IF lt IE 11]>
+		<div class="browser-notice">
+			<p>You are USING a browser which buggl.com does not support, Try using <a href="http://whatbrowser.org">modern browsers.</a></p>
+		</div>	
+	<![endif]-->	
+    {% block nav %}
+        {% render 'BugglMainBundle:Frontend/Main:header' with { active: '' } %}
+    {% endblock %}
+{% endblock %}
+
+{% block body %}
+    {% block precontent %}{% endblock %}
+    {% block breadcrumbs %}{% endblock %}
+    {% block social %}{% endblock %}
+    {% block main_content %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	
+	{% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.modal.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                $('#loginButton').on('click',function(event){
+                    event.preventDefault();
+					
+					analytics.track('Log In');
+					
+                    $('div.login').reveal();
+                });
+				
+				analytics.trackLink($('#homepageSignupButton'), 'Sign Up');
+            });
+        })(jQuery);
+    </script>
+	
+{% endblock %}

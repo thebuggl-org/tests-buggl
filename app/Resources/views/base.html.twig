@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7 ie"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8 ie"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9 ie"> <![endif]-->
+<!--[if IE]>	     <html class="no-js ie"> <![endif]-->
+{% block meta %}
+<!--[if gt IE 8]><!--> <html class="no-js ie"> <!--<![endif]-->
+{% endblock %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{% block title %}Buggl Html Markup{% endblock %}</title>
+
+        {% block meta_tags %}
+        <meta name="description" content="">
+        {% endblock %}
+        <meta name="viewport" content="width=device-width">
+		
+        {% block og_meta %}
+			{% if metas is defined and metas is not null %}
+				<meta property="og:title" content="{{ metas.title  }}" />
+			    <meta property="og:description" content="{{ metas.description|raw }}" />
+				<meta property="og:image" content="http://buggl.com/bundles/bugglmain/images/buggl-big.jpg"/> 
+			{% endif %}
+		{% endblock%}
+
+        {% block stylesheets %}
+        
+        	
+
+
+			<!-- <link rel="stylesheet" type="text/css" href="http://static1.buggl.com/css/buggl.css"> -->
+            <link rel="stylesheet" href="{{ asset('bundles/bugglmain/css/vanilla/normalize.min.css' | s3Cdn ) }}">
+            <link rel="stylesheet" href="{{ asset('bundles/bugglmain/css/buggl.css' | s3Cdn) }}" type="text/css" media="screen, projection">
+			<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" type="text/css">
+
+			{#% stylesheets filter="cloudfront_filter"
+        		output="/css/main.css"
+			    '@BugglMainBundle/Resources/public/css/buggl.css'
+			%}
+			    <link href="{{ asset_url }}" rel="stylesheet" media="screen, projection" />
+			{% endstylesheets %#}
+		{% endblock %}
+		
+        <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Raleway:400,700,300' rel='stylesheet' type='text/css'>
+        <link rel="icon" type="image/png" href="{{ asset('bundles/bugglmain/images/favicon.png' | s3Cdn ) }}">
+
+        <script src="{{ asset('bundles/bugglmain/js/modernizr-2.6.1-respond-1.1.0.min.js' | s3Cdn) }}"></script>
+
+        {#
+        NOTE: disabled per JM's mandate
+        <script>
+		
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41611109-1', 'buggl.com');
+          ga('send', 'pageview');
+
+        </script>
+		#}
+		<!-- segment.io -->
+		<script type="text/javascript">
+			window.analytics||(window.analytics=[]),window.analytics.methods=["identify","track","trackLink","trackForm","trackClick","trackSubmit","page","pageview","ab","alias","ready","group","on","once","off"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var method=window.analytics.methods[i];window.analytics[method]=window.analytics.factory(method)}window.analytics.load=function(t){var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"d2dq2ahtl5zl1z.cloudfront.net/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)},window.analytics.SNIPPET_VERSION="2.0.8",
+			window.analytics.load("biofr2aakt");
+			window.analytics.page();
+		</script>
+		<!-- Twitter Snippet for Analytics : JONATHAN MIERS -->
+		<meta name="p:domain_verify" content="1a3029ae11f40a6e8650a73da126777f"/>
+    </head>
+	{% block body_tag %}
+    <body>
+	{% endblock %}
+    	<div class="containers">
+   		    {% block modal %}{% endblock %}
+   		    {% block header %}{% endblock %}
+
+			{% block flashblock %}
+	    	{% for flashMessage in app.session.flashbag.get('success') %}
+				<div class="row">
+					<div class="flash success clear">
+						<span class="ico"></span>
+						{{ flashMessage | raw }}
+					</div>
+				</div>
+			{% endfor %}
+			{% for flashMessage in app.session.flashbag.get('error') %}
+				<div class="row">
+					<div class="flash error clear">
+						<span class="ico"></span>
+						{{ flashMessage | raw }}
+					</div>
+				</div>
+			{% endfor %}
+			{% for flashMessage in app.session.flashbag.get('notice') %}
+				<div class="row">
+					<div class="flash notice clear">
+						<span class="ico"></span>
+						{{ flashMessage | raw }}
+					</div>
+				</div>
+			{% endfor %}
+			{% for flashMessage in app.session.flashbag.get('permanent-success') %}
+				<div class="row">
+					<div class="flash permanent success clear">
+						<span class="ico"></span>
+						{{ flashMessage | raw }}
+					</div>
+				</div>
+			{% endfor %}
+			{% for flashMessage in app.session.flashbag.get('permanent-notice') %}
+				<div class="row">
+					<div class="flash permanent notice clear">
+						<span class="ico"></span>
+						{{ flashMessage | raw }}
+					</div>
+				</div>
+			{% endfor %}
+			{% endblock %}
+	        {% block body %}{% endblock %}
+    	</div>
+	</body>
+	
+    {% block footer %}{% endblock %}
+    {% block script_template %}{% endblock %}
+    {% block javascripts %}
+		<!-- // <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
+		<script src="{{ asset('bundles/bugglmain/js/jquery-1.8.2.min.js') }}"></script>
+        <script src="{{ asset('bundles/bugglmain/js/jquery.foundation.reveal.js' | s3Cdn) }}"></script>
+        <script type='text/javascript' src='http://d3js.org/d3.v3.min.js'></script> 
+		<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+		{# <script src="https://js.stripe.com/v1/"></script> #}
+
+		{#% javascripts
+			'@BugglMainBundle/Resources/public/js/jquery.flash-messages.js'
+			filter='?yui_js'
+		%}
+		    <script type="text/javascript" src="{{ asset_url }}"></script>
+		{% endjavascripts %#}
+		<script src="{{ asset('bundles/bugglmain/js/jquery.flash-messages.js' | s3Cdn) }}"></script>
+		<script type="text/javascript">
+		
+				(function($){
+
+    // Build the chart
+
+					$(document).ready(function(){
+
+						$.fn.flash();
+						
+	
+					});
+				})(jQuery);
+			//}
+		</script>
+
+<script type="text/javascript" src="https://l2.io/ip.js?var=userip"></script>
+ <script>
+
+
+$(function() {
+ $("#userip").val(userip);
+$( "#datepicker" ).datepicker({onSelect: function(dateText, inst) {
+	$('.tripplan').attr('checked', false);
+            //Get today's date at midnight
+            var today = new Date();
+            today = Date.parse(today.getMonth()+1+'/'+today.getDate()+'/'+today.getFullYear());
+            //Get the selected date (also at midnight)
+            var selDate = Date.parse(dateText);
+            $("#messagenotif4").text("");
+				//$('#datepicker').datepicker({  });
+            if(selDate < today) {
+                //If the selected date was before today, continue to show the datepicker
+                
+                $("#messagenotif4").text("Selected Date should not be Previous");
+				$('#datepicker').removeAttr('value');
+               
+            }
+        },minDate: 0
+    });
+
+
+});
+
+function trip()
+
+{ 
+	$('#datepicker').removeAttr('value');
+	$("#messagenotif4").text("");
+}
+function plan(price)
+{
+if(price==49)
+{
+	$("#basic-plan").css({"background-color": "#53ccff", "background-image": "-moz-linear-gradient(center top , #00a2ff, #65c5fe)"});
+	$(".check-hide1").css("display","block");
+	$(".check-hide2").css("display","none");
+	$("#premium-plan").css({"background-color": "#53ccff", "background-image": "-moz-linear-gradient(center top , #b4e3ff, #65c5fe)"});
+	$("#price").val(price);
+	$("#plan_type").val("Basic");
+	var totalprice=$("#tripduration").val();
+	$("#messagenotif1").text("");
+	$(".totalprice").css("color","#00a2ff");
+	$(".totalprice").text(" Total amount that will be deducted from your account= $"+49*totalprice);
+}
+if(price==89)
+{	$("#basic-plan").css({"background-color": "#53ccff", "background-image": "-moz-linear-gradient(center top , #b4e3ff, #65c5fe)"});
+	$("#premium-plan").css({"background-color": "#53ccff", "background-image": "-moz-linear-gradient(center top , #00a2ff, #65c5fe)"});
+	$(".check-hide2").css("display","block");
+	$(".check-hide1").css("display","none");
+	$("#price").val(price);
+	$("#plan_type").val("Premium");
+	var totalprice=$("#tripduration").val();
+	$("#messagenotif1").text("");
+	$(".totalprice").css("color","#00a2ff");
+	$(".totalprice").text(" Total amount that will be deducted from your account= $"+89*totalprice);
+}
+
+}
+</script>
+{% endblock %}
+
+</html>

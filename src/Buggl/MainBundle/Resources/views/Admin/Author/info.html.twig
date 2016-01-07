@@ -1,0 +1,86 @@
+{% extends "BugglMainBundle:Markup/Markup:adminAuthorLayout.html.twig" %}
+
+{% block title %}Local Author{% endblock %}
+
+{% block breadcrumbs %}
+    <p class="admin-breadcrumbs">
+        <a href="{{ path('admin_author') }}">Local Authors</a>
+        <span> &rsaquo; {{ localauthor.name }} </span>
+    </p>
+{% endblock %}
+
+{% block admin_author_main_content %}
+    <ul class="local_author">
+        <li>
+            <label>Name:</label>
+             {{ localauthor.name }}
+        </li>
+        <li>
+            <label>Location:</label>
+            {{ localauthor.location.city.name }}
+        </li>
+        {% if localauthor.profile is not null %}
+            <li>
+                <label>Birthday:</label>
+                {{ localauthor.profile.birthDate|date('Y-M-d') }}
+            </li>
+            <li>
+                <label>Interest:</label>
+                {{ localauthor.profile.interestAndActivities }}
+            </li>
+            <li>
+                <label>Accomplishments:</label>
+                {{ localauthor.profile.accomplishments }}
+            </li>
+            <li>
+                <label>Local Since:</label>
+                {{ localauthor.profile.localSince }}
+            </li>
+        {% endif %}
+        <li>
+            <label> Buggl Rating </label>
+            <ul>
+                <li>
+                    <label>Downloads:</label>
+                     {{  dlCount }}                 
+                 </li>
+                <li>
+                    <label>References:</label>
+                    {{ refsCount }}
+                </li>
+                <li>
+                    <label>Follower:</label>
+                    {{ followerCount }}
+                </li>
+                <li>
+                    <label>Lastest Activity:</label>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <label> Eguide </label>
+
+            <ul>
+                <li>
+                    <label>Built:</label>
+                    {{ eguideCount }}
+                </li>
+                <li>
+                    <label>Purchased:</label>
+                </li>
+            </ul>
+        </li>
+        
+        <li>
+            <label> Verification </label>
+            <ul>
+                <li>
+                    <label>Phone</label>
+                </li>
+                <li>
+                    <label>Email <span></span></label>
+                </li>
+            </ul>
+        </li>
+    </ul>
+{% endblock %}

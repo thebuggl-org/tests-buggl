@@ -1,0 +1,52 @@
+{% if results|length > 0 %}
+	<section class="multi">
+		<ul>
+			<li {% if type == 'relevant' %}class="selected"{% endif %}><a class="link sort" href="{{ url }}" data="relevant">Relevant</a></li>
+			<li {% if type == 'recent' %}class="selected"{% endif %}><a class="link sort" href="{{ url ~ '&sort=recent' }}"  data="recent">Latest </a></li>
+			<li {% if type == 'download' %}class="selected"{% endif %}><a class="link sort" href="{{ url ~ '&sort=download' }}" data="download">Most Downloaded</a></li>
+		</ul>
+	</section>
+{% endif %}
+<section class="travelguide">
+	{% for guide in results %}
+		{% include 'BugglMainBundle:Frontend/Guide:guideList.html.twig' with {guide:guide} %}
+	{% else %}
+		<div class="no-results-found-in-search">
+		    <div class="result">
+		    	<h3>Your search for
+			        <em>
+			            {% if app.session.has('parameter') and app.session.get('parameter').location|length > 0 %}
+			                "{{ app.session.get('parameter').location }}"
+			            {% endif %}
+			        </em>
+			        {% if app.session.has('parameter') and app.session.get('parameter').activity|length > 0  and
+			              app.session.has('parameter') and app.session.get('parameter').location|length > 0
+			        %}"
+			            and
+			        {% endif %}
+			        {% if app.session.has('parameter') and app.session.get('parameter').activity|length > 0 %}"
+			        <em>
+			            {{ app.session.get('parameter').activity }}"
+			        {% endif %}
+			        </em>
+			        came up short. <br>
+			        We can't be everywhere just yet.
+			    </h3>
+
+				<p>Have a custom guidebook built for you by completing the request below.<br>In the meantime, get inspired by other travel guides that have recently been created.</p>
+			</div>
+			{% render 'BugglMainBundle:Frontend/Search:getEmptySearchResultTemplate' %}
+		</div>
+
+		{% render 'BugglMainBundle:Frontend/Search:recentGuides' %}
+	{% endfor %}
+</section>
+
+<section class="search-pagination-actions">
+	{% if loadMore %}
+	<a class="link" id="loadMore" data="page" href="">Load more</a>
+	{% endif %}
+	<a class="search-again" href="{{ path('buggl_homepage') }}">Search Again</a>
+</section>
+
+

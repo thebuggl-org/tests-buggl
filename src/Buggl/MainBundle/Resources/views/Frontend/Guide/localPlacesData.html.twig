@@ -1,0 +1,50 @@
+<section class="column map grid_4" id='mapContainer' style="display:none" data-map-purchased="{{ purchased ? 1 : 0 }}">
+	{% include 'BugglMainBundle:Frontend/Guide:spotsMap.html.twig' with {'spotDetails':eguideToSpotDetails,'guide':guide,'activeType':activeType,'googleMapsApiKey':googleMapsApiKey}%}
+</section>
+<div id="spotsGrid" class="clearfix" style="display:block">
+	<section class="column discover grid_4">
+    	<div class="reg_box clearfix">
+    		<a class="fr" href="{{ path('buggl_homepage') }}"><img width="80" border="0" src="{{ asset('/bundles/bugglmain/images/buggl_logo.png') }}" alt="Buggl.com"></a>
+        	<h4>Discover secrets <br>chosen by travel insiders.</h4>
+        	<p>Gather travel knowledge from people like you, not from review sites.</p>
+        </div>
+    </section>
+	
+	{% for eguideToSpotDetail in eguideToSpotDetails %}
+		{% set show = purchased  or eguideToSpotDetail.isFeatured %}
+        <section class="column grid_4">
+			<div latitude="{{ eguideToSpotDetail.spotDetail.spot.latitude }}" longitude="{{ eguideToSpotDetail.spotDetail.spot.longitude }}" type="{{ eguideToSpotDetail.spotDetail.spotType.name | slugify }}" class="spots" data-show="{{ show }}" >
+				<div class="{{ show | selected(false,'locked') }}" >
+					<div class="sp-image">
+						{% if show %}
+						<a href="{{ path('buggl_eguide_spot',{'slug':guide.slug,'spotSlug':eguideToSpotDetail.spotDetail.spot.name|slugify,'spotDetailId':eguideToSpotDetail.spotDetail.id}) }}">
+		        		<img border="0" align="left" alt="{{ show ? eguideToSpotDetail.spotDetail.spot.name : '' }}" src="{{ asset( eguideToSpotDetail.spotDetail.photo ) }}" width="275" />
+		        		</a>
+		        		{% else %}
+		        		<img border="0" align="left" alt="{{ show ? eguideToSpotDetail.spotDetail.spot.name : '' }}" src="{{ asset( eguideToSpotDetail.spotDetail.photo ) }}" width="275" />
+		        		{% endif %}
+					</div>
+		            <div class="details">
+						{% if show %}
+			            	<h4><a href="{{ path('buggl_eguide_spot',{'slug':guide.slug,'spotSlug':eguideToSpotDetail.spotDetail.spot.name|slugify,'spotDetailId':eguideToSpotDetail.spotDetail.id}) }}">{{ eguideToSpotDetail.spotDetail.spot.name }}</a></h4>
+			            	<ul class="tag">
+								{% for tag in eguideToSpotDetail.spotDetail|tags %}
+				            		<li>{{ tag.spotLike.name }}</li>
+								{% endfor %}
+			            	</ul>
+						{% else %}
+			            	<div class="locked"><span class="ico"></span></div>
+			            	<h4>The names are hidden until purchased.</h4>
+						{% endif %}
+						{#
+						<div latitude="{{ spotDetail.spot.latitude }}" longitude="{{ spotDetail.spot.longitude }}" type="{{ spotDetail.spotType.name | slugify }}" class="spots" data-show="{{ show }}"style="display:none">
+							<a href="{{ path('buggl_eguide_spot',{'slug':guide.slug,'type':activeType,'spotSlug':spotDetail.spot.name|slugify,'spotId':spotDetail.spot.id}) }}" target="_blank">{{ spotDetail.spot.name }}</a>
+							<img border="0" align="left" alt="" src="{{ asset( spotDetail.spot | getSpotPhoto(guide.localAuthor) ) }}" width="75" height="50">
+						</div>	
+						#}
+		            </div>
+				</div>
+			</div>
+        </section>
+	{% endfor %}
+</div>

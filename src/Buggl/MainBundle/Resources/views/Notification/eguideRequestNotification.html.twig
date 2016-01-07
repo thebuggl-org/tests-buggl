@@ -1,0 +1,45 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+
+    {#<h1>Hey {{ eguiderequests.localAuthor.name }},</h1>
+        <p>You have a guide request by <a href="{{ path('local_author_profile', { slug:eguiderequests.user.slug },true) }}">{{ eguiderequests.user.name }}</a>
+        <p>With the following requirements:</p>
+
+        <ul class="eguiderequests-info">
+            <li><strong>Country:</strong> {{ eguiderequests.country.name }} </li>
+            <li><strong>Trip Theme:</strong> {{eguiderequests.triptheme.name }} </li>
+            <li><strong>Category:</strong> {{ eguiderequests.category.name }} </li>
+            <li><strong>Duration:</strong> {{ eguiderequests.duration.name }} </li>
+            <li><strong>Good For:</strong> {{ eguiderequests.goodfor.name }} </li>
+            <li><strong>Travel Budget:</strong> {{ eguiderequests.budget }} stars </li>
+            <li><strong>Guide Price Point:</strong> ${{ eguiderequests.price | number_format(2, '.', ',') }} </li>
+            <li><strong>Further Details:</strong> <p><em><q>{{ eguiderequests.message }}</q></em></p></li>
+        </ul>#}
+    <h1>Hey {{ eguiderequests.localAuthor.name }},</h1>
+    <p>You have a new inbound itinerary request from <strong> {{ eguiderequests.user.name }} </strong> for  <strong>{{ visitcountry }} </strong>.     <a href="{{ link }}">Click here</a> to begin designing the custom itinerary.  You have <strong> ${{ eguiderequests.price | number_format(2, '.', ',') }}</strong> (price paid) pending payment upon completion in 5 days.  (turnaround time blogger listed on on boarding process). </p> 
+<p>Start creating the perfect itinerary.  </p>
+<p>Name of Traveler : {{ eguiderequests.user.name }}</p>
+<p>Email of Traveler : {{useremail}} </p>
+<p>Time Zone: {{now}}</p>
+<p>Best Contact Method:</p> 
+<p>Plan: {{ eguiderequests.plantype }} </p>
+        <li><strong>Country:</strong> {{ visitcountry }} </li>
+	<li><strong>destination:</strong> {{ destination }} </li>
+	<li><strong>Who is going:</strong> {{ eguiderequests.goodfor.name }} </li>
+        <li><strong>Reason:</strong> {{ eguiderequests.reason }} </li>
+        <li><strong>Duration:</strong> {{ duration }} Days</li>
+       {#<li><strong>Travel Budget:</strong> {{ eguiderequests.budget }} stars </li>#}
+       <li><strong>Pace:</strong> {{ eguiderequests.pace }} </li>
+       <li><strong> Food Budget:</strong> {{ eguiderequests.food }} </li>
+       <li><strong>Drink Budget:</strong> {{ eguiderequests.drinking }} </li>
+       <li><strong> Shopping Budget:</strong> {{ eguiderequests.shopping }} </li>
+       <li><strong>Special Touch Budget:</strong> {{ eguiderequests.activities }} </li>
+       <li><strong>Hotel Budget:</strong> {{ eguiderequests.hotel }} </li>
+       <li><strong>Special Touch Budget:</strong> {{ eguiderequests.specialtouches }} </li>
+       <li><strong>Trip plan:</strong> {{ eguiderequests.tripplan }}</li>
+       {# <li><strong>Guide Price Point:</strong> ${{ eguiderequests.price | number_format(2, '.', ',') }} </li>#}
+
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

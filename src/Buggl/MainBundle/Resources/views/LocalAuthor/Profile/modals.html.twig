@@ -1,0 +1,70 @@
+<div id="formModal" class="reveal-modal">
+	<h2 id="modalTitle">{{ (title is defined and title is not null) ? title : '' }}</h2>
+	<div class="content">
+
+	</div>
+	<span class="loader">Loading</span>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="confirmModal" class="reveal-modal" style="z-index:500; !important">
+	<h2 id="confirmModalTitle">{{ (modalTitle is defined and modalTitle is not null) ? modalTitle : '' }}</h2>
+	<div class="content">
+		<div class="contentHolder">
+			{# Add content here #}
+		</div>
+		<span class="confirm-nav">
+			<a href="" onclick="return false" class="btn fr" id="confirmModalCancel">No</a>
+			<a href="" onclick="return false" class="btn fr" id="confirmModalOk">Yes</a>
+			<span class="loader" style="display:none"></span>
+		</span>
+	</div>
+
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="alertModal" class="reveal-modal" style="z-index:500; !important">
+	<h2 id="alertModalTitle">{{ (modalTitle is defined and modalTitle is not null) ? modalTitle : '' }}</h2>
+	<div class="content">
+		<div class="contentHolder">
+			{# Add content here #}
+		</div>
+		<span class="confirm-nav">
+			<a href="" onclick="return false" class="btn fr" id="alertModalOk">Ok</a>
+		</span>
+	</div>
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
+{% if includeProfilePicModal is defined and includeProfilePicModal == true %}
+	<div id="profilePicModal" class="cropper-modal custom-modal" style="display:none">
+		<div class="shadow">
+		</div>	
+		<div>
+			<h2>My Picture<a class="closeButton close to-right">x</a></h2>
+			<div class="file">
+				<form id="uploadForm" action="{{ path('upload_profile_pic') }}" method="POST" enctype="multipart/form-data">
+					<a id="uploadProfilePicButton" href="#">Change Photo</a>
+					<input type="file" id="uploadProfilePicFile" name="profilePic" style="display:none;"/>
+				</form>
+
+				<div class="cropper clearfix" id="cropperPhotoDisplay" style="height:400px;">
+
+				</div>
+
+				<form id="profilePhotoCropDimensions" action="{{ path('crop_profile_pic') }}" method="POST" enctype="multipart/form-data" style="display:none;">
+					<input type="hidden" name="x-coord" value=""/>
+					<input type="hidden" name="y-coord" value=""/>
+					<input type="hidden" name="width" value=""/>
+					<input type="hidden" name="height" value=""/>
+					<input type="hidden" name="filename" value=""/>
+					<input type="hidden" name="tempPath" value=""/>
+				</form>
+			</div>
+			<div>
+				<a id="cropButton" class="button">Save</a>
+				<a class="closeButton button">Cancel</a>
+			</div>
+		</div>
+	</div>
+{% endif %}

@@ -1,0 +1,16 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Buggl Password Reset{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<section class="column grid_12">
+			<div id="seventh" class="missing reg_box grid_7 expert-subscription">
+				<p>Your token is either expired or invalid.</p>
+				<p>
+					<a href="{{ path('buggl_password_reset_request',{'userType':userType}) }}">Request new password reset email.</a>
+				</p>
+			</div>
+		</section>
+	</div>
+{% endblock %}

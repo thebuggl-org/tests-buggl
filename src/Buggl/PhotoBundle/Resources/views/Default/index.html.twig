@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {#}<form method="post" action="{{ path('buggl_photo_upload') }}" enctype="multipart/form-data">
+            <input type="file" name="file">
+            <input type="submit" value="upload">
+            <input type="hidden" name="e_id" value="0">
+        </form>}
+    {#}
+    <div id="uploader">
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '@BugglPhotoBundle/Resources/public/js/azulphotouploader-2.0b.js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+                $(document).ready(function(){
+                     $("#uploader").azulphotouploader({
+                        context: "sample", // replace with your defined context
+                        // hasTitle: true, // default value is false
+                        post_url: "{{ path('buggl_photo_upload') }}" // replace with your post path
+                    });
+
+                });
+            })(jQuery);
+        </script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets '@BugglPhotoBundle/Resources/public/css/photouploader.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}

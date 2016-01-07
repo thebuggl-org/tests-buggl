@@ -1,0 +1,21 @@
+<div class="row breadcrumbs-container">
+    <ul class="breadcrumb column grid_12">
+        <li><a href="{{ path('buggl_homepage') }}">Home</a></li>
+        {% for link in links %}
+            <li></li>
+        {% endfor %}
+        <li>{{ current }}</li>
+        {% block breadcrumb_sm %}{% endblock %}
+
+		{#
+		{% if showAddThisWidget is defined and showAddThisWidget %}
+	        <li class="socials">
+	           	 {%
+					 include 'BugglMainBundle:LocalAuthor/Misc:addThisWidget.html.twig'
+					 with addThisWidgetOptions
+				 %}
+		    </li>
+		{% endif %}
+		#}
+    </ul>
+</div>

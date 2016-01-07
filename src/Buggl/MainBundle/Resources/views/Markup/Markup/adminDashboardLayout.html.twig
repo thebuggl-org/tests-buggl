@@ -1,0 +1,122 @@
+
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% set current = 'dashboard' %}
+{% set status = 'published' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8 dashboard">
+        <section>
+            <div class="reg_box">
+            	{% block breadCrumbs %}
+                <p class="admin-breadcrumbs">
+                    <a href="">Dashboard</a>
+                </p>
+                {% endblock %}                  
+                {% block inner_content %}
+                    {% block stats %}
+                        <section class="clearfix dashbord-stat">
+                            <div id="pageViewsInfo" class="stat-pageviews to-left">
+                                <span class="stat-header"><img width="20" height="20" src="/bundles/bugglmain/images/pageviews.png">PAGE VIEWS</span>
+                                <span class="stat-value">1010</span>
+                                    </div>
+                            <div class="stat-downloads to-left">
+                                <span class="stat-header"><img width="20" height="20" src="/bundles/bugglmain/images/visits.png">UNIQUE VISITORS</span>
+                                <span class="stat-value">0</span>
+                                    </div>
+                            <div class="stat-earnings to-left">
+                                <span class="stat-header"><img width="20" height="20" src="/bundles/bugglmain/images/earnings.png">TOTAL REVENUE</span>
+                                <span class="stat-value"><span class="doll">$</span>0.00</span>
+                            </div>
+                        </section>
+                    {% endblock %}
+                    {% block notif %}
+                        <div class="dashboard-notif">
+                            <ul>
+                                <li>Country Requests: <a href="">35</a></li>
+                                <li>Guide Requests: <a href="">20</a></li>
+                            </ul>
+                        </div>
+                    {% endblock %}
+                    {% block graph %}
+                        <div>
+                            <div class="graph">
+                                <h3>Guides Built</h3>
+                                <div>
+                                </div>
+                            </div>
+                            <div class="graph">
+                                <h3>Authors Joined</h3>
+                                <div>
+                                </div>
+                            </div>      
+                            <div class="graph">
+                                <h3>Revenue</h3>
+                                <div>
+                                </div>
+                            </div>                          
+                        </div>
+                    {% endblock %}
+                    {% block ranking %}
+                    <div class="row full-width">
+                        <div class="column grid_4">
+                            <div class="dashboard-widget">
+                                <h3>Top Revenue</h3>
+                                <div class="select">
+                                    <select>
+                                        <option>by Guide</option>
+                                        <option>by Location</option>
+                                    </select>
+                                </div>
+                                <span>REVENUE</span>
+                                <ul class="clearfix">
+                                    <li>1. adadfdd <span class="to-right">$30.00</span></li>
+                                    <li>2. adadfdd <span class="to-right">$30.00</span></li>
+                                    <li>3. adadfdd <span class="to-right">$30.00</span></li>
+                                    <li>4. adadfdd <span class="to-right">$30.00</span></li>    
+                                    <li>5. adadfdd <span class="to-right">$30.00</span></li>
+                                    <li>6. adadfdd <span class="to-right">$30.00</span></li>
+                                    <li>7. adadfdd <span class="to-right">$30.00</span></li>
+                                    <li>8. adadfdd <span class="to-right">$30.00</span></li>                                                    
+                                    <li>9. adadfdd <span class="to-right">$30.00</span></li>
+                                    <li>10. adadfdd <span class="to-right">$30.00</span></li>              
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="column grid_4">
+                            <div class="dashboard-widget">
+                                <h3>Users</h3>
+                                <div class="select">
+                                    <select>
+                                        <option>All Coutries</option>
+                                        <option>Argentina</option>
+                                        <option>Philippines</option>                                    
+                                    </select>
+                                </div>
+                                <span>PURCHASED GUIDES</span>                           
+                                <ul class="clearfix">
+                                    <li>1. King Arthur <span class="to-right">100</span></li>
+                                    <li>2. Uzumaki Naruto <span class="to-right">27</span></li>
+                                    <li>3. Red Ford <span class="to-right">25</span></li>
+                                    <li>4. Michael Kheel <span class="to-right">25</span></li>      
+                                    <li>5. King Arthur <span class="to-right">100</span></li>
+                                    <li>6. Uzumaki Naruto <span class="to-right">27</span></li>
+                                    <li>7. Red Ford <span class="to-right">25</span></li>
+                                    <li>8. Michael Kheel <span class="to-right">25</span></li>      
+                                    <li>9. King Arthur <span class="to-right">100</span></li>
+                                    <li>10. Uzumaki Naruto <span class="to-right">27</span></li>                    
+                                </ul>                           
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock %}
+                <div>
+                {% endblock %}
+            </div>
+        </section>                      
+    </article>
+{% endblock %}
+
+

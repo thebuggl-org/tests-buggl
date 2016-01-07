@@ -1,0 +1,15 @@
+{% extends "BugglMainBundle:LocalAuthor/Payments:index.html.twig" %}
+
+{% set activeTab = 'history' %}
+
+{% block payment_content %}
+	<article class="grid_8 column">	
+		<section>
+			<h3>Transaction History</h3>
+			<span id="paginationContainer">
+				{% render "BugglMainBundle:LocalAuthor/Payments:purchaseHistoryList" with {'currentPage':currentPage} %}
+			</span>
+		</section>
+	</article>
+
+{% endblock %}

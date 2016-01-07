@@ -1,0 +1,18 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+    <h1>Hey {{ name }}!</h1>
+    <p>We’re thrilled that you decided to share your travel knowledge for the world to see.</p>
+
+    <p>There’s a problem though:  We had to take your guide down.</p>
+
+    <p>Our community guidelines for producing guides are simply and you need to make sure you don’t put anything offensive, illegal or misleading on your guide.</p>
+
+    <p>Login <a href="{{ link2 }}">here</a> and take a look at the reasons your guide was rejected.</p>
+
+    <p>Don’t worry; once you fix it we will put it back online in no time.</p>
+
+    <p>Thanks,</p>
+
+    <p><strong>The Buggl Team</strong></p>
+{% endblock %}

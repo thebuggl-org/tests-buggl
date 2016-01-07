@@ -1,0 +1,45 @@
+{% extends 'BugglMainBundle:Markup:adminLayout.html.twig' %}
+
+{% set current = 'spots' %}
+{% set status = 'published' %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+        <section class="admin-spots">
+        	<div class="reg_box">
+		        <p class="admin-breadcrumbs">
+		            <a href="">{{ 'Spots'|capitalize }}</a>
+		        </p>
+		        
+		        <div class="content"> 
+		            <ul class="site-admin-filter horizontalize">
+		           		<li>
+		           			<div class="select">
+			           			<select name="country">
+			           				<option value="0">All</option>
+			           				{% for country in countries %}
+			           					<option value="{{ country.id }}">{{ country.name }}</option>
+			           				{% endfor %}
+			           			</select>
+		           			</div>
+		           		</li>
+		           		<li>
+		           			<div class="select">
+			           			<select name="type">
+			           				<option value="0">All</option>
+			           				{% for type in types %}
+			           					<option value="{{ type.id }}">{{ type.name }}</option>
+			           				{% endfor %}
+			           			</select>
+		           			</div>
+		           		</li>           		
+		            </ul>
+		        </div>    
+		        {% block list %}
+		        {% endblock %}
+		        <div id="pagination">
+		        </div>
+        	</div>
+        </section>    		        
+    </article>
+{% endblock %}

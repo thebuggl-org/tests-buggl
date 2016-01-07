@@ -1,0 +1,158 @@
+{% extends "BugglMainBundle:Markup/Markup:adminSpotsLayout.html.twig" %}
+
+{% block title %}Spots{% endblock %}
+
+{% block list %}
+    <div id="main_content">
+    </div>
+
+    <div class="fb-clone-modal" id="fullview" style="display:none">
+    </div>
+{% endblock %}
+
+{% block script_template %}
+
+    <script type="text/template" id="fullview_template">
+        <div class="clearfix">
+            <div class="img-container">
+                <img width="800px" src="<%= photo  %>" />
+            </div>
+            <div class="site-admin-spot-details">
+                <a class="close" href="">close</a>
+                <div>
+                    <h2>{{ '<%= name %>' }}</h2>
+                    <span>
+                        {{ '<%= city %>' }}, {{ '<%= country %>' }}<br/>
+                        {{ '<%= contact %>' }}
+                    </span>
+                    <div class="spot-description">
+                        {{ '<%= content %>' }}
+                    </div>
+                    <div class="best-thing">
+                        <h3>BEST THING ABOUT THE SPOT</h3>
+                        <p>{{ '<%= bestThing %>' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" id="spots">
+        <div class="to-left clearfix">
+            <img class="to-left" src="<%= photo %>" width="100" height="100" />
+
+            <div class="to-left">
+                <h3><a href="" name="view-full">{{ "<%=  name %>" }}</a></h3>
+                <span><strong>Type: </strong> {{"<%= type %>"}} </span><br/>
+                <span><strong>Location: </strong>{{"<%= city %>"}}</span><br/>
+                <span><strong>Address:  </strong> {{"<%= address %>"}} </span>
+            </div>
+        </div>
+        <ul class="site-admin-list-actions to-right horizontalize">
+            <li><a href="" name="view-full">view details</a></li>
+        </ul>
+    </script>
+
+    <script type="text/template" id="spot_content">
+        <ul class="author-list site-admin-list">
+        </ul>
+    </script>
+
+    <script type="text/template" id="pagination_template">
+        <section class="page bugglPagination">
+            <nav>
+                <% if(totalPages > 0){ %>
+                    <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                    <% if(startPage > 1) { %>
+                        <a href="1" class="bugglPaginationLink">1</a>
+                        <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                    <% } %>
+
+                    <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                        <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                    <% }); %>
+
+                    <% if (endPage < totalPages) { %>
+                        <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                        <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                    <% } %>
+                    <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                <% } %>
+            </nav>
+        </section>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/backbone.spot.js' filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+                SpotFullView = Backbone.View.extend({
+                    el: $('div#fullview'),
+                    initialize: function(){
+                        _.bindAll(this,'render','close');
+
+                        this.model = this.options.model;
+
+                        this.model.bind('changeModel',this.render,this);
+
+                        this.template = _.template($('#fullview_template').html());
+                    },
+                    events: {
+                        "click a.close" : "close"
+                    },
+                    render: function(model){
+                        this.model = model;
+
+                        var renderedTemplate = this.template( this.model.toJSON() );
+                        this.$el.html(renderedTemplate).show();
+                    },
+                    close: function(event){
+                        event.preventDefault();
+                        this.$el.hide();
+                    }
+                });
+                $(document).ready(function(){
+                    $.spot({
+                        fetchMoreUrl: "{{ path('admin_spots_fetch') }}"
+                    });
+
+                    var searchParameters = new Search();
+                    var spotFull = new Spot();
+
+                    var pagination = new PaginationModel({
+                        limit: {{ limit }}
+                    });
+
+                    new SearchView({
+                        model: searchParameters
+                    });
+
+                    new SpotsView({
+                        collection: new Spots(),
+                        model: searchParameters,
+                        pagination: pagination,
+                        spotFullView: spotFull
+                    });
+
+                    new PaginationView({
+                        model: pagination,
+                        parameters: searchParameters
+                    });
+
+                    new SpotFullView({
+                        model: spotFull
+                    })
+
+                });
+            })(jQuery);
+        </script>
+    {% endjavascripts %}
+{% endblock %}

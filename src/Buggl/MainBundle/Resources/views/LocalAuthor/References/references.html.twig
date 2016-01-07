@@ -1,0 +1,58 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Buggl | My References{% endblock %}
+
+{% block precontent_title %}
+	My References
+{% endblock %}
+
+{% set active = 'references' %}
+
+{% block main_content %}	
+	<div class="row">
+		<aside class="column grid_4">
+			<section class="profile">
+				<nav class="clearfix clear">
+					<a href="{{ path('local_author_references') }}" class="{{ activeTab | selected('list','active') }}"><span class="ico"></span>Local References</a>
+					<a href="{{ path('local_author_references', {'type':'pending'}) }}" class="{{ activeTab | selected('pending','active') }}"><span class="ico"></span>{{ pendingRequestCount }} Pending Reference Request{{ pendingRequestCount > 1 or pendingRequestCount == 0 ? 's' : '' }}</a>
+				</nav>
+			</section>
+		</aside>	
+		<article class="column grid_8 bugglPaginationContainer" id="referenceList">
+			{% render 'BugglMainBundle:LocalAuthor/References:referencesList' with {'type' : activeTab, 'currentPage' : currentPage} %}
+		</article>	
+		</div>
+	</div>
+{% if app.user.isLocalAuthor %}
+<div id="reqcount" class="reveal-modal">
+<h2>  <a class="close-reveal-modal">&#215;</a> </h2>
+    <div class="content">
+   
+<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span> You have {{ newRequestCount }} new Itinerary Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+</div></div>{% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	{% javascripts 
+		'@BugglMainBundle/Resources/public/js/LocalAuthor/References/jquery.references.js'
+		'@BugglMainBundle/Resources/public/js/jquery.pagination.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+	<script>
+		$(document).ready(function(){
+if({{newRequestCount}}>=1)
+{		
+	$("div#reqcount").reveal();
+}
+			$('.bugglPagination').paginate({
+				'containerId' : 'referenceList'
+			});
+		});
+	</script>
+{% endblock %}

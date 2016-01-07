@@ -1,0 +1,74 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+		<div class="row">
+			<article class="column grid_12">
+				<div class="row">
+					<section class="column custom cpage grid_12">
+						<div class="intro">
+							<h1>How it Works</h1>
+							<!-- <p>Buggl Lets you make money sharing your local kowledge</p> -->
+						</div>
+						<div class="hd-image" style="background:transparent url('{{ asset('/bundles/bugglmain/images/custom/random7_940px.jpg') }}') no-repeat left top;">
+							<p>Find travel guides meant for you.</p>
+							<p>Buggl is a marketplace of unique and fascinating travel guides written by people all over the world.</p>
+						</div>
+						<div class="bx">
+							<ul class="fourth"> 
+								<li>
+									<h2>Fresh &amp; Different</h2>
+									<p>Hand-picked travel guides designed by people who know where you’re going better than you do.</p>
+								</li>
+								<li>
+									<h2>Trust Worthy and Authentic</h2>
+									<p>All our travel guidebook writers are screened for quality and accuracy. They share their secret knowledge, not simple tourist attractions.</p>
+								</li>  
+								<li>
+									<h2>Simple to use</h2>
+									<p>Easily search by destination or interests, review the travel guide and purchase it instantly through our secure platform.</p>
+								</li>
+								<li>
+									<h2>Matched to you.</h2>
+									<p>Find the travel guidebook you like. Our guidebook writers share insider secrets and tips to save you the trouble of searching for hours for advice.</p>
+								</li>
+							</ul>
+							
+						</div>
+						<div class="bx divide">
+							<h2>A Travel Resume</h2>
+							<p>Our guidebook writers  are vouched for by their peers and reviewed by the people who use their travel guides. We put our reputation in these people who share their insider secrets and advice with you. Take a sigh of relief; you're getting real travel information here.</p>
+						</div>
+						<div class="bx">	
+							<h2>Unlimited Selection</h2>
+							<p>We're always looking for the best people around the world to share their stories on Buggl. If you can't find the travel guide you want, submit a custom request and one will be built for you.</p>
+						</div>
+						<div class="bx divide">
+							<h2>Find your next trip in 3 easy steps:</h2>
+							<ul class="third"> 
+								<li>
+									<img border="0" align="left" src="../bundles/bugglmain/images/searchit.png">
+									<h3 class="clear">1. Search</h3>
+									<p>Browse a destination and select from the best travel guides written by people who have more travel knowledge than you.</p>
+								</li>
+								<li>
+									<img border="0" align="left" src="../bundles/bugglmain/images/checked.png">
+									<h3 class="clear">2. Select</h3>
+									<p>Choose your own adventure; review the details of the travel guide and the person who built it for you.</p>
+								</li>  
+								<li>
+									<img border="0" align="left" src="../bundles/bugglmain/images/setoff.png">
+									<h3 class="clear">3. Set Off</h3>
+									<p>Share your special travel guide with others going and receive live updates from the local up until and during your trip.</p>
+								</li>
+							</ul>
+						</div>																										
+					</section>
+				</div>
+			</article>
+		</div>
+{% endblock %}

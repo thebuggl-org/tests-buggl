@@ -1,0 +1,36 @@
+{# Create filter for checking whether to display or not #}
+<form id="travelInfoForm" action="{{ path('update_travel_info',{'fieldId':fieldId}) }}" method="POST" {{ form_enctype(travelInfoForm) }}>
+	<div class="form-section" style="{{ fieldId == 0  ? 'display:block' : 'display:none'}}">
+		<span>
+			<label>Why am I the best local?</label>
+			{{ form_widget(travelInfoForm.whyAmITheBest) }}
+			{{ form_errors(travelInfoForm.whyAmITheBest) }}
+		</span>
+	</div>
+	<div class="form-section" style="{{ fieldId == 1  ? 'display:block' : 'display:none'}}">
+		<span>
+			<label>How I love to travel?</label>
+			{{ form_widget(travelInfoForm.howILoveToTravel) }}
+			{{ form_errors(travelInfoForm.howILoveToTravel) }}
+		</span>
+	</div>
+	<div class="form-section" style="{{ fieldId == 2  ? 'display:block' : 'display:none'}}">
+		<span>
+			<label>My best travel experience</label>
+			{{ form_widget(travelInfoForm.bestTravelExp) }}
+			{{ form_errors(travelInfoForm.bestTravelExp) }}
+		</span>
+	</div>
+	<div class="form-section" style="{{ fieldId == 3  ? 'display:block' : 'display:none'}}">
+		<span>
+			<label>My worst travel experience</label>
+			{{ form_widget(travelInfoForm.worstTravelExp) }}
+			{{ form_errors(travelInfoForm.worstTravelExp) }}
+		</span>
+	</div>
+	{{ form_rest( travelInfoForm ) }}
+	
+	<div class="form-section submit-section">
+		<input id="addLocalInterestButton" class="button" type="submit" value="Submit" />					
+	</div>
+</form>

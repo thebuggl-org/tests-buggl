@@ -1,0 +1,10 @@
+{% extends "BugglMainBundle:Markup/Markup:contactUs.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block about_navigation %}
+    {% include "BugglMainBundle:Frontend/Static:aboutNavigation.html.twig" with {'selectedNav':'contact-us'} %}
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "BugglMainBundle:Markup/Markup:adminMessagesLayout.html.twig" %}
+
+{% block title %}Messages{% endblock %}
+
+{% block list %}
+    <div id="main_content"></div>
+{% endblock %}
+
+{% block script_template %}
+    <script type="text/template" id="message_list_container">
+        <ul class="eguide-list site-admin-list">
+        </ul>
+    </script>
+
+    <script type="text/template" id="message_list">
+        <div class="to-left">
+            <h3>{{ '<%= subject %>' }}</h3>
+            <span>Recipient: {{ '<%= recipient %>' }}</span>
+            <span>Sender: {{ '<%= sender %>' }}
+            <span class="m">Message: {{ '<%= message %>' }}</span>
+        </div>
+        <ul class="site-admin-list-actions to-right horizontalize">
+            <li><a href="">mark as read</a></li>
+        </ul>
+    </script>
+
+    <script type="text/template" id="pagination_template">
+        <section class="page bugglPagination">
+            <nav>
+                <% if(totalPages > 0){ %>
+                    <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                    <% if(startPage > 1) { %>
+                        <a href="1" class="bugglPaginationLink">1</a>
+                        <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                    <% } %>
+
+                    <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                        <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                    <% }); %>
+
+                    <% if (endPage < totalPages) { %>
+                        <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                        <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                    <% } %>
+                    <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                <% } %>
+            </nav>
+        </section>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src='{{ asset('bundles/bugglmain/js/Admin/underscore-min.js') }}' type='text/javascript'> </script>
+    <script src='{{ asset('bundles/bugglmain/js/Admin/backbone.js') }}' type='text/javascript'> </script>
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/backbone.message.js' filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+                $(document).ready(function(){
+
+                    $.message({
+                        fetchMoreUrl: "{{ path('admin_fetch_unread') }}",
+                        markAsReadUrl: "{{ path('admin_mark_as_read_message') }}"
+                    })
+
+                    var messages = new Messages();
+                    var parameters = new Parameters();
+                    var eventListener = new EventListener();
+
+                    var pagination = new PaginationModel({
+                        limit: {{ limit }}
+                    });
+
+                    new MessagesView({
+                        collection: messages,
+                        parameters: parameters,
+                        pagination: pagination,
+                        eventListener: eventListener
+                    });
+
+                    new PaginationView({
+                        model: pagination,
+                        parameters: parameters
+                    });
+
+                    messages.fetch({
+                        data: { page: 1 }
+                    });
+                });
+            })(jQuery);
+        </script>
+    {% endjavascripts %}
+{% endblock %}

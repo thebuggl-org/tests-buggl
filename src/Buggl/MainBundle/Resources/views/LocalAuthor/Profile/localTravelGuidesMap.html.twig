@@ -1,0 +1,53 @@
+<div id="map_canvas" style="width:100%; height:300px" center-lat="{{ city.lat }}" center-long="{{ city.long }}" api-key="{{ googleMapsApiKey }}"></div>	
+<ul id="points" style="display:none;">
+	{% for eGuide in eGuides %}
+		<li class="guide" lat="{{ eGuide.latitude }}" long="{{ eGuide.longitude }}" title="{{ eGuide.title }}">
+			{{ eGuide.title }}
+		</li>	
+	{% endfor %}
+</ul>
+	
+<script>
+	var API_KEY;
+	var CENTER_COORDS;
+    var map;
+
+    function initialize() {
+		CENTER_COORDS = new google.maps.LatLng($('#map_canvas').attr("center-lat"), $('#map_canvas').attr("center-long"));
+        drawMap();
+		plotPoints();
+    }
+
+    function loadScript() {
+		API_KEY = $('#map_canvas').attr('api-key');
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "http://maps.googleapis.com/maps/api/js?key="+API_KEY+"&libraries=places&sensor=false&callback=initialize";
+        document.body.appendChild(script);
+    }
+
+	function drawMap() {
+		var mapOptions = {
+            zoom: 8,
+            center: CENTER_COORDS,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        
+        map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+	}
+	
+	function plotPoints()
+	{
+		$('#points .guide').each(function(){
+			var latlng = new google.maps.LatLng($(this).attr('lat'), $(this).attr('long'));
+			// now, create the marker
+			var marker = new google.maps.Marker({
+			    position: latlng,
+			    map: map,
+			    title:$(this).attr('title')
+			});
+		});
+	}
+
+    window.onload = loadScript;
+</script>

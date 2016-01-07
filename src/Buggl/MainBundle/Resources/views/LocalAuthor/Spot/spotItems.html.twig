@@ -1,0 +1,36 @@
+{% for detail in spotDetails %}
+	<li class="column {{ activeType }}" data-spotid="{{ detail.spot.id }}" data-detailid="{{detail.id}}"> <!-- add class active to this li when clicked/selected -->
+		<span class="spot-adder">
+			<span>ADD THIS SPOT</span>
+			<ul name="add-spot-from-list-setting">
+				<li name="time-of-day-setting"><a href="" data-time="1">Add to Morning</a></li>
+				<li name="time-of-day-setting"><a href="" data-time="2">Add to Afternoon</a></li>
+				<li name="time-of-day-setting"><a href="" data-time="3">Add to Evening</a></li>
+				<li name="add-to-local-secret-setting"><a href="" data-time="0">ADD to Local Secrets</a></li>
+				<li><a href="" name="remove-setting">Remove</a></li>	
+			</ul>
+		</span>
+		<div name="spot-gallery-spot">
+			{% set sched = (attribute(egts, detail.id) is defined) ? attribute(egts, detail.id) : null %}
+			{% set timeSched = (sched is not null) ? sched.getTime : "" %}
+			{% set dayerStyle = (sched is not null) ? "display:block;" : "display:none;"  %}
+			<span class="spot-dayer" style="{{ dayerStyle }}">{{ timeSched }}</span>
+<!--				<div class="selected"></div> -->
+			<div style="height: 180px;margin-bottom: 15px; overflow: hidden;background:#222;"><img src="{{ detail.photo }}" width="250"></div>
+			<div class="spot-details">
+				<h3>{{ detail.spot.name }}</h3>
+				<span>{{ detail.spot.address | truncate(70) }}</span>
+			</div>
+		</div>
+	</li>
+{% else %}
+	<li class="no-record {{ activeType }}">
+		{% if type == 'local-secret' %}
+			<p>It seems that you havent added a place {{ activeType == 'all' ? '' : 'in ' }}<span>{{ activeType == 'all' ? '' : activeType|replace('-',' ')|capitalize }}</span> yet</p>
+			<h3>Try <a href="">Adding A Place!</a></h3>
+			<img src="{{ asset("/bundles/bugglmain/images/addspot-arrow.png") }}" />
+		{% else %}
+			<p>No records found!</p>
+		{% endif %}
+	</li>
+{% endfor %}

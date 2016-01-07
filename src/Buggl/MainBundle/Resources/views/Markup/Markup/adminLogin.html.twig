@@ -1,0 +1,21 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% block title %}Admin Login Markup{% endblock %}
+
+{% block content %}
+<div class="login">
+    <form>
+        <section class="form-section">
+            <input type="text" />
+            <span class="error">Invalid input</span>
+        </section>
+        <section class="form-section">
+            <input type="password" />
+            <span class="error">Invalid email</span>
+        </section>
+        <section class="form-section">
+            <input type="button" value="LOGIN" />
+        </section>
+    </form> 
+</div>
+{% endblock %}

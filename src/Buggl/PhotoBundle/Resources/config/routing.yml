@@ -1,0 +1,7 @@
+buggl_photo_homepage:
+    pattern:  /photo
+    defaults: { _controller: BugglPhotoBundle:Default:index }
+
+buggl_photo_upload:
+    pattern: /upload
+    defaults: {  _controller: BugglPhotoBundle:Default:upload }

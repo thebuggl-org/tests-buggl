@@ -1,0 +1,5 @@
+{% for guide in results %}
+	{% include 'BugglMainBundle:Frontend/Guide:guideList.html.twig' with {guide:guide} %}
+{% else %}
+	{% render 'BugglMainBundle:Frontend/Search:getEmptySearchResultTemplate' %}
+{% endfor %}

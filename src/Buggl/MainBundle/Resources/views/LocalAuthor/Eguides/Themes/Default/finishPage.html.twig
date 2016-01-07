@@ -1,0 +1,62 @@
+{% extends "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:create.html.twig" %}
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.finish-eguide.v1.0.js') }}"></script>
+	<script>
+	$(document).ready(function(){
+		$('input[name=is_free]').on('click',function(){
+			if($(this).is(':checked')){
+				analytics.track('Checked as Free');
+			}
+		});
+		
+		analytics.trackForm($('#travel-guide-finishing'), 'Publish');
+	});
+	</script>
+{% endblock %}
+
+{% block title %}
+	Almost Done
+{% endblock %}
+
+
+{% block create_eguide_page %}
+	{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:steps.html.twig" with {'travel_guide_id' : eguide.id, 'step' : 3} %}
+	<section class="step-3 steps">
+		<div>
+			<h2>FINISH YOUR TRAVEL GUIDE</h2>
+			<form id="travel-guide-finishing" method="POST" action="{{ path('finishing_travel_guide', {'travel_guide_id' : eguide.id})}}">
+				<div class="price-form">
+					<label><strong>Price</strong></label>
+					{% if eguide.price > 0 %}
+						<span class="doll">$</span><input type="text" name="price" value="{{eguide.price}}" /><br/>
+						<span class="make-this-free"><input type="checkbox" name="is_free"/>make this a FREE Travel Guide</span>
+					{% else %}
+						<span class="doll">$</span><input type="text" name="price" value="Free" /><br/>
+						<span class="make-this-free"><input type="checkbox" checked name="is_free"/>make this a FREE Travel Guide</span>
+					{% endif %}
+				</div>
+			</form>
+			<p class="instruct">
+				<strong>Select up to 3 places to feature.</strong><br/>
+				By selecting a place to feature, you're sharing its information with travelers before they download or purchase your travel guide.  It's a great way to highlight your local knowledge (recommended).
+			</p>
+			<div class="modal-spot-gallery">
+				<ul class="admin-gallery clearfix" id="finishing-spot-list">
+					{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:finishPageSpotList.html.twig" %}
+				</ul>	
+			</div>
+			{% if moreCount > 0 %}
+			<div class="show-more">
+				<div style='margin-bottom: 30px;text-align:center; display:none;' id='modal-loader-gif'>
+					<img src="{{ asset('/bundles/bugglmain/images/ajax-loader-1.gif') }}" />
+				</div>
+				<a href="" name="show-more-spots" data-eguideid="{{eguide.id}}" data-page="{{ page + 1 }}">Show {{moreCount}} more</a>
+			</div>
+			{% endif %}
+			<div class="finish-container">
+				<a class="admin-button" id="finish-eguide-btn">Publish Your Travel Guide</a>
+			</div>
+		</div>
+	</section>
+{% endblock %}

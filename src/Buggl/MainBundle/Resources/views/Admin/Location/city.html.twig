@@ -1,0 +1,104 @@
+{% extends "BugglMainBundle:Admin/Location:locations.html.twig" %}
+
+{% block title %} Cities {% endblock %}
+{% block tab_title %} Cities {% endblock %}
+
+{% block modal %}
+    <div id="modal" class="reveal-modal">
+        <h2> City Information <a class="close-reveal-modal">&#215;</a> </h2>
+        <div class="content">
+        
+        </div>  
+        <span class="loader"></span>
+    </div>
+{% endblock %}
+
+{% block page_actions %}
+    <p class="page-actions">
+        <a class="site-admin-button" name="city" href="0">+ add city</a>
+    </p>
+{% endblock %}
+
+
+{% block list %}
+    <ul class="eguide-list site-admin-list">
+        {% for city in lists %}
+            <li class="clearfix">
+                <div>
+                    <h3>{{city.name}}</h3> 
+                    <span>{{city.country.name}}</span>                      
+                </div>
+                <ul class="site-admin-list-actions horizontalize"> 
+                    {#<li><a href="">approve</a></li>#}
+                    <li><a href="{{ city.id }}" name="city">edit</a></li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        (function($){
+            $('a[name=city]').on('click',function(event){
+                event.preventDefault();
+
+                $('#modal').reveal().find('div.content').empty();
+                
+                var url = "{{ path('admin_locations_city_form') }}";
+                var id = $(event.currentTarget).attr('href');
+
+                $.getJSON(url,{id:id},function(data){
+                    if(data.success){
+                        $('#modal').find('span').hide();
+                        $('#modal').children('div.content').append(data.html);
+
+                        $('#modal').find('form').iframePostForm({
+                            json: true,
+                            post: function(){
+                                $('#modal .loader').toggle();
+                                $('#modal .content').toggle();
+                            },
+                            complete: function(data){
+                                if(data.success){
+                                    $('#modal').trigger('reveal:close');
+                                    window.location.reload();    
+                                }else{
+                                    $('#modal').find('div.content').empty().html(data.html);
+                                    delegate($('div.content'));
+                                }
+                                $('#modal .loader').toggle();
+                                $('#modal .content').toggle();
+                            }
+                        });
+                    }
+                });
+
+                delegate = function(parent){
+                    $('#modal').find('form').iframePostForm({
+                        json: true,
+                        post: function(){
+                            $('#modal .loader').toggle();
+                            $('#modal .content').toggle();
+                        },
+                        complete: function(data){
+                            if(data.success){
+                                parent.find('form').trigger('reveal:close');
+                                window.location.reload();    
+                            }else{
+                                parent.empty().html(data.html);
+                                delegate(parent);
+                            }
+                            $('#modal .loader').toggle();
+                            $('#modal .content').toggle();
+                        }
+                    });
+                }
+                
+            });
+        })(jQuery);
+    </script>
+{% endblock %}
+

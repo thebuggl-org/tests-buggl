@@ -1,0 +1,154 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block modal %}
+	{% include 'BugglMainBundle:LocalAuthor/Profile:modals.html.twig' with {'title':'','includeProfilePicModal':true} %}
+{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<article class="column grid_12 infoContainer">
+			<div class="row">
+				<section class="column custom grid_12">
+					<div class="intro">
+						<h1>Buggl let’s you make money sharing your travel knowledge</h1>
+					</div>
+					<div class="hd-image" style="background:transparent url('{{ asset('/bundles/bugglmain/images/custom/random5_940px.jpg') }}') no-repeat left top;">
+						<p>Join our community of travelers sharing their insider secrets with amazing people around the world.</p>
+						{% if app.user %}
+							{% if app.user.isLocalAuthor %}
+								<a href="{{ path('add_travel_guide_info') }}" class="btn">Create your first travel guide</a>
+							{% else %}
+								{#<a class="btn editInfo" data-success-behavior="reload" data-modal-title="Be a Local Author" onclick="return false" href="{{ path('get_profile_form',{'buildFor':'location' }) }}">Write your first travel guide (it's free)</a>#}
+								<a class="btn" data-success-behavior="reload" data-modal-title="Be a Local Author" href="{{ path('account_upgrade')  ~ '?redirect=' ~ url('add_travel_guide_info', {}, true) }}">Write your first travel guide (it's free)</a>
+							{% endif %}
+						{% else %}
+						    <a href="#" data-reveal-id="loginModal" class="btn">Write your first travel guide (it's free)</a>
+						{% endif %}
+						<p>Design a guide and create your own story.</p>
+					</div>
+					{#
+						
+					<div class="bx">
+						<h2>Buggl travel insiders are...</h2>
+						<p>Bloggers, digital nomads, wildlife experts, filmmakers, winemakers and just ordinary people who want to design travel guides for their friends.</p>
+					</div>
+					<div class="bx">
+						<h2>Travel Insiders have...</h2>
+						<p>Cool and interesting travel knowledge that they want to share to friends or the world. A passion for traveling and showing others how to better. Fresh and authentic travel guides that show an understanding for where they’ve been or live.</p>
+					</div>
+						
+					#}
+					<div class="bx divide">
+						<h2>Why design a travel guide?</h2>
+						<ol>
+							<li>
+								<p>If you have friends or family coming into town to visit who need help and advice on where to stay, what to eat and where to go.</p>
+							</li>
+							<li>
+								<p>If you’ve taken epic travels abroad that you want to remember in the future or share out with friends to show them how to do it. </p>
+							</li>
+							<li>
+								<p>If you’re an insider at home or abroad that has knowledge about a particular destination that’s worthwhile to share to friends or to an online audience you already have.</p>
+							</li>
+						</ol>
+					</div>
+					<div class="bx divide">
+						<h2>Begin earning money in 3 simple steps:</h2>
+						<ul class="stp"> 
+							<li>
+								<img src="{{ asset('/bundles/bugglmain/images/custom/custom-write.png') }}" border="0" align="left">
+								<h3>Design A Guide</h3>
+								<p>Make a beautiful travel guide with an itinerary in minutes.</p>	
+							</li>
+							<li>
+								<img src="{{ asset('/bundles/bugglmain/images/custom/custom-profile.png') }}" border="0" align="left">
+								<h3>Share Secrets</h3>
+								<p>Put a price on your favorite places, hangouts and secrets that travelers should know about.</p>
+							</li>  
+							<li>
+								<img src="{{ asset('/bundles/bugglmain/images/custom/custom-paid.png') }}" border="0" align="left">
+								<h3>Custom Requests</h3>
+								<p>Field worldwide requests from people who are willing to pay for your knowledge</p>
+							</li>
+						</ul>
+					</div>
+					<div class="bx divide">
+						<h2>Sharing your travel knowledge means you can...</h2>
+						<ul class="fourth"> 
+							<li>
+								<h3>Become a Global Influencer.</h3>
+								<p>Gain credibility and get noticed worldwide by sharing knowledge with travelers from around the world. Seek others like you out on your next trip away.</p>								
+							</li>
+							<li>
+								<h3>Tell your story.</h3>
+								<p>Enjoy the thrill of helping people like you learn what to experience where you live. Give people the real story behind your city, country or region.</p>
+							</li>  
+							<li>
+								<h3>Earn Money.</h3>
+								<p>Make additional income or turn the love for your area into a real business. It's time you put your knowledge to use and helped travelers gather real advice.</p>
+							</li>
+							<li>
+								<h3>Help your community.</h3>
+								<p>Tell people the right places to go and things to do.  Bring awareness to lesser known events and locations otherwise forgotten from old travel guides and websites.</p>
+							</li>
+						</ul>
+					</div>
+					<div class="bx divide">
+						<h2>What every Buggl Expert gets in return:</h2>
+						<ul class="fourth"> 
+							<li>
+								<h3>Flexible Pricing</h3>
+								<p>Set the price on what you think your knowledge is worth and adjust accordingly. Create a full itinerary or share a few secret places only you can help people find.</p>								
+							</li>
+							<li>
+								<h3>Online Transactions</h3>
+								<p>Buggl handles all payments to ensure you get paid, and on time. Our platform allows you to accept credit cards from anywhere in the world, securely.</p>
+							</li>  
+							<li>
+								<h3>Easy-to-use</h3>
+								<p>Our build a guide process allows you to easily create, edit and promote your travel guides at anytime. The Buggl dashboard gives you complete control over monitoring your payments and viewing customer data.</p>
+							</li>
+							<li>
+								<h3>Expert Perks</h3>
+								<p>Once invited into our community you'll have access to exclusive perks. How much depends on the quality of how you design a travel guide or share a few secrets.</p>
+							</li>
+						</ul>
+					</div>
+					<div class="bx btmlink">
+						<p>Spread your travel knowledge to people who value it and will pay for it.</p>
+						{% if app.user %}
+							{% if app.user.isLocalAuthor %}
+								<a href="{{ path('add_travel_guide_info') }}" class="btn">Create your first travel guide</a>
+							{% else %}
+								<a class="btn editInfo" data-success-behavior="reload" data-modal-title="Be a Local Author" onclick="return false" href="{{ path('get_profile_form',{'buildFor':'location' }) }}">Create your first travel guide</a>
+							{% endif %}
+						{% else %}
+						    <a href="#" data-reveal-id="loginModal" class="btn">Create your first travel guide</a>
+						{% endif %}
+						
+					</div>																										
+				</section>
+			</div>
+		</article>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	 
+	<script src="https://maps.googleapis.com/maps/api/js?key={{googleApiKey}}&sensor=false&libraries=places" type="text/javascript"></script>
+	
+	{% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.iframe-post-form.js'
+		'@BugglMainBundle/Resources/public/js/LocalAuthor/Profile/jquery.modal-edit.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+{% endblock %}

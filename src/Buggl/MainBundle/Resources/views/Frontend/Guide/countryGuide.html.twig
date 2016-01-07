@@ -1,0 +1,52 @@
+{% extends "BugglMainBundle:Markup/Markup:countryGuide.html.twig" %}
+
+{% block title %} Buggl - {{ country.name }} Guides{% endblock %}
+
+{% block breadcrumbs %} 
+    {% include 'BugglMainBundle:Frontend/Main:breadcrumbs.html.twig' 
+        with {'current': breadcrumbs.current, 'links': breadcrumbs.links, 'showAddThisWidget' : false} %}
+{% endblock %}
+
+
+{% block interest_title %}
+    {{ "Interests in "~country.name  }}
+{% endblock %}
+
+{% block interests %}
+    {% render 'BugglMainBundle:Frontend/Guide:countryInterest' with {country:country, baseUrl:baseUrl} %}
+{% endblock %}
+
+{% block featured_guide_title %}
+    {{ "Featured Guides in "~country.name }}
+{% endblock %}
+
+{% block featured_guides %}
+    {% render 'BugglMainBundle:Frontend/Guide:featuredInCountry' with {country:country.id} %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        (function($){
+            $().ready(function(){
+                $('#hide').hide();
+
+                if($('#hide').length == 0){
+                    $('#toggle').hide();
+                }
+            });
+
+            $('#toggle').click(function(event){
+                event.preventDefault();
+                $('#hide').slideToggle(0,'linear',function(){
+                    if($('#hide').is(':visible')){
+                        $('#toggle').text('Show less')
+                    }
+                    else{
+                        $('#toggle').text('Browse all country interests')   
+                    }
+                });
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "BugglMainBundle:Markup/Markup:adminMessagesLayout.html.twig" %}
+
+{% block title %}Local Requests{% endblock %}
+
+{% set status= "locationrequest" %}
+
+{% block list %}
+	<div id="main_content">
+		<div class="row">
+		    <ul class="eguide-list site-admin-list">
+		        {% for entry in data %}
+		            <li class="clearfix">
+		                <div class="to-left">
+		                    <h3>{{entry.country}}</h3>
+		                    <span class="eguide-requests" >Number of Requests: {{ entry.count}}</span>
+		                </div>
+		                <ul class="site-admin-list-actions to-right horizontalize">
+		                    <li><a href="{{ path('admin_local_request_message_approve', {country:entry.country}) }}" name="approve">Approve</a></li>
+		                </ul>
+		            </li>
+		        {% endfor %}
+		    </ul>
+		</div>
+	</div>
+	{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':page,'itemCount':countrycount,'itemLimit':limit} %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src='{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js') }}' type='text/javascript'> </script>
+{% endblock %}

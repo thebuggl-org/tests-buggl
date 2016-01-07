@@ -1,0 +1,76 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Beta Invites{% endblock %}
+
+{% block precontent_title %}
+	Beta Invites
+{% endblock %}
+
+{% set active = '' %}
+
+{% block main_content %}	
+	<div class="row">
+		<aside class="admin-messages column grid_4">
+			<section class="profile">
+				<nav class="clearfix clear">
+					<a href="{{ path('local_author_beta_invite_list') }}" class="{{ activeTab == 'pending' ? 'active' : ''}}"><span class="ico"></span>Pending</a>
+					<a href="{{ path('local_author_beta_invite_list',{'type':'accepted'}) }}" class="{{ activeTab == 'accepted' ? 'active' : ''}}"><span class="ico"></span>Accepted</a>
+				</nav>
+			</section>			
+		</aside>
+		{% block inner_content %}
+			<article class="grid_8 column" id="paginationContainer">	
+				{% render 'BugglMainBundle:LocalAuthor/BetaInvite:inviteList' with {'type':activeTab} %}
+			</article>
+		{% endblock %}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	{% javascripts 
+		'@BugglMainBundle/Resources/public/js/jquery.pagination.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+				$('.bugglPagination').paginate();
+				
+				$('#paginationContainer').on('click','.addButton',function(e){
+					e.preventDefault();
+					$('#formModal').reveal({'closeOnBackgroundClick':false});
+					
+					$('#formModal .content').empty();
+					$('#formModal .loader').show();
+					$('#formModal #modalTitle').empty().html('Beta Invite');
+					$('#formModal').reveal({'closeOnBackgroundClick':false});
+					$.get($(this).attr('href'),function(response){
+						$('#formModal .loader').hide();
+						$('#formModal .content').empty().html(response.html);
+						
+						$('#formModal .content').on('submit','#inviteForm',function(e){
+							e.preventDefault();
+							$('#formModal .loader').show();
+
+							$.post($(this).attr('action'), $(this).serialize(), function(response){
+								$('#formModal .loader').hide();
+								if(response.status == 'SUCCESS'){
+									$('#formModal').trigger('reveal:close');
+									window.location.reload();
+								}	
+								else{
+									$('#formModal .content').empty().append(response.html);
+								}
+							});
+						});
+					});
+				});
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

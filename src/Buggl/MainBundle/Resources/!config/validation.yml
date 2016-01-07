@@ -1,0 +1,48 @@
+
+# Validation Rules
+
+Buggl\MainBundle\Entity\LocalAuthor:
+  properties:
+    firstName: 
+      - NotBlank: { message: 'Required' }
+    lastName:
+      - NotBlank: { message: 'Required' }
+    email:
+      - NotBlank: { message: 'Required' }
+      - Email: { message: 'Invalid Email Address' }
+
+Buggl\MainBundle\Entity\LocalPassion:
+  properties:
+    title: 
+      - NotBlank: { message: 'Required' }
+    content:
+      - NotBlank: { message: 'Required' }
+    imageFilename:
+      - NotBlank: { message: 'Required' }
+
+Buggl\MainBundle\Entity\LocalReference:
+  properties:
+    name: 
+      - NotBlank: { message: 'Required' }
+    referenceEmail:
+      - NotBlank: { message: 'Required' }
+      - Email: { message: 'Invalid Email Address' }
+    comment:
+      - NotBlank: { message: 'Required' }
+
+Buggl\MainBundle\Entity\StaticContent:
+  properties:
+    url:
+      - NotBlank: { message: 'Required' }
+    title:
+      - NotBlank: { message: 'Required' }
+
+Buggl\MainBundle\Entity\PaypalInfo:
+  properties:
+    firstName:
+      - NotBlank: { message: 'Required' }
+    lastName:
+      - NotBlank: { message: 'Required' }
+    email:
+      - NotBlank: { message: 'Required' }
+      - Email: { message: 'Invalid Email Address' }

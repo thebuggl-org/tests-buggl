@@ -1,0 +1,14 @@
+{% for localInterest in localInterests %}
+	<li id="{{ 'localInterest_' ~ localInterest.id }}" data-local-interest-id={{ localInterest.id }} >
+		{% if localInterest.imageWebPath is null or localInterest.imageWebPath is empty %}
+			<img src="{{ asset('/bundles/bugglmain/images/custom/dancing_144px.jpg') }}" border="0" align="left" class="fr" width="120"/>
+		{% else %}
+			<img src="{{ asset(localInterest.imageWebPath) }}" border="0" align="left" class="fr" width="120"/>
+		{% endif %}
+		
+		<h4>{{ localInterest.title }}</h4>
+		<p>{{ localInterest.content }}</p>
+		<a href="{{ path('edit_local_interest', {localInterestId : localInterest.id}) }}" class="client-edit-button editInterest" onclick="return false">EDIT</a>
+		<a href={{ path('delete_local_interest', {localInterestId : localInterest.id}) }} class="client-edit-button deleteInterest" onclick="return false">DELETE</a>
+	</li>
+{% endfor %}

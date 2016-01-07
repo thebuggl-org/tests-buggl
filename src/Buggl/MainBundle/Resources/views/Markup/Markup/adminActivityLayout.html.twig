@@ -1,0 +1,47 @@
+{% extends 'BugglMainBundle:Markup:adminLayout.html.twig' %}
+
+{% block modal %}
+    <div class="reveal-modal" style="display:none" id="modal">
+        <h2>Add Activity/Interest<a class="close-reveal-modal">&#215;</a></h2>  
+        <span class="loader">Fetching Information</span>
+        <div class="content">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+    	<section class="admin-activities">
+    		<div class="reg_box">
+		        <p class="admin-breadcrumbs">
+		            <a href="">{{ status|capitalize }}</a>
+		        </p>
+		        
+		        <div class="content"> 
+						            <a id="add-category" class="site-admin-button" href="{{ path('admin_category_add_form') }}">+ Activity/Interest</a>	
+		            <ul class="site-admin-tabs horizontalize">
+		                <li class="{{ status|selected('published','active') }}"><a href="{{ path('admin_activity_interest') }}">Published</a></li>
+		                <li class="{{ status|selected('unpublished','active') }}"><a href="{{ path('admin_activity_interest_unpublished') }}">Unpublished</a></li>
+		                <li class="{{ status|selected('custom','active') }}"><a href="{{ path('admin_activity_interest_custom') }}">Custom Added</a></li>
+		            </ul>
+		        </div>
+		        {% block list %}
+		        {% endblock %}
+    		</div>
+    	</section>			        
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/category.js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            // (function($){
+            //     $(document).ready(function(){
+            //         // $('#modal').
+            //     });
+            // })(jQuery);
+        </script>
+    {% endjavascripts %}
+{% endblock %}

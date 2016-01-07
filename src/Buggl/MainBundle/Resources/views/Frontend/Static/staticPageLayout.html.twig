@@ -1,0 +1,41 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %}Buggl{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <article class="column grid_12">
+            <div class="row">
+                <section class="column grid_12">
+                    <div class="row">
+						<section class="column grid_8">
+							<div class="db_box">
+		                        {% block static_content %}
+								{% endblock %}
+							</div>
+						</section>
+                        {% block about_navigation %}
+                             <aside class="column grid_4">
+                                <section class="sidelist">
+                                    <ul>
+										{% if false %}
+											{# these links have own static pages #}
+											<li class="{{ activeNav | selected('about-us','selected') }}"><a href="{{ path('buggl_eguide_static_page',{'slug':'about-us'}) }}"><span class="ico"></span>About Us</a></li>
+											<li class="{{ activeNav | selected('terms-of-use','selected') }}"><a href="{{ path('buggl_eguide_static_page',{'slug':'terms-of-use'}) }}"><span class="ico"></span>Terms of Use</a></li>
+											<li class="{{ activeNav | selected('faq','selected') }}"><a href="{{ path('buggl_eguide_static_page',{'slug':'faq'}) }}"><span class="ico"></span>F.A.Q.</a></li>
+											<li class="{{ activeNav | selected('contact-us','selected') }}"><a href="{{ path('buggl_eguide_static_page',{'slug':'contact-us'}) }}"><span class="ico"></span>Contact Us</a></li>
+											<li class="{{ activeNav | selected('jobs','selected') }}"><a href="#"><span class="ico"></span>Jobs</a></li>
+	                                        <li class="{{ activeNav | selected('press-release','selected') }}"><a href="#"><span class="ico"></span>Press Release</a></li>
+										{% endif %}
+                                        <li class="{{ activeNav | selected('our-mission','selected') }}"><a href="{{ path('buggl_eguide_static_page') }}"><span class="ico"></span>Our Mission</a></li>
+										<li class="{{ activeNav | selected('privacy-policy','selected') }}"><a href="{{ path('buggl_static_privacy_policy') }}"><span class="ico"></span>Privacy Policy</a></li>
+                                    </ul>
+                                </section>
+                            </aside>
+                        {% endblock %}
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+{% endblock %}

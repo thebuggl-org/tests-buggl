@@ -1,0 +1,31 @@
+<section>
+	<h3>Featured Guides</h3>
+	<ul class="dreamlist">
+		{% for guide in guides %}
+			<li class="feature mini">
+				<a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}" class="cover-hover"></a>
+				<div class="tag"><span>{{ guide.price|renderPrice }}</span></div>
+				<h3 class="title">
+					{# <a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}">{{ guide.plainTitle }}</a> #}
+					<a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}" style="font-size:{{ guide.plainTitle|length > 40 ? '18.4' : '23' }}px">{{ guide.title | raw }}</a>
+					<span>
+						{{ guide.excerpts | raw }}
+					</span>	
+				</h3>
+				<img border="0" align="left" alt="Guide {{ guide.plainTitle }} cover" src="{{ asset(guide | getEguidePhoto) }}" width="198" height="296"/>
+				<span class="country">{{ guide.country.name }}</span>
+				<span class="update">{{ guide.dateUpdated | showTimeElapsedForEguideUpdate }}</span>
+			</li>
+		{% endfor %}
+		{% if guides == false %}
+			<p class="inform">No featured guides yet. 
+				{% if app.user.id is defined and ownPage %}
+					<a href="{{ path('local_author_eguides',{'status':'published'}) }}">Click to feature guides</a>
+				{% endif %}
+			</p>
+		{% endif %}											
+	</ul>
+	{% if totalPublishedGuides > guides|length %}
+	<a href="{{ path('local_author_guide_list', {slug : localAuthor.slug}) }}" class="more-guides btn">View All {{totalPublishedGuides}} Guides</a>
+	{% endif %}
+</section>

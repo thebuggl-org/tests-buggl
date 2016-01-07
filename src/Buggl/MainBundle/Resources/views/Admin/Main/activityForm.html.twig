@@ -1,0 +1,17 @@
+<form method="post" action="{{ path('admin_category_save') }}" novalidate>
+    <ul>
+        <li>
+            <label>Name</label>
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </li>
+        <li>
+            <label>Published?</label>
+            {{ form_widget(form.is_published) }}
+            {{ form_errors(form.is_published) }}
+        </li>
+
+        {{ form_rest(form) }}
+    </ul>
+    <input type="submit">
+</form>

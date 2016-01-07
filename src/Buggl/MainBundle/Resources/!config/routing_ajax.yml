@@ -1,0 +1,31 @@
+get_country_cities:
+    pattern: /ajax/fetch-country-cities
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:getCountryCities, _format: json }
+
+get_country_categories:
+    pattern: /ajax/fetch-country-categories
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:getCountryCategories, _format: json }
+
+get_spot_categories:
+    pattern: /ajax/fetch-spot-categories
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:getSpotCategories, _format: json }
+
+get_spot_likes:
+    pattern: /ajax/fetch-spot-likes
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:getSpotLikes, _format: json }
+
+get_country_list:
+    pattern: /ajax/fetch-buggl-countries
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:getCountryList, _format: json }
+
+get_interests:
+    pattern: /ajax/fetch-interests
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:getInterests, _format: json }
+    
+google_custom_search:
+    pattern: /ajax/google-custom-search
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:googleCustomSearch, _format: json }
+
+check_country_list:
+    pattern: /ajax/check-buggl-countries
+    defaults: { _controller: BugglMainBundle:Ajax\Ajax:checkCountry, _format: json }

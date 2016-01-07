@@ -1,0 +1,367 @@
+admin_home:
+    pattern: /
+    defaults: { _controller: BugglMainBundle:Admin\Main:index }
+
+admin_ajax_get_city_in_options:
+    pattern: /ajax-get-city
+    defaults: { _controller: BugglMainBundle:Admin\Author:getCity }
+#category, activity / interest
+#category in database - term is activity/interest
+#start
+
+admin_activity_interest:
+    pattern: /activities-and-interests
+    defaults: { _controller: BugglMainBundle:Admin\Activity:index }
+
+admin_activity_interest_unpublished:
+    pattern: /activities-and-interests/unpublished
+    defaults: { _controller: BugglMainBundle:Admin\Activity:unpublished }
+
+admin_activity_interest_custom:
+    pattern: /activities-and-interests/local-author-added
+    defaults: { _controller: BugglMainBundle:Admin\Activity:localAuthorAdded }
+
+admin_activity_publish:
+    pattern: /activities-and-interest/published
+    defaults: { _controller: BugglMainBundle:Admin\Activity:publish }
+
+admin_category_save:
+    pattern: /save-activity
+    defaults: { _controller: BugglMainBundle:Admin\Activity:saveActivity }
+
+admin_category_add_form:
+    pattern: /add-category-form
+    defaults: { _controller: BugglMainBundle:Admin\Activity:addForm }
+#end
+
+#trip theme
+#start
+
+admin_trip_theme:
+    pattern: /trip-themes
+    defaults: { _controller: BugglMainBundle:Admin\TripTheme:index}
+
+admin_trip_theme_save:
+    pattern: /save-trip-themes
+    defaults: { _controller: BugglMainBundle:Admin\TripTheme:save}
+
+admin_trip_theme_add_form:
+    pattern: /add-trip-theme-form
+    defaults: { _controller: BugglMainBundle:Admin\TripTheme:addForm}
+
+admin_trip_theme_publish:
+    pattern: /toggle-trip-theme/{id}
+    defaults: { _controller: BugglMainBundle:Admin\TripTheme:toggle }
+
+#end
+
+#travel guides
+#start
+admin_travel_guides:
+    pattern: /travel-guides
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:index }
+
+admin_travel_guides_active:
+    pattern: /travel-guides/active
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:active }
+
+admin_travel_guides_archived:
+    pattern: /travel-guides/archived
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:archived }
+
+admin_travel_guides_denied:
+    pattern: /travel-guides/denied
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:denied }
+
+admin_travel_guide_fetch:
+    pattern: /travel-guides/fetch-{status}
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:fetch }
+
+admin_buggl_eguide_overview:
+    pattern: /{slug}/overview
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:guideOverview }
+
+admin_buggl_eguide_full:
+    pattern: /{slug}/itinerary
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:fullGuide }
+
+admin_buggl_eguide_secrets:
+    pattern: /{slug}/local-secrets/{type}
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:localPlaces }
+
+admin_buggl_eguide_change_status:
+    pattern: /eguide/change-status/{status}-{id}
+    defaults: {  _controller: BugglMainBundle:Admin\TravelGuide:changeStatus }
+
+admin_message_guide:
+    pattern: /eguide/message
+    defaults: {  _controller: BugglMainBundle:Admin\TravelGuide:messageGuide }
+
+#end
+
+#locations
+#start
+admin_locations:
+    pattern: /locations
+    defaults: { _controller: BugglMainBundle:Admin\Location:index }
+
+admin_locations_country_form:
+    pattern: /locations/country-form
+    defaults: { _controller: BugglMainBundle:Admin\Location:getCountryForm }
+
+admin_locations_save_country:
+    pattern: /locations/save-country
+    defaults: { _controller: BugglMainBundle:Admin\Location:saveCountry }
+
+admin_locations_category_form:
+    pattern: /location/category-form
+    defaults: { _controller: BugglMainBundle:Admin\Location:getCategoryForm }
+
+admin_locations_save_category:
+    pattern: /locations/save-category
+    defaults: { _controller: BugglMainBundle:Admin\Location:saveCategory }
+
+admin_location_category_delete:
+    pattern: /delete-category
+    defaults: { _controller: BugglMainBundle:Admin\Location:deleteCategory }
+
+admin_locations_save_city:
+    pattern: /locations/save-city
+    defaults: { _controller: BugglMainBundle:Admin\Location:saveCity }
+
+admin_locations_city_form:
+    pattern: /location/city-form
+    defaults: { _controller: BugglMainBundle:Admin\Location:getCityForm }
+
+admin_location_fetch_eguide:
+    pattern: /location/fetch-guides
+    defaults: { _controller: BugglMainBundle:Admin\Location:fetchGuideByCountry }
+
+admin_locations_feature_guide:
+    pattern: /location/feature-guide
+    defaults: { _controller: BugglMainBundle:Admin\Location:featureGuide }
+
+# admin_continents:
+#     pattern: /locations/continent
+#     defaults: { _controller: BugglMainBundle:Admin\Location:continent }
+
+admin_countries:
+    pattern: /locations/countries
+    defaults: { _controller: BugglMainBundle:Admin\Location:country }
+
+admin_cities:
+    pattern: /locations/cities
+    defaults: { _controller: BugglMainBundle:Admin\Location:city }
+#end
+
+#start
+# GALLERY
+admin_gallery:
+    pattern: /gallery
+    defaults: { _controller: BugglMainBundle:Admin\Gallery:index }
+
+admin_gallery_fetch_more:
+    pattern: /fetch-more
+    defaults: {  _controller: BugglMainBundle:Admin\Gallery:fetchMore }
+#end
+
+#start
+admin_author:
+    pattern: /author
+    defaults: { _controller: BugglMainBundle:Admin\Author:index }
+
+admin_local_author_by_city:
+    pattern: /author-by-city
+    defaults: { _controller: BugglMainBundle:Admin\Author:getLocalAuthorByCity}
+
+admin_ajax_local_author:
+    pattern: /search-local-author
+    defaults: { _controller: BugglMainBundle:Admin\Author:searchLocalAuthor }
+
+admin_suspend_local_author:
+    pattern: /toggle-suspension
+    defaults: { _controller: BugglMainBundle:Admin\Author:toggleSuspension }
+
+admin_view_info:
+    pattern: /local-author/info/{id}
+    defaults: { _controller: BugglMainBundle:Admin\Author:info }
+#end
+
+admin_spots:
+    pattern: /spots
+    defaults: { _controller: BugglMainBundle:Admin\Spots:index }
+
+admin_spots_fetch:
+    pattern: /spots/fetch-more
+    defaults: { _controller: BugglMainBundle:Admin\Spots:fetchMore }
+#end
+
+#MESSAGES
+#start
+admin_messages:
+    pattern: /messages
+    defaults: { _controller: BugglMainBundle:Admin\Messages:index }
+
+admin_fetch_unread:
+    pattern: /fetch-message-unread
+    defaults: { _controller: BugglMainBundle:Admin\Messages:fetchUnreadMessage }
+
+admin_mark_as_read_message:
+    pattern: /message/mark-as-read
+    defaults: { _controller: BugglMainBundle:Admin\Messages:markAsRead }
+
+admin_local_request_message:
+    pattern: /messages/localrequests
+    defaults: { _controller: BugglMainBundle:Admin\Messages:fetchLocalRequestMessage}
+
+admin_local_request_message_approve:
+    pattern: /messages/localrequests/{country}
+    defaults: { _controller: BugglMainBundle:Admin\Messages:updateLocalRequestMessage}
+
+admin_guide_request_message:
+    pattern: /messages/guide-request
+    defaults: { _controller: BugglMainBundle:Admin\Messages:guideRequest }
+
+admin_contact_us:
+    pattern: /messages/contact-us
+    defaults: { _controller: BugglMainBundle:Admin\Messages:contactUs }
+
+admin_fetch_contact_us:
+    pattern: /messages/fetch-contact-us
+    defaults: { _controller: BugglMainBundle:Admin\Messages:fetchContactUs }
+#end
+
+admin_content:
+    pattern: /content
+    defaults: { _controller: BugglMainBundle:Admin\Content:index }
+
+admin_content_add:
+    pattern: /content/add
+    defaults: { _controller: BugglMainBundle:Admin\Content:add }
+
+admin_content_edit:
+    pattern: /content/edit/{contentId}
+    defaults: { _controller: BugglMainBundle:Admin\Content:Edit }
+
+
+
+admin_content_delete:
+    pattern: /content/delete/{contentId}
+    defaults: { _controller: BugglMainBundle:Admin\Content:delete }
+
+#end
+
+#Ad
+#start
+admin_ad:
+    pattern: /ad
+    defaults: { _controller: BugglMainBundle:Admin\Ad:index }
+
+admin_ad_feature_guide:
+    pattern: /ad/feature-guide
+    defaults: {  _controller: BugglMainBundle:Admin\Ad:featureAd }
+
+admin_spotlight:
+    pattern: /ad/spotlight
+    defaults: { _controller: BugglMainBundle:Admin\Ad:spotLight }
+
+remove_spotlight:
+    pattern: /ad/remove-spotlight
+    defaults: { _controller: BugglMainBundle:Admin\Ad:removeSpotLight }
+
+admin_featured:
+    pattern: /ad/featured
+    defaults: { _controller: BugglMainBundle:Admin\Ad:featured }
+
+admin_unfeature:
+    pattern: /ad/unfeature/{guideId}
+    defaults: { _controller: BugglMainBundle:Admin\Ad:unfeature }
+
+admin_ajax_get_guide_info:
+    pattern: /ajax-get-guide-info
+    defaults: { _controller: BugglMainBundle:Admin\Ad:getGuideInfo }
+
+admin_get_rotating_photo_form:
+    pattern: /ajax-get-rotating-photo-form
+    defaults: { _controller: BugglMainBundle:Admin\Ad:getRotatingFeatureForm }
+
+admin_rotating_feature_delete:
+    pattern: /ad/rotating-feature-delete/{id}
+    defaults: { _controller: BugglMainBundle:Admin\Ad:deleteRotatingFeature }
+
+#end
+
+
+#dashboard
+#start
+admin_dashboard:
+    pattern: /dashboard
+    defaults: { _controller: BugglMainBundle:Admin\Dashboard:index }
+#end
+
+
+
+admin_eguide_ranking:
+    pattern: /dashboard/eguide-ranking
+    defaults: { _controller: BugglMainBundle:Admin\Dashboard:eguideRank }
+
+admin_user_ranking:
+    pattern: /dashboard/user-ranking
+    defaults: { _controller: BugglMainBundle:Admin\Dashboard:userRank }
+#end
+
+
+
+#billing
+#start
+admin_billing:
+    pattern: /billing
+    defaults: { _controller: BugglMainBundle:Admin\Billing:index }
+
+admin_billing_search:
+    pattern: /billing/search
+    defaults: { _controller: BugglMainBundle:Admin\Billing:search }
+#end
+
+
+admin_login:
+    pattern: /login
+    defaults: { _controller: BugglMainBundle:Admin\Login:login }
+
+admin_login_check:
+    pattern: /login_check
+
+admin_logout:
+    pattern: /logout
+
+#ajax request
+
+admin_unfeatured_guide:
+    pattern: /get-unfeatured-guides
+    defaults: { _controller: BugglMainBundle:Admin\TravelGuide:featured }
+
+#beta invite
+admin_beta_invite_list:
+    pattern: /beta-invites/{type}
+    defaults: { _controller: BugglMainBundle:Admin\BetaInvite:index }
+
+admin_beta_invite:
+    pattern: /invite-for-beta
+    defaults: { _controller: BugglMainBundle:Admin\BetaInvite:invite }
+
+admin_beta_invite_pagination:
+    pattern: /beta-invites-list/{type}
+    defaults: { _controller: BugglMainBundle:Admin\BetaInvite:inviteList }
+
+admin_beta_invite_resend:
+    pattern: /beta-invite/resend/{id}
+    defaults: { _controller: BugglMainBundle:Admin\BetaInvite:resend }
+
+admin_beta_invite_delete:
+    pattern: /beta-invite/delete/{id}
+    defaults: { _controller: BugglMainBundle:Admin\BetaInvite:delete }
+
+# export to csv
+admin_export_local_author_to_csv:
+    pattern: /export-local-author-to-csv
+    defaults: { _controller: BugglMainBundle:Admin\Author:exportToCsv }

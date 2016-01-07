@@ -1,0 +1,10 @@
+{% if incompleteData is not empty %}
+	<section class="progress lista">
+		<div><p class="fl"><strong>Your profile page is around <a href="{{ path('local_author_profile',{'slug':app.user.slug}) }}">{{ percentage }}%</a> complete</strong></p>
+			<nav class="mini fr"><a href="{{ path('local_author_profile',{'slug':app.user.slug}) }}" class="btn fr complete-button" target="_blank">complete it here</a></nav>
+		</div>
+		{% for data in incompleteData %}
+			<div><p> {{ data }} </p></div>
+		{% endfor %}
+	</section>
+{% endif %}

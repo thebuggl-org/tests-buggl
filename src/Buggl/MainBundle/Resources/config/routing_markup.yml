@@ -1,0 +1,67 @@
+homepage_mark_up:
+    pattern: /markup/homepage
+    defaults: { _controller: BugglMainBundle:Markup\Markup:homepage }
+
+profile_mark_up:
+    pattern: /markup/profile
+    defaults: { _controller: BugglMainBundle:Markup\Markup:localExpertProfile }
+
+result_page_mark_up:
+    pattern: /markup/result-page
+    defaults: { _controller: BugglMainBundle:Markup\Markup:resultPage }
+
+full_page_mark_up:
+    pattern: /markup/full-page
+    defaults: { _controller: BugglMainBundle:Markup\Markup:fullpage }
+
+full_page_local_places_mark_up:
+    pattern: /markup/local-places
+    defaults: { _controller: BugglMainBundle:Markup\Markup:localPlaces }
+
+contact_us_mark_up:
+    pattern: /markup/contact-us
+    defaults: { _controller: BugglMainBundle:Markup\Markup:contactUs}
+
+about_us_mark_up:
+    pattern: /markup/about-us
+    defaults: { _controller: BugglMainBundle:Markup\Markup:aboutUs}
+
+our_story_mark_up:
+    pattern: /markup/our-story
+    defaults: { _controller: BugglMainBundle:Markup\Markup:ourStory}
+
+our_mission_mark_up:
+    pattern: /markup/our-mission
+    defaults: { _controller: BugglMainBundle:Markup\Markup:ourMission}
+
+press_release_mark_up:
+    pattern: /markup/press-release
+    defaults: { _controller: BugglMainBundle:Markup\Markup:pressRelease }
+
+guide_overview_mark_up:
+    pattern: /markup/guide-overview
+    defaults: { _controller: BugglMainBundle:Markup\Markup:guideOverview }
+
+guide_before_leaving_mark_up:
+    pattern: /markup/guide-before-leaving
+    defaults: { _controller: BugglMainBundle:Markup\Markup:guideBeforeLeaving }    
+
+guide_itinerary_mark_up:
+    pattern: /markup/guide-itinerary
+    defaults: { _controller: BugglMainBundle:Markup\Markup:guideItinerary }
+
+become_a_guid_mark_up:
+    pattern: /markup/become-a-guide
+    defaults: { _controller: BugglMainBundle:Markup\Markup:becomeAguide }
+
+admin_index_for_mark_up:
+    pattern: /markup
+    defaults: { _controller: BugglMainBundle:Markup\Markup:index }
+
+admin_login_mark_up:
+    pattern: /markup/admin/login
+    defaults: { _controller: BugglMainBundle:Markup\Markup:adminLogin }
+
+admin_mark_up:
+    pattern: /markup/admin
+    defaults: { _controller: BugglMainBundle:Markup\Markup:admin }

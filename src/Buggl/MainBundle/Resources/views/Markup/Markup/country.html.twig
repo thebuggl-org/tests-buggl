@@ -1,0 +1,30 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %}Homepage Markup{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <header class="column grid_12">
+            <a href="#" class="hdlink">want more guides?</a>
+            <h2>Country Guides</h2>
+        </header>
+        {% for i in 1..6 %}
+            <section class="column grid_4">
+                <div class="feature">
+                	<p class="price">$9<span>.99</span></p>
+                    <img src="{{ asset('bundles/bugglmain/images/custom/300_200.jpg') }}" border="0" alt=" " align="left"/>
+                </div>
+                <div class="reg_box clearfix">
+                    <a class="subphoto" href="{{ path('guide_overview_mark_up') }}"><img border="0" alt=" " src="{{ asset('bundles/bugglmain/images/custom/60_60.jpg') }}"></a>
+                    <h3 class="title"><a href="{{ path('guide_overview_mark_up') }}">"Bora" Boracay Travel Gu...</a></h3>
+                    <a href="{{ path('profile_mark_up') }}" class="subtext">Galileo Figaro Magnifico</a>
+                    <a class="subtext" href="{{ path('guide_overview_mark_up') }}">Dancer</a>	
+                </div>
+                <div class="sml_box">
+                    <a class="star fl" href="#">3<span class="ico"></span></a>
+                    <a href="#" class="sclink">view more<span class="ico"></span></a>
+                </div>
+            </section>
+        {% endfor %}       
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	{% if isAdmin %}
+		<p style="font-size: 13px; ">You have been invited to check out Buggl, a place to discover and design travel guides. </p>
+	{% else %}
+		<p style="font-size: 13px; ">{{ invite.sender.name }} has invited you to check out Buggl, a place to discover and design travel guides. </p>
+	{% endif %}
+	<p style="font-size: 13px; ">Have friends visiting who need local advice on what to do?  Sharing travel tips to a friend going abroad to somewhere you’ve been?  Do you have unique knowledge about a place and want to earn income?</p>
+	<p style="font-size: 13px; ">We designed Buggl for travelers to share their knowledge about where they live and have traveled to.  It’s free, easy and shareable across all your social networks.</p>
+	<p style="font-size: 13px; ">Start discovering and designing <a href="{{ link }}">today</a> 
+		{% if not isAdmin %}
+			or check out <a href="{{ link2 }}">{{ invite.sender.name }}'s</a> knowledge.
+		{% endif %}
+	</p>
+	
+	<p>Start living,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

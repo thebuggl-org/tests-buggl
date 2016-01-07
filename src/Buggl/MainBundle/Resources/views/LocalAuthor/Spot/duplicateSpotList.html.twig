@@ -1,0 +1,23 @@
+<h2>Already Added</h2>
+<h4>The place you are about to add in the city guide seems to have been added by another user.</h4>	
+<div>
+	<p>Please look below and see if any of the shown places matches the one you wish to add.</p>
+	<ul id="possible-duplicate-spot-list">
+		{% for spot in spots %}
+		<li class="clearfix">
+			<input type="radio" name="possible-spot-duplicate" class="to-left" value="{{ spot.id }}" data-spotname="{{spot.name}}"/>
+			<div class="to-left">
+ 			<h4>{{ spot.name }}</h4>
+ 			<span>{{ spot.address }}</span>
+			</div>
+		</li>
+		{% endfor %}
+	
+		<li class="clearfix">
+			<input type="radio" name="possible-spot-duplicate" class="to-left" value="0"/>
+			<div class="to-left">
+ 			<h4>None of them</h4>
+			</div>
+		</li>
+	</ul>
+</div>

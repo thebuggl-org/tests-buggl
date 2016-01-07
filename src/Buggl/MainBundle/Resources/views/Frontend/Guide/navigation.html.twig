@@ -1,0 +1,29 @@
+<nav>
+	<a href="{{ path('buggl_eguide_overview',{'slug':guide.slug}) }}" class="{{ activeTab | selected('overview','selected') }}">Overview</a>
+    <a href="{{ path('buggl_eguide_secrets',{'slug':guide.slug,'type':'all'}) }}" class="{{ activeTab | selected('local-secrets','selected') }}">Local Secrets</a>
+	{% set itinerary = guide | getItinerary %}
+	{% if itinerary is not empty %}
+		<a href="{{ path('buggl_eguide_full',{'slug':guide.slug}) }}" class="{{ activeTab | selected('full-guidebook','selected') }}">Itinerary</a>
+	{% endif %}
+
+	{% render 'BugglMainBundle:Frontend/Main:renderPaypalPaymentButton' with {'eguideId':guide.id}%}
+
+	{% block wishlist %}
+		{% render 'BugglMainBundle:Frontend/Wishlist:addWishlistButton' with {'eguide':guide.id,'slug':guide.slug} %}
+	{% endblock %}
+
+	{#
+	{%
+		include 'BugglMainBundle:LocalAuthor/Misc:addThisWidget.html.twig'
+		with {
+			'twitterOptions' : {
+				'via' : "Buggl",
+				'text' : 'Check out this cool live travel guide on Buggl '~guide.plainTitle,
+			},
+			'fbOptions' : {
+				'fb:like:layout' : "button_count",
+			}
+		}
+	%}
+	#}
+</nav>

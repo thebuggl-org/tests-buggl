@@ -1,0 +1,25 @@
+{% set limit = 3 %}
+{% set cnt = 0 %}
+{% for list in lists %}
+     <li {{ cnt >= limit ? 'style="display:none;"' : 'style="display:block;"' }} class="{{ 'review_'~(cnt//limit + 1) }} review">
+        <img src="{{ asset(list.reviewer | userPic) }}" border="0" align="left" width="60" height="60" alt="{{ list.reviewer.name }}"/>
+		<div>
+            {% if list.reviewer.isLocalAuthor %}
+                <a href="{{ path('local_author_profile' , {'slug' : list.reviewer.slug}) }}" class="name">{{ list.reviewer.name }}</a>
+            {% else %}
+                {{ list.reviewer.name }}
+            {% endif %}
+            {% if isTravelGuide %}
+                <a href="#" class="star clearfix">{#{ list.rating }#}
+                    {% for i in 1..list.rating %}
+                    <span class="ico"></span>
+                    {% endfor %}
+                </a>
+            {% endif %}
+			<p>{{ list.content }}</p>
+		</div>
+    </li>
+	{% set cnt = cnt + 1 %}
+{% else %}
+    <li><p class="inform">No reviews yet.</p></li>
+{% endfor %}

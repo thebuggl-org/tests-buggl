@@ -1,0 +1,18 @@
+{# 
+<div style="display:none;" id="spotsCoordinates">
+	<ul>
+		{% for spotDetail in spotDetails  %}
+			<li latitude="{{ spotDetail.spot.latitude }}" longitude="{{ spotDetail.spot.longitude }}" type="{{ spotDetail.spotType.name | slugify }}" class="spots">
+				<div>
+					<a href="{{ path('buggl_eguide_spot',{'slug':guide.slug,'type':activeType,'spotSlug':spotDetail.spot.name|slugify,'spotId':spotDetail.spot.id}) }}" target="_blank">{{ spotDetail.spot.name }}</a>
+					<img border="0" align="left" alt="" src="{{ asset( spotDetail.spot | getSpotPhoto(guide.localAuthor) ) }}" width="75" height="50">
+				</div>	
+			</li>	
+		{% endfor %}	
+	</ul>
+</div>
+#}
+
+<div id="map_canvas" style="width:600px; height:500px" center-lat="{{ '11.25' }}" center-long="{{ '125.00' }}" api-key="{{ googleMapsApiKey }}">
+
+</div>

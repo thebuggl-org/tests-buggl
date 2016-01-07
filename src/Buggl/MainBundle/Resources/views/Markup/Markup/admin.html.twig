@@ -1,0 +1,39 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% block title %}Admin Markup{% endblock %}
+
+{% block header %}
+    <div class="navigation">
+        <ul>
+            <li><a href="">Invitations</a></li>
+        </ul>   
+    </div>
+{% endblock %}
+
+{% block precontent %}
+     <ul class="admin-tabs">
+        <li><a href="">Requesting Invites</a></i>
+        <li><a href="">Invited and Pending</a></i>
+        <li><a href="">Resgistered</a></i>
+    </ul>   
+{% endblock %}
+
+
+{% block content %}
+    <div class="content">
+        <ul class="list">
+            <li>
+                <div class="to-left">
+                    <h3>Name</h3>
+                    <span class="location">New York, United States</span>
+                    <span class="email">email@domain.com</span>
+                    <span class="link">generated url</span>
+                </div>  
+                <ul class="list-item-action">
+                    <li><a href="">Generate Link</a></li>
+                    <li><a href="">Mark as Invited</a></li>
+                </ul>   
+            </li>
+        </ul>   
+    </div>
+{% endblock %}

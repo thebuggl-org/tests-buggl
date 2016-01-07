@@ -1,0 +1,46 @@
+<form id="localAuthorForm" action="{{ path('update_local_author',{'updateFor':buildFor}) }}" method="POST">
+	{% if buildFor == 1 %}
+		<div class="form-section">
+			<span>
+				<label>First Name</label>
+				{{ form_widget(form.firstName) }}
+				{{ form_errors(form.firstName) }}
+			</span>
+		</div>
+		<div class="form-section">
+			<span>
+				<label>Last Name</label>
+				{{ form_widget(form.lastName) }}
+				{{ form_errors(form.lastName) }}
+			</span>
+		</div>
+	{% elseif buildFor == 2 %}	
+		<div class="form-section">
+			<span>
+				<label>Email Address</label>
+				{{ form_widget(form.email.first) }}
+				{{ form_errors(form.email.first) }}
+			</span>
+		</div>
+		<div class="form-section">				
+			<span>
+				<label>Confirm Email Address</label>
+			    {{ form_widget(form.email.second) }}	
+			    {{ form_errors(form.email.second) }}
+			</span>
+		</div>
+	{% elseif buildFor == 3 %}	
+		<div class="form-section">
+			<span>
+				<label>Location</label>
+				{{ form_widget(form.location, {value : defaultValue}) }}
+				{{ form_errors(form.location) }}
+			</span>
+		</div>	
+	{% endif %}	
+	{{ form_rest( form ) }}
+	
+	<div class="form-section submit-section">
+		<input class="button" type="submit" value="Submit" />					
+	</div>
+</form>

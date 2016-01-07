@@ -1,0 +1,24 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% block title %} Admin Login {% endblock %}
+
+{% block content %}
+	<img src="/bundles/bugglmain/images/buggl-logo-r1.png" border="0" align="center" class="bd-logo">
+    <article class="bd-reveal" id="loginModal">
+        <h2>Admin Login</h2>
+        <div class="content">
+            {% if app.session.hasFlash('error') %}
+                <div class="info">
+                    <h3>Wrong Credentials</h3>  
+                </div>
+            {% endif %}
+            <form action="{{ path('admin_login_check') }}" method="post" class="form-section form">
+                <input type="text" name="_username" placeholder="Username" size="33"/>
+                <input type="password" name="_password" placeholder="Password" size="33"/>
+                <div class="submit-section">
+                    <input class="btn msg fr" type="submit" value="login"/>
+                </div>
+            </form>
+        </div>
+    </article>
+{% endblock %}

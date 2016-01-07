@@ -1,0 +1,26 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Account{% endblock %}
+
+{% block precontent_title %}
+	Account
+{% endblock %}
+
+{% set active = 'account' %}
+
+{% block main_content %}	
+	<div class="row">
+		{% if false %}
+		<aside class="column grid_4">
+			{# include "BugglMainBundle:LocalAuthor:settingsNavigation.html.twig" with {'activeTab':'socialmedia'} #}
+			{% include "BugglMainBundle:LocalAuthor:accountNavigation.html.twig" with {'activeTab':'socialmedia'} %}
+        </aside>
+		{% endif %}
+        <article class="column grid_8">	
+        	<section class="setting">
+        		<h3>Social Connect</h3>
+				{% render 'BugglMainBundle:LocalAuthor/SocialMedia:socialConnect' %}		
+        	</section>	
+        </article>
+	</div>
+{% endblock %}

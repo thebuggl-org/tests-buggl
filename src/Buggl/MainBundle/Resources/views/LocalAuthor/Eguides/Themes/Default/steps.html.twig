@@ -1,0 +1,27 @@
+{% block create_eguide_steps %}
+<ul class="create-guide-steps">
+
+	<li class="{{ (1 == step) ? 'active' : '' }}">
+		{% set guide_info_link = (travel_guide_id is not null) ? path('update_travel_guide_info', {'travel_guide_id' : travel_guide_id}) : path('add_travel_guide_info') %}
+		<a href="{{ guide_info_link }}">
+			<span class="circle">1</span>
+				GUIDE INFO
+			<span class="arrow-down"></span>
+		</a>
+	</li>
+	<li class="{{ (2 == step) ? 'active' : '' }}">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id}) }}">
+			<span class="circle">2</span>
+				MY SECRETS
+			<span class="arrow-down"></span>
+		</a>
+	</li>
+	<li class="{{ (3 == step) ? 'active' : '' }}">
+		<a href="{{ path('finishing_travel_guide', {'travel_guide_id' : travel_guide_id})}}">
+			<span class="circle">3</span>
+				PUBLISH
+			<span class="arrow-down"></span>
+		</a>
+	</li>
+</ul>
+{% endblock %}

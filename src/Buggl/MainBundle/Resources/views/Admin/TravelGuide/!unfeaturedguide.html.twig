@@ -1,0 +1,28 @@
+<ul class="eguide-list site-admin-list">
+    {% for guide in lists %}
+    <li class="clearfix">
+        <div class="to-left">
+	        <h3><a href="{{ path('buggl_eguide_overview',{'slug':guide.slug}) }}" target="_blank">{{ guide.plainTitle }}</a></h3>       
+	        <span class="eguide-author">Author: {{ guide.localAuthor.name }}</span>
+	        <span class="eguide-country">Country: {{ guide.country.name }}</span>                
+	        <span class="eguide-duration">Duration: {{ guide.duration.name }}</span>
+	        <span class="eguide-downloads">Downloads: {{ guide.dlCount }}</span>
+	        <span class="eguide-price">Price: $ {{ guide.price|number_format(0) }}.<span class="cents">{{ guide.price|decimal }}</span></span>
+        </div>
+        <ul class="site-admin-list-actions to-right horizontalize"> 
+            <li><a href="{{ guide.id }}" name="feature">feature</a></li>
+        </ul>
+    </li>
+    {% else %}
+        <li> No Results Found </li>
+    {% endfor %}
+</ul>
+
+
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' 
+    with {
+        'itemLimit': limit,
+        'currentPage': page,
+        'itemCount': itemCount
+    } 
+%}

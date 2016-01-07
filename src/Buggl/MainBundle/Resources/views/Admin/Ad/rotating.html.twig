@@ -1,0 +1,135 @@
+{% extends 'BugglMainBundle:Admin/Ad:ad.html.twig' %}
+
+{% block modal %}
+	{% include 'BugglMainBundle:LocalAuthor/Profile:modals.html.twig' %}
+{% endblock %}
+
+{% block section_title %} Rotating Feature Guides {% endblock %}
+
+{% block main_content %}
+    <p class="page-actions">
+        <a class="site-admin-button modalButton" id="show-modal" href="{{ path('admin_get_rotating_photo_form') }}" onclick="return false;">+ add rotating feature</a>
+    </p>
+    <ul class="admin-rotating-feature">
+		{% for feature in rotatingFeatures %}
+	        <li class="clearfix">
+	            <div>
+	                <div class="byline">
+	                    <h3><a href="{{ path('buggl_eguide_overview',{'slug':feature.eguide.slug}) }}">{{ feature.eguide.plainTitle|truncate(60) }}</a></h3>
+	                    <span><a href="{{ path('local_author_profile',{'slug':feature.eguide.localAuthor.slug}) }}">{{ feature.eguide.localAuthor.name }}</a></span>
+						<span>{{ feature.eguide.localAuthor.profile.work }}</span>
+	                </div>
+	                <div class="holder">
+	                    <img style="background: url({{ asset(feature.imageWebPath) }}) center center no-repeat transparent;"/>
+	                </div>
+	            </div>
+	            <ul class="site-admin-list-actions horizontalize"> 
+	                <li><a class="edit-photo modalButton" href="{{ path('admin_get_rotating_photo_form',{'id':feature.id}) }}">edit photo</a></li>
+	                <li><a href="{{ path('admin_rotating_feature_delete',{'id':feature.id}) }}" id="remove-feature" onclick="return false;">remove</a></li>
+	            </ul>
+	        </li>
+		{% endfor %}
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/chosen.jquery.min.js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+                $(document).ready(function(){
+					
+					$('#remove-feature').on('click',function(e){
+						e.preventDefault();
+						var me = $(this);
+						$.fn.bugglConfirm({
+							'onConfirm' : function(){
+								window.location.replace(me.attr('href'));
+							}
+						});
+					});
+					
+					$('.modalButton').on('click',function(e){
+						e.preventDefault();
+						$('#formModal').reveal({'closeOnBackgroundClick':false});
+						
+						$('#formModal .content').empty();
+						$('#formModal .loader').show();
+						$('#formModal').reveal({'closeOnBackgroundClick':false});
+						$.get($(this).attr('href'),function(response){
+							$('#formModal .loader').hide();
+							$('#formModal .content').empty().html(response.html);
+							$('#formModal .content').addClass('no-overflow');
+							attachEvents();
+						});
+					});
+					
+					attachEvents = function(){
+						$('select#form_guide').chosen();
+						$('#form_guide').on('change',function(){
+							var me = $(this);
+						});
+					
+		                $('#selectPhoto').on('click',function(event){
+		                    event.preventDefault();
+		                    $('#form_photo').trigger('click');
+		                });
+
+		                $('#form_photo').on('change',function(event){
+		                    var reader = new FileReader();
+							var file = $(event.currentTarget)[0].files[0];
+						
+		                    reader.onload = function(e){
+								$('#previewPic').attr('src',e.target.result).show();
+		                    }
+							reader.readAsDataURL(file);
+		                });
+						
+						$('#rotatingFeatureForm').iframePostForm({
+							json : true, 
+							post: function(){
+								$('#editPhotoModal .loader').show();
+							},
+							complete : function (response){
+								$('#editPhotoModal .loader').hide();
+								if(response == null){
+									$('#cropperPhotoDisplay .loader').remove();
+									$.fn.bugglAlert({
+										'title' : 'Error',
+										'content' : 'File size maybe too large.',
+										'onConfirm' : function(){
+											$.fn.bugglConfirmClose();
+											$('#formModal').reveal();
+										}
+									});
+								}
+								else{
+									if(response.status == 'SUCCESS'){
+										$(".profilePicture").css('background', 'url('+response.html+') center center no-repeat transparent');
+										$('#formModal').trigger('reveal:close');
+										window.location.reload();
+									}
+									else if(response.status == "ERROR"){
+										$('#formModal .content').empty().append(response.html);
+										attachEvents();
+									}
+								}
+							}
+						});
+					}
+                });
+            })(jQuery);
+        </script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 
+        '@BugglMainBundle/Resources/public/css/chosen.css'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}

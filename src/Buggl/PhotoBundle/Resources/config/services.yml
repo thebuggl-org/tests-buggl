@@ -1,0 +1,17 @@
+parameters:
+#    buggl_photo.example.class: Buggl\PhotoBundle\Example
+
+services:
+#    buggl_photo.example:
+#        class: %buggl_photo.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    buggl_photo.uploader_service:
+        class: Buggl\PhotoBundle\Service\PhotoUploaderService
+        arguments:
+            photoUploader: "@buggl_photo.uploader"
+
+    buggl_photo.uploader:
+        class: Buggl\PhotoBundle\Component\PhotoUploader
+
+

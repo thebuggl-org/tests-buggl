@@ -1,0 +1,165 @@
+ {% extends "BugglMainBundle:LocalAuthor/MediaGallery:mediaGallery.html.twig" %}
+
+{% block modal %}
+    {{ parent() }}
+	<div id="preview" class="reveal-modal">
+		<script type="text/template" id="preview_template">
+			<div class="content">
+				<div class="form-section">
+					<span>
+						<label>Upload Image</label>
+						<ul class="upload-list">
+						<% _.each(images, function(image) { %>
+							<li>
+								<span class="noti"></span>
+								<img src="<%= image.path %>" id="<%= 'image_'+image.id %>"/>
+							</li>
+						<% }); %>
+						</ul>
+					</span>
+				</div>
+				<div class="form-section submit-section">
+                    <a href="" id="uploadPhotos" style="display:none"> Upload </a>
+                    <a href="" id="delete" style="display:none"> Delete </a>
+				</div>
+			</div>
+			<span class="loader" style="display: none;">Loading</span>
+		</script>
+	</div>
+
+    <div class="fb-clone-modal" id="fullview" style="display:none">
+    </div>
+
+    <div></div>
+{% endblock %}
+
+{% block galleryList %}
+	<article class="grid_8 column">
+		<input type="file" style="display:none" id="upload" multiple accept="image/*">
+		<section>
+			<h3>Photos <nav class="adminOpt"><a href="" class="btn to-right" id="add-photo">Add Photo</a></nav></h3>
+			<ul class="admin-gallery clearfix" id="thumbnail">
+			</ul>
+		</section>
+		<div id="pagination">
+            <script type="text/template" id="pagination_template">
+                <section class="page bugglPagination">
+                    <nav>
+                        <% if(totalPages > 0){ %>
+                            <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                            <% if(startPage > 1) { %>
+                                <a href="1" class="bugglPaginationLink">1</a>
+                                <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                            <% } %>
+
+                            <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                                <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                            <% }); %>
+
+                            <% if (endPage < totalPages) { %>
+                                <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                                <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                            <% } %>
+                            <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                        <% } %>
+                    </nav>
+                </section>
+            </script>
+        </div>
+	</article>
+
+    <script type="text/template" id="image_template">
+
+            <img src="{{ asset('') }}<%= object.path %>" height="250px"/>
+
+            <ul class="admin-gallery-actions horizontalize">
+                <li><a href="#" class="view"><span>VIEW</span></a></li>
+                <li><a href="#" class="delete"><span>DELETE</span></a></li>
+            </ul>
+
+    </script>
+
+    <script type="text/template" id="fullview_template">
+        <div class="clearfix">
+            <div class="img-container">
+                <img height="505px" src="{{ asset('') }}<%= path %>" />
+            </div>
+            <div class="site-admin-spot-details">
+                <a class="close" href="">close</a>
+            </div>
+        </div>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src='{{ asset('bundles/bugglmain/js/Admin/underscore-min.js') }}' type='text/javascript'> </script>
+    <script src='{{ asset('bundles/bugglmain/js/Admin/backbone.js') }}' type='text/javascript'> </script>
+
+   	{% javascripts
+   		'@BugglMainBundle/Resources/public/js/LocalAuthor/MediaGallery/backbone.gallery.v4.js'
+   	%}
+        <script src="{{ asset_url }}"></script>
+
+    	<script type="text/javascript">
+			(function($){
+                FullView = Backbone.View.extend({
+                    el: $('div#fullview'),
+                    initialize: function(){
+                        _.bindAll(this,'render','close');
+
+                        this.model = this.options.model;
+                        this.bind('changeModel',this.render,this);
+
+                        this.template = _.template($('#fullview_template').html());
+                    },
+                    events: {
+                        "click a.close" : "close"
+                    },
+                    render: function(model){
+                        this.model = model;
+
+                        var renderedTemplate = this.template( this.model.toJSON() );
+                        this.$el.html(renderedTemplate).show();
+                    },
+                    close: function(event){
+                        event.preventDefault();
+                        this.$el.hide();
+                    }
+                });
+
+				$(document).ready(function(){
+                    var loadedImages = {{ images|raw }};
+
+					$.gallery({
+						uploadUrl: "{{ path('local_author_upload_pic') }}",
+                        fetchUrl: "{{ path('local_author_fetch_more_images') }}",
+                        deleteUrl: "{{ path('local_author_delete_pic') }}"
+					});
+
+                    images = new Images();
+                    images.add( loadedImages );
+
+					var pictures = new Pictures();
+					new UploadView({ pics: pictures });
+					new UploadActionView({ pics: pictures });
+					new ModalPreviewView({ pics: pictures });
+
+					searchParams = new SearchParams();
+					pagination = new PaginationModel({
+						limit: {{ limit }},
+						totalCount: {{ totalCount }}
+					});
+
+					new PaginationView({ model:pagination,parameters:searchParams });
+					new ThumbnailView({
+                        images: images,
+                        parameters: searchParams,
+                        full: new FullView({ model: new Image() })
+                    });
+				})
+			})(jQuery);
+		</script>
+    {% endjavascripts %}
+{% endblock %}

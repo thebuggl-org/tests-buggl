@@ -1,0 +1,26 @@
+<div class="page" id="itinerary-day-{{ day }}">
+	<div class="main-page clearfix">
+			<div class="first-half half to-left {{ (page <= 2) ? 'page-intro day-intro' : 'spot' }} ">
+				{% if page <= 2 %}
+					{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:itineraryDailyIntro.html.twig" %}
+					{% set right = (attribute(spotDetails, 0) is defined) ? attribute(spotDetails, 0) : null %}
+				{% else %}
+					{% set left = attribute(spotDetails, 0) %}
+					{% set right = (attribute(spotDetails, 1) is defined) ? attribute(spotDetails, 1) : null %}
+					{% set hightlighted = (cycle(['odd', 'even'], page) == 'even') ? true : false %}
+					{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:itinerarySpot.html.twig" with { 'sd' : left.detail, 'period' : left.period_of_day, 'hightlighted' : hightlighted } %}
+				{% endif %}
+			</div>
+			<div class="second-half half spot to-left">
+				{% if right is not null %}
+					{% set hightlighted = (cycle(['odd', 'even'], page) == 'odd') ? true : false %}
+					{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:itinerarySpot.html.twig" with { 'sd' : right.detail, 'period' : right.period_of_day, 'hightlighted' : hightlighted } %}
+				{% else %}
+					<a class="add-spot" href="" name="add-daily-spot"  data-page="{{ page + 1 }}" data-daynum="{{ day }}">
+						<span></span>
+						ADD SPOT :)
+					</a>
+				{% endif %}
+			</div>
+	</div>
+</div>

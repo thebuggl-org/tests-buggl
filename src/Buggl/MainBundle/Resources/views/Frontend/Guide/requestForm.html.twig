@@ -1,0 +1,71 @@
+<form id="request_form" class="custom-eguide-request" action= "{{ path('e_guide_request_submit') }}" method="POST">
+    <label>Country</label>
+    <div class="select">
+    	<select name="country">
+    		{% for country in countries %}
+                <option value="{{ country.id }}">{{ country.name }}</option>
+            {% endfor %}
+    	</select>
+    </div>
+    <!--label>Category</label-->
+    <!--div class="select">
+        <select name="category">
+            {% for category in activities %}
+                <option value="{{ category.id }}" {% if category.id == activityId %} selected {% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div-->
+	<label>Trip Theme</label>
+    <div class="select">
+    	<select name="trip_theme">
+    		{% for trip_theme in themes %}
+                <option value="{{ trip_theme.id }}">{{ trip_theme.name }}</option>
+            {% endfor %}
+    	</select>
+    </div>
+    {#
+    <label>Duration</label>
+    <div class="select">
+    	<select name="duration">
+    		{% for each in duration %}
+                <option value="{{ each.id }}">{{ each.name }}</option>
+            {% endfor %}
+    	</select>
+    </div>
+    #}
+
+    <label>Good For</label>
+    <div class="select">
+    	<select name="good_for">
+    		{% for goodfor in goodFor %}
+                <option value="{{ goodfor.id }}">{{ goodfor.name }}</option>
+            {% endfor %}
+    	</select>
+    </div>
+
+    <label>Trip Budget</label>
+	{% include 'BugglMainBundle:LocalAuthor/Misc:budgetChooser.html.twig' with {"inputname":"budgetserial"} %}
+    {#<div class="select">
+    	<select name="budgetserial">
+    		<option value="1">Cheap</option>
+			<option value="2">Value</option>
+			<option value="3">Mid-range</option>
+			<option value="4">Expensive</option>
+			<option value="5">Luxury</option>
+    	</select>
+    </div>#}
+
+    <label class="price">What would you pay for this travel guide?</label>
+    <p><tt id="messagenotif1" class="warning-notif"></tt></p>
+    <input name="price" type="text"><br>
+
+    <label>Description</label>
+    <p><tt id="messagenotif2" class="warning-notif"></tt></p>
+    <textarea name="description"></textarea>
+
+    <input name="local_author_id" type="hidden" value="">
+
+    <input name="email" type="hidden" value="">
+
+    <input type="submit" value="Request" class="button" id="submitrequest">
+</form>

@@ -1,0 +1,212 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block precontent_title %}
+	Dashboard
+{% endblock %}
+{% set active = 'dashboard' %}
+
+{% block main_content %}
+	<div class="row">
+		<aside class="column grid_4">
+			<section class="profile">
+				<p class="clearfix">
+    				<a class="fl pic" id="uploadProfilePic" data-modal-title="Profile Pic" data-file-name="{{ app.user.profile | nullObjectPlaceHolder('getImageWebPath') }}" href="" onclick="return false">
+						<img class="profilePicture" src="{{ asset(app.user.profile | profilePic) }}" border="0" align="left" width="60" height="60" alt="{{ app.user.name }}">
+					</a>
+					{% if app.user.isLocalAuthor %}
+						<a class="subtext" href="{{ path('local_author_profile', {'slug' : app.user.slug}) }}"><strong>{{ app.user.name }}</strong></a>
+						<a href="{{ path('local_author_profile' , {'slug' : app.user.slug}) }}">Edit Profile</a>
+					{% else %}
+						<span class="subtext"><strong>{{ app.user.name }}</strong></span>
+					{% endif %}
+				</p>
+				<nav class="clearfix">
+					<a href="{{ path('local_author_messages', {'type':'inbox'}) }}" class="messages {% if newMessagesCount %}red{% endif %}"><span class="ico"></span>{{ newMessagesCount }} Message{{ newMessagesCount != 1 ? 's' : '' }}</a>
+
+					{% if app.user.isLocalAuthor %}
+						<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span>{{ newRequestCount }} Custom Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+						{# <a href="#" class="free-guide red"><span class="ico"></span>3 Free Travel Guides</a> #}
+						<a href="{{ path('local_author_reviews') }}" class="review {% if count %}red{% endif %}"><span class="ico"></span>{{ count }} Reviews</a>
+					{% endif %}
+
+					<a href="#" action="{{ path('local_author_followed') }}"  class="followed following" data-num="0"><span class="ico"></span><span id="countFollowing" value="{{ following }}">{{ following }}</span> Following</a>
+
+					{% if app.user.isLocalAuthor %}
+						<a href="#" action="{{ path('local_author_follower') }}"  class="followed follower" data-num="1"><span class="ico"></span>{{ follower }} Follower{{ follower != 1 ? 's' : '' }}</a>
+					{% endif %}
+					
+					{% if false %}
+						<a href="{{ path('buggl_display_wishlist') }}" class="wishlist"><span class="ico"></span>Wishlist</a>
+					{% endif %}
+					
+					{% if app.user.isLocalAuthor and false %}
+						<a href="{{ path('local_author_beta_invite_list') }}" class=""><span class="ico"></span>Beta Invites</a>
+					{% endif %}
+				</nav>
+			</section>
+	        <section>
+	        	<h3>Connect Buggl</h3>
+				{% render 'BugglMainBundle:LocalAuthor/SocialMedia:socialConnect' %}
+            </section>
+		</aside>
+		
+		<article class="column grid_8">
+
+{% if app.user.isLocalAuthor %}
+			{% if(localauthor.ShortUrl !='')%}
+			<p class="fl"><strong>Your Custom Itinerary Widget</strong></p>			
+			<p class="fl"style="background-color: #fef9cc;">Embed this link on your site, social media and email to begin accepting inbound itinerary requests</p>
+				<div class="requrl"><textarea  readonly style="height: 250px !important; min-height: 50px !important; width: 596px !important;"><div style="border:1px solid gray; border-radius:4px;-moz-border-radius:4px;-weblit-border-radius:4px; width:100%; height:auto;"><div style= "background-image: linear-gradient(to bottom, rgb(59, 158, 255), rgb(8, 133, 255)); height:30px; text-align:center; color:white;line-height: 30px;font-weight: bold;"> Need Advice ?<span style="float:right; margin:5px 5px;"><img src="http://www.buggl.com/bundles/bugglmain/images/mini_buggl.png"></span></div><div style="padding: 20px 20px;" ><a target='_blank' href='{{localauthor.ShortUrl}}'><img style="float:left; margin-right:10px;" src='http://www.buggl.com/{{ asset(localauthor.profile | profilePic) }}' width='60' height='60'></a><div style="font-weight:bold; margin-left:10px;" ><strong>{{ app.user.name }}</strong></div></div><div style="text-align:center; margin-top: 20px;"><a target='_blank' href='{{localauthor.ShortUrl}}'><button style="margin-bottom: 10px;border-radius: 5px;cursor: pointer;background: #00A1FE none repeat scroll 0% 0%;color: #FFF;border: 0px none;margin-top: 0px;padding: 8px;position: relative;top: 0px !important;" >Request an Itinerary</button></a></div></div></textarea></div>		
+			{% endif %}
+{% endif %}
+			{% if app.user.isLocalAuthor %}
+				<br><br>
+				{% render 'BugglMainBundle:LocalAuthor/Dashboard:paypalSettingsAlert' %}
+				{% render 'BugglMainBundle:LocalAuthor/Dashboard:profileCompletion' %}
+				{#{% render 'BugglMainBundle:LocalAuthor/Dashboard:dashboardStats' %}#}
+			{% endif %}
+			{%if(localauthor.isLocalAuthor==1)%}
+			<section class="progress lista">
+			{% if(localauthor.eguideRequest =='1')%}
+			
+			<div><p class="fl"><strong>Your Custom Itinerary Request is ON you can </strong></p>
+			<nav class="mini fr"><a href="{{ path('local_author_eguide_request', {'req':'req','req':'req','status':'off'}) }}" class="btn fr complete-button">
+			<p> OFF</p></a></nav></div>
+			<div>
+			{#<form name="price" id="request_form" class="custom-eguide-request" action= "{{ path('local_author_eguide_request_price') }}"  method="POST">
+			<p class="fl"><strong>Your Charges per day is </strong>&nbsp; </p>
+			<input type="text" name="pricecharge" value={{localauthor.priceCharge}}>
+			<nav class="mini fr"><input type="submit" class="btn fr complete-button" value="submit">
+			</nav></form></div>#}
+			{% else %}
+			<div><p class="fl"><strong>Your Custom Itinerary Request is OFF you can </strong></p>
+			<nav class="mini fr"><a href="{{ path('local_author_eguide_request', {'req':'req','req':'req','status':'on'}) }}" class="btn fr complete-button" >
+			<p> ON</p></a>
+			</nav>
+			</div>{% endif %}
+			</section>
+			{% endif %}
+			<section id="activitySection">
+				<h3>Local Chatter</h3>
+				<ul id="activityList" class="activites-list" data-page="1" data-end-date="{{ currentDate }}">
+					{% render 'BugglMainBundle:LocalAuthor/Dashboard:activities' %}
+				</ul>
+			</section>
+			{% if false %}
+			<section class="best-local">
+				<h3>Buggl News</h3>
+				<ul class="news-list">
+					<li>
+						<p class="inform">This service is not available in your country.</p>
+					</li>
+				</ul>
+			</section>
+			{% endif %}
+
+		</article>
+	</div>
+	{% if app.user.isLocalAuthor %}
+<div id="reqcount" class="reveal-modal">
+<h2>  <a class="close-reveal-modal">&#215;</a> </h2>
+    <div class="content">
+   
+<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span> You have {{ newRequestCount }} new Itinerary Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+</div></div>{% endif %}
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#% stylesheets
+        'bundles/bugglmain/css/jcrop/jquery.Jcrop.css'
+		filter='cssrewrite'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %#}
+    <link rel="stylesheet" href="{{ asset('bundles/bugglmain/css/jcrop/jquery.Jcrop.css' | s3Cdn ) }}">
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/jcrop/jquery.Jcrop.min.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/jcrop/jquery.Jcrop.min.js' | s3Cdn)}}"></script>
+	<script>
+		$(document).ready(function(){
+	if({{newRequestCount}}>=1)
+{		
+	$("div#reqcount").reveal();
+}
+  // Run code
+
+
+			$('#prevActivities').on('click',function(e){
+				e.preventDefault();
+				$('#activitySection .loader').show();
+				$('#activityList').attr('data-current-page',parseInt($('#activityList').attr('data-current-page'))+1);
+				$.get($(this).attr('href'),
+				      { currentPage : $('#activityList').attr('data-current-page'), limit : $('#activityList').attr('data-page-limit') },
+					  function(data){
+						$('#activitySection .loader').hide();
+						$('#activityList').append(data);
+
+						if(parseInt($('#activityList').attr('data-count')) == $('#activityList li').length){
+							$('#prevActivities').hide();
+						}
+					  }
+				);
+			});
+
+
+
+
+			$('#activityList').on('click','#loadMoreActivities',function(e){
+				e.preventDefault();
+				var me = $(this);
+				me.hide();
+				$('#activitySection .loader').show();
+
+				var nextPage = parseInt($('#activityList').attr('data-page'))+1;
+
+				$('#activityList').attr('data-page',nextPage);
+
+				var data = {
+					'page' : nextPage,
+					'endDate' : $('#activityList').attr('data-end-date'),
+					'returnType' : 'json'
+				}
+
+				$.getJSON(me.attr('href'),data,function(response){
+					me.parent('li').remove();
+					$('#activityList').append(response.html);
+
+				});
+			});
+
+
+			$('.followed').on('click',function(e){
+				e.preventDefault();
+				var numIn = $(this).data('num');
+				$('.loader').show();
+				var textIn = numIn ==0 ? "Following":"Follower";
+				$('#formModal #modalTitle').empty().html(textIn);
+				$('#formModal .content').empty();
+				$('#formModal').reveal({'closeOnBackgroundClick':false});
+				$.get($(this).attr('action'),function(followed){
+					$('.loader').hide();
+					$('#formModal .content').empty().html(followed.content);
+				});
+
+			});
+
+
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'BugglMainBundle:Frontend/Guide:localPlaces.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block reviews %}
+{% endblock %}
+
+{% block guideNavigation %}
+    <nav>
+        <a href="{{ path('admin_buggl_eguide_overview',{'slug':guide.slug}) }}" class="{{ activeTab | selected('overview','selected') }}">Overview</a>
+        <a href="{{ path('admin_buggl_eguide_secrets',{'slug':guide.slug,'type':'all'}) }}" class="{{ activeTab | selected('local-secrets','selected') }}">Local Secrets</a>
+        <a href="{{ path('admin_buggl_eguide_full',{'slug':guide.slug}) }}" class="{{ activeTab | selected('full-guidebook','selected') }}">Itinerary</a>
+        {% render 'BugglMainBundle:Frontend/Main:renderPaymentForm' with {'eguideId':guide.id}%}
+        <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_pinterest_pinit"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        </div>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-516cea5d7df5c16e"></script>
+    </nav>
+{% endblock %}
+
+{% block spot_nav %}
+<div class="row">
+    <ul class="column menu grid_8">
+        <li class="{{ activeType | selected('all','selected') }}"><a href="{{ path('admin_buggl_eguide_secrets',{'slug':guide.slug,'type':'all'} ) }}">View All</a></li>
+        {% for type in spotTypes %}
+            <li class="{{ activeType | selected(type.name|slugify,'selected') }}"><a href="{{ path('admin_buggl_eguide_secrets',{'slug':guide.slug,'type':type.name|slugify}) }}">{{ type.name }}</a></li>
+        {% endfor %}  
+        <li class="map_link"><a href="" id="mapLink" onclick="return"><span class="ico"></span><span id="mapLinkLabel">Map</span></a></li>     
+    </ul>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

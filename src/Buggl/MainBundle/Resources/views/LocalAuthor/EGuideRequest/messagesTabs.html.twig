@@ -1,0 +1,9 @@
+<section class="profile">
+	<nav class="clearfix clear">
+		<a href="{{ path('local_author_messages', {'type':'inbox'}) }}" class="{{ active == 'inbox' ? 'active' : ''}} {{ newMessagesCount > 0 ? 'red' : '' }}" id="inbox"><span class="ico"></span><span id="newMessageCount">{{ newMessagesCount > 0 ? newMessagesCount~' ' : '' }}</span>Inbox</a>
+		<a href="{{ path('local_author_messages', {'type':'archived'}) }}" class="{{ active == 'archived' ? 'active' : ''}}"><span class="ico"></span>Archived</a>
+		{% if app.user.isLocalAuthor == 1 %}
+			<a href="{{ path('e_guide_request') }}" class="{{ active == 'guide_request' ? 'active' : ''}}"><span class="ico"></span>Guide Requests</a>
+		{% endif %}
+	</nav>
+</section>

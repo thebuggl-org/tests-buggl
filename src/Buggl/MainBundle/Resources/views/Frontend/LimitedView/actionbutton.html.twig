@@ -1,0 +1,22 @@
+{% if authenticated %}
+	{% if user.id != profileOwner.id %}
+	<div class="other">
+	{% if profileOwner.eguideRequest ==1 %}
+	    <a href="" onclick="return false" id="req" class="btn req fl requestbtn complete-button newreq" alt="Request a custom guide" title="Request an Itinerary"><span class="ico">	  </span>Request an Itinerary </a>
+{#<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEoojfv0KL3vIx5RQjWYIKZcqxJBH4LXc&sensor=false&libraries=places" type="text/javascript"></script>#}
+	{% endif %}
+	    <a href="{{ path('local_author_messages_create',{'slug':slug}) }}" class="btn msg fl" alt="Message" title="Message"><span class="ico"></span>Message</a>
+	    <a href="{{ slug }}" class="btn flw fl follow_{{ isFollowing }}" data="{{ isFollowing }}" id="follow" alt="Follow" title="Follow"><span class="ico"></span>{{ text }}</a>
+	</div>  
+  
+    {% endif %}
+{% else %}
+	 <div class="other to-author">
+		{#% if false %#}
+		{% if profileOwner.eguideRequest ==1 %}	<a href="#" class="btn req fl complete-button newreq" data-reveal-id="loginModal" alt="Request an Itinerary" title="Request a custom guide"><span class="ico"></span>Request an Itinerary </a>{% endif %}
+			<a href="#" class="btn msg fl" data-reveal-id="loginModal" alt="Message" title="Message"><span class="ico"></span>Message</a>
+			<a href="#" class="btn flw fl" data-reveal-id="loginModal" alt="Follow" title="Follow"><span class="ico"></span>Follow</a>
+		{#% endif %#}
+	 </div>
+{#<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEoojfv0KL3vIx5RQjWYIKZcqxJBH4LXc&sensor=false&libraries=places" type="text/javascript"></script>#}
+{% endif %}

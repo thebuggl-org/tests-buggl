@@ -1,0 +1,76 @@
+	<ul class="spot-actions clearfix">
+		<li class="edit"><a title="CHANGE PHOTO" name="edit-spot" data-page="{{ page }}" data-page="localplaces" data-spotid="{{ sd.spot.id }}" data-detailid="{{sd.id}}" data-daynum="{{ 0 }}" href=""><span>EDIT</span></a></li>
+		<li class="edit"><a title="REMOVE SPOT" name="remove-spot" data-page="{{ page }}" data-pagename="localplaces" href="{{ path('remove_spot', {'id' : sd.id, 'type' : 'local_secret', 'guide_id' : eguide.id, 'day_num' : 0})}}"><span>REMOVE</span></a></li>
+	</ul>
+	{#% if hightlighted %}
+	<div class="with-highlight"></div>
+	{% endif %#}
+	
+	{% set spot_type_cls = sd.spotType.name|replace(" ", "-")|lower %}
+	
+	
+	<div class="title">
+		<h1><span class="span-type-ico"></span>{{ sd.spot.name }}</h1> <!-- thia becomes spot title if hidden gems  -->
+		<span class="liner"></span>
+		{#<h5 class="{{ spot_type_cls }}">{{ sd.spot.name }}</h5>#}
+	</div>
+	<div class="spot-image">
+		<img src="{{ sd.photo }}" width="600" />
+	</div>
+	<div class="clearfix">
+		<div class="side">
+			<section class="guide-widget rating">
+				<h3>RATING</h3>
+				<div>
+					<ul>
+						<li><span class="{{ (sd.rating >= 1) ? 'active' : '' }}"></span></li>
+						<li><span class="{{ (sd.rating >= 2) ? 'active' : '' }}"></span></li>
+						<li><span class="{{ (sd.rating >= 3) ? 'active' : '' }}"></span></li>
+					</ul>
+					<span class="rating-text">{{ sd.ratingText }}</span>
+				</div>	
+			</section>
+			<section class="guide-widget tags">
+				<h3>CATEGORY</h3>
+				<div>
+					<ul>
+						{% for like in sd.spotLikes %}
+						<li>{{ like.name }}</li>
+						{% endfor %}
+					</ul>
+				</div>	
+			</section>
+			<section class="guide-widget tags">
+				<h3>NEED TO KNOW</h3>
+				<div>
+					<ul>
+						{% for cat in sd.spotCategories %}
+						<li>{{ cat.name }}</li>
+						{% endfor %}
+					</ul>
+				</div>	
+			</section>
+		</div>
+		<div class="content" name="spot-content-div">	
+			<div class="{{ spot_type_cls }} spot-type clearfix">
+				<span class="spot-type-ico"></span>				
+				<div>	
+					<h3>{{ sd.spotType.name }}</h3>
+					<span class="spot-contact">
+						{{ sd.spot.address }} {{ sd.spot.contactNumber }}
+					</span>
+				</div>	
+			</div>	
+			{{ sd.description|raw }}
+			<div class="best-thing">
+				<h3>WHAT I LOVE ABOUT IT HERE</h3>
+				<p>{{ sd.bestThing }}</p>
+			</div>
+		</div>
+	</div>
+	<div class="content-warning" style="display:none;">
+		<span class="content-warning-arrow"></span>
+		<img src="{{ asset('/bundles/bugglmain/images/content-warning.png') }}" />		
+		<h3>HI THERE INSIDER</h3>
+		<p>There seems to be an issue with your content. It maybe too long, try combining paragraphs to remove this issue and display your work properly.</p>
+	</div>	

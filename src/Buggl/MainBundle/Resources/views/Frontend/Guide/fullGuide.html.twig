@@ -1,0 +1,145 @@
+{% extends "BugglMainBundle:Frontend/Guide:guideLayout.html.twig" %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block og_meta %}
+	{{ parent() }}
+	<meta property="og:title" content="{{ guide.plainTitle }} | Itinerary" />
+{% endblock%}
+
+{% set activeTab = 'full-guidebook' %}
+
+{% block guideSidebar %}
+	<aside class="column grid_4">
+		<section class="profile sld">
+			<nav class="clearfix clear sd-nav" >
+				{% for day in itinerary %}
+					<a href="#" data-arrival="{{ 'day'~day.dayNum }}" class="arrival"><span class="ico"></span>Day {{ day.dayNum }} 
+					{% if day.dayNum != '1' and not purchased %}
+						<span class="lock">Locked</span>
+					{% endif %}</a>
+				{% endfor %}
+			</nav>
+		</section>
+	</aside>
+{% endblock %}
+
+{% block guidePageContent %}
+	<article class="column grid_8">
+		{% for day in itinerary %}
+		    <section data-destination="{{ 'day'~day.dayNum }}" class="destination">
+		        <div class="reg_box">
+		            <h2>Day {{ day.dayNum~' - '~day.title}}</h2>
+					{% if day.dayNum == '1' or purchased %}
+			            <p>{{ day.description | raw }}</p>
+			            <h3>Local Secrets</h3>
+			            <ul class="itinerary-spot">
+							{% for itineraryToSpotDetailData in attribute(itineraryInfo,day.dayNum) %}
+								{% set show = purchased  or itineraryToSpotDetailData.isFeatured %}
+								{% set itineraryToSpotDetail = itineraryToSpotDetailData.detail %}
+				                <li class="{{ show | selected(false,'locked') }}">
+									<div class="sp-image">
+										{% if show %}
+										<span class="spot-dayer {{ itineraryToSpotDetail.time }}">{{ itineraryToSpotDetail.time }}</span>
+										{% endif %}
+										<img width="275" border="0" align="left" class="fl" src="{{ asset( itineraryToSpotDetail.spotDetail.photo ) }}">
+									</div>
+									{% if show %}
+										<span class="category {{ itineraryToSpotDetail.spotDetail.spotType.name | slugify }}"></span>
+					                    <h4><a href="{{ path('buggl_eguide_spot',{'slug':guide.slug,'spotSlug':itineraryToSpotDetail.spotDetail.spot.name|slugify,'spotDetailId':itineraryToSpotDetail.spotDetail.id}) }}">{{ itineraryToSpotDetail.spotDetail.spot.name }}</a></h4>
+					                    <ul class="tag">
+											{% for tag in itineraryToSpotDetail.spotDetail|tags %}
+							            		<li>{{ tag.spotLike.name }}</li>
+											{% endfor %}
+						                </ul>
+									{% else %}
+						            	<div class="locked"><span class="ico"></span></div>
+						            	<h4>The names are hidden until purchased.</h4>
+									{% endif %}
+				                </li>
+							{% endfor %}
+			            </ul>
+					{% else %}
+		            	<div class="locked"><span class="ico"></span></div>
+		            	<h4>Hidden until purchased.</h4>
+						<p></p>
+					{% endif %}
+		        </div>
+		    </section>
+		{% endfor %}
+        <section class="reference multi">
+            <ul>
+				<li class="selected"><a href="#">The Local Chatter</a></li>
+            </ul>
+            <div id="reviewContainer" data-page="1">
+                <ul class="comments">
+					{% if app.user is not null and app.user.id != guide.localAuthor.id %}
+	                	<li>
+	                        {% render 'BugglMainBundle:Frontend/LimitedView:addTravelGuideReviewForm' with {eguide:guide} %}
+	                	</li>
+						<li class="notification" style="display:none">
+							<p class="inform">Thank you for your review</p>
+						</li>
+					{% endif %}
+                    {% render 'BugglMainBundle:Frontend/Reviews:travelGuideReviews' with {travelGuide:guide} %}
+                </ul>
+				<a href="" onclick="return false" id="moreReviews" style="display:none"> Load More </a>
+            </div>
+        </section>
+	</article>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+			var nav = $('.sd-nav');
+			var footer = $('.footer');
+	        var navStart = $(nav).offset().top;
+			var descripancy = 100;
+			var navTop = 10;
+			
+			$.event.add(window, "scroll", function(){
+	            var start = $(window).scrollTop();
+
+  				$('.destination').each(function(){
+  					if(start <= $(this).offset().top+($(this).height()-descripancy)){
+  						$('.arrival').removeClass('active');
+  						$('.arrival[data-arrival="'+$(this).attr('data-destination')+'"]').addClass('active');
+						console.log($(this).attr('data-destination'));
+  						return false;
+  					}
+  				});
+				
+				//if(($('.arrival.active').position().top + 50) > $(window).height() || ($('.arrival.active').position().top + 50) > (footer.position().top - start)){
+				if(($('.arrival.active').position().top + 50) > $(window).height() || $(nav).height() + 60 > (footer.position().top - start)){
+					if($(window).height() > (footer.position().top - start)){ 
+						navTop = footer.position().top - nav.height() - start - 34;
+					}
+					else{
+						excess = ((($('.arrival.active').position().top + 34) - $(window).height()) / 34);
+						navTop = 0 - excess * 34;
+					}
+				}
+				else{
+					navTop = 10;
+				}
+
+	            $(nav).css('position',((start)>navStart) ? 'fixed' : 'static');
+	            $(nav).css('top',((start)>navStart) ? navTop+'px' : '');
+			});
+
+			$('.arrival').on('click',function(e){
+				e.preventDefault();
+				var arrival = $(this).attr('data-arrival');
+				var offset = $('.destination[data-destination="'+arrival+'"]').offset();
+			     $('html, body').animate({
+				         scrollTop: offset.top
+				     }, 500);
+			});
+        });
+    </script>
+{% endblock %}

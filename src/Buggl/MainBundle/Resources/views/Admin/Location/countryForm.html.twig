@@ -1,0 +1,15 @@
+<form method="post" action="{{ path('admin_locations_save_country') }}" novalidate>
+    <label>Name</label>
+    {{ form_widget(form.name) }}
+    {{ form_errors(form.name) }}
+
+    <label>Continent</label>
+    {{ form_widget(form.continent) }}
+    {{ form_errors(form.continent) }}
+
+    {{ form_rest(form) }}   
+
+    <input type="submit" value="save">
+    <input type="hidden" name="form_is_new" value="{{ id }}">
+</form>
+

@@ -1,0 +1,19 @@
+{% set limit = 3 %}
+{% set cnt = 0 %}
+{% for reference in references %}
+     <li {{ cnt >= limit ? 'style="display:none;"' : 'style="display:block;"' }} class="{{ 'reference_'~(cnt//limit + 1) }}">
+        <img src="{{ reference.localReference.referenceEmail | gravatar }}" border="0" align="left" width="60" height="60"/>
+        <p><span class="name">{{ reference.localReference.name }}</span>{{ reference.localReference.comment }}</p>
+    </li>
+	{% set cnt = cnt + 1 %}
+{% else %}
+    <li>
+		{% if app.user.id is defined and ownPage %}
+			<p class="inform">You have no references yet.  References are a great way to beef up your travel resume and give travelers more trust in the travel guides you're writing.  Ask people who you trust to vouch for your experience and knowledge of your country here by adding their emails.
+				<a href="{{ path('buggl_vouch') }}">Click to get more references</a>
+			</p>
+		{% else %}
+			<p class="inform">No References </p>
+		{% endif %}
+	</li>
+{% endfor %}

@@ -1,0 +1,28 @@
+<section class="profile">
+	<nav class="clearfix clear">
+		<a href="{{ path('local_author_messages', {'type':'inbox'}) }}" class="{{ active == 'inbox' ? 'active' : ''}} {{ newMessagesCount > 0 ? 'red' : '' }}" id="inbox"><span class="ico"></span><span id="newMessageCount">{{ newMessagesCount > 0 ? newMessagesCount~' ' : '' }}</span>Inbox</a>
+		<a href="{{ path('local_author_messages', {'type':'archived'}) }}" class="{{ active == 'archived' ? 'active' : ''}}"><span class="ico"></span>Archived</a>
+		{% if app.user.isLocalAuthor == 1 %}
+			<a href="{{ path('e_guide_request') }}" class="{{ active == 'guide_request' ? 'active' : ''}}{{ newRequestCount > 0 ? 'red' : '' }}"><span class="ico"></span><span id="newMessageCount">{{ newRequestCount > 0 ? newRequestCount~' ' : '' }}</span>Guide Requests</a>
+		{% endif %}
+		{% if app.user.isLocalAuthor != 1 %}
+<a href="{{ path('e_guide_request') }}" class="{{ active == 'guide_request' ? 'active' : ''}}{{ newRequestCount > 0 ? 'red' : '' }}"><span class="ico"></span><span id="newMessageCount">{{ newRequestCount > 0 ? newRequestCount~' ' : '' }}</span>Guide to Requests</a>
+		{% endif %}
+	</nav>
+</section>
+{% if app.user.isLocalAuthor %}
+<div id="reqcount" class="reveal-modal">
+<h2>  <a class="close-reveal-modal">&#215;</a> </h2>
+    <div class="content">
+   
+<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span> You have {{ newRequestCount }} new Itinerary Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+</div></div>{% endif %}
+
+	<script>
+		$(document).ready(function(){
+	if({{newRequestCount}}>=1)
+{		
+	$("div#reqcount").reveal();
+}
+});
+</script>

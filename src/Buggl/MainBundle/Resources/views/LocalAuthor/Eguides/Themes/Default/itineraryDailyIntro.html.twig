@@ -1,0 +1,30 @@
+{% set bgphoto = (dailyIntro is not null and dailyIntro.eGuidePhoto is not null) ? dailyIntro.eGuidePhoto.photo : asset('/bundles/bugglmain/images/custom/cover-guide.jpg') %}
+<ul class="spot-actions clearfix">
+	<li class="edit"><a title="CHANGE PHOTO" href="{{bgphoto}}" name="change-background-image" data-eguideid="{{eguide.id}}" data-phototype="{{ constant('Buggl\\MainBundle\\Entity\\EGuidePhoto::ITINERARY_PHOTO') }}" data-daynum="{{ day }}"><span>Add Another Image</span></a></li>
+</ul>
+
+<div style="background: url({{bgphoto}}) no-repeat #ffffff;"> 
+	{% if 1 == day %}
+		<h1>ITINERARY</h1>
+	{% endif %}
+	<h2 class="day clearfix">DAY {{ day }}</h2>
+	{% set intro = (dailyIntro is not null and dailyIntro.description is not null) ? dailyIntro.description : "" %}
+	{% set title = (dailyIntro is not null and dailyIntro.title is not null) ? dailyIntro.title : "" %}
+	
+	<div name="daily-intro-text" data-title="Itinerary: Add a Perfect Day" data-day="{{ day }}" data-content="{{ intro }}">
+		{% if dailyIntro is not null and dailyIntro.description is not null %}
+			<h3 id="daily-intro-title">{{title}}</h3>
+			{{intro|raw}}
+		<a class="editable">
+			<strong>EDIT. </strong>
+			<span class="client-edit-button">EDIT</span>
+		</a>
+		{% else %}
+			<a class="editable">
+				<strong>ADD A PERFECT DAY.</strong>
+				Describe the perfect day.
+				<span class="client-edit-button">EDIT</span>
+			</a>
+		{% endif %}
+	</div>	
+</div>

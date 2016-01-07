@@ -1,0 +1,102 @@
+{% extends "BugglMainBundle:Markup/Markup:adminGalleryLayout.html.twig" %}
+
+{% block title %}Media Gallery{% endblock %}
+
+
+
+{% block script_template %}
+    {{ parent() }}
+
+    <script type="text/template" id="page_content">
+        <ul class="image-list horizontalize">
+        </ul>
+    </script>
+
+    <script type="text/template" id="image_content">
+        <div>
+            <img src="{{ asset('') }}<%= source %>"  width="289"/>
+        </div>
+        <ul class="gallery-actions horizontalize align-center">
+            <li><a href="" name="view-full">VIEW</a></li>
+        </ul>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        FullView = Backbone.View.extend({
+            el: $('div#fullview'),
+            initialize: function(){
+                _.bindAll(this,'render','close');
+
+                this.model = this.options.model;
+                this.bind('changeModel',this.render,this);
+
+                this.template = _.template($('#fullview_template').html());
+            },
+            events: {
+                "click a.close" : "close"
+            },
+            render: function(model){
+                this.model = model;
+
+                var renderedTemplate = this.template( this.model.toJSON() );
+                this.$el.html(renderedTemplate).show();
+            },
+            close: function(event){
+                event.preventDefault();
+                this.$el.hide();
+            }
+        });
+        (function($){
+            $(document).ready(function(){
+                $.gallery({
+                    'cityUrl' : "{{ path('admin_ajax_get_city_in_options') }}",
+                    'fetchMoreUrl': "{{ path('admin_gallery_fetch_more') }}"
+                })
+
+                var countries = {{ countries|raw }}
+                var parameters = new SearchParams();
+
+                countriesCollection = new Countries();
+                cities = new Cities();
+
+                new CountryView({
+                    collection: countriesCollection,
+                    cityCollection: cities,
+                    parameters: parameters
+                });
+                countriesCollection.add(countries);
+
+                new CityView({
+                    collection: cities,
+                    parameters: parameters
+                });
+
+                var presearchedImages = {{ images|raw }};
+
+                pagination = new PaginationModel({
+                    limit: {{ limit }},
+                    totalCount: 0
+                });
+
+                new PaginationView({
+                    model: pagination,
+                    parameters: parameters
+                });
+
+                var photos = new Photos();
+                var thumbnailView = new ThumbnailView({
+                    collection: photos,
+                    pagination: pagination,
+                    parameters: parameters,
+                    full: new FullView({ model: new Photo() })
+                });
+                photos.reset(presearchedImages);
+
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

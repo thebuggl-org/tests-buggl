@@ -1,0 +1,29 @@
+{% if text == 1 %}
+	<section id="followedSection" class="follow-sys">
+		<ul id="followedList" data-page="1">
+			{% include "BugglMainBundle:LocalAuthor/Dashboard:followedModalPart.html.twig" with { 'authors' : authors, 'isFollowing' : isFollowing, 'countedFollowing' : countedFollowing} %}
+			{#% for author in authors %}
+				<li>
+					<img width="30" height="30" border="0" align="left" src="{{ asset( author | userPic) }}">
+					<a href="{{ path('local_author_profile',{slug:author.slug}) }}" class="followName">{{ author.name }}</a> 
+					<nav class="mini fr" id="remove">
+						<a href="#" class="btn flw fr" id="follow" data-follow="{{ isFollowing }}" data-slug="{{ author.slug }}" alt="Unfollow" title="Follow">Unfollow</a>
+					</nav>
+				</li>	
+			{% endfor %}
+			
+			{% if countedFollowing == 0 %}
+				<li>You're not following anyone yet!</li>
+			{% endif %#}
+		
+			{#% if hasNext %}
+				<li class="mini">
+					<span class="load" style="display:none">LOADING...</span>
+					<a href="{{ path('local_author_followed') }}" onclick="return false;" id="loadMoreFollowed" class="fl">Load More</a>
+				</li>
+			{% endif %#}
+		</ul>
+	</section>
+{% else %}
+	<p>You're not following anyone yet!</p>
+{% endif %}	

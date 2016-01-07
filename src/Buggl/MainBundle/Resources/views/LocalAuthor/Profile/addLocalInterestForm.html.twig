@@ -1,0 +1,42 @@
+<li id="newInterest">
+	<form id="interestForm" action="{{ path('add_local_interest') }}" method="POST" {{ form_enctype(localInterestForm) }} novalidate>
+		<div class="form-section">
+			<span>
+				{# <label>Title</label> #}
+				{{ form_widget(localInterestForm.title,{'attr':{'placeholder':'Boston Marathon'}}) }}
+				{{ form_errors(localInterestForm.title) }}
+			</span>
+		</div>
+		<div class="form-section">
+			<span>
+				{# <label>Content</label> #}
+				{{ form_widget(localInterestForm.content,{'attr':{'placeholder':'It was one of the most challenging experiences I have ever completed in my life! It helped me understand commitment, dedication, and overall understanding of endurance athletes'}}) }}
+				{{ form_errors(localInterestForm.content) }}
+			</span>
+		</div>
+		{{ form_rest( localInterestForm ) }}
+	
+		<div class="form-section submit-section">
+			<input id="addLocalInterestButton" class="button" type="submit" value="Submit" />
+			<a class="cancelAddLocalInterestButton" href="" onclick="return false">Cancel</a>
+		</div>
+	</form>
+	
+	<form id="interestPhotoForm" action="{{ path('upload_local_interest_photo') }}" method="POST" enctype="multipart/form-data">
+		<div class="form-section">
+			<div class="file" >
+				<input type="text" value="Browse Photo"/>
+				{{ form_widget(photoForm.file,{'attr':{'class':'origin interestPhotoUpload',}}) }}
+				<div class="error">
+					{{ form_errors(photoForm.file) }}
+				</div>
+				{{ form_rest( photoForm ) }}
+				{% if photoPath is not null %}
+					<img src="{{ asset(photoPath) }}" width="120" id="newInterestPhoto">
+				{% else %}
+					<img src="{{ asset('bundles/bugglmain/images/custom/cover-guide.jpg') }}" width="120" id="newInterestPhoto">
+				{% endif %}
+			</div>
+		</div>
+	</form>
+</li>

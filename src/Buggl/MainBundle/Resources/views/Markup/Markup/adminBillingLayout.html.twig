@@ -1,0 +1,88 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% set current = 'billing' %}
+
+{% block title %}Billing{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content billing-section column grid_8">
+        <section class="admin-billing">
+
+        	<div class="reg_box">
+		        <div class="content" id="main_content"> 	
+		        	<p class="admin-breadcrumbs">
+					<a href="">Billing History</a>
+					{% block breadCrumbs %}	
+					{% endblock %}	
+		        	</p>
+		        	<div class="total-revenue">
+						<h3>Buggl Total Revenue : <span>$ {{ sum }}</span></h3>	
+		        	</div>
+		        	<div>
+		        		<div class="select">
+		        			<select id="filter">
+		        				<option value="0">Guide</option>
+		        				<option value="1">Local Author</option>
+		        				<option value="2">Buyer</option>
+		        			</select>
+		        		</div>
+		        		<input id="key" type="text" placeholder="search guide, author, buyer"/>
+		        		<a class="site-admin-button" id="search">Search</a>
+		        	</div>
+		        	{% block billing_lists %}
+		        	<ul class="billing-list">
+		        		<li class="billing-item">
+		        			<ul class="clearfix">
+			        			<li class="">
+			        				Guide
+			        			</li>
+			        			<li class="">
+			        				Author
+			        			</li>
+			        			<li>
+			        				Buyer
+			        			</li>
+								<li class="">
+			        				Price
+			        			</li>	
+								<li class="">
+			        				Fees
+			        			</li>	
+								<li class="">
+			        				Net Amt
+			        			</li>	 			
+			        		</ul>	
+		        		</li>
+		        		<li class="billing-item" id="">
+		        			<ul class="clearfix">
+			        			<li class="">
+			        				Travel with Zebras
+			        			</li>
+			        			<li class="">
+			        				Adelon X. Zeta
+			        			</li>
+			        			<li>
+			        				Micheal Tille
+			        			</li>
+								<li class="">
+			        				<span>$ 10.00</span>
+			        			</li>	
+								<li class="">
+			        				<span>$ 1.50</span>
+			        			</li>	
+								<li class="">
+			        				<span>$ 8.50</span>
+			        			</li>	 			
+			        		</ul>	
+		        		</li>
+		        	</ul>
+		        	{% endblock %}
+		        	<div id="pagination">
+		        	</div>
+		        </div>
+		    </div>
+        </section>		    
+    </article>
+{% endblock %}
+
+

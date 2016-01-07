@@ -1,0 +1,14 @@
+{% for detail in details %}
+	<li class="clearfix">
+		<input type="radio" name="spot-detail-desc" value="{{detail.id}}" class="to-left"/>
+		<div class="to-right">
+			{{detail.description|raw}}
+		</div>	
+	</li>
+{% endfor %}
+<li class="clearfix">
+	<input type="radio" name="spot-detail-desc" value="0" class="to-left"/>
+	<div class="to-right">
+		Write a new desciption.
+	</div>	
+</li>

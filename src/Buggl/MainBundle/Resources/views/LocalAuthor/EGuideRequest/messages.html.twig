@@ -1,0 +1,61 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Messages{% endblock %}
+
+{% block precontent_title %}
+	Messages
+{% endblock %}
+
+{% set active = 'messages' %}
+
+{% block main_content %}	
+	<div class="row">
+		<aside class="admin-messages column grid_4">
+			{% include 'BugglMainBundle:LocalAuthor/Messages:messagesTabs.html.twig' with {'active':activeTab} %}
+		</aside>
+		{% block inner_content %}
+			<article class="grid_8 column" id="paginationContainer">	
+				{% render 'BugglMainBundle:LocalAuthor/Messages:messageThreadList' with {'type':activeTab,'currentPage':currentPage} %}
+				 
+			</article>
+			<div id="newMessageNotification" style="display:none;" data-new-message-count="{{ newMessagesCount }}" data-new-msg-checker-url="{{ path('local_author_check_new_thread_message',{'userId':app.user.id}) }}">
+				You have a new message. <a href="" id="showNotification" >Show</a> <a href="" id='ignore'>Ignore</a>
+			</div>	
+		{% endblock %}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	{% javascripts 
+		'@BugglMainBundle/Resources/public/js/jquery.pagination.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	    <script type="text/javascript">
+	        (function($){
+	            $(document).ready(function(){
+					$('.bugglPagination').paginate();
+					checkNewMessageThread = function(){
+						$.getJSON($('#newMessageNotification').attr('data-new-msg-checker-url'),function(response){
+							if(response.newMessagesCount != 0 && response.newMessagesCount != $('#newMessageNotification').attr('data-new-message-count')){
+								$('#newMessageNotification').attr('data-new-message-count',response.newMessagesCount).show();
+								setTimeout(function(){
+									$('#newMessageNotification').hide();
+								},8000);
+							}
+							setTimeout(function(){
+								checkNewMessageThread();
+							},10000);
+						});
+					}
+				
+					/*setTimeout(function(){
+						checkNewMessageThread();
+					},3000);*/
+	            });
+	        })(jQuery);
+	    </script>
+	{% endjavascripts %}
+{% endblock %}

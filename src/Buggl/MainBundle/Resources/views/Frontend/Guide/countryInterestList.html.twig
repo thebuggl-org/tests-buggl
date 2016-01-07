@@ -1,0 +1,26 @@
+{# please refactor use ajax to load more instead of toggling visibility #}
+
+{% set limit = (interests|length > 4 ? 4 : interests|length) %}
+{% if interests|length > 0 %}
+    {% for i in 0..limit-1 %}
+        <section class="column grid_3">
+            <a href="{{ path('buggl_guide_results',{slug: baseUrl~interests[i].category.url|slugify}) }}">
+                <span>{{ interests[i].category.name }}</span>
+                <img border="0" align="left" alt=" " src="{{asset(interests[i].imageWebPath)}}" width="100%">
+            </a>
+        </section>
+    {% endfor %}
+
+    {% if interests|length > limit %}
+        <div id="hide">
+            {% for i in 4..interests|length - 1 %}
+                <section class="column grid_3">
+                    <a href="{{ path('buggl_guide_results',{slug: baseUrl~interests[i].category.id}) }}">
+                        <span>{{ interests[i].category.name }}</span>
+                        <img border="0" align="left" alt=" " src="{{asset(interests[i].imageWebPath)}}" width="100%">
+                    </a>
+                </section>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}

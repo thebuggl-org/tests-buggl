@@ -1,0 +1,14 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>{{ localAuthorToLocalReference.localAuthor.firstName }},</h1>
+	<p class="font-size: 10px;	">Congratulations!  You’re friend {{ localAuthorToLocalReference.localReference.name }} vouched for you as a travel insider on Buggl!</p>
+	<p>
+		Click <a href="{{ link1 }}">here</a> to check out what he wrote. The more peer reviews you have the more travelers will trust you and the knowledge you share.
+	</p>
+	<p>Ask your local crew of friends, family and colleagues if they will vouch for you and write a reference!</p>
+	<p><a href="{{ link2 }}">Get a reference </a></p>
+
+	<p>Happy Hunting,</p>
+ 	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "BugglMainBundle:LocalAuthor/MediaGallery:mediaGallery.html.twig" %}
+
+{% block galleryList %}
+	<div id="preview" class="fb-clone-modal spots" style="display:none">
+		<div class="clearfix">
+		</div>
+	</div>
+
+	<article class="column grid_8">
+		<section>
+			<h3>Places <nav class="adminOpt"><a class="btn" id="add-new-spot" href="">Add Places</a></nav></h3>
+			<div class="row">
+				<ul class="column 	spotlist-filter menu grid_8">
+					<li class="{{ activeType | selected('all','selected') }}"><a href="{{ path('local_author_gallery_spots') }}">View All</a></li>
+					{% for type in spotTypes %}
+						<li class="{{ activeType | selected(type.name|slugify,'selected') }}"><a href="{{ path('local_author_gallery_spots',{'type':type.name|slugify}) }}">{{ type.name }}</a></li>
+					{% endfor %}  
+		        </ul>
+			</div>
+			<ul class="admin-gallery clearfix" id="spot-gallery">
+				{% for obj in paginator %}
+				<li class="column" data-spotid="{{ obj.spot.id }}" name="spot-parent-container" data-spot-detail="{{ obj.id }}">
+					<img src="{{ obj.photo }}" width="228" />
+					<ul class="admin-gallery-actions horizontalize">
+						<li class="view"><a href="{{ path('view_spot_details', { id: obj.spot.id }) }}" name="view"><span>VIEW</span></a></li>
+					</ul>
+					{#% include 'BugglMainBundle:LocalAuthor/MediaGallery:mediaGalleryActions.html.twig' %#}
+				</li>
+				{% else %}
+					<p class="inform">You have not added a spot yet.</p>
+				{% endfor %}
+			</ul>
+
+		</section>
+			{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':paginator|length,'dataUrl':'', 'itemLimit':itemLimit} %}
+	</article>
+{% endblock %}
+
+{% block modal %}
+	<div id="create-eguide-modal" class="add-spot-modal-container reveal-modal xlarge">
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jcrop/jquery.Jcrop.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/bugglmain/js/jcrop/jquery.Jcrop.min.js' | s3Cdn) }}"></script>
+	<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+	<script src="{{ asset('bundles/bugglmain/js/tiny_mce/jquery.tinymce.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/jquery.iframe-post-form.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.bugglspot.v2.7.js' | s3Cdn) }}"></script>
+
+	{#% javascripts
+   		'@BugglMainBundle/Resources/public/js/Frontend/spotspreview.js' filter="?yui_js"
+   	%}
+    	<script src="{{ asset_url }}"></script>
+    {% endjavascripts %#}
+    <script src="{{ asset('bundles/bugglmain/js/Frontend/spotspreview.js' | s3Cdn) }}"></script>
+
+	<script type="text/template" id="spot-content">
+		<% if(object != null) { %>
+			<div class="img-container">	
+	            <img width="850px" src="<%= object.photo %>" />
+	        </div>
+	    	<div class="site-admin-spot-details">
+	            <a class="close" href="">close</a>
+	            <div>
+	                <h2>{{ "<%= object.name %>" }}</h2>
+	                <span>
+	                    {{ "<%= object.city %>" }}, {{ "<%= object.country %>" }}
+	                </span>
+					<ul class="description-prev-next clearfix">
+						<li><a class="prev" href="" title="View previous spot description"><span></span></a></li>
+						<li><a href="" title="Edit spot description">edit</a></li>
+						<li><a class="next" href="" title="View next spot description"><span></span></a></li>
+					</ul>
+					<div class="scrollable">
+		                <div class="spot-description">
+		                    {{ "<%= object.content %>" }}
+		                </div>
+						<div class="spot-full-categories">
+							<p>
+								<strong>categories:</strong><br/> 
+								<span>tag1</span>
+								<span>tag2</span>
+							</p>
+						</div>
+						<div class="spot-full-tags">
+							<p>
+								<strong>how it&apos;s like:</strong><br/> 
+								<span>tag1</span>
+								<span>tag2</span>
+							</p>
+						</div>
+		                <div class="best-thing">
+		                    <h3>BEST THING ABOUT THE SPOT</h3>
+		                    <p>{{ "<%= object.bestthing %>" }}</p>
+		                </div>
+					</div>
+	            </div>
+	        </div>
+        <% } %>
+    </script>
+
+	<script type="text/javascript">
+		(function($){
+			$(document).ready(function(){
+
+				// $.SpotPreview({
+				// 	preview: $('a[name=view]'),
+				// 	close: $('a.close'),
+				// 	view: $('#preview'),
+				// 	template: $('#spot-content'),
+				// 	parent: 'li[name=spot-parent-container]',
+				// 	spot: 'data-spot-detail',
+				// 	searchUrl: "{{path('find_spot_detail')}}"
+				// });
+
+				// $('a.close').on('click',function(e){
+				// 	e.preventDefault();
+				// 	$('#preview').hide();
+				// });
+			});
+		})(jQuery);
+	</script>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+<section class="step-2 steps" id="{{ eguide.slug }}" data-hasitinerary="{{hasItinerary}}">
+	<div class="create-guide-pages clearfix">
+		
+		{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:guidePageSections.html.twig" with { 'travel_guide_id' : eguide.id, name : 'overview'} %}
+
+		<div class="pages">
+			<div class="page">
+				<div class="main-page clearfix">
+					{% set bgphoto = (eguidePhoto is not null) ? eguidePhoto.photo : asset('bundles/bugglmain/images/custom/cover-guide.jpg') %}
+					<div class="first-half half to-left page-intro" style="background: url({{bgphoto}}) no-repeat #ffffff;">
+						<ul class="spot-actions clearfix">
+							<li class="edit"><a title="CHANGE PHOTO" href="{{bgphoto}}" name="change-background-image" data-eguideid="{{eguide.id}}" data-phototype="{{ constant('Buggl\\MainBundle\\Entity\\EGuidePhoto::OVERVIEW_PHOTO') }}"><span>ADD COVER IMAGE</span></a></li>
+						</ul>
+						<div class="page-shading"></div>									
+						<div> 
+							<h1>Overview</h1>
+							{% if eguide.overviewIntro is not null and eguide.overviewIntro is not empty %}
+								{% set content = eguide.overviewIntro  %}
+							{% else%}
+								{% set content = '' %}
+							{% endif %}
+							<div name="intro-text" data-title="Travel Guide Overview"  data-fieldname="overviewIntro" data-content="{{ content }}">
+								{% if eguide.overviewIntro is not null and eguide.overviewIntro is not empty %}
+									{{ eguide.overviewIntro|raw }}
+									<a class="editable">
+										<strong>EDIT.</strong>
+										<span class="client-edit-button">EDIT</span>
+									</a>
+								{% else %}
+									<a class="editable">
+										<em>Describe the locations your travel guide is about. Think about the people you're writing this guide for and what makes the area so special!.</em>
+										<strong>ADD YOUR TRAVEL GUIDE OVERVIEW HERE.</strong>
+										<span class="client-edit-button">EDIT</span>
+									</a>
+								{% endif %}
+							</div>	
+						</div>
+					</div>
+					<div class="second-half half to-left generic">
+						<!-- <ul class="spot-actions clearfix">
+							<li class="edit"><a title="EDIT" href=""><span>EDIT</span></a></li>
+							<li class="remove"><a title="REMOVE" href=""><span>REMOVE</span></a></li>
+						</ul> -->
+						<div class="page-shading"></div>
+						<div class="generic-header">
+							<h1>Local Perks and Knowledge</h1>
+						</div>
+						{% set overview = (contents|length > 0) ? contents[0] : null %}
+						<div class="generic-content">
+							<div name="guide-content" data-content="{{ (overview is not null and overview.content is not null and overview.content is not empty) ? overview.content : '' }}" data-contentid="{{ (overview is not null) ? overview.id : 0 }}" data-type="1" data-title="Cool Perks & Local Knowledge">	
+								{% if overview is not null and overview.content is not empty and overview.content is not null %}
+									{{ overview.content|raw }}
+									<a class="editable">
+										<strong>EDIT. </strong>
+										<span class="client-edit-button">EDIT</span>
+									</a>
+								{% else %}
+									<a class="editable">
+										<em>What interesting bits of information or exclusive access could you share with someone who purchase this guide?  Do you have connections in a specific industry of expertise or could you let them ride along on a film shoot?  Don't give away your secrets fully, but let them know what makes you special and why they should buy this travel guide from you.</em>
+										<strong>ADD YOUR CONTENT HERE. </strong>
+										<span class="client-edit-button">EDIT</span>
+									</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				{% include 'BugglMainBundle:LocalAuthor/Eguides/Themes/Default:pageNavigation.html.twig' with {'travel_guide_id' : eguide.id,'prev_page':'itinerary','next_page':'before-you-go', 'status' : eguide.status} %}
+			</div>
+		</div>
+	</div>
+</section>

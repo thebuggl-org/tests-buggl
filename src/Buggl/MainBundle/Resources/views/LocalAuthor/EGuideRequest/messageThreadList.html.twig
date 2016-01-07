@@ -1,0 +1,21 @@
+<section class="inbox bugglPaginationContents">
+	<h3> {{ activeTab|capitalize }} <nav class="adminOpt"><a href="{{ path('local_author_messages_create') }}" class="btn messages"><span class="ico"></span>New Message</a></nav></h3>
+	
+	{% for messageThreadToUser in threads %}
+		{% set messageToUser = messageThreadToUser | latestMessage %}
+		{% if messageToUser is not null %}
+			<a class="{{ messageToUser.status | selected(0,'unread') }}" href="{{ path('local_author_messages_thread',{'type':activeTab,'messageThreadToUserId':messageThreadToUser.id}) }}" id={{ 'thread_'~messageToUser.id }}>
+				<span class="name">{{ messageToUser.sender.name }}</span>
+				<span>{{ (messageThreadToUser.thread.subject ~ ' - ' ~ messageToUser.message.content) | truncate(40) }} </span>
+				<span class="time fr">{{ messageToUser.message.dateCreated | showTimeElapsed }}</span>
+			</a>
+		{% endif %}
+	{% else %}
+		<div class="no-message reg_box">
+			<p>You have no messages</p>
+		</div>
+	{% endfor %}
+</section>
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'itemLimit':itemLimit,'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':threads|length,'dataUrl':dataUrl} %}
+
+<!-- 11726,11806,11816,11841,11893,11905,11994,12094,12099,12114,12155,12234,12237,12268 -->

@@ -1,0 +1,57 @@
+{% extends "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:create.html.twig" %}
+
+{% block title %}
+	Create Travel Guide
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	<script src="{{ asset('bundles/bugglmain/js/jquery.iframe-post-form.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.bugglspot.v2.7.js' | s3Cdn) }}"></script>
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.mCustomScrollbar.concat.min.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+	<script src="{{ asset('bundles/bugglmain/js/jquery.mCustomScrollbar.concat.min.js' | s3Cdn) }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".mcsPaginationContainer").each(function(){
+				var width = 0;
+				var descripancyAdjustment = parseInt($(this).attr('data-descripancy'));
+
+				$(this).find("ul.mcsPaginationItems > li").each(function(){
+					width += $(this).width()+descripancyAdjustment;
+				});
+
+				$(this).children(".mcsPaginationItems").width(width);
+				$(this).mCustomScrollbar({
+					horizontalScroll:true
+				});
+
+				$(this).mCustomScrollbar("scrollTo",$(this).find("ul.mcsPaginationItems > li.current").position().left);
+			});
+		});
+	</script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#% stylesheets 
+        'bundles/bugglmain/css/jquery.mCustomScrollbar.css'
+		filter='cssrewrite'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %#}
+    <link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jquery.mCustomScrollbar.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}
+
+{% block create_eguide_page %}
+	{% set guide_id = (travel_guide_id is defined) ? travel_guide_id : null %}
+	{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:steps.html.twig" with {'travel_guide_id' : guide_id, 'step' : 2} %}
+
+	{% include template %}
+
+{% endblock %}

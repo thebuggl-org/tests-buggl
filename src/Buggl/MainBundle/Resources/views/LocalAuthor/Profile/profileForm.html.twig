@@ -1,0 +1,202 @@
+<form id="{{ 'profileForm_'~buildFor }}" action="{{ path('update_profile',{'updateFor':buildFor}) }}" method="POST" {{ form_enctype(form) }} novalidate>
+	{% if buildFor == 'aboutYou' %}
+		<div class="form-section">
+			<span>
+				{{ form_widget(form.aboutYou,{'attr':{'data-max-len':500,'class':'limited'}}) }}
+				{{ form_errors(form.aboutYou) }}
+			</span>
+		</div>
+	{% elseif buildFor == 'selfComment' %}
+		<div class="form-section">
+			<span>
+				{{ form_widget(form.selfComment,{'attr':{'data-max-len':500,'class':'limited'}}) }}
+				{{ form_errors(form.selfComment) }}
+			</span>
+		</div>
+	{% elseif buildFor == 'location' %}
+		<div class="form-section traveler-to-author">
+			<span>
+				<label>Country</label>							
+				<span>
+					{{ form_widget(form.localAuthor.country,{ 'id': 'profile-country-search', 'value' : defaultCountry, 'attr':{'data-id' : defaultCountryId}} ) }}
+					{{ form_errors(form.localAuthor.country) }}
+				</span>
+				<label>City</label>							
+				<span>
+					{{ form_widget(form.localAuthor.city,{ 'id': 'profile-google-place-search', 'value' : defaultCity} ) }}
+					{{ form_errors(form.localAuthor.city) }}
+				</span>
+			</span>
+		</div>
+	{% elseif buildFor == 'profileBasicInfo' %}
+		<div class="form-section editor">
+			<span><h4>First Name</h4>
+				{{ form_widget(form.localAuthor.firstName) }}
+				{{ form_errors(form.localAuthor.firstName) }}
+			</span>
+		</div>	
+		<div class="form-section editor">	
+			<span><h4>Last Name</h4>
+				{{ form_widget(form.localAuthor.lastName) }}
+				{{ form_errors(form.localAuthor.lastName) }}
+			</span>
+		</div>
+		<div class="form-section editor clear">
+			<span><h4>Professional Expertise</h4></span>
+				{{ form_widget(form.work) }}
+				{{ form_errors(form.work) }}
+			</span>
+		</div>
+		<div class="form-section editor clear">
+			<span><h4>Who am I?</h4>
+				{{ form_widget(form.aboutYou,{'attr':{'data-max-len':500,'class':'limited'}}) }}
+				{{ form_errors(form.aboutYou) }}
+				<input type="text" value="0" readonly="readonly" class="remaining-chars-display"/>
+			</span>
+		</div>
+		<div class="form-section editor clear">
+			<span><h4>What I know about travel?</h4>
+				{{ form_widget(form.selfComment,{'attr':{'data-max-len':500,'class':'limited'}}) }}
+				{{ form_errors(form.selfComment) }}
+				<input type="text" value="0" readonly="readonly" class="remaining-chars-display"/>
+			</span>
+		</div>
+	{% elseif buildFor == 'guideInfo' %}
+		<ul class="editor">
+			<li>
+				<h4>Birthdate</h4>
+				{{ form_widget(form.birthDate) }}
+				{{ form_errors(form.birthDate) }}
+			</li>
+			<li>
+				<h4>Country</h4>							
+				{{ form_widget(form.localAuthor.country,{ 'id': 'profile-country-search', 'value' : defaultCountry, 'attr':{'data-id' : defaultCountryId} } ) }}
+				{{ form_errors(form.localAuthor.country) }}
+			</li>
+			<li>	
+				<h4>City</h4>						
+				{{ form_widget(form.localAuthor.city,{ 'id': 'profile-google-place-search', 'value' : defaultCity} ) }}
+				{{ form_errors(form.localAuthor.city) }}
+			</li>
+		</ul>
+		{% if false %}
+		<div class="form-section">
+			<span>
+				<label>Do you have kids?</label>
+				{{ form_widget(form.kidsInfo) }}
+				{{ form_errors(form.kidsInfo) }}
+			</span>
+		</div>
+		{% endif %}
+	{% elseif buildFor == 'localStats' %}
+		<ul class="editor">
+			<li>
+				<h4>Traveler Since</h4>
+				<div class="select">
+					{{ form_widget(form.localSince) }}
+				</div>
+				{{ form_errors(form.localSince) }}
+				</span>
+			</li>
+			<li>
+				<h4>Interest and Activities</h4>
+				{{ form_widget(form.interestAndActivities) }}
+				{{ form_errors(form.interestAndActivities) }}
+			</li>
+			<li>
+				<h4>Accomplishments</h4>
+				{{ form_widget(form.accomplishments) }}
+				{{ form_errors(form.accomplishments) }}
+			</li>
+		</ul>
+	{% elseif buildFor == 'localVerified' %}
+		<ul class="editor">
+			<li>
+				<h4>Phone</h4>
+				{{ form_widget(form.phone) }}
+				{{ form_errors(form.phone) }}
+			</li>
+		</ul>
+	{% elseif buildFor == 'authorPageBasicInfo' %}
+		<div class="form-section">
+			<span>
+				<label>First Name</label>
+				{{ form_widget(form.localAuthor.firstName) }}
+				{{ form_errors(form.localAuthor.firstName) }}
+			</span>
+		</div>
+		<div class="form-section">
+			<span>
+				<label>Last Name</label>
+				{{ form_widget(form.localAuthor.lastName) }}
+				{{ form_errors(form.localAuthor.lastName) }}
+			</span>
+		</div>
+		<div class="form-section">
+			<span>
+				<label>Professional Expertise</label>
+				{{ form_widget(form.work) }}
+				{{ form_errors(form.work) }}
+			</span>
+		</div>
+		<div class="form-section">
+			<span>
+				<label>Local Since</label>
+				{{ form_widget(form.localSince) }}
+				{{ form_errors(form.localSince) }}
+			</span>
+		</div>
+		<div class="form-section">
+			<span>
+				<label>Birthdate</label>
+				{{ form_widget(form.birthDate) }}
+				{{ form_errors(form.birthDate) }}
+			</span>
+		</div>
+		<div class="form-section">
+			<span>
+				<label>Interest and Activities</label>
+				{{ form_widget(form.interestAndActivities) }}
+				{{ form_errors(form.interestAndActivities) }}
+			</span>
+		</div>
+	{% endif %}
+	{{ form_rest( form ) }}
+
+	<div class="form-section submit-section">
+		<input class="btn" type="submit" value="Save"/>
+		{% if buildFor != 'authorPageBasicInfo'%}
+			<a class="profile-cancel" data-profile-content-id="{{ buildFor }}" href="" onclick="return false">Cancel</a>
+		{% endif %}
+		{% if buildFor == 'aboutYou' or buildFor == 'selfComment' %}
+			<input type="text" value="0" readonly="readonly" class="remaining-chars-display"/>
+		{% endif %}
+	</div>
+</form>
+
+{% if buildFor == 'guideInfo' or buildFor == 'authorPageBasicInfo'%}
+	<script>
+		$(document).ready(function(){
+			$("#Profile_birthDate").val($("#Profile_birthDate").val().substring(0,10)).datepicker({
+				changeYear: true,
+				changeMonth: true,
+				yearRange: "c-100:c",
+				dateFormat: "yy-mm-dd"
+			});
+		});
+	</script>
+{% endif %}
+
+<script src="{{ asset('bundles/bugglmain/js/LocalAuthor/Profile/jquery.places-autocomplete.js') }}"></script>
+
+<script>
+	$(document).ready(function(){
+		$("textarea.limited").each(function(){
+			var me = $(this);
+			me.limitedTextArea({
+				'maxLen' : me.attr('data-max-len'),
+				'remainingCharsDisplay' : me.siblings('.remaining-chars-display').length == 0 ? $('.remaining-chars-display').first() : me.siblings('.remaining-chars-display').first()
+			});
+		});
+	});
+</script>

@@ -1,0 +1,10 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+    <h1>Hi {{ name }}!</h1>
+    <p class="font-size: 10px;  ">We reviewed your travel guide ( {{ travelguide }}  ).</p>
+    <p>And your travel guide has been approved.</p>
+	
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

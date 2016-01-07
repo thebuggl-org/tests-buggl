@@ -1,0 +1,153 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+	<div id="seventh" class="expert-subscription">
+		<div class="story">
+	    	<div class="subscribe-form">
+				<h1 style="text-align:center;">
+					<a href="/"><img src="{{ asset('bundles/bugglmain/images/buggl_logo.png') }}" /></a>	
+					<span class="registration-title">Become a Travel Insider!</span>
+					{% if facebookRegistrationUrl is defined %}
+						<a class="fb-signup" href="{{ facebookRegistrationUrl }}">Sign up via Facebook</a>
+					{% endif %}
+					{% if twitterRegistrationUrl is defined and false %}
+						<a class="fb-signup" href="{{ twitterRegistrationUrl }}">Sign up via Twitter</a>
+					{% endif %}
+					{% if googlePlusRegistrationUrl is defined and false %}
+						<a class="fb-signup" href="{{ googlePlusRegistrationUrl }}">Sign up via Google+</a>
+					{% endif %}
+				</h1>
+				{{ form_errors(form) }} 
+				<form action="" method="post" novalidate id="registrationForm">
+					<div class="form-section">
+						<span>
+							<label>First Name</label>
+						    {{ form_widget(form.firstName) }}
+							{{ form_errors(form.firstName) }}
+						</span>
+					</div>	
+					<div class="form-section">
+						<span>
+							<label>Last Name</label>		
+						    {{ form_widget(form.lastName) }}
+						    {{ form_errors(form.lastName) }}						
+						</span>
+					</div>
+					{# email fetched from facebook need not be confirmed #}
+					{% if registerViaFacebook is defined and registerViaFacebook %}
+						<div class="form-section">				
+							<span>
+								<label>Email Address</label>		
+							    {{ form_widget(form.email) }}	
+								{{ form_errors(form.email) }}
+							</span>
+						</div>
+					{% else %}
+						<div class="form-section">				
+							<span>
+								<label>Email Address</label>		
+							    {{ form_widget(form.email.first) }}	
+								{{ form_errors(form.email.first) }}
+							</span>
+						</div>
+						<div class="form-section">				
+							<span>
+								<label>Confirm Email Address</label>
+							    {{ form_widget(form.email.second) }}	
+							    {{ form_errors(form.email.second) }}
+							</span>
+						</div>
+					{% endif%}
+					{% if requirePassword is defined and requirePassword  %}
+						<div class="form-section">				
+							<span>
+								<label>Password</label>							
+							    {{ form_widget(form.password.first) }}
+								{{ form_errors(form.password.first) }}
+							</span>
+						</div>
+						<div class="form-section">				
+							<span>
+								<label>Confirm Password</label>							
+								{{ form_widget(form.password.second) }}
+								{{ form_errors(form.password.second) }}
+							</span>
+						</div>
+					{% endif %}
+					<div class="form-section">
+						<label>Sign Up As</label>							
+						<div class="select">
+							{{ form_widget(form.type) }}
+							{{ form_errors(form.type) }}
+						</div>
+					</div>
+					{#
+					<div class="form-section" id="locationContainer">
+						<label>Country</label>							
+						<span>
+							{{ form_widget(form.country,{ 'id': 'profile-country-search'} ) }}
+							{{ form_errors(form.country) }}
+						</span>
+						<label>City</label>							
+						<span>
+							{{ form_widget(form.city,{ 'id': 'profile-google-place-search'} ) }}
+							{{ form_errors(form.city) }}
+						</span>
+					</div>
+
+					{{ form_rest( form ) }}
+					#}
+					
+					{{ form_widget(form._token) }}
+					<div class="form-section submit-section">
+						<input id="subscribe_button" class="button" type="submit" value="REGISTER" />					
+					</div>
+
+				</form>
+			</div>
+	    </div>
+	</div> 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	
+	<script>
+		toggleLocation = function(){
+			if($('#LocalAuthor_type').val() == 0){
+				$('#locationContainer').hide();
+				$('#LocalAuthor_location').val('dummy');
+			}
+			else{
+				$('#LocalAuthor_location').val("");
+				$('#locationContainer').show();
+			}
+		}
+	
+		toggleLocation();
+		$('#LocalAuthor_type').on('change',function(){
+			toggleLocation();
+		});
+		
+		var signUpOptions = ['Traveler','Insider'];
+		
+		analytics.trackForm($('#registrationForm'), 'Register', {
+		    'Sign up as' : signUpOptions[$('#LocalAuthor_type').val()]
+		});
+	</script>
+	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEoojfv0KL3vIx5RQjWYIKZcqxJBH4LXc&sensor=false&libraries=places" type="text/javascript"></script>
+	<script src="{{ asset('bundles/bugglmain/js/LocalAuthor/Profile/jquery.places-autocomplete.js') }}"></script>
+	
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/LocalAuthor/Profile/jquery.places-autocomplete.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+{% endblock %}

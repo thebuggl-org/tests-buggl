@@ -1,0 +1,68 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Buggl | Vouch{% endblock %}
+
+{% block precontent_title %}
+{% endblock %}
+
+{% set active = '' %}
+
+{% block main_content %}
+	<div class="row ref-heading">
+		<h2>Add References</h2>
+		<p>Send them an email for you to get vouched.</p>
+	</div>	
+	<div class="ref-steps">
+		<div class="row">
+			<img src="{{ asset('/bundles/bugglmain/images/steps.png') }}" />	
+		</div>
+	</div>	
+	<div class="row">
+		<!-- Add email address here -->
+        <form action="" method="POST" class="ref-add-emails">
+			<textarea name="emails">{{ prevEmails }}</textarea>
+			<p><input type="submit" value="Send Email" class="btn" /></p>
+			{% if invalidMessage is not empty %}
+				<p class="error">{{ invalidMessage }}</p>
+			{% endif %}
+    	</form>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#% stylesheets
+        'bundles/bugglmain/css/jquery.tagsinput.css'
+		filter='cssrewrite'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %#}
+    <link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jquery.tagsinput.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.tagsinput-mod.js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+	<script src="{{ asset('bundles/bugglmain/js/jquery.tagsinput-mod.js' | s3Cdn) }}"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+				$('textarea[name="emails"]').tagsInput({
+					'defaultText':'add email address',
+					width:'100%',
+					'inputValidation':function(email){
+						var emailRegexStr = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+						var isValid = emailRegexStr.test(email);
+
+						return isValid;
+					}
+				});
+			});
+        })(jQuery);
+    </script>
+{% endblock %}

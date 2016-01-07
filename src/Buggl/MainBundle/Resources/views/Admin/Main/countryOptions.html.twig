@@ -1,0 +1,6 @@
+<select id="countrySelect">
+    <option value="0">All</option>
+    {% for country in countries %}
+        <option value="{{ country.id }}">{{ country.name }}</option>
+    {% endfor %}
+</select>

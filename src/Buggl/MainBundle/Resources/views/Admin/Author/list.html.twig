@@ -1,0 +1,26 @@
+<ul class="author-list site-admin-list" id="author">
+    <script type="text/template" id="author_list_template">
+        <% if(authors.length > 0) { %>
+            <% _.each(authors, function(author) { %>
+                <li class="clearfix">
+                    <div class="to-left clearfix">
+                        <img class="to-left" src="{{ asset('') }}<%= author.pic %>" width="100" height="100" />
+                        <div class="to-left">
+                            <h3><a href="<%= author.viewUrl %>" target="_blank">{{ "<%= author.name %>" }}</a></h3>
+                            <span><strong>Location: </strong>{{"<%= author.city %>"}}</span><br/>
+                            <span><strong>Travel Guides Built: </strong> {{"<%= author.eguideCount %>"}} </span><br/>
+                            <span><strong>Travel Guides Sold:  </strong> {{"<%= author.dlCount %>"}} </span><br/>
+                            <span><strong>Date Joined:  </strong> {{"<%= author.dateJoined %>" }} </span>
+                        </div>
+                    </div>
+                    <ul class="site-admin-list-actions to-right horizontalize"> 
+                        <li><a href="<%= author.id %>" name="suspend">{{ "<%= author.action %>" }}</a></li>
+                        <li><a href="<%= author.viewUrl %>" target="_blank" name="view">view</a></li>
+                    </ul>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>No Result</li>
+        <% } %>
+    </script>
+</ul>

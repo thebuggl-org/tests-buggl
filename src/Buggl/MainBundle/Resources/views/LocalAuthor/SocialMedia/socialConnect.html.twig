@@ -1,0 +1,62 @@
+		<form action="" method="POST">
+			<ul class="lista social-media-form">	
+				<li>
+					<img src="{{ asset('/bundles/bugglmain/images/fb-share.png') }}" />
+					<!-- <span class="to-left social-media-icon fb"></span> -->
+					<label>facebook</label>
+					{% if socialMedia.fbId is not null %}
+						<p>Already Connected</p>
+						<nav class="mini">
+							<a href="{{ path('disconnect_facebook') }}" class="btn fl">Disconnect my Account</a>
+						</nav>	
+					{% else %}
+						<p>Not Connected</p>
+						<nav class="mini">
+							<a href="{{ path('connect_with_facebook_url') }}" class="btn fl">Connect my Account</a>
+						</nav>
+					{% endif %}
+				</li>
+				<li>
+					<img src="{{ asset('/bundles/bugglmain/images/twt-share.png') }}" />
+					<!-- <span class="to-left social-media-icon twt"></span> -->
+					<label>twitter</label>
+					{% if socialMedia.twitterId is not null %}
+						<p>Already Connected</p>
+						<nav class="mini">
+							<a href="{{ path('disconnect_twitter') }}" class="btn fl">Disconnect my Account</a>
+						</nav>	
+					{% else %}
+						<p>Not Connected</p>
+						<nav class="mini">
+							<a href="{{ path('connect_with_twitter_url') }}" class="btn fl">Connect my Account</a>
+						</nav>
+					{% endif %}
+				</li>
+				<li>
+					<img src="{{ asset('/bundles/bugglmain/images/gplus-share.png') }}" />
+					<!-- <span class="to-left social-media-icon gp"></span> -->
+					<label>google+</label>
+					{% if socialMedia.googlePlusId is not null %}
+						<p>Already Connected</p>
+						<nav class="mini">
+							<a href="{{ path('disconnect_google_plus') }}" class="btn fl">Disconnect my Account</a>
+						</nav>	
+					{% else %}
+						<p>Not Connected</p>
+						<nav class="mini">
+							<a href="{{ path('connect_with_google_plus_url') }}" class="btn fl">Connect my Account</a>
+						</nav>	
+					{% endif %}
+				</li>
+				{% if false %}
+				<li>
+					<span class="to-left social-media-icon yt"></span>
+					<label>youtube</label>
+					{{ form_widget(form.youtubeUrl) }}
+					{{ form_errors(form.youtubeUrl) }}
+					{{ form_rest(form) }}
+					<input type="submit" class="btn" value="Save Changes"/>
+				</li>
+				{% endif %}
+			</ul>	
+		</form>

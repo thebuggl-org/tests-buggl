@@ -1,0 +1,84 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% set current = 'author' %}
+{% set status = 'published' %}
+
+{% block title %}Local Authors{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+        <section>
+        <div class="reg_box">
+        {% block breadcrumbs %}
+            <p class="admin-breadcrumbs">
+                <a href="">Local Authors</a>
+				<a class="csv" href="{{ path('admin_export_local_author_to_csv') }}" target="_blank">Export to CSV</a>
+            </p>
+        {% endblock %}
+        
+        {% block admin_author_main_content %}
+        <div class="content"> 
+            <ul class="site-admin-filter horizontalize">
+           		<li>
+           			<div class="select" name="country">
+                        <script type="text/template" id="country_template">
+                            <select>
+                                <option value="0">All</option>
+
+                                <% _.each(countries, function(country) { %>
+                                      <option value="{{ '<%= country.id %>' }}">{{ "<%= country.name %>" }}</option>
+                                <% }); %>
+                            </select>
+                        </script>
+           			</div>
+           		</li>
+           		<li>
+           			<div class="select" name="city">
+	           			<script type="text/template" id="city_template">
+                            <select>
+                                <option value="0">All</option>
+
+                                <% _.each(cities, function(city) { %>
+                                      <option value="{{ '<%= city.id %>' }}">{{ "<%= city.name %>" }}</option>
+                                <% }); %>
+                            </select>
+                        </script>
+           			</div>
+           		</li>
+                <li>
+                    <input type="text" name="search">
+                </li>          		
+            </ul>	
+        </div>
+        {% block list %}
+        {% endblock %}
+        </div>
+        </section>
+        <div id="pagination">
+            <script type="text/template" id="pagination_template">
+                <section class="page bugglPagination">
+                    <nav>
+                        <% if(totalPages > 0){ %>
+                            <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                            <% if(startPage > 1) { %>
+                                <a href="1" class="bugglPaginationLink">1</a>
+                                <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                            <% } %>
+
+                            <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                                <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                            <% }); %>
+
+                            <% if (endPage < totalPages) { %>
+                                <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                                <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                            <% } %>
+                            <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                        <% } %>
+                    </nav>
+                </section>
+            </script>
+        </div>  
+        {% endblock %}       
+    </article>
+{% endblock %}

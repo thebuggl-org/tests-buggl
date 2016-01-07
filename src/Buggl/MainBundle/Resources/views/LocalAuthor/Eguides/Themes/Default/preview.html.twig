@@ -1,0 +1,330 @@
+{% extends "BugglMainBundle:LocalAuthor/Eguides:previewLayout.html.twig" %}
+{#% extends "BugglMainBundle::guidePreviewLayout.html.twig" %#}
+{% block body %}
+
+<!-- START: cover page -->
+
+<div class="main-page cover clearfix" style="font-family:Raleway">
+	{% set coverPhoto = (coverPhotos.cover is not null) ? coverPhotos.cover.photo : '/bundles/bugglmain/images/custom/cover-guide.jpg' %}
+	<div style="background: url({{coverPhoto}}) #eeeeee;" class="half cover">
+		<img src="{{ asset("/bundles/bugglmain/images/guide-header.png") }}" width="515px" height="105px" />
+		<h1 data-content="ffd" data-fieldname="title" name="popup-edit" style="font-family:Oswald; font-size:{{ eguide.plainTitle|length > 40 ? '48' : '60' }}px;">{{ eguide.title|raw }}</h1>
+		<div class="cover-teaser" style="color:#222222;">
+			{{ eguide.excerpts|raw }}
+		</div>		
+		<div class="cover-footer-container"> 
+			<div class="cover-footer clearfix">
+				<div class="to-left">
+					<img class="profile" src="{{ asset(eguide.localAuthor.profile | profilePic) }}" />
+					<span class="author">{{ eguide.localAuthor.getName }}</span>
+					<span class="profession">{{ eguide.localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+				</div>
+				<!-- <span class="price to-right">
+					$1<span>.50</span>
+				</span> -->
+			</div>
+			<div class="copyright">
+				<p>Buggl.com. All Rights Reserved.</p>
+			</div>
+		</div>	
+	</div>
+</div>
+<!-- END: cover page -->
+<!-- START: About Us -->
+<div class="pdf-page" style="font-family:Raleway">
+	
+	<div style="background: url(/bundles/bugglmain/images/about-us-bg2.jpg) no-repeat #ffffff;" class="first-half half to-left generic">								
+		<div class="generic-header">
+			<h1 style="font-family:Oswald;">ABOUT US</h1>
+		</div>
+		<div class="generic-content">
+			<h3 style="font-family:Oswald;">THE BUGGL TEAM.</h3>
+			<p>We are a small team banded together to solve the major problems that exist around travel planning.  We've lived in your shoes for years, trying to seek authentic and matched trip advice to no avail.  Buggl was built as your vehicle to ride in every time you need inspiration about a place to go.</p>
+			<h3 style="font-family:Oswald;">OUR MISSION.</h3>
+			<p>Our goal is to give people a better opportunity to experience delightful life moments when they travel.  This only happens when people begin to trust in one another and not on reviews or ratings of places online anymore.  Bringing the life back to travel means pulling local people out of the shadows of those review sites and onto a place where they share their expertise on what they love to do in their location.    It's only possible to travel well by harnessing the relationship between travelers and locals.</p>
+			<p>Our aim is give everyone an equal chance to have beautiful trips. </p>
+			<h3 style="font-family:Oswald;">OUR STORY.</h3>
+			<p>This isn't a company.  If you unraveled our DNA it would read like a passport stamped with ink from all over the world.  We've each had unique and memorable experiences traveling down the street or around the world that have changed us as individuals and humans.  If you've traveled like us, you know it's possible to grow as a person when you travel right.  If you haven't traveled like us, this platform will give you the ability to do so.  It's time to TRUST in other people again to help navigate you through the world. </p>
+		</div>
+	</div>
+</div>
+
+<!-- END: About Us -->
+<!-- START: Local Author -->
+<div class="pdf-page guide-profile clearfix" style="font-family:Raleway">
+	<div class="first-half half to-left generic">
+		<div class="generic-header">
+			<h1 style="font-family:Oswald;">About Me</h1>
+		</div>
+		<div class="generic-content">
+			<div class="about-local-author">
+				<img src="{{ asset(eguide.localAuthor.profile | profilePic) }}" width="230" height="230" />
+				<div class="editProfileInfoContainer generic-sections" id="profileContent_authorPageBasicInfo">
+					{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'authorPageBasicInfo', 'viewOnly' : true, 'localAuthor' : eguide.localAuthor} %}
+				</div>
+				<h3 style="font-size:12px;font-family:Oswald;font-size:14px;text-transform:uppercase;">Who Am I?</h3>
+				<div class="editProfileInfoContainer generic-sections" id="profileContent_aboutYou" style="font-family:Raleway;">
+					{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'aboutYou', 'viewOnly' : true, 'localAuthor' : eguide.localAuthor} %}
+				</div>
+				<h3 style="font-size:12px;font-family:Oswald;font-size:14px;text-transform:uppercase;">What I know about travel?</h3>
+				<div class="editProfileInfoContainer generic-sections" id="profileContent_selfComment">
+					{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'selfComment', 'viewOnly' : true, 'localAuthor' : eguide.localAuthor} %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END: Local Author -->
+<!-- START: Overview -->
+{% set overviewIntro = eguide.overviewIntro|striptags %}
+{% if 0 < overviewIntro|length %}
+<div class="pdf-page" style="font-family:Raleway">
+	{% set overviewPhoto = (coverPhotos.overview is not null) ? coverPhotos.overview.photo : '/bundles/bugglmain/images/custom/cover-guide.jpg' %}
+	<div class="first-half half to-left page-intro" style="background: url({{overviewPhoto}}) no-repeat #ffffff;">									
+		<div> 
+			<h1 style="font-family:Oswald;">Overview</h1>
+			<div data-content="" data-fieldname="overviewIntro" data-title="Overview Intro" name="intro-text" style="cursor: pointer;">
+				{{ eguide.overviewIntro|raw }}
+			</div>	
+		</div>	
+	</div>
+</div>
+{% endif %}
+
+{% if overviewContents is not null %}
+<div class="pdf-page" style="font-family:Raleway">
+	<div class="second-half half to-left generic">
+		<div class="generic-header">
+			<h1 style="font-family:Oswald;">LOCAL PERKS AND KNOWLEDGE</h1>
+		</div>
+		<div data-type="1" data-contentid="0" data-content="" name="guide-content" class="generic-content">
+			
+			{{ overviewContents.content|raw }}
+			
+		</div>
+	</div>	
+</div>
+{% endif %}
+
+<!-- END: Overview -->
+
+<!-- START: Local Secrets -->
+<div class="pdf-page" style="font-family:Raleway">
+	{% set lsPhoto = (coverPhotos.local_secret is not null) ? coverPhotos.local_secret.photo : '/bundles/bugglmain/images/custom/cover-guide.jpg' %}
+	<div class="first-half half to-left page-intro" style="background: url({{lsPhoto}}) no-repeat #ffffff;">									
+		<div> 
+			<h1 style="font-family:Oswald;">Local Secrets</h1>
+			{#
+			<div data-content="" data-fieldname="overviewIntro" data-title="Overview Intro" name="intro-text" style="cursor: pointer;">
+				{{ eguide.localSecretIntro|raw }}
+			</div>	
+			#}
+		</div>	
+	</div>
+</div>
+
+{% set secretCnt = 2 %} 
+{% for detail in localSecrets %}
+{% set spot_type_cls = detail.spotType.name|replace(" ", "-")|lower %}
+{% set secretCls = (secretCnt is even) ? "second-half" : "first-half" %} 
+<div class="pdf-page" style="font-family:Raleway">
+	<div class="{{secretCls}} half spot"> 
+		<div class="title">
+			<h1 style="font-family:Oswald;"><span class="span-type-ico"></span>{{ detail.spot.name }}</h1> <!-- thia becomes spot title if hidden gems  -->
+			<span class="liner"></span>
+			{#<h5 class="{{ spot_type_cls }}">{{ detail.spot.name }}</h5> #}
+		</div>
+		<div class="spot-image">
+			<img width="600" src="{{ detail.photo|checkImage }}">
+		</div>
+		<div class="clearfix">
+			<div class="side">
+				<div class="guide-widget rating" style="margin-bottom:10px;">
+					<h3 style="font-family:Oswald">RATING</h3>
+					<div>
+						<ul>
+							<li><span class="{{ (detail.rating >= 1) ? 'active' : '' }}"></span></li>
+							<li><span class="{{ (detail.rating >= 2) ? 'active' : '' }}"></span></li>
+							<li><span class="{{ (detail.rating >= 3) ? 'active' : '' }}"></span></li>
+						</ul>
+						<span class="rating-text">{{ detail.ratingText }}</span>
+					</div>	
+				</div>
+				<div class="guide-widget tags" style="margin-bottom: 20px;">
+					<h3 style="font-family:Oswald;">CATEGORY</h3>
+					<div>
+						<ul>
+							{% for cat in detail.spotCategories %}
+							<li>{{ cat.name }}</li>
+							{% endfor %}
+						</ul>
+					</div>	
+				</div>
+				<div class="guide-widget tags" style="margin-bottom: 20px;">
+					<h3 style="font-family:Oswald;">NEED TO KNOW</h3>
+					<div>
+						<ul>
+							{% for like in detail.spotLikes %}
+							<li>{{ like.name }}</li>
+							{% endfor %}
+						</ul>
+					</div>	
+				</div>
+			</div>
+			<div class="content">	
+				<div class="{{ spot_type_cls }} spot-type clearfix">
+					<span class="spot-type-ico"></span>				
+					<div>	
+						<h3 style="font-family:Oswald;">{{ detail.spotType.name }}</h3>
+						<span class="spot-contact" style="line-height: 15px;color:#777777;">
+							{{ detail.spot.address }} {{ detail.spot.contactNumber }}
+						</span>
+					</div>	
+				</div>	
+				{{ detail.description|raw }}
+				<div class="best-thing">
+					<h3 style="font-family:Oswald;">WHAT I LOVE ABOUT IT HERE</h3>
+					<p>{{ detail.bestThing }}</p>
+				</div>
+			</div>
+		</div>	
+	</div>	
+</div>	
+{% set secretCnt = secretCnt + 1 %} 
+{% endfor %}
+<!-- END: Local Secrets -->
+
+
+<!-- START: Itineraries -->
+{% for itinerary in itineraries %}
+	
+	{% set bgphoto = (itinerary.eGuidePhoto is not null) ? itinerary.eGuidePhoto.photo : asset('/bundles/bugglmain/images/custom/cover-guide.jpg') %}
+	<div class="pdf-page" style="font-family:Raleway">
+		<div class="first-half half to-left page-intro day-intro ">
+			<div style="background: url({{bgphoto}}) no-repeat #ffffff;"> 
+				<h1 style="font-family:Oswald;">ITINERARY</h1>
+				<h2 class="day" style="font-family:Oswald;">DAY {{itinerary.dayNum}}</h2>
+				<div>
+					<h3 style="font-family:Oswald;">{{itinerary.title}}</h3><!-- title here -->
+					{{itinerary.description|raw}}
+				</div>	
+			</div>												
+		</div>	
+	</div>
+
+	{% set cnt = 0 %}
+	{% set start = 2 %}
+	{% set dailySpots = (attribute(itinerarySpotDetails, itinerary.dayNum) is defined) ? attribute(itinerarySpotDetails, itinerary.dayNum) : null %}
+	{% for timeKey, iDay in dailySpots %}
+		{% for pageKey, timeSpots in iDay %}
+			{% set firstSD = (attribute(timeSpots, 0) is defined) ? attribute(timeSpots, 0) : null %}
+			{% set secondSD = (attribute(timeSpots, 1) is defined) ? attribute(timeSpots, 1) : null %}
+			
+			{% set timeKeyCls = (attribute(schedules, timeKey) is defined) ? attribute(schedules, timeKey) : null %}
+			{% set cls = (start is even) ? "second-half" : "first-half" %}
+	    	<div class="pdf-page" style="font-family:Raleway">
+				<div class="{{cls}} half spot">
+					<div class="day-time {{timeKeyCls}}">
+						<span></span>
+					</div>
+					{% if firstSD is not null %}
+					<div class="itinerary-item">
+						<div class="clearfix">
+							<h3 class="spot-location" style="font-family:Oswald;">{{firstSD.spot.name}}</h3>
+						</div>
+						<div class="clearfix">
+							<div class="itinerary-image">
+								<img width="400" height="230" src="{{firstSD.photo|checkImage}}">	
+							</div>
+							<div class="itinerary-details">
+								{% set first_spot_type_cls = firstSD.spotType.name|replace(" ", "-")|lower %}
+								<div class="itinerary-type {{first_spot_type_cls}}">
+									<span class="spot-type-ico"></span>
+									<h5 style="font-family:Oswald;">{{firstSD.spotType.name}}</h5>
+								</div>
+								<ul>
+									<li>{{ firstSD.spot.address }}</li>
+									<li>{{ firstSD.spot.contactNumber }}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+					{% if secondSD is not null %}
+					<div class="itinerary-item">
+						<div class="clearfix">
+							<h3 class="spot-location" style="font-family:Oswald;">{{secondSD.spot.name}}</h3>
+						</div>
+						<div class="clearfix">
+							<div class="itinerary-image to-left">
+								<img width="400" height="230" src="{{secondSD.photo|checkImage}}">	
+							</div>
+							<div class="itinerary-details to-right">
+								{% set second_spot_type_cls = secondSD.spotType.name|replace(" ", "-")|lower %}
+								<div class="itinerary-type {{second_spot_type_cls}}">
+									<span class="spot-type-ico"></span>
+									<h5 style="font-family:Oswald;">{{secondSD.spotType.name}}</h5>
+								</div>
+								<ul>
+									<li>{{ secondSD.spot.address }}</li>
+									<li>{{ secondSD.spot.contactNumber }}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			{% set start = start + 1 %}
+		{% endfor %}
+	{% endfor %}
+
+{% endfor %}
+
+<!-- END: Itineraries -->
+
+<!-- START: Before you go -->
+{% if beforeYouGo is not null %}
+<div class="pdf-page" style="font-family:Raleway">
+	<div class="second-half half to-left generic">
+		<div class="generic-header">
+			<h1 style="font-family:Oswald;">BEFORE YOU GO</h1>
+		</div>
+		<div data-type="1" data-contentid="0" data-content="" name="guide-content" class="generic-content">
+			<h3 style="font-family:Oswald;" class="entitler">I. What to Take</h3>
+			{% set what_to_take = (beforeYouGo is null) ? "" : beforeYouGo.whatToTake %}
+			{{what_to_take|raw}}
+
+			<h3 style="font-family:Oswald;" class="entitler">II. Getting Around</h3>
+			{% set getting_around = (beforeYouGo is null) ? "" : beforeYouGo.gettingAround %}
+			{{ getting_around|raw }}
+
+			<h3 style="font-family:Oswald;" class="entitler">III. Money and Tipping</h3>
+			{% set money_tipping = (beforeYouGo is null) ? "" : beforeYouGo.moneyTipping %}
+			{{ money_tipping|raw }}
+		</div>
+	</div>	
+</div>
+<div class="pdf-page">
+	<div class="second-half half to-left generic">
+		<div class="generic-header">
+		</div>
+		<div data-type="1" data-contentid="0" data-content="" name="guide-content" class="generic-content">
+			<h3 style="font-family:Oswald;" class="entitler">IV. Safety and Security</h3>
+			{% set safety = (beforeYouGo is null) ? "" : beforeYouGo.safety %}
+			{{ safety|raw }}
+
+			<h3  style="font-family:Oswald;" class="entitler">V. Useful Phone Number, Websites and Local Apps</h3>
+			{% set usefulInfo = (beforeYouGo is null) ? "" : beforeYouGo.usefulInfo %}
+			{{ usefulInfo|raw }}
+			
+			<h3 style="font-family:Oswald;text-tranform:uppercase;" class="entiler">VI. Local Notes</h3>
+			{% set localNotes = (beforeYouGo is null) ? "" : beforeYouGo.localNotes %}
+			{{ localNotes|raw }}
+		</div>
+	</div>	
+</div>
+{% endif %}
+<!-- END: Before you go -->
+
+{% endblock %}

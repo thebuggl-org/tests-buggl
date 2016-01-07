@@ -1,0 +1,12 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>Hello {{ emailVerification.user.name }}, </h1>
+	<p class="font-size: 10px;">You have requested to change you email address to {{ emailVerification.email }}</p>
+	<p>If you believe you recieved this by mistake, just ignore this email. You can continue using your current email address as your login credential for <a href="http://www.buggl.com">buggl.com</a></p>
+	<p>
+		To confirm your request, <a href="{{ link }}">Click here</a>.
+	</p>
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

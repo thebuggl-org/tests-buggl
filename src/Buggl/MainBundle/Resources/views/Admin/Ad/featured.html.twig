@@ -1,0 +1,82 @@
+{% extends 'BugglMainBundle:Admin/Ad:ad.html.twig' %}
+
+{% block section_title %} Featured Guides {% endblock %}
+
+{% block modal %}
+    <div class="reveal-modal search-to-feature" style="display:none" id="modal">
+		<div class="content">
+	        <h2>Search Travel Guides</h2>       
+	        <input type="text" id="searchBox" placeHolder="Title of Travel Guide">
+			<a class="site-admin-button to-right" id="search" href="" onclick="return false;">Search</a>
+	        <div class="modal-content">
+				<ul class="eguide-list site-admin-list">
+					<li class="clearfix">
+					    <div class="to-left">
+					        Search guides to feature.
+					    </div>
+					</li>
+				</ul>
+	        </div>
+	        <span class="loader" style="display:none"></span>
+	        <a href="#" id="more" style="display:none">more</a>
+		</div>	
+		<a class="close-reveal-modal">&#215;</a>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+    <p class="page-actions">
+        <a class="site-admin-button" id="show-modal" >+ add featured guide</a>
+    </p>
+    <ul class="eguide-list site-admin-list" id="eguide_list">
+        {% for list in lists %}
+            {% include 'BugglMainBundle:Admin/Ad:list.html.twig' with { guide: list } %}
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/jquery.search.eguide.js' filter='?yui_js'%}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+	
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                $('#searchBox').search({
+                    'loader' : $("span.loader"),
+                    'moreButton' : $("#more"),
+                    'url': "{{ path(url) }}",
+                    'contentObject' : $('div.modal-content'),
+                    'featureUrl': "{{ path('admin_ad_feature_guide') }}",
+					'searchButtonId': 'search'
+                });
+
+                $('#show-modal').on('click',function(e){
+                    e.preventDefault();
+
+                    $('#modal').reveal({
+                        closeOnBackgroundClick: false,
+                        closed: function(){
+                            $("span.loader").hide();
+                        }
+                    });
+                });
+				
+				$("#eguide_list").on('click',".unfeature-guide",function(e){
+					e.preventDefault();
+					var me = $(this);
+					
+					$.fn.bugglConfirm({
+						'onConfirm' : function(){
+							window.location.replace(me.attr('href'));
+						}
+					});
+					
+				});
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

@@ -1,0 +1,25 @@
+{#
+
+{% if keyword is not defined %}
+	{% set keyword = "" %}
+{% endif %}
+
+<form class="fl search" method="post" action="{{ path('buggl_free_search') }}">
+    <span class="ico"></span>
+    <input type="text" size="22" placeholder="Search Here" class="trans_wid" name="keyword" value="{{ keyword }}">
+</form>
+
+<script type="text/javascript">
+
+		document.ready = function(){
+			$('input.trans_wid').on("keydown",function(e){
+				if (e.keyCode == 13) {
+					$(this).parent().submit();
+				}
+			});
+		}
+
+
+</script>
+
+#}

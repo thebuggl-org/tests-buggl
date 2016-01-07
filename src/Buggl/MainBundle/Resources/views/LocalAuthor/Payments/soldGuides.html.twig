@@ -1,0 +1,25 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}My Travel Guides{% endblock %}
+
+{% block precontent_title %}
+    Travel Guides
+{% endblock %}
+
+{% set  active = 'purchased' %}
+
+{% block main_content %}
+    <div class="row">
+        <aside class="column grid_4">
+            {% include 'BugglMainBundle:LocalAuthor/Eguides:eguideTabs.html.twig' with {'active':'sold', 'counts' : counts} %}
+        </aside>
+        <article class="grid_8 column">
+            <section>
+                <h3 class="reg_box">Sold Travel Guides</h3>
+                <span id="paginationContainer">
+                    {% render "BugglMainBundle:LocalAuthor/Payments:soldGuidesList" with {'currentPage':currentPage} %}
+                </span>
+            </section>
+        </article>
+    </div>
+{% endblock %}

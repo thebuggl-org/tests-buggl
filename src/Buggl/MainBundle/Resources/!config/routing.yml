@@ -1,0 +1,188 @@
+buggl_markup:
+    resource: "@BugglMainBundle/Resources/config/routing_markup.yml"
+
+buggl_frontend:
+    resource: "@BugglMainBundle/Resources/config/routing_frontend.yml"
+
+buggl_local_author:
+    prefix: /local-author
+    resource: "@BugglMainBundle/Resources/config/routing_local_author.yml"
+
+buggl_admin:
+    prefix: /admin
+    resource: "@BugglMainBundle/Resources/config/routing_admin.yml"
+
+### bugg invite
+buggl_beta_login:
+    pattern: /beta-login
+    defaults: { _controller: BugglMainBundle:Frontend\Beta:betaLogin }
+#end
+
+registration:
+    pattern: /registration
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:index }
+
+registration_via_modal:
+    pattern: /registration-via-modal
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationModal }
+
+registration_facebook_redirect:
+    pattern: /registration-via-facebook-redirect-url
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationViaFacebookRedirect }
+
+registration_facebook:
+    pattern: /registration-via-facebook
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationViaFacebook }
+
+registration_twitter_redirect:
+    pattern: /registration-via-twitter-redirect-url
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationViaTwitterRedirect }
+
+registration_twitter:
+    pattern: /registration-via-twitter
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationViaTwitter }
+
+registration_google_plus_redirect:
+    pattern: /registration-via-google-redirect-url
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationViaGooglePlusRedirect }
+
+registration_google_plus:
+    pattern: /registration-via-google
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationViaGooglePlus }
+
+registration_success:
+    pattern: /registration-success/{email}
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationSuccess }
+
+registration_confirmed_success:
+    pattern: /registration-confirmed-success/{referer}
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationConfirmedSuccess }
+
+registration_confirm:
+    pattern: /registration-confirmation/{token}/{email}/{referer}
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationConfirmation }
+
+registration_confirm_resend:
+    pattern: /resend-registration-confirmation
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:resendConfirmation }
+
+registration_confirm_fail:
+    pattern: /registration-confirmation-failed
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationConfirmationFail }
+
+registration_confirm_success:
+    pattern: /registration-confirmation-success
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationConfirmationSuccess }
+
+registration_confirm_already_verified:
+    pattern: /registration-confirmation-already-verified
+    defaults: { _controller: BugglMainBundle:Frontend\Registration:registrationConfirmationAlreadyVerified }
+
+login_via_facebook_url:
+    pattern: /login-via-facebook
+    defaults: { _controller: BugglMainBundle:Frontend\Main:loginViaFacebook }
+
+signup_via_facebook_url:
+    pattern: /sign-up-via-facebook
+    defaults: { _controller: BugglMainBundle:Frontend\Main:loginViaFacebook }
+
+login_via_twitter_url:
+    pattern: /login-via-twitter
+    defaults: { _controller: BugglMainBundle:Frontend\Main:loginViaTwitter }
+
+signup_via_twitter_url:
+    pattern: /sign-up-via-twitter
+    defaults: { _controller: BugglMainBundle:Frontend\Main:loginViaTwitter }
+
+login_via_google_plus_url:
+    pattern: /login-via-google
+    defaults: { _controller: BugglMainBundle:Frontend\Main:loginViaGooglePlus }
+
+signup_via_google_plus_url:
+    pattern: /sign-up-via-google
+    defaults: { _controller: BugglMainBundle:Frontend\Main:loginViaGooglePlus }
+
+# password reset
+buggl_password_reset_request:
+    pattern: /password-reset
+    defaults: {  _controller: BugglMainBundle:Frontend\PasswordReset:index }
+
+buggl_password_reset_request_resend:
+    pattern: /resend-password-reset-request/{requestId}
+    defaults: {  _controller: BugglMainBundle:Frontend\PasswordReset:resendRequest  }
+
+buggl_password_reset_request_sent:
+    pattern: /password-reset-sent/{requestId}
+    defaults: {  _controller: BugglMainBundle:Frontend\PasswordReset:resetPasswordRequestSent  }
+
+buggl_password_reset:
+    pattern: /reset-my-password/{token}
+    defaults: {  _controller: BugglMainBundle:Frontend\PasswordReset:resetPassword  }
+
+buggl_password_reset_invalid:
+    pattern: /invalid-password-reset-token
+    defaults: {  _controller: BugglMainBundle:Frontend\PasswordReset:invalidToken  }
+
+reference_request_response:
+    pattern: /answer-reference-request/{token}
+    defaults: { _controller: BugglMainBundle:Frontend\ReferencesFrontend:index }
+
+reference_saved:
+    pattern: /reference-saved
+    defaults: { _controller: BugglMainBundle:Frontend\ReferencesFrontend:referenceSaved }
+
+reference_request_invalid:
+    pattern: /invalid-reference-request
+    defaults: { _controller: BugglMainBundle:Frontend\ReferencesFrontend:invalidToken }
+
+login:
+    pattern: /login
+    defaults: { _controller: BugglMainBundle:Frontend\Main:login }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout
+
+stripe_revoke_access_webhook:
+    pattern: /revoke-stripe-access
+    defaults: { _controller: BugglMainBundle:Frontend\Main:revokeStripeAccess }
+
+request_beta_token:
+    pattern: /request-beta-token
+    defaults: { _controller: BugglMainBundle:Frontend\Beta:requestToken }
+
+# admin_login:
+#     pattern: /admin/login
+#     defaults: { _controller: BugglMainBundle:Admin\Login:login }
+
+# admin_login_check:
+#     pattern: /admin/login_check
+
+# admin_logout:
+#     pattern: /admin/logout
+buggl_ajax:
+    resource: "@BugglMainBundle/Resources/config/routing_ajax.yml"
+
+# make sure the this route is the last on the line
+#eguide
+buggl_eguide_full:
+    pattern: /{slug}/itinerary
+    defaults: { _controller: BugglMainBundle:Frontend\Guide:fullGuide }
+
+buggl_eguide_secrets:
+    pattern: /{slug}/local-secrets/{type}
+    defaults: { _controller: BugglMainBundle:Frontend\Guide:localPlaces, type: all }
+
+buggl_eguide_overview:
+    pattern: /{slug}/overview
+    defaults: { _controller: BugglMainBundle:Frontend\Guide:guideOverview }
+
+buggl_eguide_spot:
+    pattern: /{slug}/{spotSlug}/{spotDetailId}
+    defaults: { _controller: BugglMainBundle:Frontend\Guide:spot }
+
+# buggl_eguide_static_page:
+#     pattern: /{slug}
+#     defaults: { _controller: BugglMainBundle:Frontend\Static:index }

@@ -1,0 +1,20 @@
+{% for list in lists %}
+    <div name="list">
+        <img border="0" align="left" src="{{ asset(list.reviewer | userPic) }}" width="60" height="60">
+        <span class="name">{{ list.reviewer.name }}<span class="subtext fr">{{  list.dateAdded|showTimeElapsed }}</span></span>
+        <span class="desc">{{ list.content }}</span>
+        <nav class="mini">
+            {% if list.status < 2 %}
+                <a class="btn fr" href="#" data="false-{{list.id}}" name="change-status">Deny</a>
+            {% endif %}
+            {% if list.status != 1 %}
+                <a class="btn fr" href="#" data="true-{{list.id}}" name="change-status">Approve</a>
+            {% endif %}
+        </nav>
+        <span class="loader" style="display:none"></span>
+    </div>
+{% else %}
+	<div>
+		<p class="inform">No records found!</p>
+	</div>
+{% endfor %}

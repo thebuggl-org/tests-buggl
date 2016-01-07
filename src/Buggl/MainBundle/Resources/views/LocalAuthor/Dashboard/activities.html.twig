@@ -1,0 +1,16 @@
+{% for activity in activities %}
+	<li>
+		<img src="{{ asset(activity.actor | userPic) }}" border="0" align="0" width="40" height="40">
+		<p>{{ activity | prepareActivityDescription(app.user) | raw }}</p> <span class="activity-date">{{ activity.dateAdded | showTimeElapsed }}</span>
+	</li>
+{% else %}	
+	<li>
+		It's lonely here. Follow other locals or travelers to find out what they've been up to recently.
+	</li>
+{% endfor %}
+{% if hasNext %}
+	<li class="mini">
+		<span class="loader" style="display:none">LOADING...</span>
+		<a href="{{ path('get_activity_feed') }}" onclick="return false;" id="loadMoreActivities" class="btn fl">Load More</a>
+	</li>
+{% endif %}

@@ -1,0 +1,232 @@
+<div id="add-spot-wrapper">
+	<ul class="spots-nav horizontalize">
+		<li class="active"><a href="" onclick="return false"><span class="number">1</span>PLACE INFO</a></li>
+		<li><a href="" onclick="return false"><span class="number">2</span>ADD PHOTO</a></li>
+		<li><a href="" onclick="return false"><span class="number">3</span>DETAILS</a></li>
+		<li><a href="" onclick="return false"><span class="number">4</span>DESCRIPTION</a></li>
+	</ul>
+	
+	<div class="add-spot-step-1 add-spot-modal" id="add-spot-step-1">
+		
+		<p class="required-message" style="color: red; display:none;">Please fill out the required fields.</p>	
+		<p id="change-spot">If you'd like to make some changes on this step, click <a title="Edit Step 1" id="change-spot-yes-btn">here</a> or if you'd like to move to the next step, click <a title="Move to Step 2" id="change-spot-no-btn">here</a> </p>
+		<div class="clearfix">
+				<span class="pin">Unique Location?<br/>Click on the map to drop a <strong>PIN</strong></span>			
+			{% if withTimeOfDay %}
+				<div id="google-map" class="lo">
+				</div>
+			{% else %}
+				<div id="google-map" >
+				</div>
+			{% endif %}
+			<div class="spot-info-container">			
+				<form id="spot-info-form" name="spot-info" class="clearfix">
+					
+					{% if country is not null %}
+						<span class="country">Country : <span id="spot-country-name">{{country.name}}</span></span >
+						<input type="hidden" name="country" value="{{country.name}}" />	
+					{% else %}
+						<span class="country">Country : </span >
+						<input type="text" name="country" id="spot-country-search" placeholder="Enter country" value="" data-required="true" required="required" /><a title="this field is required" class="guide-required">*</a>	
+					{% endif %}
+					<h3>Location </h3>
+					{% set cityName = (hasSpot == false) ? "" : spot.city.name %}
+					<input type="text" id="google-place-search" placeholder="Enter a City Name" value="{{cityName}}" data-required="true" required="required" /><a title="this field is required" class="guide-required">*</a>
+					<input type="hidden" name="city" id="spot-city" value="{{cityName}}" />
+					{% set lat = (hasSpot == false) ? "" : spot.city.lat %}
+					<input type="hidden" name="city-lat" id="spot-city-lat" value="{{lat}}" />
+					{% set lng = (hasSpot == false) ? "" : spot.city.long %}
+					<input type="hidden" name="city-lng" id="spot-city-lng" value="{{lat}}" />
+					
+					<h3>Name of Place </h3>
+					{% set spotName = (hasSpot == false) ? "" : spot.name %}
+					<input type="text" id="spot-name-search" value="{{spotName}}" placeholder="Name of Place" data-required="true" disabled="disabled" class="disabled" required="required"/><a title="this field is required" class="guide-required" >*</a>
+					<input type="hidden" name="name" id="spot-name" value="{{spotName}}" />	
+					
+					{% set addressStyle = (hasSpot != false and spot.latitude|length > 0 and spot.longitude|length > 0 ) ? "display:none;" : "" %}
+					<span id="spot-address-holder" style="{{addressStyle}}">
+						<h3>Address </h3>
+						{% set address = (hasSpot == false) ? "" : spot.address %}
+						<input type="text" name="address" id="spot-address" value="{{address}}" placeholder="Address" data-required="true" disabled="disabled" class="disabled" required="required" /><a title="this field is required" class="guide-required">*</a>
+					</span>
+					{% set coordStyle = (hasSpot != false and spot.latitude|length > 0 and spot.longitude|length > 0 ) ? "" : "display:none;" %}
+					<span id="spot-coord-holder" style="{{coordStyle}}">
+						<h3>Latitude </h3>
+						{% set spot_lat = (hasSpot == false) ? "" : spot.latitude %}
+						<input type="text" readonly="true" name="latitude" id="latitude" readonly='true' class="to-left" placeholder="latitude" value="{{spot_lat}}"/>
+						<h3>Longitude </h3>
+						{% set spot_lng = (hasSpot == false) ? "" : spot.longitude %}
+						<input type="text" readonly="true" name="longitude" id="longitude" readonly='true' class="to-left" placeholder="longitude" value="{{spot_lng}}" />	
+					</span>
+					
+
+					<h3>Contact Information</h3>
+					{% set contact = (hasSpot == false) ? "" : spot.contactNumber %}
+					<input type="text" name="contact_number" id="spot-contact-number" value="{{contact}}" placeholder="Contact Number" disabled="disabled" class="disabled" />
+
+					<h3>Website</h3>
+					{% set website = (hasSpot == false) ? "" : spot.website %}
+					<input type="text" name="website" id="spot-website" value="{{website}}" placeholder="Website" disabled="disabled" class="disabled" />
+
+					{% if withTimeOfDay %}
+					<div>
+						<div class="select with-fix">
+							<h3>Time of the Day </h3>
+							<select class="disabled" name="time_of_day" data-required="true" disabled="disabled" >
+								<option value="0">Select time of day</option>
+								<option value="1" {{ ( (schedule is not null and schedule.periodOfDay == 1) or (time_of_day == 1) ) ? 'selected="selected"' : '' }}>Morning</option>
+								<option value="2" {{ ( (schedule is not null and schedule.periodOfDay == 2) or (time_of_day == 2) ) ? 'selected="selected"' : '' }}>Afternoon</option>
+								<option value="3" {{ ( (schedule is not null and schedule.periodOfDay == 3) or (time_of_day == 3) ) ? 'selected="selected"' : '' }}>Evening</option>
+							</select>
+							<a title="this field is required" class="guide-required ccx">*</a>		
+						</div>
+					</div>	
+					{% endif %}
+					<!-- <p id="spot-edit-message">You can only edit steps 2 to 4!</p> -->
+					{% set lat = (hasSpot == false) ? "" : spot.latitude %}
+					{% set lng = (hasSpot == false) ? "" : spot.longitude %}
+					
+				</form>
+			</div>
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="cancel" /><input type="button" class="admin-button" value="next" data-step="1"/></p>
+	</div>
+	
+	<div class="add-spot-verify-step add-spot-modal" id="spot-check-duplicate" style="display:none;">
+		<div class="clearfix" style="height:400px;">
+			
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="prev" /><input type="button" class="admin-button" value="next" data-step="1.5"/></p>
+	</div>
+	
+	<div class="add-spot-step-2 add-spot-modal" id="add-spot-step-2" style="display:none;">
+		<div class="clearfix">
+			<p class="required-message" style="color: red; display:none;">Please add a photo to your place.</p>		
+			<div class="to-left">
+				<h2>Add Photo</h2>
+				{% set photo = (hasSpotDetail == false) ? "/buggl/images/sample-spot.png" : spotDetail.photo %}
+				<div id="spot-photo-holder" style="height:317px;width:514px;">
+					<img id="spot-photo-img" src="{{photo}}"  width="600" />
+				</div>
+				<form class="file" id="spot-photo-ifrm" method="POST" enctype="multipart/form-data" action="{{ path('upload_spot_photo') }}">
+			        <button>Upload Photo</button> <span>(Max file size: 10MB)</span>
+					<input type="file" name="spot-photo" id="origin" class="origin" style="left: -1px;padding: 8px 0;max-width: 118px !important;" />
+					<input type="hidden" name="photo-url" value="{{photo}}" readonly='true' data-required="true" />
+				</form>
+				<form id="spot-cropper-ifrm" method="POST" action="" style="display:none;" >
+					<input type="text" name="start-x"/>
+					<input type="text" name="start-y"/>
+					<input type="text" name="target-x"/>
+					<input type="text" name="target-y"/>
+					<input type="text" name="filename"/>
+				</form>
+			</div>
+			<div class="to-right">
+				<div class="search-google-image search-web-image">
+					<div class="custom-search"><input type="text" placeholder="Search images here!" id="photo_search_web_box"/><input type="button" name="photo_search_web_btn" id="photo_search_web_btn" value="search" /></div>	
+					<p>click the image to select</p>
+					<ul class="horizontalize" id="photo_search_web_results">
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+					</ul>
+					<ul class="photo-search-web-nav horizontalize">
+						<li><a href="" id="photo-search-web-prev">&lt;</a></li>
+						<li><a href="" id="photo-search-web-next">&gt;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="prev" /><input type="button" class="admin-button" value="next" data-step="2" /></p>
+	</div>
+
+	<div class="add-spot-step-3 add-spot-modal" id="add-spot-step-3" style="display:none;">
+		<label>Type of Secret</label>
+		{% set typeID = (hasSpotDetail == false) ? 0 : spotDetail.spotType.id %}
+		<form style="display:none;" id="spot-step-3-frm">
+			{% if hasSpotDetail != false %}
+				<input name="spot-secret" type="text" value="{{typeID}}"/>
+				{% for sdLike in sdLikes %}
+					<input id="spot-like-{{sdLike.spotLike.id}}" type="text" value="{{sdLike.spotLike.id}}" name="spot-likes[]">
+				{% endfor %}
+				{% for sdCat in sdCategories %}
+					<input id="spot-category-{{sdCat.spotCategory.id}}" type="text" value="{{sdCat.spotCategory.id}}" name="spot-categories[]">
+				{% endfor %}
+			{% endif %}
+
+		</form>
+		
+		<ul class="secret-type-select spot-select horizontalize" name="spot-secret-type" data-typeid="{{typeID}}">
+			{% for type in types %}
+				{% set typeClass = (type.id == typeID) ? "selected" : "" %}
+				<li class="{{typeClass}}" data-name="{{ type.name }}"><a href="" data-typeid="{{ type.id }}">{{ type.name }}</a></li>
+			{% endfor %}
+		</ul> 
+		{% set catStyle = (hasSpotDetail == false) ? "display:none;" : "display:block;" %}
+		<div class="category-select" style="{{catStyle}}">
+			<div>
+				<label>
+					Place Category
+					<span>Pick at most 3 CATEGORIES.</span>
+				</label>
+				<ul class="category-select spot-select horizontalize" name="spot-like">
+					{% for like in likes if hasSpot != false %}
+						{% set likeSelected = (like.id in sdLikes|keys) ? "selected" : "" %}
+						<li class="{{likeSelected}}"><a href="" data-likeid="{{like.id}}">{{ like.name }}</a></li>
+					{% endfor %}
+				</ul>
+				<input type="text" name="new-spot-like" placeholder="Add Category?" /><button id="save-custom-spot-like">Add</button>
+			</div> 
+		</div>
+		<div class="what-like" style="{{catStyle}}">
+			<div>
+				<label>
+					<label>Need to Know<span>Choose up to 3 things a visitor must know about this place.</span></label>
+				</label>
+				<ul class="spot-select horizontalize" name="spot-category">
+					{% for cat in categories if hasSpot != false %}
+						{% set catSelected = (cat.id in sdCategories|keys) ? "selected" : "" %}
+						<li class="{{catSelected}}"><a href="" data-categoryid="{{cat.id}}">{{ cat.name }}</a></li>
+					{% endfor %}
+				</ul> 
+				<input type="text" name="new-category" placeholder="Add Keyword?" /><button id="save-custom-category">Add</button>
+			</div>
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="prev" /><input type="button" class="admin-button" value="next" data-step="3" /></p>
+	</div>
+	
+	<div class="add-spot-step-4 add-spot-modal" id="add-spot-step-4" style="display:none;">
+		<p class="required-message" style="color: red; display:none;">Please rate your spot and add a description.</p>
+		<form>
+			<div class="form-section spot-title">
+				<h4>Rank Its Importance</h4>
+				<div class="three-rating">
+					{% set rating = (hasSpotDetail == false) ? 0 : spotDetail.rating %}
+					<ul class="add-spot-rating horizontalize">
+						<li class="{{ (rating >= 1) ? 'active' : '' }}"><a href="" data-spotrating="1"></a></li>
+						<li class="{{ (rating >= 2) ? 'active' : '' }}"><a href="" data-spotrating="2"></a></li>
+						<li class="{{ (rating >= 3) ? 'active' : '' }}"><a href="" data-spotrating="3"></a></li>
+					</ul>
+					<span id="spot-rating-1" name="spot-rating-desc" style="{{ (rating == 1) ? 'display:inline;' : 'display:none;' }}">Worth a Peek</span>
+					<span id="spot-rating-2" name="spot-rating-desc" style="{{ (rating == 2) ? 'display:inline;' : 'display:none;' }}">Good Detour</span>
+					<span id="spot-rating-3" name="spot-rating-desc" style="{{ (rating >= 3) ? 'display:inline;' : 'display:none;' }}">Make Your Trip</span>	
+				</div>
+
+				<input type="hidden" readonly="true" name="spot-rating" data-required="true" value="{{rating}}" >
+				
+				<h4>What I love about it here:</h4>
+				{% set favThing = (hasSpotDetail == false) ? '' : spotDetail.bestThing %}
+				<input type="text" name="best-thing" value="{{favThing}}" id="best-thing" class="character-limited" char-limit="45"/>
+				<input type="text" id="best-thing-char-count" class="remaining-chars-display" value="45" disabled />
+				{% set description = (hasSpotDetail == false) ? 'ex. Secret bar that only opens on Saturday? Is this the best beach to catch a perfect wave? Let other people know why you love this place so much...' : spotDetail.description %}
+				<h4>Share details about this place only you know</h4>
+				<textarea name="spot-description" id="spot-description" data-required="true" data-defaulttext="{{hasSpotDetail}}" char-limit="600">{{description}}</textarea>
+				<input type="text" id="spot-description-char-count" class="remaining-chars-display" value="600" disabled />
+			</div>
+		</form>
+		<p class="prev-next"><input type="button" class="admin-button" value="prev" /><input type="button" class="admin-button" value="save" data-step="4" /></p>
+	</div>
+</div>

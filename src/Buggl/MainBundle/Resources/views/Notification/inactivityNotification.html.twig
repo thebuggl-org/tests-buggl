@@ -1,0 +1,27 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>{{ user.firstName }},</h1>
+
+	<p>We miss you</p>
+
+	<p>You signed up recently to Buggl and we’re curious how your experience has been so far. </p>
+
+	<p>We assume you’re climbing Everest or canoeing down the Colorado River, but if you’re free come back and check out all that’s happened since you’ve been gone. </p>
+	<p>Here are a few nuggets of travel knowledge shared by our top travel insiders since we last saw you:</p>
+	<div style="text-align:center;">
+    {% for guideInfo in guides %}
+	
+		<div style="background: #f2f2f2;display:inline-block;width:145px;padding:10px;margin-bottom:10px;">
+        	<div>
+				<a style="display:block" href="{{ siteUrl~'/'~guideInfo.guideUrl }}"><img src="{{ guideInfo.photoUrl }}" border="0" alt=" " align="left" width="145" /></a>
+        	</div>
+            <a style="display:block" class="subphoto" href="{{ siteUrl~guideInfo.authorUrl }}"><img border="0" alt=" " width="40" height="40" src="{{ siteUrl~'/'~(guideInfo.guide.localAuthor.profile | profilePic ) }}"></a>
+            <a href="{{ siteUrl~guideInfo.authorUrl }}" class="subtext">{{ guideInfo.guide.localAuthor.name }}</a> - <span class="subtext">{{ guideInfo.guide.localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+        </div>
+	
+    {% endfor %}
+</div>	
+	<p>Thanks,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

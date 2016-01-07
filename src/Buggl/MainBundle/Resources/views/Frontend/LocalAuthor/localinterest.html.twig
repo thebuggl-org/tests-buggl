@@ -1,0 +1,13 @@
+{% if interests %}
+	<ul>
+	    {% for interest in interests %}
+	    <li>
+	        <img src="{{ asset(interest.imageWebPath) }}" border="0" align="left" class="fr" width="120"/>
+	        <h4>{{interest.title}}</h4>
+	        <p>{{interest.content}} </p>
+	    </li>
+	    {% endfor %}
+	</ul>
+{% else %}
+	<p class="inform">No Data Yet</p>
+{% endif %}

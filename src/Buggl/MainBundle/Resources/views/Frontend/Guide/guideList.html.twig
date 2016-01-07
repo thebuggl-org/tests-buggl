@@ -1,0 +1,83 @@
+<div class="search-result-item">
+	<div class="reg_box clearfix">
+		<div class="to-right"><img src="{{ guide | getEguidePhoto }}" border="0" align="right" alt="Guide {{ guide.plainTitle }} cover" width="140" height="210" class="fr"></div>
+		<div class="to-left">
+			<div class="clearfix search-result-title">
+				<div class="to-left">
+					<h2 class="title"><a href="{{ path('buggl_eguide_overview', {'slug': guide.slug}) }}">{{ guide.plainTitle }} </a></h2>
+					<ul class="location">
+					{% if false %}
+						{% for city in guide.cities %}
+							<li>{{ city.name }}, {{ city.country.name }}</li>
+						{% endfor %}
+						{% endif %}
+						{% for location in guide.getLocations %}
+							<li>{{location.address}}</li>
+						{% endfor %}
+					</ul>
+				</div>	
+				<div class="to-right">
+					<span>PRICE</span>
+					{% if guide.price > 0 %}
+						$ {{ guide.price }}
+					{% else %}
+						FREE
+					{% endif %}
+				</div>	
+			</div>
+
+
+			{% if false %}
+			<ul class="rating">
+				<li class="star fl">
+					{% if guide|overallRating != 0 %}
+						{% for i in 1..guide | overallRating  %}
+							<span class="ico"></span>
+						{% endfor %}
+					{% endif %}
+				</li>
+				<li class="price">{{ guide.price | renderPrice }}</li>
+			</ul>
+			{% endif %}
+			<div class="search-item-exerpt">{{ guide.excerpts|raw }}</div>
+			<div class="facts">
+				{% set duration = (guide.realDuration > 0) ? guide.realDuration ~ " Days" : 'N/A' %}
+				<table background="#e5ecf9">
+					<tr>
+						<th>Duration:</th>
+						<th>Trip Theme:</th>						
+						<th>Good For:</th>
+						<th>Purchases:</th>
+						<th>Date Updated:</th>																	
+					</tr>
+					<tr>
+						<td>{{ duration }}</td>
+						<td>{{ guide.tripTheme.name }}</td>
+						<td>{{ guide | getGoodFor }}</td>
+						<td>{{ guide.getPurchaseCount }}</td>
+						<td>{{ guide.dateUpdated|date('M d, Y')}}</td>																			
+					</tr>	
+				</table>	
+			</div>
+			{# <div class="facts">
+
+				<a href="#"><span>Duration:</span>{{ duration }}</a>
+				<a href="#"><span>Trip Theme:</span>{{ guide.tripTheme.name }}</a>
+				<a href="#">
+					<span>Good For:</span>
+					{{ guide | getGoodFor }}
+				</a>
+				<a href="#"><span>Purchases:</span> {{ guide.getPurchaseCount }} </a>
+				<a href="#"><span>Date Updated:</span>{{ guide.dateUpdated|date('M d, Y')}}</a>
+			</div> #}
+		    <div class="reg_box">
+		    	<a href="{{path('local_author_profile',{'slug':guide.localAuthor.slug})}}" class="subphoto"><img src="{{ asset(guide.localAuthor.profile | profilePic) }}" border="0" alt="{{ guide.localAuthor.name }}" width="40" height="40" /></a>
+				<p class="written-by">written by;</p>
+				<a class="subtext" href="{{path('local_author_profile',{'slug':guide.localAuthor.slug})}}">{{guide.localAuthor.name}}</a>
+			    <p class="subtext">{{ guide.localAuthor|profession }}</p>
+		    </div>
+		</div>
+	</div>
+
+    
+</div>

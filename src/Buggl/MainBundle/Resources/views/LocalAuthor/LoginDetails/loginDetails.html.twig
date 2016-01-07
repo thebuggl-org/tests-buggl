@@ -1,0 +1,74 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Account{% endblock %}
+
+{% block precontent_title %}
+	Account
+{% endblock %}
+
+{% set active = 'account' %}
+
+{% block main_content %}	
+	<div class="row">
+		<aside class="column grid_4">
+			{# include "BugglMainBundle:LocalAuthor:settingsNavigation.html.twig" with {'activeTab':'logindetails'} #}
+			{% include "BugglMainBundle:LocalAuthor:accountNavigation.html.twig" with {'activeTab':'logindetails'} %}
+        </aside>
+		<article class="column grid_8">
+			<section class="setting">
+				<h3>Login Details</h3>
+				{% if not app.user.emailVerified %}
+						<p class="form-intro">
+							Your email is not yet verified. An email was sent to you after your registration. If you have not recieved the email <a href="{{ path('registration_confirm_resend') }}">click here to resend.</a>
+						</p>
+				{% elseif emailVerification is not null %}
+						<p class="form-intro">
+							You have a pending request to change your email address to <em>{{ emailVerification.email }}</em>.
+							An email was sent to your current email address to confirm this request within <strong>{{ emailVerification.tokenExpiration | showTimeLeft() }}</strong>. 
+							If you have not recieved the email <a href="{{ path('local_author_resend_email_update_email') }}">click here to resend.</a>
+						</p>
+						<p class="form-intro">
+							Until you confirm this request, your current email address will be used as your login credential.
+							If you made this request in error or you wish to cancel your request, <a href="{{ path('local_author_cancel_email_update_email') }}">click here.</a> 
+						</p>
+				{% endif %}
+				<form action="" method="POST" novalidate>
+					<div class="form-section">
+						<label>Email Address</label>
+						{{ form_widget(emailForm.email) }}
+						{{ form_errors(emailForm.email) }}
+						{{ form_rest(emailForm) }}
+						<input type="hidden" value="email" name="updateId">
+						<br/><br/>
+						<input type="submit" value="Save Changes" class="btn"/>
+					</div>
+				</form>	
+				<form action="" method="POST" novalidate>
+					<div class="form-section">
+						{% if hasOldPassword%}
+							<label>Old Password</label>
+							{{ form_widget(passwordForm.oldPassword) }}
+							{{ form_errors(passwordForm.oldPassword) }}
+						{% else %}
+							<p>You signed up via your social media account. You do not have a password. If you wish to use a password instead complete the form below. You can still use any of your preferred social media to sign in.</p>
+						{% endif %}
+					</div>
+					<div class="form-section">	
+						<label>New Password</label>
+						{{ form_widget(passwordForm.newPassword.first) }}
+						{{ form_errors(passwordForm.newPassword.first) }}
+					</div>
+					<div class="form-section">	
+						<label>Retype Password</label>
+						{{ form_widget(passwordForm.newPassword.second) }}
+						{{ form_errors(passwordForm.newPassword.second) }}
+						{{ form_rest(passwordForm) }}
+						<input type="hidden" value="password" name="updateId">
+						<br/><br/>
+						<input type="submit" value="Save Changes" class="btn" />
+					</div>	
+				</form>
+			</section>
+		</article>
+	</div>
+{% endblock %}

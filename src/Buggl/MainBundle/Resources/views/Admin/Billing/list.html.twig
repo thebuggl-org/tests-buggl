@@ -1,0 +1,55 @@
+<li class="billing-item">
+    <ul class="clearfix">
+        <li class="">
+            Guide
+        </li>
+        <li class="">
+            Author
+        </li>
+        <li>
+            Buyer
+        </li>
+        <li class="">
+            Price
+        </li>   
+        <li class="">
+            Buggl Fee
+        </li>   
+        <li class="">
+            Net Amt
+        </li>
+        <li class="">
+            Date
+        </li>               
+    </ul>   
+</li>
+
+{% for list in lists %}
+    <li class="billing-item">
+        <ul class="clearfix">
+            <li class="">
+                {{ list.eguide.plainTitle }}
+            </li>
+            <li class="">
+                {{ list.seller.name }}
+            </li>
+            <li>
+                {{ list.buyer.name }}
+            </li>
+            <li class="">
+                <span>{{ (list.amount)|renderPrice }}</span>
+            </li>   
+            <li class="">
+                <span>{{ (list.bugglFee)|renderPrice }}</span>
+            </li>   
+            <li class="">
+                <span>{{ (list.netAmount)|renderPrice }}</span>
+            </li>
+            <li class="">
+                <span>{{ list.dateOfTransaction|convertDateTime('M d, Y') }}</span>
+            </li>
+        </ul>   
+    </li>
+{% endfor %}
+
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':lists|length,'dataUrl':'', 'itemLimit':limit} %}

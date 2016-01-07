@@ -1,0 +1,33 @@
+<table class="payments-list bugglPaginationContents" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<th width="65%">Guide</th>
+		<th width="25%">By</th>
+		<th width="10%">Price</th>
+	</tr>
+	{% for payment in payments %}	
+		<tr>
+			<div>
+				<td class="payment-item">
+					<a href="{{ path('buggl_eguide_overview',{'slug':payment.eguide.slug}) }}">{{ payment.eguide.plainTitle  }}</a>
+					<span>{{ payment.dateOfTransaction | convertDateTime('M j, Y') }}</span>
+				</td>
+				<td class="payment-amount">
+					<span><a href="{{ path('local_author_profile',{'slug':payment.seller.slug}) }}">{{ payment.seller.name }}</a></span>
+				</td>
+				<td class="payment-amount">
+					<strong>{{ payment.amount | renderPrice  }}</strong>
+				</td>
+			</div>	
+		</tr>
+	{% else %}
+		<tr>
+			<div>
+				<td class="" colspan="4">
+					<span>No purchased guides yet.</span>
+				</td>
+			</div>	
+		</tr>
+	{% endfor %}	
+</table>
+
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':payments|length,'dataUrl':dataUrl, 'itemLimit':itemLimit} %}

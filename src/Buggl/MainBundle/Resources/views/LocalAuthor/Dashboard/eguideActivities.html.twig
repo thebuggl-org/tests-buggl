@@ -1,0 +1,6 @@
+{% for activity in activities %}
+	<li class="{{ activity.eGuideActivity.type | eguideEventClass }}">
+		<img src="{{ asset('bundles/bugglmain/images/custom/adele_320.jpg') }}" border="0" align="0" width="30" height="30">
+		<p><strong>Chiro N. Zero</strong> <a href="#">{{ activity.eGuideActivity.activityAction }}. <span class="emphasis">{{ activity.eGuideActivity.description | prepareEguideEventDescription(activity.eGuide) }}</span></a></p> <span class="activity-date">{{ activity.eGuideActivity.dateAdded | showTimeElapsed }}</span>	
+	</li>
+{% endfor %}

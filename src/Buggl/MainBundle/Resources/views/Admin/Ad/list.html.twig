@@ -1,0 +1,13 @@
+<li class="clearfix">
+    <div>
+        <h3><a href="{{ path('buggl_eguide_overview',{'slug':guide.slug}) }}" target="_blank">{{ guide.plainTitle }}</a></h3>       
+        <span class="eguide-author">Author: {{ guide.localAuthor.name }}</span>
+        <span class="eguide-country">Country: {{ guide.country.name }}</span>                
+        <span class="eguide-duration">Duration: {{ guide.realDuration > 0 ? guide.realDuration~'day(s)' : 'N/A'}} </span>
+        <span class="eguide-downloads">Downloads: {{ guide.dlCount }}</span>
+        <span class="eguide-price">Price: $ {{ guide.price|number_format(0) }}.<span class="cents">{{ guide.price|decimal }}</span></span>
+    </div>
+    <ul class="site-admin-list-actions horizontalize"> 
+        <li><a href="{{ path('admin_unfeature',{'guideId':guide.id}) }}" onclick="return false;" class="unfeature-guide">unfeature</a></li>
+    </ul>
+</li>

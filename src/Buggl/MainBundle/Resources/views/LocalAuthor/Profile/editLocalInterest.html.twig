@@ -1,0 +1,56 @@
+<div id="hiddenDiv" style="display:none">
+	<span id="photoInput">
+		<label>Photo</label>
+		{{ form_widget(localInterestForm.file) }}
+		{{ form_errors(localInterestForm.file) }}
+		<img style="display:none" id="previewPhoto" src="" />
+		<a href="" id="cancelUpload">Cancel</a>
+	</span>
+</div>
+
+<form id="interestForm" action="{{ path('edit_local_interest',{'localInterestId':localInterest.id}) }}" method="POST" {{ form_enctype(localInterestForm) }}>
+	<div class="form-section">
+		<span>
+			<label>Title</label>
+			{{ form_widget(localInterestForm.title) }}
+			{{ form_errors(localInterestForm.title) }}
+		</span>
+	</div>
+	<div class="form-section">
+		<span>
+			<label>Content</label>
+			{{ form_widget(localInterestForm.content) }}
+			{{ form_errors(localInterestForm.content) }}
+		</span>
+	</div>
+	<div class="form-section" id="photoContainer">
+		<span id="editPhoto">
+			{% if localInterest.imageWebPath is null or localInterest.imageWebPath is empty %}
+				<img src="{{ asset('/bundles/bugglmain/images/custom/dancing_144px.jpg') }}" border="0" width="144px" height="100px" />
+			{% else %}
+				<img src="{{asset(localInterest.imageWebPath)}}" border="0" width="144px" height="100px" />
+			{% endif %}	
+		</span>	
+	</div>	
+	
+	{% do localInterestForm.file.setRendered %}
+	{{ form_rest( localInterestForm ) }}
+	<div class="form-section submit-section">
+		<input id="addLocalInterestButton" class="button" type="submit" value="Submit" /> 
+	</div>
+</form>
+
+<script>
+	$(document).ready(function(){
+		$("#editPhoto").on('click',function(){
+			$('#hiddenDiv').append($(this));
+			$('#photoContainer').append($('#photoInput'));
+		});
+		
+		$("#cancelUpload").on('click',function(e){
+			e.preventDefault();
+			$('#hiddenDiv').append($('#photoInput'));
+			$('#photoContainer').append($('#editPhoto'));
+		});
+	});
+</script>

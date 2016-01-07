@@ -1,0 +1,35 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+
+    
+    <h1>Hey Admin,</h1>
+    <p><strong>{{ eguiderequests.localAuthor.name }} </strong> have a new inbound itinerary request from <strong> {{ eguiderequests.user.name }} </strong> for  <strong>{{ visitcountry }} </strong>. 
+
+<p> Name Of Blogger :{{ eguiderequests.localAuthor.name }} </p>
+<p> Email OF Blogger :{{ eguiderequests.localAuthor.email }} </p>
+<p>Name of Traveler : {{ eguiderequests.user.name }}</p>
+<p>Email of Traveler : {{useremail}} </p>
+<p>Price :${{ eguiderequests.price | number_format(2, '.', ',') }} </p>
+<p>Time Zone: {{now}}</p>
+<p>Best Contact Method:</p> 
+<p>Plan: {{ eguiderequests.plantype }} </p>
+        <li><strong>Country:</strong> {{ visitcountry }} </li>
+	<li><strong>destination:</strong> {{ destination }} </li>
+	<li><strong>Who is going:</strong> {{ eguiderequests.goodfor.name }} </li>
+        <li><strong>Reason:</strong> {{ eguiderequests.reason }} </li>
+        <li><strong>Duration:</strong> {{ duration }} Days</li>
+       {#<li><strong>Travel Budget:</strong> {{ eguiderequests.budget }} stars </li>#}
+       <li><strong>Pace:</strong> {{ eguiderequests.pace }} </li>
+       <li><strong> Food Budget:</strong> {{ eguiderequests.food }} </li>
+       <li><strong>Drink Budget:</strong> {{ eguiderequests.drinking }} </li>
+       <li><strong> Shopping Budget:</strong> {{ eguiderequests.shopping }} </li>
+       <li><strong>Special Touch Budget:</strong> {{ eguiderequests.activities }} </li>
+       <li><strong>Hotel Budget:</strong> {{ eguiderequests.hotel }} </li>
+       <li><strong>Special Touch Budget:</strong> {{ eguiderequests.specialtouches }} </li>
+       <li><strong>Trip plan:</strong> {{ eguiderequests.tripplan }}</li>
+       {# <li><strong>Guide Price Point:</strong> ${{ eguiderequests.price | number_format(2, '.', ',') }} </li>#}
+
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

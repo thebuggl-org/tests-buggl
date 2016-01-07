@@ -1,0 +1,17 @@
+{% if okToRender %}
+	<form action="{{ path('pay_with_stripe') }}" method="POST" class="fr">
+		<input type='hidden' value="{{ amount * 100 }}" name="amount" />
+		<input type='hidden' value="{{ paymentDescription }}" name="description" />
+		<input type='hidden' value="{{ eguideId }}" name="eguideId" />
+		<script
+		  src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+		  data-key="{{ pubKey }}"
+		  data-amount="{{ amount * 100 }}"
+		  data-name="Buggl"
+		  data-description="{{ description }}"
+		  data-image="{{ asset('bundles/bugglmain/images/buggl-logo-r1.png') }}"
+		  data-label="{{ '$'~amount~' Buy' }}"
+		>
+		</script>
+	</form>
+{% endif %}

@@ -1,0 +1,120 @@
+{% if localAuthor is not defined or localAuthor is null %}
+	{% set localAuthor = app.user %}
+{% endif %}
+{% if renderFor == 'aboutYou' %}
+	<div id="profileInfoDisplay_aboutYou">
+		<p class="about-you">{{ localAuthor.profile is null or localAuthor.profile.aboutYou is null ? '<em class="help-sample">I’ve been a chef, photographer, and tour guide over the last twenty years...</em>' : localAuthor.profile.aboutYou | raw }}</p>
+		{% if viewOnly is not defined or not viewOnly %}
+			<a class="editable editProfileInfo" data-profile-info-id="{{ renderFor }}" data-modal-title="Short Bio" href="{{ path('get_profile_form',{'buildFor':renderFor}) }}" onclick="return false"><strong>EDIT.</strong><span class="client-edit-button">EDIT</span></a>	
+		{% endif %}
+	</div>	
+{% elseif renderFor == 'selfComment' %}	
+	<div id="profileInfoDisplay_selfComment">
+		<p class="self-comment">{{ localAuthor.profile is null or localAuthor.profile.selfComment is null ? '<em class="help-sample">I know the best secret spots to take beautiful pictures all over Cape Town to make your friends back home wish they were with you...</em>' : localAuthor.profile.selfComment | raw }}</p>
+		{% if viewOnly is not defined or not viewOnly %}
+			<a class="editable editProfileInfo" data-profile-info-id="{{ renderFor }}" data-modal-title="What makes you the best Local?" href="{{ path('get_profile_form',{'buildFor':renderFor}) }}" onclick="return false"><strong>EDIT.</strong><span class="client-edit-button">EDIT</span></a>
+		{% endif %}
+	</div>
+{% elseif renderFor == 'profileBasicInfo' %}
+
+
+	<div id="profileInfoDisplay_profileBasicInfo">
+		<h2 class="title">
+			<span class="hi">{{ localAuthor.name }}</span>
+			{% if localAuthor.profile | nullObjectPlaceHolder('getWork','') != '' %}
+				,
+				<span class="hi">{{ localAuthor.profile | nullObjectPlaceHolder('getWork','(your Professional Expertise)') }}</span>
+			{% endif %}
+		</h2>
+		<h4>Who am I?</h4>
+		<p class="sp">{{ localAuthor.profile | nullObjectPlaceHolder('getAboutYou','<p class="help">I have been a chef, photographer, and tour guide over the last twenty years...</p>') | raw }}</p>
+		<h4>What I know about travel?</h4>
+		<p>{{ localAuthor.profile | nullObjectPlaceHolder('getSelfComment','<p class="help">I know the best secret spots to take beautiful pictures all over Cape Town to make your friends back home wish they were with you...</p>') | raw }}</p>
+		{% if viewOnly is not defined or not viewOnly %}
+			<a class="editable editProfileInfo" data-profile-info-id="{{ renderFor }}" data-profile-info-id="{{ renderFor }}" data-modal-title="Basic Info" onclick="return false" href="{{ path('get_profile_form',{'buildFor':renderFor }) }}">EDIT.<span class="client-edit-button"></span></a>
+		{% endif %}
+	</div>
+	
+{% elseif renderFor == 'guideInfo' %}
+	<h3>
+		Info 
+		{% if viewOnly is not defined or not viewOnly %}
+			<a class="editable to-right editProfileInfo" data-profile-info-id="{{ renderFor }}" data-modal-title="Guide Info" onclick="return false" href="{{ path('get_profile_form',{'buildFor':renderFor }) }}">EDIT.<span class="client-edit-button"></span></a>
+		{% endif %}
+	</h3>
+	<ul id="profileInfoDisplay_guideInfo">
+		<li class="age">
+			<span class="ico"></span>
+			<h4>Age</h4>
+			<p>{{ localAuthor.profile | nullObjectPlaceHolder('getAge','<p class="help">e.g. 24</p>') | raw }}</p>
+		</li>
+		<li class="current-location">
+			<span class="ico"></span>
+			<h4>Current Location</h4>
+			<p>{{ localAuthor.location }}</p>
+		</li>
+		<li class="children">
+			<span class="ico"></span>
+			<h4>Last Active</h4>
+			<p>{{ localAuthor.lastActive|showTimeElapsed }}</p>
+		</li>
+	</ul>
+
+{% elseif renderFor == 'localStats' %}
+	<h3>
+		My Stats 
+		{% if viewOnly is not defined or not viewOnly %}
+			<a class="editable to-right editProfileInfo" data-profile-info-id="{{ renderFor }}" data-modal-title="Local Stats" onclick="return false" href="{{ path('get_profile_form',{'buildFor':renderFor }) }}">EDIT.<span class="client-edit-button"></span></a>
+		{% endif %}
+	</h3>
+	<ul id="profileInfoDisplay_localStats">
+		<li class="local">
+			<span class="ico"></span>
+			<h4>Traveler Since</h4>
+			<p>{{ localAuthor.profile | nullObjectPlaceHolder('getLocalSince','<p class="help">e.g. 1984</p>') | raw }}</p>
+		<li class="interest">
+			<span class="ico"></span>
+			<h4>Interest and Activities</h4>
+			<p>{{ localAuthor.profile | nullObjectPlaceHolder('getInterestAndActivities','<p class="help">Running, Surfing, Being Awesome...</p>') | raw }}</p>
+		</li>
+		<li class="accomplishments">
+			<span class="ico"></span>
+			<h4>Accomplishments</h4>
+			<p>{{ localAuthor.profile | nullObjectPlaceHolder('getAccomplishments','<p class="help">Boston Marathon, Published Author...</p>') | raw }}</p>
+		</li>
+	</ul>
+
+{% elseif renderFor == 'localVerified' %}
+	<h3>
+		Local Verified 
+		{% if viewOnly is not defined or not viewOnly %}
+			<a class="editable to-right editProfileInfo" data-profile-info-id="{{ renderFor }}" data-modal-title="Local Verified" onclick="return false" href="{{ path('get_profile_form',{'buildFor':renderFor }) }}">EDIT.<span class="client-edit-button"></span></a>
+		{% endif %}
+	</h3>
+	<ul id="profileInfoDisplay_localVerified">
+		<li class="phone">
+			<span class="ico"></span>
+			<h4>Phone Number</h4>
+			{{ localAuthor.profile | nullObjectPlaceHolder('getPhone') }}
+		</li>
+	</ul>
+{% elseif renderFor == 'authorPageBasicInfo' %}
+	<div id="profileInfoDisplay_authorPageBasicInfo">
+		<h3 class="author-name" style="font-family:Oswald;">{{ localAuthor.name }}</h3>
+		<span class="author-job-title" style="font-family:Oswald">{{ localAuthor.profile | nullObjectPlaceHolder('getWork','(your Professional Expertise)') }}</span>
+		<ul>
+			<li>
+				<strong>Traveler Since</strong><br/>{{ localAuthor.profile | nullObjectPlaceHolder('getLocalSince','<p class="help">e.g. 1984</p>') | raw }}
+			</li>
+			<li>
+				<strong>Age</strong><br/>{{ localAuthor.profile | nullObjectPlaceHolder('getAge','<p class="help">e.g. 24</p>') | raw }}
+			</li>
+			<li>
+				<strong>Interests and Activities</strong><br/>{{ localAuthor.profile | nullObjectPlaceHolder('getInterestAndActivities') }}
+			</li>
+		</ul>
+		{% if viewOnly is not defined or not viewOnly %}
+			<a class="editable editProfileInfo" data-profile-info-id="{{ renderFor }}" data-modal-title="Basic Info" href="{{ path('get_profile_form',{'buildFor':renderFor}) }}" onclick="return false"><strong>EDIT.</strong><span class="client-edit-button"></span></a>
+		{% endif %}
+	</div>
+{% endif %}

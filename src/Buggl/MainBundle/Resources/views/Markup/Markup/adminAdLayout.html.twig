@@ -1,0 +1,120 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% block modal %}
+    <div class="reveal-modal" style="display:none" id="modal">
+		<div class="content">
+	        <h2>Search Travel Guides</h2>       
+	        <input type="text" id="searchBox" placeHolder="title of travel guide">
+			<a class="site-admin-button blue to-right" id="search" href="" onclick="return false;">Search</a>
+	        <div class="modal-content">
+	        	Search guides to feature.
+	        </div>
+	        <span class="loader" style="display:none"></span>
+	        <a href="#" id="more" style="display:none">more</a>
+		</div>	
+		<a class="close-reveal-modal">&#215;</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+        <section>
+        	<div class="reg_box">
+		        <p class="admin-breadcrumbs">
+		            <a href="">{% block section_title %}Buggl Ad Features {% endblock %}</a>
+		        </p>
+		        
+		        <div class="content"> 
+		            <ul class="site-admin-tabs horizontalize">
+						<li class="{{ tab|selected('featured','active') }}"><a href="{{ path('admin_featured') }}">Featured Travel Guides</a></li>
+		                <li class="{{ tab|selected('rotating','active') }}"><a href="{{ path('admin_ad') }}">Rotating Features</a></li>
+		                <li class="{{ tab|selected('spotlight','active') }}"><a href="{{ path('admin_spotlight') }}">Main Spotlight</a></li>                
+		            </ul>	
+		        </div>
+		        
+		        {% block main_content %}
+		        <!-- content for featured travel guides tab -->
+		        <p class="page-actions">
+		        	<a class="site-admin-button">+ add featured guide</a>
+				</p>
+		        <ul class="eguide-list site-admin-list">
+			        {% for i in 0..3 %}
+			        <li class="clearfix">
+			            <div class="to-left">
+			                <h3>eGuide Title</h3>       
+			                <span class="eguide-author">local author: name Lastname</span>
+			                <span class="eguide-country">country: Philippines</span>                
+			                <span class="eguide-duration">duration: 10 weeks</span>
+							<span class="eguide-downloads">duration: 5 downloads</span>
+			                <span class="eguide-price">price: $ 10.<span class="cents">00</span></span>
+			            </div>
+			            <ul class="site-admin-list-actions to-right horizontalize"> 
+			                <li><a href="">remove</a></li>
+		
+			            </ul>
+			        </li>
+			        {% endfor %}
+			    </ul>
+		        
+		        <!-- content for spotlight tab -->
+		        <p class="page-actions">
+		        	<a class="site-admin-button blue">edit main spotlight feature</a>
+				</p>
+		       
+		        <div class="main-spotlight-admin clearfix">
+			        <img border="0" width="100%" align="left" alt=" " src={{ asset("/bundles/bugglmain/images/custom/940_500.jpg")}} />
+			        <div class="box">
+			            <a class="subphoto" href="/app_dev.php/markup/guide-overview"><img border="0" alt=" " src={{ asset("bundles/bugglmain/images/custom/janvan_60px.jpg")}} /></a>
+			            <h3 class="title">Somewhere in Turkey</h3>
+			            <span class="subtext" href="/app_dev.php/markup/guide-overview">Noel</span><br/>
+			            <span href="/app_dev.php/markup/guide-overview" class="subtext">Professional Driver</span>
+			        </div>
+		        </div>      
+		       
+				<!-- content hompage feature tab -->
+		        <p class="page-actions">
+		        	<a class="site-admin-button">+ add rotating feature</a>
+				</p>
+		        <ul class="admin-rotating-feature">
+		    		<li class="clearfix">
+		    			<div class="to-left">
+							<div class="byline">
+								<h3>travel guide title</h3>
+								<span>Matt Monroe - Dancer - P100</span>
+							</div>
+							<div class="holder">
+		    					<img src="http://www.bing.com/az/hprichbg/rb/DitanPark_ROW10373706043_1366x768.jpg" width="530"/>
+		    				</div>
+		    			</div>
+		    			<ul class="site-admin-list-actions to-left horizontalize"> 
+			                <li><a href="">edit</a></li>
+							<li><a href="">remove</a></li>
+			            </ul>
+		    		</li>
+		    		<li class="clearfix">
+		    			<div class="to-left">
+							<div class="byline">
+								<h3>travel guide title</h3>
+								<span>Matt Monroe - Dancer - P300</span>
+							</div>
+							<div class="holder">
+		    					<img src="http://www.bing.com/az/hprichbg/rb/DitanPark_ROW10373706043_1366x768.jpg" width="530"/>
+		    				</div>
+		    			</div>
+		    			<ul class="site-admin-list-actions to-left horizontalize"> 
+			                <li><a href="">edit</a></li>
+							<li><a href="">remove</a></li>
+			            </ul>
+		    		</li>
+		   		</ul>
+		        {% endblock %}
+        	</div>
+        </section>	      
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+

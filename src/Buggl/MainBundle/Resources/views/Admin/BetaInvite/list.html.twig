@@ -1,0 +1,19 @@
+<ul class="content-list site-admin-list">
+	{% for invite in invites %}
+	    <li class="clearfix">
+	        <div class="to-left">
+	            <p>
+					{{ invite.email }}
+					(by {{ invite.sender.name }})
+				</p>
+	        </div>
+			{% if invite.status == 0 %}
+		        <ul class="site-admin-list-actions to-right horizontalize"> 
+					<li><a class="site-admin-button" href="{{ path('admin_beta_invite_delete',{'id':invite.id}) }}" onclick="return confirm('Are you sure?')">delete</a></li>
+		            <li><a href="{{ path('admin_beta_invite_resend',{'id':invite.id}) }}">resend</a></li>
+		        </ul>
+			{% endif %}
+	    </li>
+	{% endfor %}
+</ul>
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'itemLimit':itemLimit,'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':invites|length,'dataUrl':dataUrl} %}

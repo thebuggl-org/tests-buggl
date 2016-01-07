@@ -1,0 +1,85 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% set current = 'beta-invite' %}
+
+{% block title %}Beta Invites{% endblock %}
+
+{% block content %}	
+    <article class="site-admin-content column grid_8">
+    	<section>
+    		<div class="reg_box">
+        		
+		        <p class="admin-breadcrumbs">
+					<a href="">Beta Invites</a>
+					{% block breadCrumbs %}
+						<a class="site-admin-button to-right addButton" href="{{ path('admin_beta_invite') }}" onclick="return false;">
+							+ Invite
+						</a>
+					{% endblock %}	
+		        </p>
+		        
+		        <div class="content"> 
+		            <ul class="site-admin-tabs horizontalize">
+		                <li class="{{ activeTab|selected('pending','active') }}"><a href="{{ path('admin_beta_invite_list',{'type':'pending'}) }}">Pending</a></li>						
+		                <li class="{{ activeTab|selected('accepted','active') }}"><a href="{{ path('admin_beta_invite_list',{'type':'accepted'}) }}">Accepted</a></li>
+		            </ul>	
+		        </div>
+		        
+				{% block inner_content %}
+					<div id="paginationContainer">
+						{% render 'BugglMainBundle:Admin/BetaInvite:inviteList' with {'type':activeTab} %}
+					</div>
+				{% endblock %}
+    		</div>
+    	</section>    				    
+    </article>
+	{% include 'BugglMainBundle:LocalAuthor/Profile:modals.html.twig' with {'title':'Beta Invite','includeProfilePicModal':false} %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	
+	{% javascripts 
+		'@BugglMainBundle/Resources/public/js/jquery.pagination.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+				$('.bugglPagination').paginate();
+				
+				$('.addButton').on('click',function(e){
+					e.preventDefault();
+					$('#formModal').reveal({'closeOnBackgroundClick':false});
+					
+					$('#formModal .content').empty();
+					$('#formModal .loader').show();
+					$('#formModal').reveal({'closeOnBackgroundClick':false});
+					$.get($(this).attr('href'),function(response){
+						$('#formModal .loader').hide();
+						$('#formModal .content').empty().html(response.html);
+						
+						$('#formModal .content').on('submit','#inviteForm',function(e){
+							e.preventDefault();
+							$('#formModal .loader').show();
+
+							$.post($(this).attr('action'), $(this).serialize(), function(response){
+								$('#formModal .loader').hide();
+								if(response.status == 'SUCCESS'){
+									$('#formModal').trigger('reveal:close');
+									window.location.reload();
+								}	
+								else{
+									$('#formModal .content').empty().append(response.html);
+								}
+							});
+						});
+					});
+				});
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Page Not Found {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <section class="column grid_12">
+            <div class="missing reg_box grid_7">
+                <h2>404 Page Not Found</h2>
+                <p>Oops! It seems you stumbled on something that does not exist. If you believe it's a mistake on our part, please kindly <a href="{{ path('buggl_static_contact_us') }}">let us know</a>. Thanks!</p>
+            </div>
+        </section>
+    </div>
+{% endblock %}

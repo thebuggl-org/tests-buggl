@@ -1,0 +1,506 @@
+body{
+	margin: 0;
+	padding: 0;
+}
+.splash{
+	background: url(images/splash-bg3.png) no-repeat top center #ffffff;
+	height: 100%;
+	overflow: hidden;
+	font-family: "ff-tisa-web-pro",serif;
+	color: #2f2924;
+}
+.splash h2{
+    margin-bottom: 44px;
+}
+.splash h1{
+    background: url("images/logo2.png") no-repeat scroll 0 0 transparent;
+    height: 75px;
+    text-indent: -1000em;
+    width: 160px;
+    margin: 0 0 0 100px;
+}
+.splash form{
+	margin: 0 auto;
+	width: 460px;
+}
+.splash .form-section{
+	margin-bottom: 10px;
+}
+.splash .form-section > span{
+	background: rgba(255,255,255,0.5);
+	padding:10px;
+	display: inline-block;
+	border-radius: 5px;	
+	width: 100%;
+}
+.splash input[type="text"]{
+	border: 1px solid #aaaaaa;
+	border-radius: 5px;
+	padding: 8px 10px 10px 45px;
+	font-size: 16px;
+	color: #ababab;
+	width: 100%;
+	font-family: "ff-tisa-web-pro",serif;
+}
+.splash .button{
+	background: #653a27; /* Old browsers */
+	background: -moz-linear-gradient(top,  #653a27 0%, #54341f 40%, #4c301a 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#653a27), color-stop(40%,#54341f), color-stop(100%,#4c301a)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #653a27 0%,#54341f 40%,#4c301a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #653a27 0%,#54341f 40%,#4c301a 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #653a27 0%,#54341f 40%,#4c301a 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #653a27 0%,#54341f 40%,#4c301a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#653a27', endColorstr='#4c301a',GradientType=0 ); /* IE6-9 */
+
+    border: 1px solid  #CB2227;
+    border-color: #a06749 #805743 #24160d;
+    border-radius: 5px 5px 5px 5px;
+    color: #f8af86;
+    font-size: 18px;
+    padding: 10px;
+    width: 230px;
+    margin: 0 0 0 125px;
+    cursor: pointer;
+    font-weight: 400;
+    font-family: "Tisa OT";
+}
+.splash .button:hover{
+	color: #ffffff;
+}	
+.splash .intro{
+	margin: 0 auto;
+    text-align: center;
+    width: 900px;
+	font-size: 20px;
+    line-height: 25px;
+    padding: 18px 0 0 0;    
+}
+.splash .intro span{
+    display: inline-block;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 25px;
+    margin-top: 30px;
+    color: #555555;
+}
+.splash .name{
+	background: url(images/splash-name.png) no-repeat 8px 6px #ffffff;
+}
+.splash .email{
+	background: url(images/splash-email.png) no-repeat 8px 5px #ffffff;
+}
+.splash .submit-section{
+	margin-top: 20px;
+}
+.splash .social-icons{
+	float:right;
+	margin-right: 100px;
+}
+.splash .social-icons li{
+	display: inline-block;
+}
+.splash .social-icons a{
+	display: block;
+	width: 38px;
+	height: 38px;
+	background: url(images/social-icons.png) no-repeat;
+	text-indent: -1000em;
+}
+.splash .fb a{
+	background-position: -75px 0;
+}
+.splash .twt a{
+	background-position: -38px 0;
+}
+.splash .clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.splash .clearfix {
+	display: inline-block;
+}
+ 
+.splash html[xmlns] .clearfix {
+	display: block;
+}
+ 
+.splash * html .clearfix {
+	height: 1%;
+}
+.splash .to-left{
+	float:left;
+}
+.splash .to-right{
+	float:right;
+}
+.splash-topper{
+	width: 100%;
+	padding-top: 30px;
+	margin: 0 auto;
+}
+.splash .subscription-successful{
+	width: 500px;
+	margin: 0 auto;
+	background: rgba(255,255,255,0.5);
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 280px;
+	margin-bottom: 30px;
+	display: none;
+	color: #444444;
+}
+.splash .subscription-successful h4{
+  border-bottom: 1px solid #A7A3A3;
+  color: #444444;
+  font-size: 18px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+.splash .subscription-successful p{
+	margin: 0;
+	line-height: 22px;	
+}	
+.splash .subscription-successful a{
+	display: block;
+	color: #f64f43;
+	font-size: 20px;
+	font-weight: 400;
+	text-decoration: none;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}	
+.splash .error{
+	font-size: 14px;
+	color: #F15F48;
+}
+
+/*
+Plugin: jQuery Parallax
+Version 1.1.3
+Author: Ian Lunn
+Twitter: @IanLunn
+Author URL: http://www.ianlunn.co.uk/
+Plugin URL: http://www.ianlunn.co.uk/plugins/jquery-parallax/
+
+License: http://creativecommons.org/licenses/by-sa/3.0/ (Attribution Share Alike). Please attribute work to Ian Lunn simply by leaving these comments in the source code or if you'd prefer, place a link on your website to http://www.ianlunn.co.uk/.
+*/
+
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	margin: 0;
+	min-width: 980px;
+	padding: 0;
+	color: #555555;
+	font-family: "ff-tisa-web-pro",serif
+}
+
+p{
+	margin: 0 0 20px 0;	
+}
+
+p, ul{
+	font-family:"Proxima Nova Light", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+	font-size-adjust:0.488;
+	font-weight:200;
+	font-style:normal;
+}
+
+img{
+	border: 0;
+}
+
+h1, #pixels{
+	font-family:"Museo 900", Verdana, serif;
+	font-size-adjust:0.40;
+	font-weight:700;
+	font-style:normal;
+}
+
+h2{
+	font-family:"Beau Sans Pro Book", Verdana, sans-serif;
+	font-size-adjust:0.531;
+	font-weight:500;
+	font-style:normal;
+}
+
+#header h1, #pixels{
+	color: #48941A;
+}
+
+.float-left{
+	float: left;	
+	margin: 0 0 0 20px;
+}
+
+.float-right{
+	float: right;
+	margin: 0 20px 0 0;
+}
+
+.center{
+	font-size: 2.5em;
+	padding: 80px 0 0 0;
+	text-align: center;
+}
+
+#nav{
+	list-style: none;
+	position: fixed;
+	right: 20px;
+}
+
+#nav li{
+	margin: 0 0 15px 0;	
+}
+
+#header, #intro, #second{
+	width: 100%;
+}
+
+.first{
+	background:url(images/balloons.jpg) 50% 0 no-repeat fixed;
+	background-size: 100% auto;
+	height: 700px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.second{
+	color: #222222;
+	margin: 0 auto;
+	overflow: hidden;
+	padding: 0;
+	text-align: center;
+	padding: 160px 0;
+}
+
+.second h2{
+	font-size: 35px;
+}
+
+/*#second .bg{
+	background: url(images/trainers.png) 50% 0 no-repeat fixed;
+	height: 1300px;
+	margin: 0 auto;
+	padding: 0;
+	position: absolute;
+	width: 900px;
+	z-index: 200;
+}*/
+
+#third{
+	background: url(images/unicorn.jpg) 50% 0 no-repeat fixed;
+	background-size: 100% auto;
+	color: white;
+	height: 700px;
+	padding: 100px 0 0 0;	
+}
+
+#fifth{
+	background: url(images/china.jpg) 50% 0 no-repeat fixed;
+	background-size: 100% auto;
+	height: 700px;
+	margin: 0 auto;
+	padding: 40px 0 0 0;
+}
+
+#seventh{
+	background: url(images/mountains.jpg) 50% 0 no-repeat fixed;
+	background-size: 100% auto;
+	color: white;
+	height: 700px;
+	padding: 100px 0 0 0;	
+}
+
+#ninth{
+	background: url(images/dunes.jpg) 50% 0 no-repeat fixed;
+	background-size: 100% auto;
+	height: 700px;
+	margin: 0 auto;
+	padding: 40px 0 0 0;
+}
+
+.story{
+	margin: 0 auto;
+	min-width: 980px;
+	overflow: auto;
+	width: 980px;
+}
+
+.story .float-left, .story .float-right{
+	padding: 100px 0 0 0;
+	position: relative;	
+}
+#footer{
+	background: #222222;
+	padding: 20px;
+}
+#footer div{
+	width: 80%;
+	margin: 0 auto;
+}
+#footer ul{
+	margin: 0;
+	padding: 0;
+}
+#footer span{
+	color: #555555;
+}	
+#footer a{
+	color: #ffffff;
+	text-decoration: none;
+	margin: 0 2px;
+}
+.horizontalize li{
+	display: inline-block;
+}
+.to-left{
+	float: left;
+}
+.to-right{
+	float: right;
+}
+.clearfix:after{
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+ 
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+form{
+	margin: 250px auto 0;
+    width: 460px;
+}
+.form-section{
+	margin-bottom: 10px;
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.5);
+    border-radius: 5px 5px 5px 5px;
+    display: inline-block;
+    padding: 10px;
+    width: 100%;
+}
+input[type="text"]{
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    color: #ABABAB;
+    font-family: "ff-tisa-web-pro",serif;
+    font-size: 16px;
+    padding: 8px 10px 10px 45px;
+    width: 400px;
+}
+input[type="button"]{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: -moz-linear-gradient(center top , #653A27 0%, #54341F 40%, #4C301A 100%) repeat scroll 0 0 transparent;
+    border-color: #A06749 #805743 #24160D;
+    border-image: none;
+    border-radius: 5px 5px 5px 5px;
+    border-style: solid;
+    border-width: 1px;
+    color: #F8AF86;
+    cursor: pointer;
+    font-family: "Tisa OT";
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 0 0 125px;
+    padding: 10px;
+    width: 230px;	
+}
+.submit-section{
+	background: none;
+}
+.name{
+	background: url("images/splash-name.png") no-repeat scroll 8px 6px #FFFFFF;
+}
+.email{
+	background: url("images/splash-email.png") no-repeat scroll 8px 5px #FFFFFF;
+}
+.expert-subscription#seventh{
+	background: url("../images/registration-bg.png") no-repeat bottom #7db3e4;	
+	padding: 50px 0 0 !important;
+	height: auto;
+	font-family: "Beau Sans Pro Book",Verdana,sans-serif;
+}
+.expert-subscription input[type="text"], .expert-subscription input{
+	padding: 6px 8px;
+	font-size: 100%;
+	color: #000000;
+	width: 440px;
+}
+.expert-subscription form{
+	width: 500px;
+	background: rgba(255,255,255,0.8);
+}
+.expert-subscription .form-section{
+	padding: 20px 20px 0;
+	border-radius: 0;
+	width: auto;
+	margin-bottom: 0;
+	background: none;
+}
+
+.expert-subscription input, .expert-subscription select{
+	font-family: "Beau Sans Pro Book",Verdana,sans-serif;
+	paading: 0 !important;
+	border-radius: 0 !important;
+	border: 1px solid #cccccc;
+	padding: 6px 8px;
+}
+
+.expert-subscription select{
+	width: 460px;
+}	
+.expert-subscription label{
+	font-family: "Beau Sans Pro Book",Verdana,sans-serif;
+	color: #222222;
+}
+.expert-subscription h2{
+	margin: 0 auto;
+	padding: 0 !important;
+	
+}
+.expert-subscription input[type='submit']{
+	color: #FFFFFF;
+    font-size: 15px;
+    margin: 0 0 30px 100px;
+    padding: 10px;
+    width: 250px;
+}
+.expert-subscription form{
+	margin: 50px auto;
+}	
+.fb-signup{
+	background: #3b5999;
+	padding: 5px 10px 8px;
+	display: inline-block;
+	color: #ffffff;
+	text-decoration: none;
+	margin-top: 15px;
+	font-size:16px;
+}
+.fb-signup:hover{
+	background: #264C99;
+}	
+

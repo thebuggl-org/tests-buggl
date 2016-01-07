@@ -1,0 +1,94 @@
+{% extends "BugglMainBundle::layout.html.twig" %}
+
+{% block title %}Buggl | 48 Hours in a City Contest{% endblock %}
+
+{% block meta_tags %}
+	<meta name="description" content="Create a 48 hour travel guide and be entered to win a trip to any city in the world!">
+{% endblock %}
+
+{% block og_meta %}
+	<meta property="og:title" content="48 Hours in a City Contest" />
+    <meta property="og:description" content="Win a Free Trip! Create a 48 hour travel guide to your favorite city & share it to increase your chance of winning!" />
+	<meta property="og:image" content="http://buggl.com{{ asset('/bundles/bugglmain/images/48hours-ad.jpg') }}"/>
+{% endblock%}
+
+{% block body %}
+<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+
+<div class="contest-landing">
+	<div class="48hours">
+		<div class="header">
+			<ul class="contest-connect">
+				<li class="fb"><a href='javascript:void(0)' id="facebook-btn"></a></li>
+				<li class="twt"><a href='javascript:void(0)' id="twitter-btn" tw-text="Win a Free Trip! Create a 48 hour travel guide to your favorite city & share it to increase your chances!"></a></li>
+			</ul>	
+			<h1>
+				48 Hours in the City
+			</h1>
+		</div>
+		<div class="intro">
+			<p>Create a <span class="lightgreen">48 hour guide in a city</span> you love and<br/>win a trip to any city in the world<br/>with free airfare, lodging, and spending cash!</p>
+		</div>		
+		<div class="details">
+			<section>
+				<h2>THE DETAILS</h2>
+				<ul>
+					<li><p>Design a guide around a city that you live in or know intimately.</p></li>
+					<li><p>The guide can be about anything as long as it's focused in and around the city limits.  Share the secret streets to take pictures, the best places to find authentic street food or describe the best romantic weekend.</p></li>
+					<li><p>Include in the guide a two day itinerary, which takes minutes to do, but feel free to make it detailed.  The best guide will most likely be comprehensive.</p></li>				
+					<li><p>We recommend making your guide free, but if you price a guide, make sure you integrate paypal to get money every time it’s purchased.</p></li>				
+					<li><p>The winner will be announced May 31st through Buggl’s Social Media. Be sure to follow us on <a href="https://www.facebook.com/mybuggl">Facebook</a> and <a href="https://twitter.com/Buggl">Twitter</a>!
+</p></li>				
+				</ul>
+				<a class="design-a-guide" href="{{ path('add_travel_guide_info') }}">DESIGN A GUIDE</a>
+				<p class="be-insider">Not an Insider? <a href="{{ path('registration') }}" style="text-decoration: none;">Sign Up Today!</a></p>
+			</section>	
+		</div>
+		<div class="intro">
+			<p>Need some inspiration? Here are some of our top guides:</p>
+			<ul class="contest-sample-list">
+				<li><a href="http://www.buggl.com/how-to-cram-sydney-into-48-hours-509/overview"><img src="{{ asset('/bundles/bugglmain/images/48-sydney.jpg') }}" ></a></li>
+				<li><a href="http://www.buggl.com/48-hours-in-hobart-tasmania-505/overview"><img src="{{ asset('/bundles/bugglmain/images/48-tazmania.jpg') }}" ></a></li>
+				<li><a href="http://www.buggl.com/a-leisurely-summer-weekend-in-portland-maine-415/overview"><img src="{{ asset('/bundles/bugglmain/images/48-maine.jpg') }}" ></a></li>
+				<li><a href="http://www.buggl.com/the-ultimate-48-hours-guide-to-barcelona-504/overview"><img src="{{ asset('/bundles/bugglmain/images/48-barcelona.jpg') }}" ></a></li>
+			</ul>
+		</div>
+		<div class="fine-print">
+			<h3>THE FINE PRINT</h3>
+			<ul>
+				<li><p>You must be 18 years of age or older.</p></li>
+				<li><p>You must have a valid passport.</p></li>
+				<li><p>You must be able to enter the country you select.</p></li>
+				<li><p>All elements of the prize are non-transferable and there are no cash alternatives for the plane ticket.</p></li>
+				<li><p>Winner absolves Buggl and LocalEyes, Inc., of any liability regarding accidents, mishaps, problems with airlines and anything that might be bad, prior to, during and after their trip.</p></li>
+				<li><p>Void where prohibited</p></li>
+				<li><p>Any associated visa costs are the responsibility of the winner.</p></li>
+				<li><p>The flight is one round trip economy class ticket subject to carrier availability from your home airport.  Additional fees or ticket changes are the responsibility of the winner.  The cost of the flight can not exceed $1500, including taxes.</p></li>
+				<li><p>The winner also receives lodging for two nights in the city they choose.  Lodging per night including taxes not to exceed $300 USD.</p></li>
+				<li><p>The trip has to be planned at least 30 days in advance, valid for a year at contest end.</p></li>
+				<li><p>Winner must create one travel guide detailing their trip upon return.</p></li>
+				<li><p>Please refer to our terms of service and privacy policy, as well as FAQ’s for anymore questions related to safety, security, etc.</p></li>			
+			</ul>
+			<p><a href="/"><img src="{{ asset('/bundles/bugglmain/images/contest-logo.png') }}" /></a></p>	
+		</div>	
+	</div>
+</div>	
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/socialshare.js' | s3Cdn) }}"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+		        var info = SocialShare.getDefaultValues();
+		    	Facebook.enable(info);
+		    	var twInfo = {'via': 'Buggl', 'title': $('#twitter-btn').attr('tw-text'), 'hashtags' : '' };
+		    	Twitter.enable(twInfo);
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

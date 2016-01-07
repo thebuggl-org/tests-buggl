@@ -1,0 +1,7 @@
+{% extends "BugglMainBundle:Frontend/Static:staticPageLayout.html.twig" %}
+
+{% block title %}Buggl | {{ staticContent.title }}{% endblock %}
+
+{% block static_content %}
+	{{ staticContent.content | raw  }}
+{% endblock %}

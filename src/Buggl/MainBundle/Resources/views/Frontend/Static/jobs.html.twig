@@ -1,0 +1,26 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<article class="column grid_12">
+			<div class="row">
+				<article class="column grid_12">
+					<div class="row">
+						<section class="column custom cpage single grid_12">
+							<div class="hd-image">
+								<img src="../bundles/bugglmain/images/static-jobs.jpg" border="0" align="left" alt="Elephants and Zebras in Africa">
+								<h1>Drop us a note, we're always on the lookout for great people</h1>
+								<p>Email your resume to <a href="mailto:jobs@buggl.com">jobs@buggl.com</a></p>
+							</div>
+						</section>
+					</div>
+				</article>
+			</div>
+		</article>
+	</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+<nav class="mini">
+	{% if activeTab == 'published' %}
+		<a href="{{ path('pdf_preview', {'filename' : eguide.pdfFilename})}}" class="btn fr">PDF Preview</a>
+		<a href="{{ path('eguide_download', {'slug' : eguide.slug })}}" class="btn fr">Download PDF</a>
+		<a href="{{ path('eguide_archive',{'slug' : eguide.slug }) }}" class="btn fr">Archive</a>
+		<a href="{{ path('eguide_delete', {'slug' : eguide.slug }) }}" onclick="return false;" class="btn fr deleteGuideButton">Delete</a>
+		<a href="{{ path('update_travel_guide_info', {'travel_guide_id' : eguide.id}) }}" class="btn fr">Edit</a>
+		{#<a href="{{ path('local_author_featue_guide',{'id':eguide.id}) }}" onclick="return false;" class="btn fr feature" style="{{ eguide.isFeaturedInProfile ? 'display:none' : 'display:block' }}">Feature</a> #}
+		{#<a href="{{ path('local_author_unfeature_guide',{'id':eguide.id}) }}" onclick="return false;" class="btn fr feature" style="{{ eguide.isFeaturedInProfile ? 'display:block' : 'display:none' }}">Unfeature</a> #}
+	{% elseif activeTab == 'unpublished' %}
+		<a href="{{ path('eguide_delete', {'slug' : eguide.slug }) }}" onclick="return false;" class="btn fr deleteGuideButton">Delete</a>
+		<a href="{{ path('update_travel_guide_info', {'travel_guide_id' : eguide.id}) }}" class="btn fr">Edit</a>
+	{% elseif activeTab == 'featured' %}
+		{#<a href="{{ path('local_author_featue_guide',{'id':eguide.id}) }}" onclick="return false;" class="btn fr feature" style="{{ eguide.isFeaturedInProfile ? 'display:none' : 'display:block' }}">Feature</a> #}
+		{#<a href="{{ path('local_author_unfeature_guide',{'id':eguide.id}) }}" onclick="return false;" class="btn fr feature" style="{{ eguide.isFeaturedInProfile ? 'display:block' : 'display:none' }}">Unfeature</a>#}
+		<a href="{{ path('eguide_download', {'slug' : eguide.slug })}}" class="btn fr">Download PDF</a>
+		<a href="{{ path('eguide_archive',{'slug' : eguide.slug }) }}" class="btn fr">Archive</a>
+		<a href="{{ path('eguide_delete', {'slug' : eguide.slug }) }}" onclick="return false;" class="btn fr deleteGuideButton">Delete</a>
+	{% elseif activeTab == 'draft' %}
+		<a href="{{ path('eguide_delete', {'slug' : eguide.slug }) }}" onclick="return false;" class="btn fr deleteGuideButton">Delete</a>
+		<a href="{{ path('update_travel_guide_info', {'travel_guide_id' : eguide.id}) }}" class="btn fr">Edit</a>
+	{% elseif activeTab == 'archived' %}
+		<a href="{{ path('eguide_delete', {'slug' : eguide.slug }) }}" onclick="return false;" class="btn fr deleteGuideButton">Delete</a>
+	{% elseif activeTab == 'denied' %}
+		<a href="{{ path('republish_guide', {'id' : eguide.id}) }}" class="btn fr">Submit for Approval</a>
+		<a href="{{ path('update_travel_guide_info', {'travel_guide_id' : eguide.id}) }}" class="btn fr">Edit</a>
+		<a href="{{ path('eguide_delete', {'slug' : eguide.slug }) }}" onclick="return false;" class="btn fr deleteGuideButton">Delete</a>
+	{% endif %}
+	<span class="loader fr" style="display:none">Loading...</span>
+</nav>

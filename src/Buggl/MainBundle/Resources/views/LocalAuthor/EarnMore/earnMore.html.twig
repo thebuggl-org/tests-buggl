@@ -1,0 +1,140 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Buggl | Earn More{% endblock %}
+
+{% block precontent_title %}
+{% endblock %}
+
+{% set active = 'messages' %}
+
+{% block main_content %}	
+	<div class="row earn-more">
+		{% block inner_content %}
+			<div class="grid_12 column" id="paginationContainer">	
+				<div class="intro">
+					<h2>Earn More</h2>
+					<p>You can earn more commission selling your travel guides by completing these simple tasks.</p>
+					<p class="earnmore-teaser">Your current total commission is at <span>{{ commission }}%</span></p>
+				</div>
+				<ul class="earn-more-list">
+					<li>
+						<a href="{{ path('add_travel_guide_info') }}">
+							{% if streetCredit.guideStatus %}
+								<span class="completed"></span>
+							{% endif %}
+							<img src="{{ asset('/bundles/bugglmain/images/write.png') }}" />
+							<div>
+								<span class="b">Design a Guide</span>
+								<p>
+									<strong>Make 2% More</strong>
+									Design your first travel guide to increase your take
+								</p>
+							</div>	
+						</a>
+					</li>	
+					<li>
+						<a href="{{ path('buggl_vouch') }}">
+							{% if streetCredit.vouchStatus %}
+								<span class="completed"></span>
+							{% endif %}
+							<img src="{{ asset('/bundles/bugglmain/images/vouch.png') }}" />
+							<div>
+								<span class="b">Get Vouched For</span>
+								<p>
+									<strong>Make 2% More</strong>
+									 Ask someone to vouch for your travel knowledge by sending them a quick note
+								</p>
+							</div>	
+						</a>
+					</li>	
+					<li>
+						<a href="{{ path('local_author_profile',{'slug':app.user.slug}) }}">
+							{% if streetCredit.profileStatus %}
+								<span class="completed"></span>
+							{% endif %}
+							<img src="{{ asset('/bundles/bugglmain/images/profile.png') }}" />
+							<div>
+								<span class="b">Complete your profile</span>
+								<p>
+									<strong>Make 2% More</strong>
+									Fill in a complete profile to instantly increase what you earn
+								</p>
+							</div>	
+						</a>
+					</li>
+					<li>
+						<a href="{{ path('local_author_mass_invite') }}">
+							{% if streetCredit.inviteAuthorStatus %}
+								<span class="completed"></span>
+							{% endif %}
+							<img src="{{ asset('/bundles/bugglmain/images/invite.png') }}" />
+							<div>
+								<span class="b">Invite other travel insiders</span>
+								<p>
+									<strong>Make 2% More</strong>
+									Invite friends to join and increase your revenue
+								</p>
+							</div>	
+						</a>
+					</li>	
+					<li>
+						<a href="{{ path('local_author_share') }}">
+							{% if streetCredit.shareStatus %}
+								<span class="completed"></span>
+							{% endif %}
+							<img src="{{ asset('/bundles/bugglmain/images/broadcast.png') }}" />
+							<div>
+								<span class="b">Share Buggl with your contacts</span>
+								<p>
+									<strong>Make 1% More</strong>
+									Get an additional percent by inviting your friends and family
+								</p>
+							</div>	
+						</a>
+					</li>	
+					<li>
+						<a href="{{ path('local_author_social_media') }}">
+							{% if streetCredit.connectStatus %}
+								<span class="completed"></span>
+							{% endif %}
+							<img src="{{ asset('/bundles/bugglmain/images/social.png') }}" />
+							<div>
+								<span class="b">Connect your social media accounts</span>
+								<p>
+									<strong>Make 1% More</strong>
+									Connect and share your travel guides socially to earn income
+								</p>
+							</div>	
+						</a>
+					</li>						
+				</ul>					 
+			</article>
+		{% endblock %}
+	</div>
+	{% if app.user.isLocalAuthor %}
+<div id="reqcount" class="reveal-modal">
+<h2>  <a class="close-reveal-modal">&#215;</a> </h2>
+    <div class="content">
+   
+<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span> You have {{ newRequestCount }} new Itinerary Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+</div></div>{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+{% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.pagination.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+		<script>
+			$(document).ready(function(){
+if({{newRequestCount}}>=1)
+{		
+	$("div#reqcount").reveal();
+}
+				$('.bugglPagination').paginate();
+			});
+		</script>
+	{% endjavascripts %}
+{% endblock %}

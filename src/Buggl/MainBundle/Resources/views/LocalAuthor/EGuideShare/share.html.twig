@@ -1,0 +1,120 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block og_meta %}
+	<meta property="og:title" content="{{ eguide.plainTitle }} | Overview" />
+    <meta property="og:description" content="{{ eguide.overviewIntro | striptags }}" />
+	<meta property="og:image" content="{{ eguide | getEguidePhoto }}"/>
+{% endblock%}
+
+{% block title %}Share Guide{% endblock %}
+
+
+{% block flashblock %}
+	{{ parent() }}
+	<div class="success-guide row align-center">
+		<p class="align-center">Congratulations! You have completed creating your guide! <a href="{{ path('pdf_preview', {'filename' : eguide.pdfFilename})}}" class="share" id="viewPDFButton" target="_blank">View Guide PDF</a> </p>
+	</div>
+{% endblock %}
+
+{% block precontent_title %}
+	<span class="share-title">Market Your Guide & Sell More!</span>
+{% endblock %}
+
+{% set active = "" %}
+
+{% block main_content %}	
+	<div class="share-your-guide row">
+		<div class="share-by-social">
+			<p>Share your guide on your social networks</p>
+			<ul>
+				<li class="fb"><a href='javascript:void(0)' id="facebook-btn" class="shareButton" sm-type="FB"><img src="{{ asset('bundles/bugglmain/images/fb-share.jpg') }}" /></a></li>
+				<li class="twt shareButton"><a href='javascript:void(0)' id="twitter-btn" class="shareButton" sm-type="Twitter" tw-text="{{ 'I have published a travel guide called "'~ eguide.plainTitle ~'" on @Buggl.' }}"><img src="{{ asset('bundles/bugglmain/images/twitter-share.jpg') }}" /></a></li>
+				<li class="gplus"><a href='javascript:void(0)' id="gplus-btn" class="shareButton" sm-type="G+"><img src="{{ asset('bundles/bugglmain/images/gplus-share.jpg') }}" /></a></li>
+				<li class="pinterest"><a href='javascript:void(0)' id="pin-btn" class="shareButton" sm-type="Pinterest" pin-desc="{{ 'I have published a travel guide called "'~ eguide.plainTitle ~'" on @Buggl.' }}"><img src="{{ asset('bundles/bugglmain/images/pin-share.jpg') }}" /></a></li>	
+			</ul>	
+		</div>	
+		<div class="share-by-email">
+			<p>Email and introduce your friends to this  guide</p>
+			<form action="" method="POST" class="share-add-emails" id="shareViaEmailForm">
+				<textarea name="emails"></textarea>	
+				<p><input type="submit" value="Send Email" class="btn"></p>
+			</form>
+		</div>	
+		<ul style="dislay:none" id="share-details">
+			<li id="share-url" data="{{ 'http://www.buggl.com'~path('buggl_eguide_overview',{'slug':eguide.slug}) }}">
+			</li>
+		</ul>
+	</div>	
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	
+    {#% stylesheets
+        'bundles/bugglmain/css/jquery.tagsinput.css'
+		filter='cssrewrite'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %#}
+    <link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jquery.tagsinput.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.tagsinput-mod.js'
+		'@BugglMainBundle/Resources/public/js/Frontend/socialshare.js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+	<script src="{{ asset('bundles/bugglmain/js/jquery.tagsinput-mod.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/Frontend/socialshare.js' | s3Cdn) }}"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+		        var info = {
+	                "url" : $('ul#share-details > li#share-url').attr('data'),
+		        }
+		    	Facebook.enable(info);
+		    	var twInfo = {
+					'via': 'Buggl', 
+					'title': $('#twitter-btn').attr('tw-text'), 
+					'hashtags' : '',
+					"shortenedUrl" : $('ul#share-details > li#share-url').attr('data'),
+				 };
+		    	Twitter.enable(twInfo);
+		    	GPlus.enable(info);
+				var pinInfo = SocialShare.getDefaultValues();
+				pinInfo.description = $("<p>"+$('#pin-btn').attr('pin-desc')+"</p>").text();
+				Pinterest.enable(pinInfo);
+				
+				$('textarea[name="emails"]').tagsInput({
+					'defaultText':'Click To Add Emails',
+					width:'800px',
+					height:'250px',
+					'inputValidation':function(email){
+						var emailRegexStr = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+						var isValid = emailRegexStr.test(email);
+
+						return isValid;
+					}
+				});
+				
+				analytics.trackLink($('#viewPDFButton'), 'View PDF');
+				analytics.trackForm($('#shareViaEmailForm'), 'Send Email');
+				
+				/*$('#shareViaEmailForm').on('submit',function(){
+					alert('test');
+				});*/
+				
+				$('.shareButton').on('click',function(){
+					analytics.track('Share on SM',{
+						'Social Network' : $(this).attr('sm-type')
+					});	
+				});
+			});
+        })(jQuery);
+    </script>
+{% endblock %}

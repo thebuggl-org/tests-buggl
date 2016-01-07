@@ -1,0 +1,14 @@
+{% extends "BugglMainBundle:Markup/Markup:adminContentLayout.html.twig" %}
+
+{% block title %}Static Pages{% endblock %}
+
+{% block breadCrumbs %}
+
+{% endblock %}
+
+{% block inner_content %}
+	<form action="" method="POST">
+		{% include 'BugglMainBundle:Admin/Content:contentForm' with {'form':form}%}
+		<input type="submit" value="Submit">
+	</form>
+{% endblock %}

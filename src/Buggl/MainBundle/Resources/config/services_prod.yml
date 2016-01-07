@@ -1,0 +1,11 @@
+parameters:
+
+
+services:
+
+    buggl_main.custom_exception:
+        class: Buggl\MainBundle\EventListener\ExceptionListener
+        arguments:
+            templating: "@templating"
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

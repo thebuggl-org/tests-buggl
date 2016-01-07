@@ -1,0 +1,110 @@
+#jms_security_extra:
+#    secure_all_services: false
+#    expressions: true
+
+security:
+    encoders:
+        Buggl\MainBundle\Entity\LocalAuthor: sha512
+        Buggl\MainBundle\Entity\AdminUsers: sha512
+
+#    role_hierarchy:
+#        ROLE_ADMIN:       ROLE_USER
+#        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        main:
+            entity: { class: Buggl\MainBundle\Entity\LocalAuthor, property: email }
+        admin:
+            entity: { class: Buggl\MainBundle\Entity\AdminUsers, property: email }
+       # in_memory:
+       #     memory:
+       #         users:
+       #             user:  { password: userpass, roles: [ 'ROLE_USER' ] }
+       #             admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:
+
+        dev:
+           pattern:  ^/(_(profiler|wdt)|css|images|js)/
+           security: false
+
+        betea:
+            pattern: /beta-login
+            security: false
+
+        # login_firewall:
+        #     pattern: ^/login$
+        #     security: false
+
+        # secured_area:
+        #     pattern: ^/local-author/
+        #     provider: main
+        #     form_login:
+        #         check_path: /local-author/login_check
+        #         login_path: /login
+        #         use_forward: true
+        #         success_handler: buggl_main.login_handler
+        #         failure_handler: buggl_main.login_handler
+        #     logout:
+        #         path: /local-author/logout
+        #         target: /login
+
+        secured_area:
+            pattern: ^/(?!admin)
+            provider: main
+            form_login:
+                check_path: /login_check
+                login_path: /login
+                use_forward: true
+                success_handler: buggl_main.login_handler
+                failure_handler: buggl_main.login_handler
+            logout:
+                path: /logout
+                target: /
+            security: true
+            anonymous: true
+
+        admin_area:
+            pattern: /admin
+            provider: admin
+            form_login:
+                check_path: /admin/login_check
+                login_path: /admin/login
+                use_forward: true
+                success_handler: buggl_main.admin_login_handler
+                failure_handler: buggl_main.admin_login_handler
+            logout:
+                path: /admin/logout
+                target: /admin
+#
+#        login:
+#            pattern:  ^/demo/secured/login$
+#            security: false
+#
+#        secured_area:
+#            pattern:    ^/demo/secured/
+#            form_login:
+#                check_path: /demo/secured/login_check
+#                login_path: /demo/secured/login
+#            logout:
+#                path:   /demo/secured/logout
+#                target: /demo/
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+        # - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /references, roles: ROLE_LOCAL_AUTHOR }
+        - { path: /e-guides/(?!purchased), roles: [ROLE_LOCAL_AUTHOR] }
+        - { path: /gallery-and-spots, roles: ROLE_LOCAL_AUTHOR }
+        - { path: /add-travel-guide-info, roles: ROLE_LOCAL_AUTHOR }
+        - { path: /travel-guide-info, roles: ROLE_LOCAL_AUTHOR }
+        - { path: /earn-more, roles: ROLE_LOCAL_AUTHOR }
+        - { path: /vouch, roles: ROLE_LOCAL_AUTHOR }
+        # - { path: ^/local-author/.*$, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/local-author, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/(?!admin), roles: [ROLE_LOCAL_AUTHOR, IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: /admin, roles: [ ROLE_ADMIN, ROLE_SUPER_ADMIN ] }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }

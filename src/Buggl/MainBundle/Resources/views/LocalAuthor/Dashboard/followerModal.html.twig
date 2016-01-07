@@ -1,0 +1,93 @@
+{%if text == 1 %}
+	<section id="followerSection" class="follow-sys">
+		<ul id="followerList" data-page="1">
+			{% for author in authors %}
+				<li>
+					{% set follower = localAuthorfollower[author.id].isFollowing > 0  ? 'Unfollow':'Follow' %}
+					<img width="30" height="30" border="0" align="left" src="{{ asset( author | userPic) }}">
+					<a href="{{ path('local_author_profile',{slug:author.slug}) }}" class="followerName">{{ author.name }}</a>
+					<nav class="mini fr">
+						<a href="#" class="btn flw fr" id="follower" data-follow="{{ localAuthorfollower[author.id].isFollowing }}" data-slug="{{ author.slug }}" alt="Follower" title="Follower"><span id="text">{{ follower }}</span></a>
+					</nav>
+				</li>	
+			{% endfor %}
+		{% if countedFollowers == 0 %}
+			<li><p class="inform">You dont have a follower! :((</p></li>
+		{% endif %}
+		{% if hasNext %}
+			<li class="mini">
+				<span class="load" style="display:none">LOADING...</span>
+				<a href="{{ path('local_author_follower') }}" onclick="return false;" id="loadMoreFollower" class="fl">Load More</a>
+			</li>
+		{% endif %}
+		</ul>
+	</section>
+{% else %}
+	<p>You dont have a follower! :((</p>
+{% endif %}
+
+{% block javascripts %}
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		
+		$('a#follower').on('click', function(e){
+				e.preventDefault();
+				var me=this;
+				var dataSlug=$(me).data("slug");
+				var follow=$(me).data("follow");
+				$(this).hide();
+			
+			$.ajax({
+				type:"GET",
+				url:"{{ path('local_author_follow') }}", 
+				data:{follow:dataSlug,action:follow},
+				dataType: "json",
+				success: function(response){
+					if(response.value==0)
+					{
+						
+						$(me).data('follow',0).children().text("Follow");
+						var count=$('#countFollowing').attr('value');
+						$('#countFollowing').text(count-1).attr('value',count-1);
+						$(me).show();
+							
+					}
+					else
+					{
+						$(me).data('follow',1).children().text("Unfollow");
+						var count=parseInt($('#countFollowing').attr('value'));
+						$('#countFollowing').text(count+1).attr('value',count+1);
+						$(me).show();
+						
+					
+					}
+
+				}	 
+			});
+
+		});
+			$('#loadMoreFollower').on('click',function(e){
+				e.preventDefault();
+				var me = $(this);
+				me.hide();
+				$('#followerSection .load').show();
+
+				var nextPage = parseInt($('#followerList').attr('data-page'))+1;
+
+				$('#followerList').attr('data-page',nextPage);
+
+				var data = { 
+					'page' : nextPage,
+				}
+
+				$.getJSON(me.attr('href'),data,function(response){
+					me.parent('li').remove();
+					$('#followerList').append(response.content);
+
+				});
+			});
+		
+	});
+</script>
+{% endblock%}

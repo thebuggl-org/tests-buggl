@@ -1,0 +1,55 @@
+<div class="page" id="itinerary-day-{{ day }}">
+	<div class="main-page clearfix">
+		{% set cls = (cycle(['even','odd'], page) == 'even') ? "second-half" : "first-half" %}
+		<div class="{{cls}} half to-left {{ (page == 1) ? 'page-intro day-intro' : 'spot' }}">
+			{% if page == 1 %}
+				{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:itineraryDailyIntro.html.twig" %}
+			{% else %}
+				{% if itinerarySpotDetails|length >= 1 %}
+					<div class="day-time {{ periodOfDay }}">
+						<span></span>
+					</div>
+
+					{% for obj in itinerarySpotDetails %}
+						{% set spotDetail = obj.spotDetail %}
+						{% set spot_type_cls = spotDetail.spotType.name|replace(" ", "-")|lower %}
+						<div class="itinerary-item">
+							<div class="clearfix">
+								<h3 class="spot-location">{{ spotDetail.spot.name }}</h3>
+							</div>
+							<div class="clearfix">
+								<div class="itinerary-image to-right">
+									<img src="{{ spotDetail.photo }}" width="400" />	
+								</div>
+								<div class="itinerary-details to-left">
+									<div class="itinerary-type {{spot_type_cls}}">
+										<span class="spot-type-ico"></span>
+										<h5>{{spotDetail.spotType.name}}</h5>
+									</div>
+									<ul>
+										<li>{{ spotDetail.spot.address }}</li>
+										<li>{{ spotDetail.spot.contactNumber }}</li>
+									</ul>
+								</div>
+							</div>
+							<ul class="itinerary-item-action horizontalize">
+								<li><a name="edit-spot" data-page="{{ page }}" data-pagename="itinerary" data-spotid="{{ spotDetail.spot.id }}" data-detailid="{{spotDetail.id}}" data-daynum="{{ obj.itinerary.dayNum }}" href="">edit</a></li>
+								<li><a href="{{ path('remove_spot', {'id' : spotDetail.id, 'type' : 'itinerary', 'guide_id' : eguide.id, 'day_num' : day})}}" name="remove-spot">remove</a></li>
+							</ul>	
+						</div>
+					{% endfor %}
+
+				{% else %}
+					<a class="add-spot" href="" name="add-daily-spot"  data-page="{{ page + 1 }}" data-daynum="{{ day }}">
+						<span></span>
+						ADD PLACE
+					</a>
+				{% endif %}
+			{% endif %}
+			
+		</div>
+		
+		
+	</div>
+	{% include 'BugglMainBundle:LocalAuthor/Eguides/Themes/Default:pageNavigation.html.twig' with {'travel_guide_id':eguide.id,'prev_page':'localplaces','next_page':'overview',  'status' : eguide.status} %}
+</div>

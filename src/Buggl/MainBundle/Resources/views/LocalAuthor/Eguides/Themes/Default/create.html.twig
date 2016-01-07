@@ -1,0 +1,73 @@
+{% set active = "" %}
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<!-- <link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jquerybubble/jquery-bubble-popup-v3.css') }}" type='text/css'> -->
+	<link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jcrop/jquery.Jcrop.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	<script src="{{ asset('bundles/bugglmain/js/jcrop/jquery.Jcrop.min.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/tiny_mce/jquery.tinymce.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.googleCustomSearch.v1.0.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.eguide.v1.1.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/jquery.limited-textarea.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/LocalAuthor/Profile/jquery.profile-info.js' | s3Cdn) }}"></script>
+	<script>
+		$().ready(function(){
+			$(".local-places-pagi, .itinerary-pagination").tooltip({
+				position: { my: "top-15", at: "top-15",
+					using: function( position, feedback ) {
+				          $( this ).css( position );
+				          $(this).addClass( 'custom-tooltip' );
+				        }
+				}
+			});
+			
+			var content = $("div[name='spot-content-div']");
+			var bestThing = $("div[name='spot-content-div'] .best-thing");
+
+			if($(content).length > 0)
+			{
+				var cBottom = $(content).position().top + $(content).outerHeight(true) + 5;
+				var bBottom = $(bestThing).position().top + $(bestThing).outerHeight();
+				
+				if( bBottom > cBottom )
+				{
+					$('.content-warning').show();
+
+					$('html, body').animate({
+				        scrollTop: $('.content-warning').offset().top - 250
+				    }, 2000);
+				}
+			}
+			
+		});
+	</script>
+{% endblock %}
+
+
+{% block body %}
+		<div class="row">
+			<div class="alt_header admin-alt-header column grid_12">
+			</div>
+		</div>			
+
+		<div class="create-guide">
+
+			
+			{% block create_eguide_page %}
+			
+			{% endblock %}
+		</div>
+
+	{# modal div #}
+	<div id="create-eguide-modal" class="add-spot-modal-container reveal-modal xlarge">
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,64 @@
+
+<div class="selector-spots clearfix">
+	<a class="add-day" href="{{ path('add_new_day', {'guide_slug':eguide.slug, 'day_num' : noOfDays + 1 })}}">
+		<img src="{{ asset('/bundles/bugglmain/images/calendar-icon.png') }}"  />
+		<span>ADD DAY</span>
+	</a>
+	<div class="viewport itinerary-pagination mcsPaginationContainer" style="overflow:hidden;" data-descripancy="3">
+		<ul class="horizontalize clearfix mcsPaginationItems" id="itineraryPagination" style="width:2000px;">
+			{% for i in 1..noOfDays %}
+			
+			{% set paginator = (attribute(dailyPaginator, i) is defined) ? attribute(dailyPaginator, i) : null %}
+			<li class="{{ (i == day) ? 'current' : '' }}" name="daily-pagination" data-day="{{ i }}" data-spotscnt="{{ paginator|length }}"> 
+				<div class="spots-in-day">
+					<h4>DAY {{ i }} <a class="to-right" href="{{ path('remove_day', {'guide_slug':eguide.slug, 'day_num' : i})}}" name="remove-itinerary-day" data-day="{{ i }}" data-guideid="{{eguide.id}}">delete</a></h4>
+					<ul class="horizontalize clearfix">
+						{% set cnt = 1 %}
+						<li class="{{ (i == day and page == cnt and time_of_day == 0) ? 'current' : '' }}">
+							<a href="{{ path('travel_guide_cover_page', {'page_name' : 'itinerary', 'travel_guide_id' : eguide.id, 'day' : i }) }}">INTRO</a>
+						</li>
+						
+						{#% debug paginator %#}
+						{% for key, pages in paginator if paginator is not null %}
+							{% set x = 1 %}
+							{% for page in pages %}
+								{% set cnt = cnt + 1 %}
+								<li class="it-day">
+									{% set obj_1 = (attribute(page, 0) is defined) ? attribute(page, 0) : null %}
+									{% set obj_2 = (attribute(page, 1) is defined) ? attribute(page, 1) : null %}
+									{% set time = obj_1.periodOfDay %}
+										<a class="{{key}}" href="{{ path('travel_guide_cover_page', {'page_name' : 'itinerary', 'travel_guide_id' : eguide.id, 'day' : i, 'page' : cnt, 'time_of_day' : time, 'time_of_day_cnt' : x}) }}">
+											<h4></h4>
+											{% if obj_1 is not null %}
+												{% set obj_1_spot_type_cls =  obj_1.spotDetail.spotType.name|replace(" ", "-")|lower %}
+												<span class="it-spot {{obj_1_spot_type_cls}}" title="{{obj_1.spotDetail.spot.name}}"></span>
+											{% endif %}
+											{% if obj_2 is not null %}
+												{% set obj_2_spot_type_cls =  obj_2.spotDetail.spotType.name|replace(" ", "-")|lower %}
+												<span class="it-spot {{obj_2_spot_type_cls}}" title="{{obj_2.spotDetail.spot.name}}"></span>
+											{% endif %}
+										</a>
+								</li>
+								{% set x = x + 1 %}
+							{% endfor %}
+						{% endfor %}
+						<li>
+							<a href="" class="add-spot-in-pagination" name="add-daily-spot" data-page="{{ page }}" data-daynum="{{ i }}">ADD PLACE</a>
+							<span></span>					
+						</li>
+					</ul>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+<script type="text/javascript">
+$().ready(function(){
+	$("span.it-spot")
+		.on("hover", function(){
+			$(this).parent('a').attr({ 'title' : $(this).attr('title') });
+		});
+})(jQuery);
+</script>

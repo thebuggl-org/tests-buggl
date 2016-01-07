@@ -1,0 +1,88 @@
+{% block create_eguide_step_2_chapters %}
+<h2>CREATE YOUR TRAVEL GUIDE</h2>
+<ul class="chapters">
+	<li class="to-guide-info">
+		{% set guide_info_link = (travel_guide_id is not null) ? path('update_travel_guide_info', {'travel_guide_id' : travel_guide_id}) : path('add_travel_guide_info') %}
+		<a class="almost-done-button" href="{{ guide_info_link }}">
+			<img src="/bundles/bugglmain/images/to-guide-preview.png" class="thumbs-up" />
+			TO GUIDE INFO	
+		</a>
+	</li>		
+	
+	
+	<li class="{{  name | selected('cover', 'active checked') }}">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id})}}" id="cover-chapter-menu">
+			<span class="check-status"></span>
+			<img src="/bundles/bugglmain/images/cover-icon.png" class="chapter-icon" />
+			<span>GUIDE<br/>COVER</span>
+			<span class="bottomer"></span>
+		</a>
+	</li>
+	<li class="{{  name | selected('local-places', 'active checked') }}">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : 'localplaces'})}}" id="localplaces-chapter-menu">
+			<span class="check-status"></span>		
+			<img src="/bundles/bugglmain/images/secret-icon.png" class="chapter-icon" />
+			<span>LOCAL<br/>SECRETS</span>
+			<span class="bottomer"></span>			
+		</a>
+	</li>
+	<li class="{{  name | selected('itinerary', 'active checked') }}">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : 'itinerary'})}}" id="itinerary-chapter-menu">
+			<span class="check-status"></span>		
+			<img src="/bundles/bugglmain/images/itinerary-icon.png" class="chapter-icon" />		
+			<span>GUIDE<br/>ITINERARY</span>
+			<span class="bottomer"></span>			
+		</a>
+	</li>
+	<li class="{{  name | selected('overview', 'active checked') }}">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : 'overview'})}}" id="overview-chapter-menu">
+			<span class="check-status"></span>		
+			<img src="/bundles/bugglmain/images/overview-icon.png" class="chapter-icon" />			
+			<span>GUIDE<br/>OVERVIEW</span>
+			<span class="bottomer"></span>			
+		</a>
+	</li>
+	<li class="{{  name | selected('before-you-go', 'active checked') }}">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : 'before-you-go'})}}" id="before-you-go-chapter-menu">
+			<span class="check-status"></span>		
+			<img src="/bundles/bugglmain/images/before-icon.png" class="chapter-icon" />			
+			<span>BEFORE<br/>YOU GO</span>
+			<span class="bottomer"></span>			
+		</a>
+	</li>
+	{#
+	<li class="{{  name | selected('about', 'active') }}">	
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : 'about'})}}" id="about-us-chapter-menu">
+			<span class="check-status"></span>		
+			<img src="/bundles/bugglmain/images/cover-icon.png" class="chapter-icon" />
+			<span>ABOUT US</span>
+			<span class="bottomer"></span>
+		</a>
+	</li>
+	#}
+	{% if completeProfile != 1 %}
+	<li class="{{  name | selected('author', 'active checked') }}">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : 'author'})}}" id="about-the-author-chapter-menu">
+			<span class="check-status"></span>		
+			<img src="/bundles/bugglmain/images/author-icon.png" class="chapter-icon" />
+			<span>ABOUT<br/>ME</span>
+			<span class="bottomer"></span>
+		</a>
+	</li>
+	{% endif %}
+	<!-- <li class="{{  name | selected('back-cover', 'active') }} no-border-bottom">
+		<a href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : 'back-cover'})}}" id="itinerary-chapter-menu">
+			<span class="check-status"></span>		
+			<img src="/bundles/bugglmain/images/cover-icon.png" class="chapter-icon" />					
+			<span>BACK COVER</span>
+			<span class="bottomer"></span>			
+		</a>
+	</li> -->
+	<li>
+		<a class="almost-done-button" href="{{ path('finishing_travel_guide', {'travel_guide_id' : travel_guide_id})}}">
+			<img src="/bundles/bugglmain/images/thumbs-up.png" class="thumbs-up" />
+			PRICE & PUBLISH
+		</a>
+	</li>
+</ul>
+{% endblock %}

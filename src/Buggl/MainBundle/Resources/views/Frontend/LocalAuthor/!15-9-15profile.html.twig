@@ -1,0 +1,946 @@
+{% extends 'BugglMainBundle:Markup/Markup:profile.html.twig' %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block og_meta %}
+	<meta property="og:title" content="{{ metas.title }}" />
+    <meta property="og:description" content="{{ metas.description|raw  }}" />
+	<meta property="og:image" content="{{ url('buggl_homepage') }}{{ localAuthor.profile | profilePic }}"/>
+
+{% endblock%}
+
+{% block modal %}
+	{% render 'BugglMainBundle:LocalAuthor/EGuideRequest:eGuideRequestModal' with {'id':localAuthor.id,'email':localAuthor.email} %}
+{% endblock %}
+
+{% block profile_pic %}
+    <img class="profilePicture" border="0" align="left" alt="{{ localAuthor.name }}" src="{{ asset(localAuthor.profile | profilePic) }}" width="285" height="285">
+{% endblock %}
+
+{% block social %}
+	{% set socialText = (localAuthor.location) ? "Check out this amazing local travel expert in "~localAuthor.location.city.country.name : "Check out this amazing local travel expert!"  %}
+	{%
+		include 'BugglMainBundle:LocalAuthor/Misc:addThisWidget.html.twig'
+			with { 'twitterOptions' : {
+						 	'via' : "Buggl",
+							'text' : socialText
+						 },
+						 'fbOptions' : {
+							'fb:like:layout' : "button_count",
+						 }
+				  }
+	%}
+{% endblock %}
+
+{% block breadcrumbs %}
+	{% set localText = (localAuthor.location) ? "Check out this amazing local travel expert in "~localAuthor.location.city.country.name : "Check out this amazing local travel expert!"  %}
+    {% include 'BugglMainBundle:Frontend/Main:breadcrumbs.html.twig'
+		with {
+			'current': current,
+			'links':links,
+			'showAddThisWidget':true,
+			'addThisWidgetOptions' : {
+				'twitterOptions' : {
+				 	'via' : "Buggl",
+					'text' : localText
+				 },
+				 'fbOptions' : {
+					'fb:like:layout' : "button_count",
+				 }
+			 }
+		 }
+	%}
+{% endblock %}
+
+{% block name %} {{ localAuthor.name }}{% endblock %}
+
+{% block school_name %} {{ profile.localSince|nullObjectReturnDefault("")}} {% endblock %}
+
+{% block work %}
+	{% if localAuthor.profile | nullObjectPlaceHolder('getWork','') != '' %}
+		, {{ profile.work|nullObjectReturnDefault("") }}
+	{% endif %}
+{% endblock %}
+
+{% block interest %} {{ profile.interestAndActivities|nullObjectReturnDefault("") }} {% endblock %}
+
+{% block email_address %} {{ localAuthor.email }} {% endblock %}
+
+{% block phone_number %} {{profile.phone}} {% endblock %}
+
+{% block languages %} {{profile.accomplishments|nullObjectReturnDefault("")}} {% endblock %}
+
+{% block verification %}
+	{% if socialMedia is not null and (socialMedia.fbId is not null or socialMedia.twitterId is not null or socialMedia.googlePlusId is not null)%}
+		<section class="guide_stats">
+			<h3>Local Verified</h3>
+		    <ul>
+				{% if false %}
+		        <li class="phone">
+		            <span class="ico"></span>
+					<a href="" onclick="return false" class="ico verify" title="Verified"></a>
+		            <h4>Phone Number</h4>
+					{{ profile.phone | hideDetails | raw }}
+		        </li>
+				{% endif %}
+				{# if socialMedia is not null #}
+					{% if socialMedia.fbId is not null %}
+			            <li class="facebook">
+			                <span class="ico"></span>
+			            	<a href="" onclick="return false" class="ico verify" title="Verified"></a>
+			                <h4>Facebook Connected</h4>
+			                <div onclick="return false;"><em>{{ socialMedia.fbFriendsCount }} Friends</em></div>
+			            </li>
+					{% endif %}
+				{# endif #}
+				{# if socialMedia is not null #}
+					{% if socialMedia.twitterId is not null %}
+			            <li class="twitter">
+			                <span class="ico"></span>
+			            	<a href="" onclick="return false" class="ico verify" title="Verified"></a>
+			                <h4>Twitter Connected</h4>
+			                <div onclick="return false;"><em>{{ socialMedia.twitterFollowersCount }} Followers</em></div>
+			            </li>
+					{% endif %}
+				{# endif #}
+				{# if socialMedia is not null #}
+					{% if socialMedia.googlePlusId is not null %}
+			            <li class="gp">
+			                <span class="ico"></span>
+			            	<a href="" onclick="return false" class="ico verify" title="Verified"></a>
+			                <h4>Google+ Connected</h4>
+			            </li>
+					{% endif %}
+				{# endif #}
+				{% if false %}
+		        <li class="email">
+		            <span class="ico"></span>
+					{% if localAuthor.emailVerified %}
+						<a href="" onclick="return false" class="ico verify" title="Verified"></a>
+					{% endif %}
+		            <h4>Email Address</h4>
+		            <em>{{ localAuthor.email }}</em>
+		        </li>
+				{% endif %}
+		    </ul>
+		</section>
+	{% endif %}
+{% endblock %}
+
+{% block about_you %}{{ profile.aboutYou|nullObjectReturnDefault("") }}{% endblock %}
+
+{% block self_comment %}{{ profile.selfComment|nullObjectReturnDefault("") }}{% endblock %}
+
+{% block local_interest %}
+    {% render 'BugglMainBundle:Frontend/LocalAuthor:localInterest' with {'localAuthor':localAuthor} %}
+{% endblock %}
+
+{% block featured_guides %}
+	{% render 'BugglMainBundle:Frontend/LocalAuthor:featuredGuidesInProfile' with {'localAuthor':localAuthor} %}
+{% endblock %}
+
+{% block post_review %}
+    {% render 'BugglMainBundle:Frontend/LimitedView:addLocalAuthorReviewForm' %}
+{% endblock %}
+
+{% block review_list %}
+    {% render 'BugglMainBundle:Frontend/Reviews:localAuthorGuideReviews' with {'localAuthor':localAuthor} %}
+{% endblock %}
+
+{% block references %}
+    {% render 'BugglMainBundle:Frontend/ReferencesFrontend:localAuthorReferences' with {'id':localAuthor.id,'page':1} %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.review-references-events.js'
+		'@BugglMainBundle/Resources/public/js/jquery.budget-chooser.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+<link type="text/css" href="https://jquery-ui.googlecode.com/svn/tags/1.8.3/themes/base/jquery.ui.all.css" rel="stylesheet" />
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/jquery.review-references-events.js' | s3Cdn) }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/jquery.budget-chooser.js' | s3Cdn) }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/socialshare.js' | s3Cdn) }}"></script>
+   
+   {#  <script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>#}
+	
+    <script type="text/javascript">
+        (function($){ 
+      //  $("#userip").val(userip);
+            $(document).ready(function(){
+				var info = SocialShare.getDefaultValues();
+		    	Facebook.enable(info);
+		    	var twInfo = {'via': 'Buggl', 'title': $('#twitter-btn').attr('tw-text'), 'hashtags' : '' };
+		    	Twitter.enable(twInfo);
+		    	GPlus.enable(info);
+				Pinterest.enable(info);
+				
+				$(".budget").budgetChooser({
+					'inputname' : 'budget'
+				});
+
+                $('a#follow').on('click',function(e){
+                    e.preventDefault();
+
+                    var slug = $(this).attr('href');
+                    var action = $(this).attr('data');
+                    var self = $(this);
+
+                    $.getJSON("{{ path('local_author_follow') }}",{follow:slug,action:action},function(data){
+                        if(data.success){
+                            self.html(data.text);
+                            self.attr('data',data.value);
+							self.removeClass("follow_0");
+							self.removeClass("follow_1");
+							self.addClass("follow_"+data.value);
+                        }
+                    });
+                });
+
+                // $('.requestbtn').on('click',function(e){
+                //     e.preventDefault();
+                //     $('div#req').reveal();
+                //     $("a[name=budget]").parent().find('a').removeClass();
+                //     $("a[name=budget]:lt(3)").addClass("active");
+                //     $("textarea[name=description]").val("");
+                //     $("input[name=budgetserial]").val(3);
+                // });
+
+				$('#post-review').on('click',function(e){
+				    e.preventDefault();
+
+					var me = $(this);
+				    var content = $.trim($('#review-content').val());
+				    var url = $(this).attr('href');
+
+				    if(content.length){
+						$('#postReviewLoader').show();
+						me.hide();
+				        $.getJSON(url, { content:content, local_author: {{ localAuthor.id }} }, function(data){
+
+				    //     	if (data.sucess) {
+				    //     		$('#review-content').val('');
+								// $('#postReviewLoader').hide();
+								// $('#thank-you-msg').show();
+								// me.show();
+				    //     	}
+				    		$('#review-content').val('');
+				    		window.location.reload();
+
+				        });
+				    }
+					else{
+						$.fn.bugglAlert({
+							'title' : 'Error',
+							'content' : '<p>Please enter a review.</p>',
+							'revealOptions' : {
+								'closeOnBackgroundClick':false
+							}
+						});
+					}
+				});
+            });
+            var nb_sliders = null; // nb of range sliders
+var moving_id = null; // id of the moved slider
+var oldValue = []; // previous values of the sliders
+
+var radius = 150; // pie chart radius
+var color = d3.scale.category20(); // color scheme (10, 20, 20b, 20c ...)
+var pi = Math.PI; // 3.14
+
+// pie chart config
+var pie = d3.layout.pie()
+    .value(function (d) {
+    return d.value;
+})
+//.startAngle(-90 * (pi/180))
+//.endAngle(90 * (pi/180))
+.sort(null);
+
+// arc object
+var arc = d3.svg.arc()
+    .outerRadius(radius);
+    
+
+// nb sliders event
+d3.select('#nbFormSubmit').on('click', function () {
+    d3.event.preventDefault();
+   
+});
+ nb_sliders = d3.select('#nbSliders')[0][0].value;
+    init();
+// initialize the sliders, events and pie chart
+function init() {
+    oldValue = [];
+    moving_id = null;
+
+    d3.select('#rangebox tbody').html('');
+
+    // append sliders to table
+    for (i = 0; i < nb_sliders; i++) {
+        var tr = d3.select('#rangebox tbody').append('tr');
+    if(i==0){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Food ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Food-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            //.attr('value', 1)
+            .attr('max', 100);
+           
+        tr.append('td')
+            .attr('id', 'range_value1')
+            .attr('class', 'range_value');
+    }
+    if(i==1){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Drinking ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Drinking-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value2')
+            .attr('class', 'range_value');
+    }
+    if(i==2){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Shopping ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Shopping-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value3')
+            .attr('class', 'range_value');
+    }
+    if(i==3){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Activities ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Activities-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+             .attr('id', 'range_value4')
+            .attr('class', 'range_value');
+    }
+    if(i==4){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Hotels ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Hotels-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value5')
+            .attr('class', 'range_value');
+    }
+    if(i==5){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Special Touches ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Touches-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value6')
+            .attr('class', 'range_value');
+    }
+    }
+    d3.selectAll('#rangebox .range').each(function () {
+        var def = parseInt(100 / nb_sliders);
+        this.value = def;
+        oldValue[d3.select(this).attr('data-id')] = this.value;
+    });
+
+    //equalize();
+    showValues();
+    pieChart();
+
+    // content edit event
+    d3.selectAll('.edit').on('input', function () {
+        updateLabels();
+    });
+
+    // slider event
+    d3.selectAll('.range').on('mouseup', function () {
+        
+  // count 0 values of all element to stop chart to get blank
+  var cnt = 0;
+  d3.selectAll('#rangebox .range').each(function () {
+            
+   var r_val1 = this.value;
+   if(r_val1 == 0)
+   {
+    cnt++;
+   }
+      
+        });
+  
+  
+  if (cnt==6) {
+   // nothing will be changed in chart
+   // xyz=d3.select(this).attr('data-id');
+  //   alert($(this).closest('td').next().find(xyz).val());
+     $('td.range_value').text('0%');
+     $('#messagenotif15').text('Total = 0 %');
+          }else
+    {
+   
+   this.value = parseInt(this.value);
+        if (this.value < 0) this.value = 0;
+        else if (this.value > 100) this.value = 100;
+
+        var id = d3.select(this).attr('data-id');
+        moving_id = id;
+
+        var old_value = oldValue[moving_id];
+       var new_value = this.value;
+       var delta = (new_value - old_value) / (nb_sliders - 1);
+  var tot = 0;
+        d3.selectAll('#rangebox .range').each(function () {
+            var r_id = d3.select(this).attr('data-id');
+            var r_val = this.value;
+    
+    tot = tot + parseInt(r_val);
+   
+        });
+  
+    // code to show current total of chart
+     document.getElementById('validchart').value = tot;
+                 oldValue[moving_id] = new_value;
+                 $("#messagenotif15").text("Total=" + tot+"%");
+                 if(tot==100)
+                 {
+                 $("#messagenotif12").text("")
+                 }
+    showValues();
+          updatePieChart();
+    }
+
+       
+   
+    });
+     d3.selectAll('.range').on('mousemove', function () {
+        
+  // count 0 values of all element to stop chart to get blank
+  var cnt = 0;
+  d3.selectAll('#rangebox .range').each(function () {
+            
+   var r_val1 = this.value;
+   if(r_val1 == 0)
+   {
+    cnt++;
+   }
+      
+        });
+  
+  
+  if (cnt==6) {
+   // nothing will be changed in chart
+   // xyz=d3.select(this).attr('data-id');
+  //   alert($(this).closest('td').next().find(xyz).val());
+     $('td.range_value').text('0%');
+     $('#messagenotif15').text('Total = 0 %');
+          }else
+    {
+   
+   this.value = parseInt(this.value);
+        if (this.value < 0) this.value = 0;
+        else if (this.value > 100) this.value = 100;
+
+        var id = d3.select(this).attr('data-id');
+        moving_id = id;
+
+        var old_value = oldValue[moving_id];
+       var new_value = this.value;
+       var delta = (new_value - old_value) / (nb_sliders - 1);
+  var tot = 0;
+        d3.selectAll('#rangebox .range').each(function () {
+            var r_id = d3.select(this).attr('data-id');
+            var r_val = this.value;
+    
+    tot = tot + parseInt(r_val);
+   
+        });
+  
+    // code to show current total of chart
+     document.getElementById('validchart').value = tot;
+                 oldValue[moving_id] = new_value;
+                 $("#messagenotif15").text("Total=" + tot+"%");
+                 if(tot==100)
+                 {
+                 $("#messagenotif12").text("")
+                 }
+    showValues();
+          updatePieChart();
+    }
+
+       
+   
+    });
+     d3.selectAll('.range').on('mousedown', function () {
+        
+  // count 0 values of all element to stop chart to get blank
+  var cnt = 0;
+  d3.selectAll('#rangebox .range').each(function () {
+            
+   var r_val1 = this.value;
+   if(r_val1 == 0)
+   {
+    cnt++;
+   }
+      
+        });
+  
+  
+  if (cnt==6) {
+   // nothing will be changed in chart
+   // xyz=d3.select(this).attr('data-id');
+  //   alert($(this).closest('td').next().find(xyz).val());
+     $('td.range_value').text('0%');
+     $('#messagenotif15').text('Total = 0 %');
+          }else
+    {
+   
+   this.value = parseInt(this.value);
+        if (this.value < 0) this.value = 0;
+        else if (this.value > 100) this.value = 100;
+
+        var id = d3.select(this).attr('data-id');
+        moving_id = id;
+
+        var old_value = oldValue[moving_id];
+       var new_value = this.value;
+       var delta = (new_value - old_value) / (nb_sliders - 1);
+  var tot = 0;
+        d3.selectAll('#rangebox .range').each(function () {
+            var r_id = d3.select(this).attr('data-id');
+            var r_val = this.value;
+    
+    tot = tot + parseInt(r_val);
+   
+        });
+  
+    // code to show current total of chart
+     document.getElementById('validchart').value = tot;
+                 oldValue[moving_id] = new_value;
+                 $("#messagenotif15").text("Total=" + tot+"%");
+                 if(tot==100)
+                 {
+                 $("#messagenotif12").text("")
+                 }
+    showValues();
+          updatePieChart();
+    }
+
+       
+   
+    });
+}
+
+// get JSON data from sliders
+function getData() {
+    var json = [];
+    d3.selectAll('#rangebox .range').each(function () {
+
+        json.push({
+            label: d3.select(this.parentNode.parentNode)
+                .select('td:first-child')
+                .text(),
+            value: this.value
+        });
+    });
+    return json;
+}
+
+// compute total percentage from sliders
+function getTotal() {
+    var total = 0;
+    d3.selectAll('#rangebox .range').each(function () {
+        total = total + parseInt(this.value);
+    });
+    return total;
+}
+
+// equalize the sliders (decimal delta)
+/*function equalize() {
+    var remaining = 100 - getTotal();
+
+    if (remaining != 0) {
+        var to_eq = null;
+        var min = null;
+        var max = null;
+        var min_value = 9999;
+        var max_value = 0;
+
+        console.log(remaining);
+
+        d3.selectAll('#rangebox .range').each(function () {
+            var id = d3.select(this).attr('data-id');
+
+            if (id != moving_id) {
+                if (parseInt(this.value) > parseInt(max_value)) {
+                    max_value = this.value;
+                    max = this;
+                }
+                if (parseInt(this.value) < parseInt(min_value)) {
+                    min_value = this.value;
+                    min = this;
+                }
+            }
+        });
+
+        if (remaining > 0) to_eq = min;
+        else to_eq = max;
+
+        if (to_eq) {
+            if (remaining > 0) {
+                to_eq.value = parseInt(to_eq.value) + 1;
+                remaining = remaining - 1;
+            } else {
+                to_eq.value = parseInt(to_eq.value) - 1;
+                remaining = remaining + 1;
+            }
+            oldValue[d3.select(to_eq).attr('data-id')] = to_eq.value;
+
+            if (remaining != 0) equalize();
+        }
+    }
+}*/
+
+// show slider value
+function showValues() {
+    d3.selectAll('#rangebox .range').each(function () {
+        var perct = this.value + '%';
+        d3.select(this.parentNode.nextSibling).html(perct);
+    });
+}
+
+// draw pie chart
+function pieChart() {
+    var json = getData();
+
+    d3.select("#pie svg").remove();
+
+    // svg canvas
+    var svg = d3.select("#pie")
+        .append("svg:svg")
+        .attr("width", radius * 2)
+        .attr("height", radius * 2)
+        .append("svg:g")
+        .attr("transform", "translate(" + radius + "," + radius + ")");
+
+    // slices
+    var arcs = svg.selectAll("path").data(pie(getData()))
+
+    // render the slices
+    arcs.enter()
+        .append('svg:path')
+        .attr("fill", function (d, i) {
+        return color(i);
+    })
+        .attr("d", arc)
+        .each(function (d) {
+        this._current = d;
+    })
+        .append('title')
+        .text(function (d, i) {
+        return json[i].value + '%';
+    });
+
+    // render the labels
+    arcs.enter()
+        .append("svg:text")
+        .attr("transform", function (d) {
+        return "translate(" + arc.centroid(d) + ")";
+    })
+        .attr("text-anchor", "middle")
+        .text(function (d, i) {
+        if (json[i].value > 1) return json[i].label;
+        else return null;
+    });
+}
+
+// update pie chart
+function updatePieChart() {
+    updateArcs();
+    updateLabels();
+}
+
+// update the slices of the pie chart
+function updateArcs() {
+    var json = getData();
+
+    d3.selectAll("#pie path title")
+        .text(function (d, i) {
+        return json[i].value + '%';
+    });
+
+    d3.selectAll("#pie path")
+        .data(pie(json))
+        .transition()
+        .duration(700)
+        .attrTween('d', arcTween);
+}
+
+// update the labels of the pie chart
+function updateLabels() {
+    d3.selectAll("#pie text")
+        .data(pie(getData()))
+        .transition()
+        .duration(700)
+        .attr("transform", function (d) {
+        return "translate(" + arc.centroid(d) + ")";
+    })
+        .text(function (d, i) {
+        if (getData()[i].value > 0) return getData()[i].label;
+        else return null;
+    });
+}
+
+// transition for the arcs
+function arcTween(a) {
+    var i = d3.interpolate(this._current, a);
+    this._current = i(0);
+    return function (t) {
+        return arc(i(t));
+    };
+}
+
+        })(jQuery);
+ $(document).ready(function(){       
+        var sum = 0;
+        $( "range" ).change(function() {
+  alert( "Handler for .change() called." );
+});
+$('.totalprice').each(function(){
+    sum += parseInt($(this).text());  //Or this.innerHTML, this.innerText
+});
+});
+
+    </script>
+
+    <script src='{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js' ) }}' type='text/javascript'> </script>
+      
+    <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEoojfv0KL3vIx5RQjWYIKZcqxJBH4LXc&sensor=false&libraries=places" type="text/javascript"></script>
+   
+    	<script src="{{ asset('bundles/bugglmain/js/tiny_mce/jquery.tinymce.js' | s3Cdn) }}"></script>
+    	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.googleCustomSearch.v1.0.js' | s3Cdn) }}"></script>
+    	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.eguide.v1.1.js' | s3Cdn) }}"></script>
+    {# <script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.guideInfo.v2.0.js') }}"></script>#}
+
+     <script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/eguidereq.js') }}"></script>
+    <script type="text/javascript">
+            // this identifies your website in the createToken call below
+            Stripe.setPublishableKey('pk_live_uqTpLEKNXtDd3JhQnSsebxSo');
+
+            function stripeResponseHandler(status, response) {
+                if (response.error) { 
+                    // re-enable the submit button
+                    $('.button').removeAttr("disabled");
+                    // show the errors on the form
+                    $(".payment-errors").html(response.error.message);
+                } else {
+                    var form$ = $("#request_form");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form$.get(0).submit();
+                }
+            }
+</script>
+<script type='text/javascript'>//<![CDATA[ 
+
+$.datepicker._defaults.onAfterUpdate = null;
+
+var datepicker__updateDatepicker = $.datepicker._updateDatepicker;
+$.datepicker._updateDatepicker = function (inst) {
+    datepicker__updateDatepicker.call(this, inst);
+
+    var onAfterUpdate = this._get(inst, 'onAfterUpdate');
+    if (onAfterUpdate) onAfterUpdate.apply((inst.input ? inst.input[0] : null), [(inst.input ? inst.input.val() : ''), inst]);
+}
+
+
+$(function () {
+var xyz;
+$("#jrange").keypress(function(){
+    var cur = -1,
+        prv = -1;
+       // alert($("#tripduration").val())
+        if ($("#tripduration").val()==1){
+    $('#jrange div')
+        .datepicker({
+        //numberOfMonths: 3,
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+
+        beforeShowDay: function (date) {
+          //  return [true, ((date.getTime() >= Math.min(prv, cur) && date.getTime() <= Math.max(prv, cur)) ? 'date-range-selected' : '')];
+          return [date.getDay() == 0 || date.getDay() == 6 , ""];
+     
+        },
+
+        onSelect: function (dateText, inst) {
+            var d1, d2;
+
+            prv = cur;
+            cur = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+            if (prv == -1 || prv == cur) {
+                prv = cur;
+                $('#jrange input').val(dateText);
+            } else {
+                d1 = $.datepicker.formatDate('mm/dd/yy', new Date(Math.min(prv, cur)), {});
+                d2 = $.datepicker.formatDate('mm/dd/yy', new Date(Math.max(prv, cur)), {});
+                $('#jrange input').val(d1 + ' - ' + d2);
+            }
+        },
+
+        onChangeMonthYear: function (year, month, inst) {
+            //prv = cur = -1;
+        },
+
+        onAfterUpdate: function (inst) {
+            $('<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">Done</button>')
+                .appendTo($('#jrange div .ui-datepicker-buttonpane'))
+                .on('click', function () {
+                $('#jrange div').hide();
+            });
+        }
+    })
+        .position({
+        my: 'left top',
+        at: 'left bottom',
+        of: $('#jrange input')
+    })
+        .hide();}
+        else{
+            $('#jrange div')
+        .datepicker({
+        //numberOfMonths: 3,
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+
+        beforeShowDay: function (date) {
+            return [true, ((date.getTime() >= Math.min(prv, cur) && date.getTime() <= Math.max(prv, cur)) ? 'date-range-selected' : '')];
+          //return [date.getDay() == 0 || date.getDay() == 6 , ""];
+     
+        },
+
+        onSelect: function (dateText, inst) {
+            var d1, d2;
+
+            prv = cur;
+            cur = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+            if (prv == -1 || prv == cur) {
+                prv = cur;
+                $('#jrange input').val(dateText);
+            } else {
+                d1 = $.datepicker.formatDate('mm/dd/yy', new Date(Math.min(prv, cur)), {});
+                d2 = $.datepicker.formatDate('mm/dd/yy', new Date(Math.max(prv, cur)), {});
+                $('#jrange input').val(d1 + ' - ' + d2);
+            }
+        },
+
+        onChangeMonthYear: function (year, month, inst) {
+            //prv = cur = -1;
+        },
+
+        onAfterUpdate: function (inst) {
+            $('<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">Done</button>')
+                .appendTo($('#jrange div .ui-datepicker-buttonpane'))
+                .on('click', function () {
+                $('#jrange div').hide();
+            });
+        }
+    })
+        .position({
+        my: 'left top',
+        at: 'left bottom',
+        of: $('#jrange input')
+    })
+        .hide();
+        }
+
+    $('#jrange input').on('focus', function (e) {
+        var v = this.value,
+            d;
+
+        try {
+            if (v.indexOf(' - ') > -1) {
+                d = v.split(' - ');
+
+                prv = $.datepicker.parseDate('mm/dd/yy', d[0]).getTime();
+                cur = $.datepicker.parseDate('mm/dd/yy', d[1]).getTime();
+
+            } else if (v.length > 0) {
+                prv = cur = $.datepicker.parseDate('mm/dd/yy', v).getTime();
+            }
+        } catch (e) {
+            cur = prv = -1;
+        }
+
+        if (cur > -1) $('#jrange div').datepicker('setDate', new Date(cur));
+
+        $('#jrange div').datepicker('refresh').show();
+    });
+});
+});
+//]]>  
+
+</script>
+
+{% endblock %}
+

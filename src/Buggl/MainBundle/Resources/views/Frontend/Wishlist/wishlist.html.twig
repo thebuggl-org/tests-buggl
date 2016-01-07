@@ -1,0 +1,81 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Buggl | Wishlist{% endblock %}
+
+{% block precontent_title %}
+    Wishlist
+{% endblock %}
+
+{% block main_content %}
+    <div class="row wishlist">
+        {% block inner_content %}
+            <article class="grid_12 column">
+                <section>
+                    <h3>{% block eguide_tab_title %}  {% endblock %}</h3>
+                    <ul class="activites-list">
+                        {% for item in list %}
+                            <li>
+                                <div class="fl">
+                                    <p><a class="wishlist-title" href="{{ path('buggl_eguide_overview', { slug:item.eguide.slug}) }}" >{{ item.eguide.plainTitle }}</a></p>
+                                    <span class="activity-date wishlist-date">Written by: <a href="{{ path('local_author_profile' , {'slug' : item.eguide.localAuthor.slug}) }}">{{ item.eguide.localAuthor.name }}</a></span>
+
+                                    <form>
+                                        <input type="hidden" value="{{ item.localAuthor.id }}" name="localAuthor"></input>
+                                        <input type="hidden" value="{{ item.eguide.id }}" name="eguide"></input>
+                                    </form>
+                                </div>
+								<div class="fr clearfix">
+									<ul class="horizontalize wishlist-list">
+										<li>
+											<strong class="btn">
+											{% render 'BugglMainBundle:Frontend/Main:renderPaypalPaymentButton' with {'eguideId':item.eguide.id, 'forWishlist':true}%}
+											{% if false %}
+												{% render 'BugglMainBundle:Frontend/Main:renderPaymentForm' with {'eguideId':item.eguide.id}%}
+											{% endif %}
+											</strong>
+										</li>
+										<li>
+											<a href="{{ path('buggl_remove_wish',{'id':item.id }) }}" class="btn">Remove</a>
+										</li>	
+									</ul>	
+								</div>                                
+	                        </li>
+						{% else %}
+	                        <li>
+	                            <p class="inform">No guides in wishlist yet.</p>
+	                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            </article>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+
+                $('.removeBtn').click(function(event){
+                    event.preventDefault();
+                    var myParent = $(this).parent();
+                    var url = $(this).attr('action');
+                    var serial = $(this).siblings('form').serialize();
+
+                    $.post(url,serial,function(data){
+                        $(myParent).fadeTo(500,0.0,function(event){
+                            $(this).remove();
+                        });
+                    });
+
+                });
+
+            });
+        })(jQuery);
+    </script>
+
+{% endblock %}

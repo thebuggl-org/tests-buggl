@@ -1,0 +1,269 @@
+{% extends "BugglMainBundle:Markup/Markup:adminDashboardLayout.html.twig" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stats %}
+    {#{% render 'BugglMainBundle:Admin/Dashboard:dashboardStats' %}#}
+{% endblock %}
+
+{% block graph %}
+    <div>
+        <div class="graph">
+            <h3>Guides Built</h3>
+            <div id="monthly_built">
+            </div>
+        </div>
+        <div class="graph">
+            <h3>Authors Joined</h3>
+            <div id="joined_authors">
+            </div>
+        </div>
+        <div class="graph">
+            <h3>Revenue</h3>
+            <div id="revenue">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block notif %}
+    <div class="dashboard-notif">
+        <ul>
+            <li>Country Requests: <a href="{{ path('admin_local_request_message') }}">{{ locationCount }}</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block ranking %}
+    <div class="row full-width">
+        <div class="column grid_4">
+            <div class="dashboard-widget" id="guide_ranking">
+                <h3>Top Revenue</h3>
+                <div class="select">
+                    <select>
+                        <option value="{{ eguideRankOption }}">by Guide</option>
+                        <option value="{{ localRankOption }}">by Country</option>
+                    </select>
+                </div>
+                <span>REVENUE</span>
+                <ul class="clearfix" id="revenue_rank">
+                </ul>
+            </div>
+        </div>
+        <div class="column grid_4">
+            <div class="dashboard-widget" id="user_ranking">
+                <h3>Users</h3>
+                <div class="select">
+                    <select>
+                        <option value="0">All Coutries</option>
+                        {% for country in countries %}
+                            <option value="{{ country.id }}">{{ country.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <span>PURCHASED GUIDES</span>
+                <ul class="clearfix" id="user_rank">
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script_template %}
+    <script type="text/template" id="guide_ranking_template" class="class=ranking">
+        <% if(objects.length > 0) { %>
+            <% _.each(objects, function(object) { %>
+                <li><span>{{ '<%= object.name %>' }}</span><span class="to-right">${{ '<%= object.amount %>' }}</span></li>
+            <% }); %>
+        <% } else { %>
+                <li>No Result</li>
+        <% } %>
+    </script>
+
+    <script type="text/template" id="user_ranking_template" class="class-ranking">
+        <% if(objects.length > 0) { %>
+            <% _.each(objects, function(object) { %>
+                <li><span>{{ '<%= object.name %>' }}</span><span class="to-right">{{ '<%= object.amount %>' }}</span></li>
+            <% }); %>
+        <% } else { %>
+                <li>No Result</li>
+        <% } %>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/backbone.ranking.js' filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+
+                UserRankParameters = Backbone.Model.extend()
+                UserRank = Backbone.Model.extend();
+
+                UserRankings = Backbone.Collection.extend({
+                    model: UserRank,
+                    url: "{{ path('admin_user_ranking') }}"
+                });
+
+                UserRankView = Backbone.View.extend({
+                    el: $('div#user_ranking'),
+                    initialize: function(){
+                        _.bindAll(this,'render','search');
+
+                        this.parameters = this.options.parameters;
+                        this.parameters.bind('change',this.search,this);
+
+                        this.collection.bind('sync',this.render,this);
+
+                        this.template = _.template( $('#user_ranking_template').html() );
+                    },
+                    events: {
+                        "change select": "change"
+                    },
+                    change: function(event){
+                        var id = $(event.currentTarget).val();
+
+                        this.parameters.set({
+                            filter: id
+                        });
+                    },
+                    search: function(){
+                        var data = this.parameters.toJSON();
+
+                        this.collection.fetch({
+                            data: data
+                        });
+                    },
+                    render: function(){
+                        var renderTemplate = this.template({ objects: this.collection.toJSON() });
+
+                        this.$el.find('ul#user_rank').empty().html(renderTemplate);
+
+                        return this;
+                    }
+                });
+
+                $(document).ready(function(){
+                    $.ranking({
+                        eguideRankUrl: "{{ path('admin_eguide_ranking') }}",
+                        userRankUrl: "{{ path('admin_user_ranking') }}"
+                    });
+
+                    var parameters = new ERankingParameter();
+                    var collection = new EguideRankings();
+
+                    var view = new EguideRankingView({
+                        parameters: parameters,
+                        collection: collection
+                    })
+
+                    collection.fetch({
+                        data: parameters.toJSON()
+                    });
+
+                    var collection = new UserRankings();
+                    var parameters = new UserRankParameters();
+                    var view = new UserRankView({
+                        collection: collection,
+                        parameters: parameters
+                    });
+
+                    collection.fetch({
+                        data: collection.toJSON()
+                    })
+                });
+            })(jQuery)
+        </script>
+    {% endjavascripts %}
+
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = [];
+        var fetched = {{ guideCounts|raw }};
+
+        data.push(['Month','Built']);
+
+        $.each(fetched, function(i, obj) {
+            data.push(obj);
+        });
+
+        var data = google.visualization.arrayToDataTable(data);
+
+        var options = {
+            axisTitlesPosistion: 'none',
+            legend: { position: 'none' },
+            series: [{ color: 'red', pointSize: 10 }]
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('monthly_built'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = [];
+        var fetched = {{ authorsCount|raw }};
+
+        data.push(['Month','Joined']);
+
+        $.each(fetched, function(i, obj) {
+            data.push(obj);
+        });
+
+        var data = google.visualization.arrayToDataTable(data);
+
+        var options = {
+            axisTitlesPosistion: 'none',
+            legend: { position: 'none' },
+            series: [{ color: 'red', pointSize: 10 }]
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('joined_authors'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = [];
+        var fetched = {{ revenue|raw }};
+
+        data.push(['Month','Revenue']);
+
+        $.each(fetched, function(i, obj) {
+            data.push(obj);
+        });
+
+        var data = google.visualization.arrayToDataTable(data);
+
+        var options = {
+            axisTitlesPosistion: 'none',
+            legend: { position: 'none' },
+            series: [{ color: 'red', pointSize: 10 }]
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('revenue'));
+        chart.draw(data, options);
+      }
+    </script>
+
+{% endblock %}
+

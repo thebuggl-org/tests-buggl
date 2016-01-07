@@ -1,0 +1,215 @@
+{% extends "BugglMainBundle:Admin/Location:locations.html.twig" %}
+
+{% block title %} Countries {% endblock %}
+{% block tab_title %} Countries {% endblock %}
+
+{% block modal %}
+    {{ parent() }}
+
+    <div id="featureModal" style="display:none" class="reveal-modal">
+        <h2>Search Guides<a class="close-reveal-modal">&#215;</a></h2>
+        <div>
+            <input type="input" />
+            <a href="" name="search">Search</a>
+        </div>
+        <div name="category-content" class="content"></div>
+        <span class="loader" style="display:none"></span>
+        <div id="pagination"></div>
+    </div>
+{% endblock %}
+
+{% block page_actions %}
+    <p class="page-actions">
+        {% if false %}
+        <select id="search">
+            <option value=0><option>
+            {% for country in source %}
+                <option value="{{ country.id }}">{{ country.name }}</option>
+            {% endfor %}
+        </select>
+        {% endif %}
+        <a class="site-admin-button" name="country" href="0">+ add country</a>
+    </p>
+{% endblock %}
+
+{% block list %}
+<ul class="eguide-list site-admin-list">
+    {% for list in lists %}
+        {% include "BugglMainBundle:Admin/Location:countryList.html.twig" %}
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block script_template %}
+    {{ parent() }}
+
+    <script type="text/template" id="guides_container">
+        <ul class="eguide-list site-admin-list">
+        </ul>
+    </script>
+
+    <script type="text/template" id="eguide_list">
+        <div>
+            <h3>{{ '<%= title %>' }}</h3>
+            <span class="eguide-author">local author: {{ '<%= author %>' }}</span>
+            <span class="eguide-price">price: $ {{ '<%= price %>' }}</span>
+        </div>
+        <ul class="site-admin-list-actions horizontalize">
+            <li><a href="" name="feature">feature</a></li>
+        </ul>
+    </script>
+
+    <script type="text/template" id="feature_eguide_list">
+        <div>
+            <h3>{{ '<%= title %>' }}</h3>
+            <span class="eguide-author">local author: {{ '<%= author %>' }}</span>
+            <span class="eguide-price">price: $ {{ '<%= price %>' }}</span>
+        </div>
+        <ul class="site-admin-list-actions horizontalize">
+            <li><a href="<% id %>" name="remove-feature">remove</a></li>
+        </ul>
+    </script>
+
+    <script type="text/template" id="pagination_template">
+        <section class="page bugglPagination">
+            <nav class="fr">
+                <% if(totalPages > 0){ %>
+                    <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                    <% if(startPage > 1) { %>
+                        <a href="1" class="bugglPaginationLink">1</a>
+                        <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                    <% } %>
+
+                    <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                        <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                    <% }); %>
+
+                    <% if (endPage < totalPages) { %>
+                        <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                        <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                    <% } %>
+                    <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                <% } %>
+            </nav>
+        </section>
+    </script>
+
+    <script type="text/template" id=""></script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script type="text/javascript" src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+
+    {% javascripts
+        '@BugglMainBundle/Resources/public/js/Admin/jquery.manage.country.js'
+        '@BugglMainBundle/Resources/public/js/chosen.jquery.min.js'
+        '@BugglMainBundle/Resources/public/js/Admin/backbone.country.js' filter='?yui_js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            $.manage({
+                featureUrl: "{{ path('admin_locations_feature_guide') }}",
+                fetchUrl: "{{ path('admin_location_fetch_eguide') }}"
+            });
+
+            var parameters = new SearchParameters();
+            var collection = new Eguides()
+            var pagination = new PaginationModel({
+                limit: {{ limit }}
+            });
+            var eventListener = new EventListener();
+            var view = new EguidesView({
+                parameters: parameters,
+                pagination: pagination,
+                collection: collection,
+                eventListener: eventListener
+            });
+
+            new PaginationView({
+                model: pagination,
+                parameters: parameters
+            })
+
+            $('a[name=country]').manageCountry({
+                'modal' : $('div#countryModal'),
+                'url': "{{ path('admin_locations_country_form') }}",
+                'contentContainer' : $('div[name=country-content]'),
+                'loader' : $('div#countryModal').find('span.loader')
+            });
+
+            $('a[name=category]').manageCategory({
+                'modal' : $('div#categoryModal'),
+                'url': "{{ path('admin_locations_category_form') }}",
+                'contentContainer' : $('div[name=category-content]'),
+                'loader' : $('div#categoryModal').find('span.loader'),
+                'parentContainer': 'div[name=parent-categories]',
+                'deleteUrl': "{{ path('admin_location_category_delete') }}",
+                'parentList' : 'li[name=category_list]',
+                'deleteTarget': 'a[name=delete]'
+            });
+
+            $('select#search').chosen({allow_single_deselect: true});
+
+            $("a[name=accordion]").each(function(){
+                $(this).unbind('click').on('click',function(event){
+                    event.preventDefault();
+                    $(this).parent().next('ul').fadeToggle();
+                });
+            });
+
+            $("a[name=remove-feature]").each(function(){
+                $(this).unbind('click').on('click',function(event){
+                    event.preventDefault();
+
+                    var id = $(this).attr('href');
+
+                    self = this;
+                    $.ajax({
+                        url: "{{ path('admin_locations_feature_guide') }}",
+                        data: { id: id },
+                        success: function(data){
+                            if(data.success){
+                                $(self).parents('li[name=featured_guide_list]').remove();
+                            }
+                        }
+                    });
+                });
+            });
+
+            $("a[name=feature]").each(function(){
+                $(this).unbind('click').on('click',function(event){
+                    event.preventDefault();
+
+                    var value = $(this).attr('href');
+
+                    parameters.set({country:value});
+
+                    $('div#featureModal').reveal().find('div.content').empty();
+                    $('div#pagination').empty();
+
+                    clicked = $(this);
+
+                    eventListener.set({
+                        clicked: clicked
+                    })
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+        '@BugglMainBundle/Resources/public/css/chosen.css'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}

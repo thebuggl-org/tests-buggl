@@ -1,0 +1,14 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>Hey,</h1>
+	<p class="font-size: 10px;	">Your friend {{ localAuthorToLocalReference.localAuthor.name }} has signed up to be a travel insider on Buggl</p>
+	<p>Buggl is a platform to discover and design beautiful travel guides.  These travel guides can be shared out to friends, travelers or anyone. Once priced, people can earn income sharing their travel knowledge!</p>
+	<p>
+		Does {{ localAuthorToLocalReference.localAuthor.firstName }} have what it takes to be travel insider, do you?  It will only take a moment of your time and I know it will mean a lot to both {{ localAuthorToLocalReference.localAuthor.firstName }} and to the team at Buggl
+		Vouch for {{ localAuthorToLocalReference.localAuthor.firstName }} <a href="{{ responseLink }}"> here</a>
+	</p>
+	
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

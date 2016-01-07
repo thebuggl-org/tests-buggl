@@ -1,0 +1,136 @@
+/* --------------------------------------------------------------
+
+   forms.css
+   * Sets up some default styling for forms
+   * Gives you classes to enhance your forms
+
+   Usage:
+   * For text fields, use class .title or .text
+   * For inline forms, use .inline (even when using columns)
+
+-------------------------------------------------------------- */
+
+/*
+  A special hack is included for IE8 since it does not apply padding
+  correctly on fieldsets
+ */
+
+fieldset { padding:0 1.4em 1.4em 1.4em; margin: 0 0 1.5em 0; border: 1px solid #ccc; }
+legend   { font-weight: bold; font-size:1.2em; margin-top:-0.2em; margin-bottom:1em; }
+
+fieldset, #IE8#HACK { padding-top:1.4em; }
+legend, #IE8#HACK { margin-top:0; margin-bottom:0; }
+
+/* Form fields
+-------------------------------------------------------------- */
+
+/*
+  Attribute selectors are used to differentiate the different types
+  of input elements, but to support old browsers, you will have to
+  add classes for each one. ".title" simply creates a large text
+  field, this is purely for looks.
+ */
+* input { font-family: 'Georgia',sans-serif; } 
+ 
+input[type=text], input[type=password], input[type=url], input[type=email], input[type=file],
+input.text, input.title, textarea, select {
+  background-color:#fff;
+  border:1px solid #bbb;
+  color:#333;
+  padding: 4px 8px;
+}
+input[type=text]:focus, input[type=password]:focus, input[type=url]:focus, input[type=email]:focus,
+input.text:focus, input.title:focus,
+textarea:focus {
+  border-color:#00A2FF;
+}
+
+input[type=text], input[type=password], input[type=url], input[type=email],
+input.text, input.title,
+textarea, select {
+  margin: 0;
+}
+
+input.text,
+input.title { width: 300px; padding:5px; }
+input.title { font-size:1.5em; }
+textarea    { width: 390px; height: 250px; padding:5px; max-width: 850px; min-height: 250px }
+
+/*
+  This is to be used on forms where a variety of elements are
+  placed side-by-side. Use the p tag to denote a line.
+ */
+form.inline { line-height:3; }
+form.inline p { margin-bottom:0; }
+
+/* default design */
+
+label, .label { margin: 1em 0; display: block; }
+label span { margin-right: 10px; }
+label span + input[type=text] { margin-right: 1em; }
+form .reg_box { -moz-padding-start: 3em; -webkit-padding-start: 3em; }
+form .reg_box h3 { -moz-margin-start: -1em; -webkit-margin-start: -1em; }
+form .reg_box + .reg_box { padding-top: 0.5em; padding-bottom: 2em; }
+
+/* checkbox and radio */ 
+
+input[type=checkbox], input[type=radio] { position: relative; width: 13px; height: 13px; }
+input[type=radio] { bottom: -1px; }
+input[type=checkbox] + span, input[type=radio] + span { margin-left: 0.5em; margin-right: 1em; }
+
+/* select option */
+select { min-width: 145px; height: 27px; padding: 6px 0 4px 8px; background-color: #fff; border-radius: 0; -webkit-appearance:none; -moz-appearance: none; appearance: none; display: inline-block; }
+.select { position: relative; display: inline-block; margin-right: 1em; height: 27px; }
+.select:after {
+	background: transparent url('../../images/select.png') no-repeat center center;
+    content: '';
+    pointer-events: none;
+    height: 24px;
+    width: 22px;    
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+
+/* upload file */
+.file { position: relative; display: inline-block; margin-right: 1em; }
+.file input[type=text], .file input[type=file] { min-width: 145px; }
+.file .origin { position:absolute; top:0; right:0; opacity:0; -moz-opacity:0; filter:alpha(opacity:0); z-index:2; }
+
+/* Submit and Buttons */
+input[type=submit], button { background-color: #fff; color: #616161; border: 1px solid #ddd; height: auto; padding: 4px 10px; 
+							 background-image: linear-gradient(bottom, rgb(245,245,245) 22%, rgb(241,241,241) 61%);
+							 background-image: -o-linear-gradient(bottom, rgb(245,245,245) 22%, rgb(241,241,241) 61%);
+							 background-image: -moz-linear-gradient(bottom, rgb(245,245,245) 22%, rgb(241,241,241) 61%);
+							 background-image: -webkit-linear-gradient(bottom, rgb(245,245,245) 22%, rgb(241,241,241) 61%);
+							 background-image: -ms-linear-gradient(bottom, rgb(245,245,245) 22%, rgb(241,241,241) 61%);
+
+							 background-image: -webkit-gradient(
+								linear,
+								left bottom,
+								left top,
+								color-stop(0.22, rgb(245,245,245)),
+								color-stop(0.61, rgb(241,241,241))
+);
+
+
+}
+input[type=submit]:hover, button:hover { border-color: #bbb; box-shadow:1px 1px 2px #ddd; color: #333; }
+
+/* Success, info, notice and error/alert boxes
+-------------------------------------------------------------- */
+
+.error,
+.alert,
+.notice,
+.success,
+.info { padding: 0.8em; margin-bottom: 1em; border: 2px solid #ddd; }
+
+.error, .alert { background: #fbe3e4; color: #8a1f11; border-color: #fbc2c4; }
+.notice        { background: #fff6bf; color: #514721; border-color: #ffd324; }
+.success       { background: #e6efc2; color: #264409; border-color: #c6d880; }
+.info          { background: #d5edf8; color: #205791; border-color: #92cae4; }
+.error a, .alert a { color: #8a1f11; }
+.notice a          { color: #514721; }
+.success a         { color: #264409; }
+.info a            { color: #205791; }

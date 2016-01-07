@@ -1,0 +1,39 @@
+<div class="header">
+<div class="hd-floater">
+    <div class="row">
+    <ul class="fl client-profile-nav">
+        <li class="{{ active | selected('dashboard','active') }}"><a href="{{ path('local_author_dashboard') }}">Dashboard</a></li>
+		{% set travelGuidesSlug = app.user.isLocalAuthor ? 'published' : 'purchased' %}
+        <li class="{{ active | selected('eguides','active') }}"><a href="{{ path('local_author_eguides', {'status':travelGuidesSlug}) }}">Your Travel Guides</a></li>
+		{% if app.user.isLocalAuthor %}
+        <li class="{{ active | selected('gallery','active') }}"><a href="{{ path('local_author_gallery_spots') }}">Your Places</a></li>
+        <li><a href="{{ path('buggl_earn_more') }}">Earn More</a></li>
+        {% endif %}
+		
+        <li class="{{ active | selected('wish','active') }}"><a href="{{ path('buggl_display_wishlist') }}">Wishlist</a></li>
+        {% if app.user.isLocalAuthor %}
+        <li class="{{ active | selected('profile','active') }}"><a href="{{ path('local_author_profile' , {'slug' : app.user.slug}) }}">Edit Profile</a></li>
+		<li class="{{ active | selected('references','active') }}"><a href="{{ path('local_author_references') }}">References</a></li>
+        {% endif %}
+        <li class="{{ active | selected('account','active') }} multi">
+            <a href="{{ path('local_author_payments') }}">Account</a>
+            <ul class="profile-settings">
+            	<li><a href="{{ path('local_author_payments') }}">Transaction History</a></li>
+				{% if app.user.isLocalAuthor %}
+					<li><a href="{{ path('local_author_payments_settings') }}">Payment Settings</a></li>
+                {% endif %}
+                <li><a href="{{ path('local_author_login_details') }}">Settings</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ path('logout') }}">Logout</a></li>
+        {#
+        <li>
+			<img class="profilePicture" src="{{ asset(app.user.profile | profilePic) }}" width="30" height="30" /><span></span>
+        </li>
+        #}
+    </ul>
+    </div>
+    </div>
+</div>
+
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script> -->

@@ -1,0 +1,75 @@
+{% for author in authors %}
+	<li>
+		<img width="30" height="30" border="0" align="left" src="{{ asset( author | userPic) }}">
+		<a href="{{ path('local_author_profile',{slug:author.slug}) }}" class="followName">{{ author.name }}</a> 
+		<nav class="mini fr" id="remove">
+			<a href="#" class="btn flw fr" id="follow" data-follow="{{ isFollowing }}" data-slug="{{ author.slug }}" alt="Unfollow" title="Follow">Unfollow</a>
+		</nav>
+	</li>
+{% else %}
+	<li>You're not following anyone yet!</li>
+{% endfor %}
+
+{% if hasNext %}
+	<li class="mini">
+		<span class="load" style="display:none">LOADING...</span>
+		<a href="{{ path('local_author_followed') }}" onclick="return false;" id="loadMoreFollowed" class="fl">Load More</a>
+	</li>
+{% endif %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$(document).ready(function(){
+
+	
+	$('a#follow')
+		.unbind('click')
+		.on('click', function(e){
+			e.preventDefault();
+			var me=this;
+			var data=$(me).data("follow");
+			var dataSlug=$(me).data("slug");
+			$(me).hide();
+			
+			$.ajax({
+				type:"GET",
+				url:"{{ path('local_author_follow') }}", 
+				data:{follow:dataSlug,action:data},
+				contentType:"application/json; charset=utf-8",
+				dataType: "json",
+				success: function(){
+					$('#remove').parent().remove();
+						var count=$('#countFollowing').attr('value');
+						$('#countFollowing').text(count-1).attr('value',count-1);
+
+						
+				}	 
+			});
+		
+		});
+	$('#loadMoreFollowed')
+		.unbind('click')
+		.on('click' ,function(e){
+			e.preventDefault();
+			var me = $(this);
+			me.hide();
+			$('#followedSection .load').show();
+
+			var nextPage = parseInt($('#followedList').attr('data-page'))+1;
+
+			$('#followedList').attr('data-page',nextPage);
+
+			var data = { 
+				'page' : nextPage, 
+				
+			}
+
+			$.getJSON(me.attr('href'),data,function(response){
+				me.parent('li').remove();
+				$('#followedList').append(response.content);
+
+			});
+		});
+});
+</script>
+{% endblock%}

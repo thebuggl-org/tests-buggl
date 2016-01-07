@@ -1,0 +1,22 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Buggl Registration Success{% endblock %}
+
+{% block main_content %}
+	<div class="row confirmed-success">
+		<section class="column grid_12">
+			<div id="seventh" class="missing reg_box grid_10 expert-subscription">
+				<h2 style="margin-bottom: 25px;">Thank you for joining buggl.</h2>
+				{% if app.user.isLocalAuthor %}
+					<p>Start by building your very own guide <a href="{{ path('add_travel_guide_info') }}">here</a>.<br/>
+						Or<br/>
+				{% endif %}
+				{% if not referer %}
+					{% set referer = path('buggl_homepage') %}
+				{% endif  %}
+				Continue where you have left off <a href="{{ referer }}">here</a>.</p>
+				
+			</div>
+		</section>
+	</div>
+{% endblock %}

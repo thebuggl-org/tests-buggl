@@ -1,0 +1,92 @@
+{% extends "BugglMainBundle:Frontend/Guide:guideLayout.html.twig" %}
+
+{% set spot = eguideToSpotDetail.spotDetail.spot %}
+
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block og_meta %}
+	<meta property="og:title" content="{{ spot.name }}" />
+    <meta property="og:description" content="{{ eguideToSpotDetail.spotDetail.description | striptags }}" />
+	<meta property="og:image" content="{{ asset( spot | getSpotPhoto(guide.localAuthor)) }}"/>
+{% endblock%}
+
+{% set activeTab = 'local-secrets' %}
+
+{% block guideTitle %}
+	<h2>{{ guide.plainTitle }}</h2>
+{% endblock %}
+
+{% block guidePageContent %}
+	<article class="column spotlist grid_8">
+    	<div class="row">
+    		<ul class="column menu grid_8">
+            	<li>
+            		<a href="{{ path('buggl_eguide_secrets',{'slug':guide.slug}) }}">&laquo;</a>
+            	</li>
+				{% for type in spotTypes %}
+				<li class="{{ eguideToSpotDetail.spotDetail.spotType.name | selected(type.name,'selected') }}">
+					<a href="{{ path('buggl_eguide_secrets',{'slug':guide.slug}) ~ '#' ~ type.name|slugify }}">{{ type.name }}</a>
+				</li>
+				{% endfor %}  
+			</ul>	
+    	</div>
+		{% set show = purchased or eguideToSpotDetail.isFeatured %}
+    	<div class="row {{ show | selected(false,'locked') }}">
+    		<div class="column grid_8">
+				<div class="bg-image">
+					 <img border="0" align="left" alt="{{ show ? spot.name : '' }}" src="{{ asset( spot | getSpotPhoto(guide.localAuthor) ) }}" width="620">
+				</div>	 
+			</div>
+			<section class="column single grid_8">
+                <div class="reg_box clearfix details">
+					{% if show %}
+						<div class="clearfix single-header">
+		                	<div class="to-left">
+								<h1 class="spot-title-full">{{ spot.name }}</h1>
+								<ul class="spot-fullpage-detail">
+									<li class="address"><span class="ico"></span><a href="{{ 'https://maps.google.com/?q='~(spot.address|url_encode) }}" target="_blank" rel="nofollow">{{ spot.address }}</a></li>
+									<li class="number"><span class="ico"></span>{{ spot.contactNumber is null or spot.contactNumber is empty ? 'none' : spot.contactNumber }}</li>
+									{% if spot.website is not null and spot.website is not empty %}
+										<li class="website"><span class="ico"></span><a target="_blank" href="{{ spot.website }}" rel="nofollow">{{ spot.website }}</a></li>
+									{% else %}
+										<li class="website"><span class="ico"></span>none</li>
+									{% endif %}
+								</ul>	
+							</div>
+							<div class="spot-fullpage-rating to-right">
+				                <ul class="rating">
+									<li class="star">
+				                        {% for i in 1..eguideToSpotDetail.spotDetail.rating %}
+				                            <span class="ico"></span>
+				                        {% endfor %}
+									</li>
+								</ul>
+								<p>{{ eguideToSpotDetail.spotDetail.ratingText }}</p>
+							</div>
+						</div>
+						<div class="spot-fullpage-description" >
+	                		<p>{{ eguideToSpotDetail.spotDetail.description|raw }}</p>
+						</div>
+						<div class="spot-fullpage-besthing" >
+							<h4>What I love about it here</h4>
+							<p class="best-thing"><span class="ico"></span>{{ eguideToSpotDetail.spotDetail.bestThing is null ? 'none' : eguideToSpotDetail.spotDetail.bestThing }} </p>
+						</div>	
+						<div class="spot-fullpage-watlike" >
+							<h4>Need to Know</h4>
+		                	<ul class="tag">
+								{% for tag in eguideToSpotDetail.spotDetail|tags %}
+				            		<li>{{ tag.spotLike.name }}</li>
+								{% endfor %}
+		                	</ul>
+						</div>
+					{% else %}
+		            	<div class="locked"><span class="ico"></span></div>
+		            	<h4>Information are hidden until purchased.</h4>
+					{% endif %}
+                </div>
+	        </section>
+	    </div>    	
+    </article>
+{% endblock %}

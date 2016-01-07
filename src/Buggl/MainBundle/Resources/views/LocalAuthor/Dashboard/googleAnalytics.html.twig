@@ -1,0 +1,90 @@
+<select id="metricSelect" disabled='disabled' removed-value="" removed-label="" removed-order="">
+	<option value="pageviews" label="Page Views" order="1">Page Views</option>
+	<option value="visits" label="Visits" order="2">Visits</option>
+	<option value="uniquevisits" label="Unique Visitors" order="3">Unique Visitors</option>
+</select>
+
+vs
+
+<select id="metricComparisonSelect" disabled='disabled' removed-value="pageviews" removed-label="Page Views" removed-order="1">
+	<option value="" order="0"> </option>
+	<option value="visits" label="Visits" order="2">Visits</option>
+	<option value="uniquevisits" label="Unique Visitors" order="3">Unique Visitors</option>
+</select>
+	
+<div id="chart_div" style="width: 100%; height: 260px;" default-view={{ path('get_analytics_data') }}>
+	Loading...
+</div>
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.setOnLoadCallback(drawChart);
+	
+	function drawChart() {
+		$(document).ready(function(){
+			attachEvents();
+			$.get($('#chart_div').attr('default-view'),function(result){
+				
+				var chartData =  new google.visualization.DataTable();
+				chartData.addColumn('date', 'Day');
+				chartData.addColumn('number', 'Visits');
+				chartData.addColumn('number', 'Pageviews');
+				
+				$.each(result,function(i,val){
+					var rowData = new Array();
+					rowData.push(new Date(i));
+					$.each(val,function(j,val2){
+						rowData.push(val2);
+					});
+					chartData.addRow(rowData);
+				});
+				
+				var options = {
+					legend: {position: 'none'},
+					pointSize: 5,
+					lineWidth: 3,
+					focusTarget: 'category'
+				};
+
+				var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+				chart.draw(chartData, options);
+			});
+		});
+	}
+	
+	function attachEvents() {
+		$('#metricSelect').attr('disabled',false);
+		$('#metricComparisonSelect').attr('disabled',false);
+		
+		$('#metricSelect').val('pageviews');
+		$('#metricComparisonSelect').val('');
+		$('#metricSelect').on('change',function(){			
+			if($('#metricComparisonSelect').attr('removed-value') != ''){
+				$('#metricComparisonSelect').append('<option value="'+$('#metricComparisonSelect').attr('removed-value')+'" order="'+$('#metricComparisonSelect').attr('removed-order')+' '+'" label="'+$('#metricComparisonSelect').attr('removed-label')+'">'+$('#metricComparisonSelect').attr('removed-label')+'</option>');
+				$('#metricComparisonSelect').attr('removed-value','');
+				$('#metricComparisonSelect').attr('removed-label','');
+				$('#metricComparisonSelect').attr('removed-order','');
+			}
+			
+			$('#metricComparisonSelect').attr('removed-value',$(this).val());
+			$('#metricComparisonSelect').attr('removed-label',$("#metricComparisonSelect option[value='"+$(this).val()+"']").attr('label'));
+			$('#metricComparisonSelect').attr('removed-order',$("#metricComparisonSelect option[value='"+$(this).val()+"']").attr('order'));
+			$("#metricComparisonSelect option[value='"+$(this).val()+"']").remove();
+		});
+		
+		$('#metricComparisonSelect').on('change',function(){
+			if($('#metricSelect').attr('removed-value') != ''){
+				$('#metricSelect').append('<option value="'+$('#metricSelect').attr('removed-value')+'" order="'+$('#metricSelect').attr('removed-order')+' '+'" label="'+$('#metricSelect').attr('removed-label')+'">'+$('#metricSelect').attr('removed-label')+'</option>');
+				$('#metricSelect').attr('removed-value','');
+				$('#metricSelect').attr('removed-label','');
+				$('#metricSelect').attr('removed-order','');
+			}
+			
+			$('#metricSelect').attr('removed-value',$(this).val());
+			$('#metricSelect').attr('removed-label',$("#metricSelect option[value='"+$(this).val()+"']").attr('label'));
+			$('#metricSelect').attr('removed-order',$("#metricSelect option[value='"+$(this).val()+"']").attr('order'));
+			$("#metricSelect option[value='"+$(this).val()+"']").remove();
+		});
+	}
+</script>

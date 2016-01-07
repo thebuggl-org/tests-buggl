@@ -1,0 +1,11 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>Hi {{ localAuthor.firstName ~ ' ' ~ localAuthor.lastName }}!</h1>
+	<p class="font-size: 10px;	">Before you get started you'll need to confirm your email and that whether you’re a human being.  Click on the link below and start exploring earth as intended.</p>
+
+	<a href="{{ link }}">Click here</a>
+
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

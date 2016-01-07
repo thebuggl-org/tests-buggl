@@ -1,0 +1,7 @@
+<li id="category_{{ object.id }}" name="category_list">
+    <a class="close" href="{{ object.id }}" name="delete"></a>
+    <a href="0" data="{{ object.id }}" name="category">
+        <img src="{{asset(object.imageWebPath)}}" />
+        <span>{{ object.category.name }}</span>                           
+    </a>
+</li>

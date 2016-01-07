@@ -1,0 +1,101 @@
+{% extends "BugglMainBundle::layout.html.twig" %}
+
+{% block body_tag %}
+	<body class="super-admin">
+{% endblock %}
+
+{% block header %}
+    {% if app.user %}
+        <header class="header client-admin-header">
+            <div class="row">
+                <nav class="column grid_12">
+                    <h2><img src="{{asset('bundles/bugglmain/images/buggl_logo.png')}}"  border="0" align="" width="120" alt="Buggl.com"></h2>
+                    <div class="dmy">
+                        <ul class="fr site-admin-header-actions">
+                            <li><a href="">{{ app.user.email|lower }}</a></li>
+                            <li><a href="{{ path('admin_logout') }}">Logout</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+	{% include 'BugglMainBundle:LocalAuthor/Profile:modals.html.twig' with {'title':'','includeProfilePicModal':false} %}
+
+    {% block precontent %}{% endblock %}
+
+    <div class="row site-admin">
+        {% if app.user %}
+            {% block nav %}
+                <aside class="column grid_4">
+                    <ul class="site-admin-nav grid_4">
+                        <li class="{{ current|selected('dashboard','active') }}"><a href="{{ path('admin_dashboard') }}"><span class="ico"></span>Dashboard</a></li>
+                        <li class="{{ current|selected('author','active') }}"><a href="{{ path('admin_author') }}"><span class="ico"></span>Local Authors</a></li>
+                        <li class="{{ current|selected('e-guide','active') }}"><a href="{{ path('admin_travel_guides_active') }}"><span class="ico"></span>Guides</a></li>
+                        <li class="{{ current|selected('location','active') }}"><a href="{{ path('admin_countries') }}"><span class="ico"></span>Locations</a></li>
+                        <!--
+							<li class="{{ current|selected('gallery','active') }}"><a href="{{ path('admin_gallery') }}"><span class="ico"></span>Media Gallery</a></li>
+						-->	
+                        <li class="{{ current|selected('spots','active') }}"><a href="{{ path('admin_spots') }}"><span class="ico"></span>Spots</a></li>
+                        <li class="{{ current|selected('messages','active') }}"><a href="{{ path('admin_messages') }}"><span class="ico"></span>Messages</a></li>
+						<li class="{{ current|selected('billing','active') }}"><a href="{{ path('admin_billing') }}"><span class="ico"></span>Billing</a></li>
+                        <li class="{{ current|selected('ad','active') }}"><a href="{{ path('admin_featured') }}"><span class="ico"></span>Featured Guides</a></li>
+                        <li class="{{ current|selected('trip-theme','active') }}"><a href="{{ path('admin_trip_theme') }}"><span class="ico"></span>Trip Themes</a></li>
+                        <li class="{{ current|selected('activities-interests','active') }}"><a href="{{ path('admin_activity_interest') }}"><span class="ico"></span>Activities/Interests</a></li>
+                        <li class="{{ current|selected('content','active') }}"><a href="{{ path('admin_content') }}"><span class="ico"></span>Content Management</a></li>
+						<li class="{{ current|selected('beta-invite','active') }}"><a href="{{ path('admin_beta_invite_list',{'type':'pending'}) }}"><span class="ico"></span>Beta Invites</a></li>
+                    </ul>
+                </aside>
+            {% endblock %}
+        {% endif %}
+        {% block content %}
+
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block lowest_footer %}
+    <div class="row">
+        <nav class="column grid_12">
+            <a href="#"><img src="{{ asset('bundles/bugglmain/images/buggl_logo_gry.png') }}" border="0" align="left" width="120" alt="buggl.com"></a>
+            <p class="legal">
+                <span>&copy; 2013 Buggl, All Rights Reserved.</span>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Trademarks</a>
+                <a href="#">F.A.Q.</a>
+            </p>
+        </nav>
+    </article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+	<script>
+        $(document).ready(function() {
+            var header = $('.site-admin-nav');
+            var start = $(header).offset().top;
+            $.event.add(window, "scroll", function() {
+                var p = $(window).scrollTop();
+                $(header).css('position',((p)>start) ? 'fixed' : 'static');
+                $(header).css('top',((p)>start) ? '0px' : '');
+            });
+        });
+    </script>
+	
+	{% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.iframe-post-form.js'
+		'@BugglMainBundle/Resources/public/js/jquery.modal.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+{% endblock %}

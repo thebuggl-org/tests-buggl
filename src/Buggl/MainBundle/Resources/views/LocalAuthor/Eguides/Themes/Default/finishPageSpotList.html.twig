@@ -1,0 +1,12 @@
+{% for obj in egtsd %}
+	{% set detail = obj.spotDetail %}
+	<li class="column" name="feature-this-guide-spot" data-spotid="{{ detail.spot.id }}" data-detailid="{{detail.id}}"> <!-- add class active to this li when clicked/selected -->
+		<div class="selected"></div>
+		<img height="180" src="{{ detail.photo }}">
+		<div class="spot-details">
+			<h3>{{ detail.spot.name }}</h3>
+			<span>{{ detail.spot.city.name }}, {{ detail.spot.city.country.name }}</span>
+			<span>{{ detail.spot.contactNumber }}</span>
+		</div>
+	</li>
+{% endfor %}

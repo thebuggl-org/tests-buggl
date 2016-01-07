@@ -1,0 +1,15 @@
+<section class="step-2 steps" id="{{ eguide.slug }}" data-guideid={{eguide.id}}>
+	<div class="create-guide-pages clearfix">
+		
+		{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:guidePageSections.html.twig" with { 'travel_guide_id' : eguide.id, name : 'itinerary'} %}
+		
+		<div class="pages itinerary-pages">
+
+			{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:itineraryPagination.html.twig" %}
+			{% render 'BugglMainBundle:LocalAuthor/Eguides:newItinerary' with {'travel_guide_id' : eguide.id, 'day' : day, 'page' : page, 'time_of_day' : time_of_day, 'time_of_day_cnt' : time_of_day_cnt } %}
+
+		</div>
+	</div>
+</section>
+
+{% include "BugglMainBundle:LocalAuthor/Spot:multiSpotDescription.html.twig" %}

@@ -1,0 +1,71 @@
+{#
+<div class="addthis_toolbox addthis_default_style">
+	<a class="addthis_button_pinterest_pinit"></a>
+	<a class="addthis_button_tweet"
+		{% for key, value in twitterOptions %}
+			{{ key }} = "{{value}}"
+		{% endfor %}
+	></a>
+	<a class="addthis_button_facebook_like"
+		{% for key, value in fbOptions %}
+			{{ key }} = "{{value}}"
+		{% endfor %}
+	></a>
+</div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-516cea5d7df5c16e"></script>
+#}
+
+<div class="share-guide">
+	<ul>
+		<li class="facebook" >
+			<a href='javascript:void(0)' id="facebook-btn">
+				<img src="{{ asset('/bundles/bugglmain/images/fb-share.png') }}" />
+			</a>
+			<span id='facebook-count'><img src="{{ asset('/bundles/bugglmain/images/linear-loading.gif') }}" /></span>
+		</li>
+		<li class="twitter">
+			<a href='javascript:void(0)' id="twitter-btn" tw-text="{{ twitterOptions.text }}">
+				<img src="{{ asset('/bundles/bugglmain/images/twt-share.png') }}" />
+			</a>
+			<span id='twitter-count'><img src="{{ asset('/bundles/bugglmain/images/linear-loading.gif') }}" /></span>
+		</li>
+		<li class="gplus">
+			<a href='javascript:void(0)' id="gplus-btn">
+				<img src="{{ asset('/bundles/bugglmain/images/gplus-share.png') }}" />
+			</a>
+			<span id='gplus-count'><img src="{{ asset('/bundles/bugglmain/images/linear-loading.gif') }}" /></span>
+		</li>
+		<li class="pinterest">
+			<a href='javascript:void(0)' id="pin-btn" {% if pinOptions is defined %} pin-desc="{{ pinOptions.desc }}" {% endif %}>
+				<img src="{{ asset('/bundles/bugglmain/images/pin-share.png') }}" />
+			</a>
+			<span id='pin-count'><img src="{{ asset('/bundles/bugglmain/images/linear-loading.gif') }}" /></span>
+		</li>
+	</ul>
+</div>
+
+
+<!-- <div class="addthis_toolbox addthis_floating_style addthis_32x32_style" style="left:20px;top:80px;">
+	<a class="addthis_button_preferred_1"
+		{#
+		{% for key, value in twitterOptions %}
+			{{ key }} = "{{value}}"
+		{% endfor %}
+		#}
+	></a>
+	<a class="addthis_button_preferred_2"></a>
+	<a class="addthis_button_preferred_9"></a>
+</div>
+{#<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-524bd25245d9efa1"></script>#}
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-516cea5d7df5c16e"></script>
+<script type="text/javascript">
+
+	var addthis_share = addthis_share || {}
+	addthis_share = {
+        passthrough : {
+                twitter: {
+                        via: "Buggl",
+                        text: document.getElementsByClassName('addthis_button_preferred_1')[0].getAttribute("tw:text"),
+                }
+        }
+	} -->

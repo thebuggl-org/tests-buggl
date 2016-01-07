@@ -1,0 +1,5 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+    <p class="font-size: 10px;">{{ guide.localAuthor.name }}'s guide {{ guide.plainTitle }} has been updated. Check out <a href="{{ adminLink }}">admin</a> to review the guide.</p>
+{% endblock %}

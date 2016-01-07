@@ -1,0 +1,22 @@
+<section class="clearfix dashbord-stat">
+	<div class="stat-pageviews to-left" id="pageViewsInfo">
+		<span class="stat-header"><img src="{{ asset("bundles/bugglmain/images/pageviews.png") }}" width="20" height="20" />PAGE VIEWS</span>
+		<span class="stat-value">{{ stats.pageViews }}</span>
+		{# <a href="#" class="more">more info</a> #}
+	</div>
+	<div class="stat-downloads to-left">
+		<span class="stat-header"><img src="{{ asset("bundles/bugglmain/images/downloads.png") }}" width="20" height="20" />DOWNLOADS</span>
+		<span class="stat-value">{{ stats.downloads }}</span>
+		{# <a href="#" class="more">more info</a> #}
+	</div>
+	<div class="stat-earnings to-left">
+		<span class="stat-header"><img src="{{ asset("bundles/bugglmain/images/earnings.png") }}" width="20" height="20" />TOTAL EARNINGS</span>
+		<span class="stat-value"><span class="doll">$</span>{{ stats.earnings | number_format(2, '.', ',') }}</span>
+		<a href="{{ path('local_author_payments') }}" class="more">more info</a>
+	</div>
+	<div class="commission-stat  to-left">
+		<span class="stat-header"><img src="{{ asset("bundles/bugglmain/images/commision.png") }}"  />TOTAL COMMISSION</span>
+		<span class="stat-value">{{ stats.commission }}<span class="cent">%</span></span>
+		<a href="{{ path('buggl_earn_more') }}" class="more">earn more?</a>
+	</div>
+</section>

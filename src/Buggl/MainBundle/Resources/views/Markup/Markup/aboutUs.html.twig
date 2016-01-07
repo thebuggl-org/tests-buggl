@@ -1,0 +1,89 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+
+{% block title %}About Us Markup{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <article class="column grid_12">
+            <div class="row">
+                <section class="column grid_12">
+                    <div class="row">
+                        <section class="column grid_8">
+                            <div class="db_box">
+                            	<h2>The Buggl Team</h2>
+                                <img src="{{asset('bundles/bugglmain/images/custom/bugglteam_620px.jpg')}}" border="0" alt="">
+                            </div>
+                            <div class="db_box">
+                                <h2>In a galaxy, far far away...</h2>
+                                <p class="sp"><em>Editor of Lifestyle Magazine, Sydney local since 1999, likes fine wine, local cuisine, 
+                                    speak english and some french. Crossing Cultures and Bridging Divides in the 
+                                    Information Age. Strategic communications, marketing, pr, social media & tech from 
+                                    the Prairie to the World.</em></p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam leo elit, viverra a pellentesque 
+                                    nec, congue at leo. Donec facilisis massa ac justo scelerisque molestie. Cum sociis natoque 
+                                    penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas ornare porttitor 
+                                    eros vel elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames 
+                                    ac turpis egestas. Aenean ultrices elit vel lorem ultricies laoreet. Duis mollis tincidunt augue, non 
+                                    laoreet metus elementum sed. Duis ullamcorper, nisi vel suscipit varius, turpis odio dictum odio, 
+                                    non adipiscing purus tortor quis nulla. Suspendisse sit amet vehicula magna. Aliquam vel suscipit 
+                                    urna. Pellentesque varius, dolor vitae rhoncus gravida, dui velit congue nibh, a pulvinar erat 
+                                    mauris id metus. Donec congue libero sed sem euismod scelerisque ac ut odio. Suspendisse id 
+                                    turpis massa, vitae suscipit odio.</p>
+                            </div>
+                            <div class="db_box">
+                                <h2>Buggl Founders</h2>
+                                <ul class="founder">
+                                    <li>
+                                        <img src="{{asset('bundles/bugglmain/images/custom/founder_1_185.jpg')}}" border="0" alt="" align="left" class="fl">
+                                        <h2>Augustianne Barreta<br><em class="email"><span class="ico"></span><a href="mailto:noel@firstloveme.com">noel@firstloveme.com</a></em><em><span class="ico"></span><a href="#" class="email">linkedin</a></em></h2>
+                                        <p class="sp"><em>Editor of Lifestyle Magazine, Sydney local since 1999, likes fine wine, local cuisine, speak english and some french. Crossing Cultures and Bridging Divides in the Information Age. Strategic communications, marketing, pr, social media & tech from the Prairie to the World.</em></p>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('bundles/bugglmain/images/custom/founder_2_185.jpg')}}" border="0" alt="" align="left" class="fl">
+                                        <h2>Janvan L. Czarina<br><em class="email"><span class="ico"></span><a href="mailto:jlczarina@gmail.com">jlczarina@gmail.com</a></em><em><span class="ico"></span><a href="#" class="email">linkedin</a></em></h2>
+                                        <p class="sp"><em>Editor of Lifestyle Magazine, Sydney local since 1999, likes fine wine, local cuisine, speak english and some french. Crossing Cultures and Bridging Divides in the Information Age. Strategic communications, marketing, pr, social media & tech from the Prairie to the World.</em></p>
+                                    </li>
+                                    <li>
+                                        <img src="{{asset('bundles/bugglmain/images/custom/founder_3_185.jpg')}}" border="0" alt="" align="left" class="fl">
+                                        <h2>Darth Vader<br><em class="email"><span class="ico"></span><a href="mailto:darth@vader.com">darth@vader.com</a></em><em><span class="ico"></span><a href="#" class="email">linkedin</a></em></h2>
+                                        <p class="sp"><em>Editor of Lifestyle Magazine, Sydney local since 1999, likes fine wine, local cuisine, speak english and some french. Crossing Cultures and Bridging Divides in the Information Age. Strategic communications, marketing, pr, social media & tech from the Prairie to the World.</em></p>
+                                    </li>                                       
+                                </ul>
+                            </div>
+                        </section>
+
+                        {% block about_navigation %}
+                             <aside class="column grid_4">
+                                <section class="sidelist">
+                                    <ul>
+                                        <li><a href="{{ path('press_release_mark_up') }}"><span class="ico"></span>Press Release</a></li>
+                                        <li><a href="{{ path('our_story_mark_up') }}"><span class="ico"></span>Our Story</a></li>
+                                        <li><a href="{{ path('our_mission_mark_up') }}"><span class="ico"></span>Our Mission</a></li>
+                                        <li class="selected"><a href="{{ path('about_us_mark_up') }}"><span class="ico"></span>The Buggl Team</a></li>
+                                        <li><a href="{{ path('contact_us_mark_up') }}"><span class="ico"></span>Contact Us</a></li>
+                                    </ul>
+                                </section>
+                            </aside>
+                        {% endblock %}
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var header = $('.sidelist');
+            var start = $(header).offset().top;
+            $.event.add(window, "scroll", function() {
+                var p = $(window).scrollTop();
+                $(header).css('position',((p)>start) ? 'fixed' : 'static');
+                $(header).css('top',((p)>start) ? '0px' : '');
+                $(header).css('border-bottom',((p)>start) ? '1px solid #ddd' : '');
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "BugglMainBundle:Markup/Markup:adminMessagesLayout.html.twig" %}
+
+{% block title %}Guide Request{% endblock %}
+
+{% block list %}
+
+<div id="main_content">
+
+   <div class="row">
+    <ul class="eguide-list site-admin-list">
+        {% for guideRequest in guideRequests %}
+            <li class="clearfix">
+                <div class="to-left">
+                    {% if guideRequest.localAuthor is not null %}
+                            <span class="eguide-author">Local Author: {{ guideRequest.localAuthor.name }}</span>
+                    {% else %}
+                            <span class="eguide-author">Local Author:<i> <b>NULL</b> </i></span>
+                    {% endif %}
+                            <span class="eguide-country">Country:
+                               {# {% if guideRequest.country is not null %}
+                                    {{ guideRequest.country.name }}
+                                {% else %}
+                                    No Country Specified
+                                {% endif %}#}
+                            </span>
+                            <span class="eguide-duration">Trip Theme: {{ guideRequest.triptheme.name }}</span>
+                            {% if false %}
+                                <span class="eguide-downloads">Category: {{ guideRequest.category.name }} </span>
+                                <span class="eguide-duration">Duration: {{ guideRequest.duration.name }}</span>
+                            {% endif %}
+                            <span class="eguide-price">Good for:  {{ guideRequest.goodfor.name }}</span>
+                            <span class="eguide-price">Budget:  {{ guideRequest.budget }} star{{ guideRequest.budget > 1 ? 's' : '' }} </span>
+                            <span class="eguide-price">Sender:  {{ guideRequest.user.name }}</span>
+                            <span class="eguide-price">Message:</span>
+                            <span><p>{{ guideRequest.message }} </p></span>
+
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':page,'itemCount':guideRequestcount,'itemLimit':limit} %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+<script src='{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js') }}' type='text/javascript'> </script>
+{% endblock %}

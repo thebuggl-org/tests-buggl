@@ -1,0 +1,679 @@
+account_upgrade:
+    pattern: /upgrade-account
+    defaults: { _controller: BugglMainBundle:LocalAuthor\AccountUpgrade:upgrade }
+
+local_author_login_details:
+    pattern: /login-details
+    defaults: { _controller: BugglMainBundle:LocalAuthor\LoginDetails:index }
+    
+local_author_dashboard:
+    pattern: /dashboard
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Dashboard:index }
+
+local_author_beta_invite_list:
+    pattern: /beta-invites/{type}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\BetaInvite:index, type:pending }
+
+local_author_beta_invite:
+    pattern: /invite-for-beta
+    defaults: { _controller: BugglMainBundle:LocalAuthor\BetaInvite:invite }
+
+local_author_mass_invite:
+    pattern: /invite-authors
+    defaults: { _controller: BugglMainBundle:LocalAuthor\BetaInvite:massInvite }
+
+local_author_share:
+    pattern: /share-buggl
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EarnMore:shareBuggl }
+
+local_author_beta_invite_pagination:
+    pattern: /beta-invites-list/{type}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\BetaInvite:inviteList }
+
+local_author_beta_invite_resend:
+    pattern: /beta-invite/resend/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\BetaInvite:resend }
+
+local_author_beta_invite_delete:
+    pattern: /beta-invite/delete/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\BetaInvite:delete }
+
+local_author_featue_guide:
+    pattern: /e-guides/feature/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:featureInProfile }
+
+local_author_unfeature_guide:
+    pattern: /e-guides/unfeature/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:unFeatureInProfile }
+
+# reviews related
+buggl_display_wishlist:
+    pattern: /wishlist
+    defaults: { _controller: BugglMainBundle:Frontend\Wishlist:displayWishlist}
+
+buggl_remove_wish:
+    pattern: /remove-wish/{id}
+    defaults: { _controller: BugglMainBundle:Frontend\Wishlist:removeWish }
+# start
+
+local_author_reviews:
+  pattern: /reviews
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Review:index }
+
+local_author_new_travel_guides_reviews:
+  pattern: /new-travel-guide-reviews
+  defaults: {  _controller: BugglMainBundle:LocalAuthor\Review:newTravelGuideReviews }
+
+local_author_new_reviews:
+  pattern: /new-reviews
+  defaults: {  _controller: BugglMainBundle:LocalAuthor\Review:newLocalAuthorReviews }
+
+local_author_denied_reviews:
+  pattern: /denied-reviews
+  defaults: {  _controller: BugglMainBundle:LocalAuthor\Review:deniedReviews }
+
+local_author_change_review_status:
+  pattern: /change-status-review
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Review:changeStatus }
+
+#end
+
+# followers related
+# start
+local_author_follow:
+  pattern: /follow
+  defaults: { _controller: BugglMainBundle:Frontend\Follow:follow }
+
+local_author_followed:
+  pattern: /followed
+  defaults: { _controller: BugglMainBundle:Frontend\Follow:followed }
+
+local_author_follower:
+  pattern: /follower
+  defaults: { _controller: BugglMainBundle:Frontend\Follow:follower }
+
+# end
+
+
+
+# create eguide
+# local_author_eguide_create:
+#     pattern: /create-guide/{step}
+#     defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:createEguide }
+# local_author_eguide_edit:
+#     pattern: /complete-guide/{slug}/{step}
+#     defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:createEguide }
+
+# add_eguide_page:
+#     pattern: /local-author/
+# end: create eguide
+
+# START CRUD routes: Travel Guide
+# eguide_preview:
+#     pattern: /{slug}/preview
+#     defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:eguidePreview }
+pdf_preview:
+    pattern: /pdf/{filename}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:pdfPreview }
+add_travel_guide_info:
+    pattern: /add-travel-guide-info
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:addTravelGuide }
+add_e_guide_info:
+    pattern: /add-travel-guide-info/{slag}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:addRequestGuide }
+update_travel_guide_info:
+    pattern: /travel-guide-info/{travel_guide_id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:addTravelGuide }
+    requirements:
+      travel_guide_id: \d+
+travel_guide_cover_page:
+    pattern: /travel-guide-pages/{travel_guide_id}/{page_name}/{page}/{day}/{time_of_day}/{time_of_day_cnt}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:updateGuidePages, travel_guide_id: 0, page_name: 'cover', day: 1, page: 1, time_of_day: 0, time_of_day_cnt: 0 }
+    requirements:
+      travel_guide_id: \d+
+      day: \d+
+      page: \d+
+finishing_travel_guide:
+    pattern: /finish-your-travel-guide/{travel_guide_id}/{page}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:finishTravelGuide, page: 1 }
+    requirements:
+      travel_guide_id: \d+
+      page: \d+
+finishing_travel_guide_spot_list:
+    pattern: /finish-your-travel-guide-spot-list/{travel_guide_id}/{page}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:finishTravelGuideSpotList, page: 1 }
+    requirements:
+      travel_guide_id: \d+
+      page: \d+
+feature_eguide_spot:
+    pattern: /feature-travel-guide-spot/{travel_guide_id}/{spot_id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:featureEguideSpot }
+    requirements:
+      travel_guide_id: \d+
+      spot_id: \d+
+update_eguide_field:
+    pattern: /update-travel-guide/{guide_slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:updateGuideField }
+update_eguide_overview:
+    pattern: /update-travel-guide-content/{guide_slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:updateGuideContent }
+create_itinerary:
+    pattern: /create-itinerary/{guide_slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:createItinerary }
+update_itinerary_intro:
+    pattern: /update-itinerary-intro/{guide_slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:updateItineraryIntro }
+update_before_you_go:
+    pattern: /update-before-you-go/{guide_slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:updateBeforeYouGoPage }
+process_temp_eguide_photo:
+    pattern: /process-temp-travel-guide-photo
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:uploadPhoto }
+process_temp_eguide_photo_from_web:
+    pattern: /process-temp-travel-guide-photo-from-web
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:getPhotoFromWeb }
+crop_eguide_photo:
+    pattern: /crop-travel-guide-photo
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:cropPhoto }
+crop_spot_detail_photo:
+    pattern: /crop-spot-desc-photo
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:cropPhoto }
+
+find_spot_detail:
+    pattern: /spot-detail
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:findSpot }
+fetch_spot_info:
+    pattern: /fetch-spot-info
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:fetchSpotInfo }
+
+add_spot_form:
+    pattern: /get-add-spot-form
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:getAddSpotForm }
+edit_spot_form:
+    pattern: /get-edit-spot-form
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:getEditSpotForm }
+check_spot_duplicate:
+    pattern: /check-spot-availability
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:checkSpotAvailability }
+get_spot_list:
+    pattern: /get-spots-list
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:getSpotsList }
+get_spot_details:
+    pattern: /fetch-spot-details/{id}
+    defaults: {_controller: BugglMainBundle:LocalAuthor\Spot:fetchSpotDetails }
+view_spot_details:
+    pattern: /view-spot-details/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:viewSpotDetails }
+save_spot:
+    pattern: /save-spot
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:save }
+update_spot:
+    pattern: /update-spot
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:update }
+save_custom_spot_category:
+    pattern: /save-custom-spot-category
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:saveCustomCategory }
+save_custom_spot_like:
+    pattern: /save-custom-spot-like
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:saveCustomSpotLike }
+add_spot_to_eguide:
+    pattern: /add-spot-to-guide/{guide_id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:addSpotToGuide }
+get_spot_info:
+    pattern: /get-spot-details/{spot_id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:getSpotDetails }
+upload_spot_photo:
+    pattern: /upload-spot-photo
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:uploadPhoto }
+update_spot_description:
+    pattern: /update-spot-description
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:updateSpotDescription }
+travel_guide_itinerary:
+    pattern: /travel-guide-itinerary/{travel_guide_id}/{page}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:itinerary, page: 1 }
+    requirements:
+      travel_guide_id: \d+
+      page: \d+
+flickr_photo_search:
+    pattern: /flickr-photo-search
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:flickrSearch }
+add_new_day:
+    pattern: /add-new-day/{guide_slug}/{day_num}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:addNewDay }
+remove_day:
+    pattern: /remove-day/{guide_slug}/{day_num}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:removeDay }
+remove_spot:
+    pattern: /remove-spot/{id}/{type}/{guide_id}/{day_num} # id = spot_detail_id, type = itinerary, local_secret, spot_gallery
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:removeSpot }
+
+eguide_delete:
+    pattern: /delete-guide/{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:deleteGuide }
+
+eguide_archive:
+    pattern: /archive-guide/{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:archiveGuide }
+
+eguide_unarchive:
+    pattern: /unarchive-guide/{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:unarchiveGuide }
+
+republish_guide:
+    pattern: /submit-for-approval/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:republish }
+
+
+
+# sample eguide preview route
+create_guide_pdf:
+  pattern: /create-pdf/{eguide_id}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:createPDF }
+# END CRUD routes: Travel Guide
+
+# media
+# START
+local_author_gallery:
+    pattern: /gallery-and-spots
+    defaults: { _controller: BugglMainBundle:LocalAuthor\MediaGallery:index }
+
+local_author_fetch_more_images:
+    pattern: /fetch-more
+    defaults: { _controller: BugglMainBundle:LocalAuthor\MediaGallery:fetchPicture }
+
+local_author_gallery_videos:
+    pattern: /gallery-and-spots/videos
+    defaults: { _controller: BugglMainBundle:LocalAuthor\MediaGallery:videos }
+
+local_author_gallery_spots:
+    pattern: /gallery-and-spots/spots/{type}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:index, type: 'all'}
+
+local_author_gallery_spot_descriptions:
+    pattern: /gallery-and-spots/spot-descriptions/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Spot:viewSpotDescriptions }
+
+local_author_upload_pic:
+    pattern: /upload-pic
+    defaults: { _controller: BugglMainBundle:LocalAuthor\MediaGallery:uploadPictures }
+
+local_author_delete_pic:
+    pattern: /delete-pic
+    defaults: { _controller: BugglMainBundle:LocalAuthor\MediaGallery:deletePictures }
+
+# END
+
+local_author_messages_archive:
+    pattern: /messages/archive/{messageThreadToUserId}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:archive }
+
+local_author_messages_unarchive:
+    pattern: /messages/unarchive/{messageThreadToUserId}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:unarchive }
+
+local_author_messages_create:
+    pattern: /messages/create/{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:create, slug: ''}
+
+local_author_messages_reply:
+    pattern: /messages/reply
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:replyToMessage }
+
+local_author_messages_pagination:
+  pattern: /messages-pagination/{type}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:messageThreadList, type: inbox }
+
+local_author_messages_thread:
+    pattern: /messages/{type}/{messageThreadToUserId}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:messageThread }
+
+local_author_check_new_message:
+    pattern: /messages-check-new/{threadId}/{userId}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:checkNewMessage }
+
+local_author_check_new_thread_message:
+    pattern: /messages-check-new-thread/{userId}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:checkNewThreadMessages }
+
+local_author_messages:
+    pattern: /messages/{type}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Messages:index }
+
+local_author_eguide:
+    pattern: /guide-request/{type}/
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideRequestMessage:index }
+
+local_author_eguide_request:
+    pattern: /req/{req}/{status}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Dashboard:eguideRequestStatus }
+
+local_author_payments_purchased:
+    pattern: /e-guides/purchased
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:purchasedGuides  }
+
+local_author_payments_sold:
+    pattern: /e-guides/sold
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:soldGuides  }
+
+# same pattern with local_author_payments_settings to override
+local_author_paypal_settings:
+    pattern: /payments/settings
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:paypalSettings }
+
+local_author_disconnect_paypal_settings:
+    pattern: /payments/settings/disconect/{id}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:disconnectPaypalAccount }
+
+local_author_payments_settings:
+    pattern: /payments/settings
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:settings }
+
+local_author_payments:
+    pattern: /payments/transaction-history
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:index }
+
+local_author_purchase_history_pagination:
+    pattern: /payments/purchase-history/pagination
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:purchaseHistoryList }
+
+local_author_purchased_guides_pagination:
+    pattern: /payments/purchased-guides/pagination
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:purchasedGuidesList }
+
+local_author_sold_guides_pagination:
+    pattern: /payments/sold-guides/pagination
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:soldGuidesList }
+
+local_author_social_media:
+    pattern: /social-connect
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:index }
+
+refresh_facebook_token:
+    pattern: /social-media/refresh-facebook-token/{route}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:refreshFacebookAccessToken }
+
+refresh_google_plus_token:
+    pattern: /social-media/refresh-google-plus-token/{route}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:refreshGooglePlusAccessToken }
+
+connect_with_facebook_url:
+    pattern: /social-media/connect-with-facebook
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithFacebookUrl }
+
+connect_with_facebook_redirect_url:
+    pattern: /social-media/connect-with-facebook-redirect-url
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithFacebookRedirect }
+
+connect_with_facebook:
+    pattern: /social-media/connect-with-facebook-final-step
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithFacebook }
+
+connect_with_twitter_url:
+    pattern: /social-media/connect-with-twitter
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithTwitterUrl }
+
+connect_with_twitter_redirect_url:
+    pattern: /social-media/connect-with-twitter-redirect-url
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithTwitterRedirect }
+
+connect_with_twitter:
+    pattern: /social-media/connect-with-twitter-final-step
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithTwitter }
+
+connect_with_google_plus_url:
+    pattern: /social-media/connect-with-google
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithGooglePlusUrl }
+
+connect_with_google_plus_redirect_url:
+    pattern: /social-media/connect-with-google-redirect-url
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithGooglePlusRedirect }
+
+connect_with_google_plus:
+    pattern: /social-media/connect-with-google-final-step
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:connectWithGooglePlus }
+
+disconnect_facebook:
+    pattern: /social-media/disconnect-facebook
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:disconnectFacebook }
+
+disconnect_twitter:
+    pattern: /social-media/disconnect-twitter
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:disconnectTwitter }
+
+disconnect_google_plus:
+    pattern: /social-media/disconnect-google
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:disconnectGooglePlus }
+
+
+
+local_author_resend_email_update_email:
+    pattern: /login-details/resend-email-address-update-confirmation-email
+    defaults: { _controller: BugglMainBundle:LocalAuthor\LoginDetails:resendEmailUpdate }
+
+local_author_cancel_email_update_email:
+    pattern: /login-details/cancel-email-address-update-confirmation-email
+    defaults: { _controller: BugglMainBundle:LocalAuthor\LoginDetails:cancelEmailUpdate }
+
+local_author_confirm_email_update:
+    pattern: /login-details/confirm-email-address-update/{token}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\LoginDetails:confirmEmailUpdate }
+
+local_author_update_email_failed:
+    pattern: /login-details/update-email-address-failed
+    defaults: { _controller: BugglMainBundle:LocalAuthor\LoginDetails:confirmEmailUpdateFailed }
+
+# ajax starts here
+
+upload_profile_pic:
+    pattern: /profile/upload-pic
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:uploadProfilePic }
+
+crop_profile_pic:
+    pattern: /profile/crop-pic
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:cropProfilePic }
+
+update_profile:
+  pattern: /profile/update-profile/{updateFor}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:updateProfile, _format: json }
+
+get_profile_form:
+  pattern: /profile/get-profile-form/{buildFor}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:getProfileForm }
+
+
+#--------
+
+update_local_author:
+  pattern: /profile/update-local-author/{updateFor}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:updateLocalAuthor, _format: json }
+
+get_local_author_form:
+  pattern: /profile/get-local-author-form/{buildFor}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:getLocalAuthorForm }
+#--------
+
+get_local_interest_form:
+  pattern: /profile/get-local-interest-form/{localInterestId}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:getLocalInterestForm, localInterestId: 0 }
+
+add_local_interest:
+  pattern: /profile/add-local-interest
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:addLocalInterest }
+
+edit_local_interest:
+  pattern: /profile/edit-local-interest/{localInterestId}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:editLocalInterest }
+
+delete_local_interest:
+  pattern: /profile/delete-local-interest/{localInterestId}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:deleteLocalInterest, _format: json }
+
+upload_local_interest_photo:
+  pattern: /profile/upload-local-interest-photo
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:uploadLocalInterestPhoto, _format: json }
+
+#--------
+
+get_travel_info_form:
+  pattern: /profile/get-travel-info-form/{fieldId}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:getTravelInfoForm }
+
+update_travel_info:
+  pattern: /profile/update-travel-info-form/{fieldId}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:updateTravelInfo, _format: json }
+
+
+# eguide ajax calls
+get_eguide_step2_cover:
+  pattern: /get-step2-inner-page
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:step2Template, _format: json }
+
+# ajax ends here
+
+get_new_access_token:
+  pattern: /profile/get-access-token
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Dashboard:getNewAccessToken }
+
+get_analytics_data:
+  pattern: /dashboard/get-analytics-data
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Dashboard:getAnalyticsData, _format: json }
+
+# get_eguide_activities:
+# pattern: /dashboard/get-eguide-activities
+# defaults: { _controller: BugglMainBundle:LocalAuthor\Dashboard:eguideActivities }
+
+get_activity_feed:
+  pattern: /dashboard/get-activity-feed
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Dashboard:activities }
+
+# local reference
+
+get_oauth2_access_token:
+  pattern: /references/gmail/get-acccess-token
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:getAccessToken }
+
+get_gmail_contacts:
+  pattern: /references/get-gmail-contacts
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:getGmailContacts }
+
+request_gmail_references:
+  pattern: /vouch/gmail
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:requestGmailReferences }
+
+request_yahoomail_references:
+  pattern: /vouch/yahoo-mail
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:requestYahooMailReferences }
+
+buggl_vouch:
+    pattern: /vouch
+    defaults: { _controller: BugglMainBundle:LocalAuthor\References:vouch }
+
+get_yahoomail_access_token:
+  pattern: /references/get-yahoo-mail-request-token
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:getYahooMailAccessToken }
+
+send_local_reference_request:
+  pattern: /references/send-request-references
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:sendLocalReferenceRequestEmail }
+
+feature_references:
+  pattern: /references/bulk-feature
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:feature }
+
+feature_reference_ajax:
+  pattern: /references/feature/{id}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:featureAjax, _format: json }
+
+unfeature_reference_ajax:
+  pattern: /references/unfeature/{id}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:unFeatureAjax, _format: json }
+
+local_author_references:
+  pattern: /references/{type}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:index, type: list }
+
+references_pagination:
+  pattern: /references-pagination/{type}
+  defaults: { _controller: BugglMainBundle:LocalAuthor\References:referencesList, type: list }
+
+connect_with_stripe:
+  pattern: /connect-with-stripe
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:connectWithStripeUrl }
+
+connect_with_stripe_redirect_url:
+  pattern: /connect-with-stripe-redirect-url
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:connectWithStripeRedirectUrl }
+
+disconnect_stripe:
+  pattern: /disconnect-stripe-account
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:disconnectStripe }
+
+pay_with_stripe:
+  pattern: /pay-with-stripe
+  defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:paymentWithStripe }
+
+local_author_eguides:
+    pattern: /e-guides/{status}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Eguides:index }
+
+# local reference - END
+
+# END OF TEMPORARY TESTING EGUIDE EVENTS
+# route for rendered controller in eguiderequest template
+
+# E Guide Request route
+local_author_guide_list:
+    pattern: /{slug}/list-of-guides/{page}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideList:show, page : 1 }
+
+e_guide_request_modal:
+    pattern: /show-modal
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideRequest:eGuideRequestModal }
+
+e_guide_request_submit:
+    pattern: /request-sent
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideRequest:eGuideRequestSubmit }
+
+e_guide_request:
+    pattern: /guide-request
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideRequest:index }
+
+e_guide_view_message:
+    pattern: /guide-request/{slug}/{id}/{type}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideRequestMessage:ShowMessage }
+local_author_messages_eguide_thread:
+    pattern: /{type}/{messageThreadToUserId}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideRequestMessage:messageThread }
+e_guide_reply_message:
+    pattern: /guide-request/
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideRequestMessage:ReplyMessage }
+
+e_guide_share:
+    pattern: /share-guide/{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideShare:guideShare }
+
+e_guide_share_facebook:
+    pattern: /share-guide-in-facebook/{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideShare:shareInFacebook }
+
+e_guide_share_twitter:
+    pattern: /share-guide-in-twitter/{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EGuideShare:shareInTwitter }
+
+buggl_earn_more:
+    pattern: /earn-more
+    defaults: { _controller: BugglMainBundle:LocalAuthor\EarnMore:earnMore }
+
+buggl_buy_guide:
+    pattern:  /buy/buy-guide/{eguideId}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Payments:buyGuide }
+
+# Test urls
+test_fb_post:
+    pattern: /test-fb-post/qazxsw
+    defaults: { _controller: BugglMainBundle:LocalAuthor\SocialMedia:testFbPost }
+
+# Make sure this is last rule
+local_author_profile:
+    pattern: /{slug}
+    defaults: { _controller: BugglMainBundle:LocalAuthor\Profile:profile }

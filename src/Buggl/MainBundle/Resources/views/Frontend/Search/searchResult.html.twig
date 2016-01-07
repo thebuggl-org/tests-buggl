@@ -1,0 +1,129 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<article class="column grid_12" id="result_content">
+
+			{% if results|length > 0 %}
+				<section class="multi">
+					<ul>
+					{% for key, name in filters %}
+						{% set conStr = ('?' in url) ? '&' : '?' %}
+						{% set sortBy = (key == 'relevant') ? '' : conStr ~ 'sort=' ~ key %}
+						<li {% if type == key %}class="selected"{% endif %}><a class="link sort" href="{{ url ~ sortBy }}" data="{{ key }}">{{ name }}</a></li>
+						
+					{% endfor %}
+						{#
+						<li {% if type == 'recent' %}class="selected"{% endif %}><a class="link sort" href="{{ url  }}"  data="recent">Latest </a></li>
+						<li {% if type == 'download' %}class="selected"{% endif %}><a class="link sort" href="{{ url ~ '&sort=download' }}" data="download">Most Downloaded</a></li>
+						#}
+					</ul>
+				</section>
+			{% endif %}
+
+			<section class="travelguide">
+			{% for guide in results %}
+				{% include 'BugglMainBundle:Frontend/Guide:guideList.html.twig' with {guide:guide} %}
+			{% else %}
+				<div class="no-results-found-in-search">
+				    <div class="result">
+				    	<h3>Your search for
+					        <em>
+					            {% if location|length > 0 %}
+					                "{{ location }}"
+					            {% endif %}
+					        </em>
+					        {% if activity|length > 0 and location|length > 0
+					        %}"
+					            and
+					        {% endif %}
+					        {% if activity|length > 0 %}"
+					        <em>
+					            {{ activity }}"
+					        {% endif %}
+					        </em>
+					        came up short. <br>
+					        We can't be everywhere just yet.
+					    </h3>
+
+						<p>Have a custom guidebook built for you by completing the request below.<br>In the meantime, get inspired by other travel guides that have recently been created.</p>
+					</div>
+					{% render 'BugglMainBundle:Frontend/Search:getEmptySearchResultTemplate' %}
+				</div>
+
+				{% render 'BugglMainBundle:Frontend/Search:recentGuides' %}
+			{% endfor %}
+			</section>
+
+			<section class="search-pagination-actions">
+				{% if hasNext %}
+				<a class="link" id="loadMore" data="page" href="{{ loadMoreUrl }}">Load more</a>
+				{% endif %}
+				<a class="search-again" href="{{ path('buggl_homepage') }}">Search Again</a>
+			</section>
+			{#% include 'BugglMainBundle:Frontend/Search:guideList.html.twig' with {results:results} %#}
+		</article>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js' | s3Cdn) }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/jquery.budget-chooser.js' | s3Cdn) }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".budget").budgetChooser({
+				'inputname' : 'budgetserial'
+			});
+		});
+		
+		$('#loginButton').on('click',function(event){
+            event.preventDefault();
+
+            $('div.login').reveal();
+        });
+
+        $('#signUpButton').on('click',function(event){
+            event.preventDefault();
+
+            $('div.signup').reveal();
+        });
+	</script>
+    <script type="text/javascript">
+    $().ready(function(){
+    	$("#loadMore")
+    		.click(function(e){
+    			e.preventDefault();
+    			var link = $(this).attr('href');
+    			$.ajax({
+    				url: link,
+    				data: { type:'ajax' },
+    				dataType: 'json',
+    				beforeSend: function(){},
+    				success:function(data){
+    					
+    					$(".travelguide")
+    						.append(data.html);
+
+    					if(data.hasNext == true){
+    						// var nLink = data.url + "&page=" + data.nextPage;
+    						var nLink = data.loadMoreUrl;
+    						$("#loadMore").attr( 'href', nLink);
+    					}
+    					else {
+    						$("#loadMore").hide();
+    					}
+
+    				}
+    			})
+    		});
+    });
+    </script>
+    
+{% endblock %}

@@ -1,0 +1,14 @@
+<section class="clearfix dashbord-stat">
+    <div id="pageViewsInfo" class="stat-published to-left">
+        <span class="stat-header"><img width="20" height="20" src="/bundles/bugglmain/images/pageviews.png">PUBLISHED GUIDES</span>
+        <span class="stat-value">{{ stats.totalPublishedGuides }}</span>
+            </div>
+    <div class="stat-downloads to-left">
+        <span class="stat-header"><img width="20" height="20" src="{{ asset("bundles/bugglmain/images/downloads.png") }}">TOTAL DOWNLOADS</span>
+        <span class="stat-value">{{ stats.totalDownloadCount }}</span>
+            </div>
+    <div class="stat-earnings to-left">
+        <span class="stat-header"><img width="20" height="20" src="/bundles/bugglmain/images/earnings.png">TOTAL REVENUE</span>
+        <span class="stat-value"><span class="doll">$</span>{{ stats.earnings | number_format(2, '.', ',') }}</span>
+    </div>
+</section>

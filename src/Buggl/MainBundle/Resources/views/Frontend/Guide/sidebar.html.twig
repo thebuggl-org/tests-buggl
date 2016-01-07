@@ -1,0 +1,92 @@
+<aside class="column grid_4">
+	<section class="preview">
+    		<div class="other">
+                <a href="{{ path('local_author_profile',{'slug':guide.localAuthor.slug}) }}" class="subphoto"><img border="0" src="{{ asset(guide.localAuthor.profile | profilePic) }}" alt="{{ guide.localAuthor.name }}" width="40" height="40"></a>
+                <h3 class="title"><a href="{{ path('local_author_profile',{'slug':guide.localAuthor.slug}) }}">{{ guide.localAuthor.name }}</a></h3>
+				<span><em>{{ guide.localAuthor.profile | nullObjectPlaceHolder('getWork','') }}</em></span>
+    		</div>
+            <div class="other">
+                <ul class="infr">
+                    <li class="loc"><span class="ico"></span>{{ location }}</li>
+					{% if reviewCount > 0 %}
+						<li class="str"><span class="ico"></span>{{ reviewCount }} Insider Review{{ reviewCount > 1 ? 's' : '' }}</li>
+					{% endif %}
+					{#% if downloadCount > 0 %}
+						<li class="trav"><span class="ico"></span>{{ downloadCount }} Download{{ downloadCount > 1 ? 's' : '' }}</li>
+					{% endif %#}
+                    {#% if purchaseCount > 0 %}
+                        <li class="trav"><span class="ico"></span>{{ purchaseCount }} Purchase{{ purchaseCount > 1 ? 's' : '' }}</li>
+                    {% endif %#}
+                    {% if totalGuideSoldCount > 0 %}
+                        <li class="trav"><span class="ico"></span>{{ totalGuideSoldCount }} Total Guide Purchase{{ totalGuideSoldCount > 1 ? 's' : '' }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+          	{% render 'BugglMainBundle:Frontend/LimitedView:addRequestButton' with {'slug':guide.localAuthor.slug} %}
+    </section>
+    <section class="guide_stats">
+        <h3>Is this GuideBook for me?</h3>
+        <ul>
+            <li>
+                <h4>Trip Theme</h4>
+                <p>{{ guide.tripTheme.name | fillBlank }}</p>
+            </li>
+            <li>
+                <h4>Category</h4>
+                <p>{{ guide | getCategories }}</p>
+            </li>
+            <li>
+                <h4>Good for</h4>
+                <p>{{ guide | getGoodFor }}</p>
+            </li>
+            <li class="stars">
+                <h4>Trip Budget</h4>
+				{% for i in 1..guide.budget %}
+					<span class="ico"></span>
+				{% endfor %}
+				
+				<p>{{ guide.budget | budgetAsText }}</p>
+            </li>
+        </ul>
+    </section>
+    <section class="best_time">
+        <h3>Best time to go</h3>
+        <ul>
+			{% for month in guide.bestTimeToGo|split(',')%}
+	            <li>
+	                <h3>{{ month | trim }}</h3>
+	            </li>
+			{% endfor %}
+        </ul>
+    </section>
+{% if countSimilarGuide != 0 %}
+    <section class="guide_stats">
+        <h3>Similar Travel Guides</h3>
+        <ul class="similar-guides">
+		{%for similarGuide in similarGuides %}
+            <li>
+				<div>
+					<div class="tag">
+						<span>{{ similarGuide.price | renderPrice }}</span>
+					</div>
+					<a href="{{ path('buggl_eguide_overview', {slug:similarGuide.slug }) }}" class="title">{{ similarGuide.title | raw }}</a>
+                	<img width="120" src="{{ asset(similarGuide | getEguidePhoto) }}" border="0" align="left" alt="Guide {{ similarGuide.plainTitle }} cover" />
+				</div>
+                <h4><a href="{{ path('buggl_eguide_overview', {slug:similarGuide.slug }) }}">{{ similarGuide.plainTitle }}</a></h4>
+                <p class="price fl">{{ similarGuide.price | renderPrice }}</p><br/>
+				<a class="learn-more" href="{{ path('buggl_eguide_overview', {slug:similarGuide.slug }) }}">LEARN MORE</a>
+            </li>
+         {% endfor %}
+        </ul>
+    </section>
+{% endif %}
+    <section>
+    	<h2>Request a custom guide</h2>
+    	<p>Hand crafted by a local expert just for you!</p>
+		{% if app.user is not null %}
+			<a href="" onclick="return false" class="btn fr requestbtn">Click Here</a>
+		{% else %}
+			<a href="#" data-reveal-id="loginModal" class="btn fr">Click Here</a>
+		{% endif %}
+    </section>
+</aside>

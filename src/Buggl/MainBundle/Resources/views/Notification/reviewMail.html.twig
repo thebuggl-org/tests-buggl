@@ -1,0 +1,11 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>{{ name }},</h1>
+	<p class="font-size: 10px;">Someone reviewed the travel knowledge you shared.</p>
+	<p>You’re slowly starting to build your ‘travel resume’ with the world.</p>
+	<p>Click <a href="{{ link }}">here </a> to check out what they had to say.  Keep in mind, only people who’ve purchased or downloaded your travel guides can write something!</p>
+	
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

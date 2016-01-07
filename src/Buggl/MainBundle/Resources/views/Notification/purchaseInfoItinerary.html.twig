@@ -1,0 +1,16 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>Knowledge Transfer...</h1>
+    <p class="font-size: 10px;  "> Guide is Ready for <strong> {{buyername}} </strong> create By <strog>{{sellername}}</strong></p>
+
+
+<p> Name Of Blogger :{{ sellername }} </p>
+<p> Email OF Blogger :{{ selleremail }} </p>
+<p>Name of Traveler : {{buyername}}</p>
+<p>Email of Traveler : {{email}} </p>
+	
+
+	<p>Safe Travels,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

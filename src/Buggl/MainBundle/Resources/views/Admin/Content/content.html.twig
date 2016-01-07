@@ -1,0 +1,34 @@
+{% extends "BugglMainBundle:Markup/Markup:adminContentLayout.html.twig" %}
+
+{% block title %}Static Pages{% endblock %}
+	
+{% block breadCrumbs %}
+{% endblock %}
+
+{% block inner_content %}
+<a class="site-admin-button contentButton" style="margin:0;" href="{{ path('admin_content_add') }}">
+	+ Page
+</a>
+	<div style="display:none" class="reveal-modal" id="addContentForm">
+		<div class="content">
+		</div>		
+	</div>
+	<ul class="content-list site-admin-list">
+		{% for staticPage in staticPages %}
+		    <li class="clearfix">
+		        <div class="to-left">
+		            <h3>{{ staticPage.title }}</h3>
+		        </div>
+		        <ul class="site-admin-list-actions to-right horizontalize"> 
+		            <li><a href="{{ path('admin_content_edit',{'contentId':staticPage.id}) }}" class="contentButton">edit</a></li>
+					<li><a href="{{ path('admin_content_delete',{'contentId':staticPage.id}) }}" onclick="return confirm('Are your sure you want to delete this page?')">delete</a></li>
+		        </ul>
+		    </li>
+		{% else %}	
+			<li>
+				<p>No static pages.</p>
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
+

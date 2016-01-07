@@ -1,0 +1,40 @@
+<section class="step-2 steps" id="{{ eguide.slug }}" data-guideid={{eguide.id}} name="{{pageName}}" data-hasitinerary="{{hasItinerary}}">
+	<div class="create-guide-pages clearfix">
+		
+	{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:guidePageSections.html.twig" with { 'travel_guide_id' : eguide.id, name : 'local-places'} %}
+		
+	<div class="pages local-places">
+		<div class="clearfix">
+			<div class="to-left">
+				<a class="add-spot-in-pagination" href=""  name="add-local-secret" data-daynum="0" data-page="{{ dailyPaginator|length + 2 }}" data-pagename="localplaces">
+					<img src="/bundles/bugglmain/images/local-add-spot.png" />
+					<span>ADD PLACE</span>
+				</a>
+			</div>	
+			<div class="spots-in-day local-places-pagi mcsPaginationContainer to-left" style="overflow:hidden;" data-descripancy="5">	
+				<ul class="horizontalize mcsPaginationItems" style="width:2000px;">
+					{% set cnt = 1 %}
+					<li class="{{ (page == cnt) ? 'current' : '' }}">
+						<a href="{{ path('travel_guide_cover_page', {'page_name' : 'localplaces', 'travel_guide_id' : eguide.id, 'page' : cnt }) }}">COVER PAGE</a>
+					</li>
+					{% for obj in dailyPaginator %}
+						{% set cnt = cnt + 1 %}
+						<li class="{{ (page == cnt) ? 'current' : '' }}">
+							<a class="clearfix" href="{{ path('travel_guide_cover_page', {'page_name' : 'localplaces', 'travel_guide_id' : eguide.id, 'page' : cnt }) }}" data-page="{{cnt}}" data-pagename="localplaces" title="{{ obj.spotDetail.spot.name }}">
+								<div class="spnav-image to-left">
+									<img class="to-left" src="{{obj.spotDetail.photo}}" width="80"/>
+								</div>
+								<span class="to-right">{{obj.spotDetail.spot.name|truncate(20)}}</span>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		
+		{% render 'BugglMainBundle:LocalAuthor/Eguides:localSecret' with {'travel_guide_id' : eguide.id, 'page' : page } %}
+
+	</div>	
+</section>
+
+{% include "BugglMainBundle:LocalAuthor/Spot:multiSpotDescription.html.twig" %}

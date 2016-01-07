@@ -1,0 +1,234 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Buggl Profile{% endblock %}
+
+{% set active = 'profile' %}
+
+{% block main_content %}
+	<div class="row profileInfoContainer">
+
+		<article class="profile prof column grid_12">
+            <div class="row">
+            	<section class="bio column grid_12">
+            		<div class="row">
+            			<section class="column grid_4 pics">
+            				<div class="reg_box">
+	  	        				<a id="uploadProfilePic" data-modal-title="Profile Pic" data-file-name="{{ app.user.profile | nullObjectPlaceHolder('getImageWebPath') }}" href="" onclick="return false">
+									<span class="client-edit-button">EDIT PHOTO</span>
+									{% include 'BugglMainBundle:LocalAuthor/Profile:profilePhoto.html.twig' with {'profile':app.user.profile,'alt':app.user.name} %}
+								</a>
+	  	        			</div>
+   	        			</section>
+            			<section class="column grid_8">
+            				<div class="reg_box editProfileInfoContainer" id="profileContent_profileBasicInfo">
+	            				{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'profileBasicInfo'} %}
+			                </div>
+					<div class="reg_box editProfileInfoContainer" id="profileContent_profileEguideinfo">
+	            				{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'profileEguideinfo'} %}
+			                </div>
+			            </section>
+			            <section class="column grid_12 facts">
+		                	{% render 'BugglMainBundle:LocalAuthor/Misc:misc' with {'localAuthor' : app.user} %}
+			            </section>
+			         </div>
+			    </section>
+			 </div>
+        </article>
+		
+		<aside class="column prof grid_4">
+			<section class="guide_stats" id="profileContent_guideInfo">
+				{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'guideInfo'} %}
+			</section>
+			<section class="guide_stats" id="profileContent_localStats">
+				{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'localStats'} %}
+			</section>
+			{% if false %}
+			<section class="guide_stats" id="profileContent_localVerified">
+				{% include 'BugglMainBundle:LocalAuthor/Profile:profileInfo.html.twig' with {'renderFor':'localVerified'} %}
+			</section>
+			<section class="list best-local">
+				<h3 class="stnd">Why am I the best local?<span class="ico"></span></h3>
+				<ul class="travelInfoContainer">
+					{% include 'BugglMainBundle:LocalAuthor/Profile:travelInfo.html.twig' with {'fieldId':0, 'travelInfo':travelInfo} %}
+				</ul>
+			</section>
+			<section class="list travel-love">
+				<h3 class="stnd">How I love to travel?<span class="ico"></span></h3>
+				<ul class="travelInfoContainer">
+					{% include 'BugglMainBundle:LocalAuthor/Profile:travelInfo.html.twig' with {'fieldId':1, 'travelInfo':travelInfo} %}
+				</ul>
+			</section>
+			<section class="list travel-love">
+				<h3 class="stnd">My Best Travel Experience<span class="ico"></span></h3>
+				<ul class="travelInfoContainer">
+					{% include 'BugglMainBundle:LocalAuthor/Profile:travelInfo.html.twig' with {'fieldId':2, 'travelInfo':travelInfo} %}
+				</ul>
+			</section>
+			<section class="list travel-love">
+				<h3 class="stnd">My Worst Travel Experience<span class="ico"></span></h3>
+				<ul class="travelInfoContainer">
+					{% include 'BugglMainBundle:LocalAuthor/Profile:travelInfo.html.twig' with {'fieldId':3, 'travelInfo':travelInfo} %}
+				</ul>
+			</section>
+			{% endif %}
+		</aside>
+		
+		<article class="column grid_8">
+			
+		<section class="list" id="localInterestContainer">
+			<h3>My Experience</h3>
+			<ul class="local-passion" id="localInterestList">
+				{% include 'BugglMainBundle:LocalAuthor/Profile:localInterestList.html.twig' with {'localInterests': localInterests} %}		
+				<li><a href="{{ path('add_local_interest') }}" id="addInterest" class="btn fr" data-local-author-id={{ app.user.id }} onclick="return false">Add Experience</a></li>			
+			</ul>	
+		</section>
+
+		{% render 'BugglMainBundle:Frontend/LocalAuthor:featuredGuidesInProfile' with {'localAuthor':app.user,'ownPage':true} %}
+
+			{#<section class="photolist">
+							<h3>My Photos</h3>
+							<ul class="">
+								<li><a href="#"><img src="{{asset('bundles/bugglmain/images/custom/random1_144px.jpg')}}" border="0" align="left" alt=" "/></a></li>
+								<li><a href="#"><img src="{{asset('bundles/bugglmain/images/custom/random2_144px.jpg')}}" border="0" align="left" alt=" "/></a></li>
+								<li><a href="#"><img src="{{asset('bundles/bugglmain/images/custom/random3_144px.jpg')}}" border="0" align="left" alt=" "/></a></li>
+								<li><a href="#"><img src="{{asset('bundles/bugglmain/images/custom/random4_144px.jpg')}}" border="0" align="left" alt=" "/></a></li>
+							</ul>
+						</section>#}
+
+             <section class="reference multi">
+                <ul>
+                    <li class="selected"><a href="#" id="reviews">Customer Reviews</a></li>
+					<li><a href="#" id="references">My References</a></li>
+                </ul>
+                <div id="reviewContainer" data-page="1">
+                    <ul class="comments">
+                       {% render 'BugglMainBundle:Frontend/Reviews:localAuthorGuideReviews' with {'localAuthor':app.user} %}
+                    </ul>
+					<a href="" onclick="return false" id="moreReviews" style="display:none"> Load More </a>
+                </div>
+                <div id="referenceContainer" style="display:none;" data-page="1">
+                    <ul class="comments">
+                       {% render 'BugglMainBundle:Frontend/ReferencesFrontend:localAuthorReferences' with {'id':app.user.id,'page':1,'ownPage':true} %}
+                    </ul>
+					<span class="loader" style="display:none"> Loading... </span>
+					<a href="" onclick="return false" id="moreReferences" style="display:none"> Load More </a>
+                </div>
+            </section>
+		</article>
+	</div>
+	<div id="loaderDiv" style="display:none;">
+		<span class="loader">LOADING...</span>
+	</div>
+{% if app.user.isLocalAuthor %}
+<div id="reqcount" class="reveal-modal">
+<h2>  <a class="close-reveal-modal">&#215;</a> </h2>
+    <div class="content">
+   
+<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span> You have {{ newRequestCount }} new Itinerary Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+</div></div>{% endif %}
+
+	
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#% stylesheets
+        'bundles/bugglmain/css/jcrop/jquery.Jcrop.css'
+		filter='cssrewrite'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %#}
+    <link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jcrop/jquery.Jcrop.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	{#<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBfQzUarCd2GZfDNBFj87Z53alxKLgcHs&sensor=false&libraries=places" type="text/javascript"></script>#}
+	
+	{#<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEoojfv0KL3vIx5RQjWYIKZcqxJBH4LXc&sensor=false&libraries=places" type="text/javascript"></script>#}
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/LocalAuthor/Profile/jquery.local-interest-v2.js'
+		'@BugglMainBundle/Resources/public/js/jcrop/jquery.Jcrop.min.js'
+		'@BugglMainBundle/Resources/public/js/jquery.limited-textarea.js'
+		'@BugglMainBundle/Resources/public/js/jquery.review-references-events.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+
+	<script src="{{ asset('bundles/bugglmain/js/LocalAuthor/Profile/jquery.local-interest-v2.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/jcrop/jquery.Jcrop.min.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/jquery.limited-textarea.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/jquery.review-references-events.js' | s3Cdn) }}"></script>
+
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+            if({{newRequestCount}}>=1)
+			{		
+			$("div#reqcount").reveal();
+			}
+
+				// if($('#referenceContainer > ul > li').length > 3){
+// 					$('#moreReferences').show();
+// 				}
+// 				
+// 				if($('#reviewContainer > ul > li').length > 3){
+// 					$('#moreReviews').show();
+// 				}
+// 
+// 				$('#reviews').on('click',function(e){
+// 					e.preventDefault();
+// 					$('#references').parent().removeClass('selected');
+// 					$(this).parent().addClass('selected');
+// 
+// 					$('#referenceContainer').hide();
+// 					$('#reviewContainer').show();
+// 				});
+// 
+// 				$('#references').on('click',function(e){
+// 					e.preventDefault();
+// 					$('#reviews').parent().removeClass('selected');
+// 					$(this).parent().addClass('selected');
+// 
+// 					$('#reviewContainer').hide();
+// 					$('#referenceContainer').show();
+// 
+// 				});
+// 
+// 				$('#moreReferences').on('click',function(e){
+// 					e.preventDefault();
+// 
+// 					$('#referenceContainer').attr('data-page',(parseInt($('#referenceContainer').attr('data-page'))+1));
+// 					$('.reference_'+$('#referenceContainer').attr('data-page')).show();
+// 
+// 					if($('#referenceContainer > ul > li').not(':visible').length == 0){
+// 						$('#moreReferences').hide();
+// 					}
+// 				});
+// 				
+// 				$('#moreReviews').on('click',function(e){
+// 					e.preventDefault();
+// 					$('#reviewContainer').attr('data-page',(parseInt($('#reviewContainer').attr('data-page'))+1));
+// 					$('.review_'+$('#reviewContainer').attr('data-page')).show();
+// 
+// 					if($('#reviewContainer > ul > li').not(':visible').length == 0){
+// 						$('#moreReviews').hide();
+// 					}
+// 				});
+				
+				$('.follower').on('click',function(e){
+					e.preventDefault();
+					$('#formModal #modalTitle').empty().html("Follower");
+					$('.loader').show();
+					$('#formModal').reveal({'closeOnBackgroundClick':false});
+					$.get($(this).attr('action'),function(follower){
+						$('.loader').hide();
+						$('#formModal .content').empty().html(follower.content);
+					});
+				});
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

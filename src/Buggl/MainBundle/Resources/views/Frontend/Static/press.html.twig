@@ -1,0 +1,29 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+	<div class="row">
+		<article class="column grid_12">
+			<div class="row">
+				<section class="column custom cpage single grid_12">
+					<div class="press-section">
+						<h3>AS SEEN IN</h3>
+						<ul>
+								<li class="bizjournals"><a href="http://www.bizjournals.com/boston/blog/startups/2014/02/buggl-advised-by-former-facebook.html?page=all"><img src="{{ asset('/bundles/bugglmain/images/biz.png') }}" /></a></li>
+								<li class="skift"><a href="http://skift.com/2014/02/10/5-travel-startups-shed-light-on-local-insights/#1"><img src="{{ asset('/bundles/bugglmain/images/skift.png') }}" /></a></li>
+						</ul>
+						<div>	
+							<img src="{{ asset('/bundles/bugglmain/images/static-press.jpg') }}" style="float:left;margin: 45px 0;">														
+							<h1>Want to hear our story?</h1>
+							<p>Please direct all press and media inquires to <a href="mailto:press@buggl.com">press@buggl.com!</a></p>
+						</div>
+					</div>
+				</section>
+			</div>
+		</article>
+	</div>
+{% endblock %}

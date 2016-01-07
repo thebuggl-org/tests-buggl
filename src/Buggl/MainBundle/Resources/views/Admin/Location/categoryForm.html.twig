@@ -1,0 +1,23 @@
+<form method="post" action="{{ path('admin_locations_save_category') }}" enctype="multipart/form-data" novalidate>
+    <label>Country</label>
+    {{ form_widget(form.country) }}
+    {{ form_errors(form.country) }}
+
+    <label>Category</label>
+    {{ form_widget(form.category) }}
+    {{ form_errors(form.category) }}
+
+    <label>Pic</label>
+    {{ form_widget(form.picFilename) }}
+    {{ form_errors(form.picFilename) }}
+
+    {% if not createNew %}
+        <img src="{{ asset(file) }}">
+    {% endif %}
+
+    {{ form_rest(form) }}
+
+    <input type='submit' value='save' />
+    <input type='hidden' name='form_is_new'value={{ createNew }} />
+    <input type='hidden' name="country_if_new" value={{ id }} />
+</form>

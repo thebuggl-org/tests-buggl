@@ -1,0 +1,10 @@
+parameters:
+#    buggl_main.example.class: Buggl\MainBundle\Example
+    # router.options.generator_base_class: Buggl\MainBundle\Routing\Generator\UrlGenerator
+    # router.class: Buggl\MainBundle\Routing\Router
+
+services:
+    buggl.assetic.custom_filter:
+        class: Buggl\MainBundle\Service\CloudFrontAssetsService
+        tags:
+            - { name: assetic.filter, alias: cloudfront_filter }

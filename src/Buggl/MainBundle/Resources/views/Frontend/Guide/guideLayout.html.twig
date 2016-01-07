@@ -1,0 +1,775 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block og_meta %}
+	<meta property="og:title" content="{{ metas.title }}" />
+    <meta property="og:description" content="{{ metas.description|raw }}" />
+	<meta property="og:image" content="{{ guide | getEguidePhoto }}"/> 
+{% endblock%}
+
+{% block title %} {{ metas.title }}  {% endblock %}
+
+{% block modal %}
+	{{ parent() }}
+	{% render 'BugglMainBundle:LocalAuthor/EGuideRequest:eGuideRequestModal' with {'id':guide.localAuthor.id,'email':guide.localAuthor.email} %}
+{% endblock %}
+
+{% block social %}
+	{%
+		include 'BugglMainBundle:LocalAuthor/Misc:addThisWidget.html.twig'
+		with {
+			'twitterOptions' : {
+				'via' : 'Buggl',
+				'text' : 'Check out this fresh travel guide on Buggl "'~guide.plainTitle~'"'
+			},
+			'fbOptions' : {
+				'fb:like:layout' : "button_count",
+			},
+			'pinOptions' : {
+				'desc' : guide.plainTitle~' : '~(guide.excerpts|striptags)~' @buggl'
+			}
+		}
+	%}
+{% endblock %}
+
+{% block main_content %}
+
+	{# {%
+		include 'BugglMainBundle:LocalAuthor/Misc:addThisWidget.html.twig'
+		with {
+			'twitterOptions' : {
+				'tw:via' : "Buggl",
+				'tw:text' : 'Check out this cool live travel guide on Buggl "'~guide.plainTitle~'"'
+			},
+			'fbOptions' : {
+				'fb:like:layout' : "button_count",
+			}
+		}
+	%} #}
+
+    <div class="row full-guide-view">
+        <header class="hd sd column grid_12">
+				{% block guideTitle %}
+					<h1>{{ guide.plainTitle }}</h1>
+				{% endblock %}
+			{% block guideNavigation %}
+				{% include "BugglMainBundle:Frontend/Guide:navigation.html.twig" with {'activeTab':activeTab,'guide':guide}%}
+			{% endblock %}
+        </header>
+		{% block guideSidebar %}
+			{% render "BugglMainBundle:Frontend/Guide:sidebar" with {'guide':guide}%}
+		{% endblock %}
+		{% block guidePageContent %}
+	        <article class="column grid_8">
+		        <section>
+	            	<img src="{{ asset('bundles/bugglmain/images/custom/random1_620px.jpg') }}" border="0" align="left" alt=" "/>
+	            </section>
+	            <section>
+	                <div class="reg_box">
+	                    <h2>About the Guidebook</h2>
+	                    <p>You're not going to be placed in any sort of pre-packaged experience or guided to the "top" hotels or restaurants. You'll kick off your adventure touring one of the cities oldest and most undervisited parts of town where it's currently experiencing a great resurgence of growth - from new bars and restaurants, to building out of new cool and unique buildings that have stood there for hundreds of years. After pounding the pavement for a few hours, get ready to experience an interesting brewery tour and sit atop of the cities newest bar and restaurant to get a flavor for what Boston is known for; it's seafood and craft beers that make it a wold class destination. If you see another tourist, its merely by accident, because at all costs this local knowledge is going to bring you closer to the city that most people miss.</p>
+	                    <h3>Local Knowledge &amp; Cool Perks</h3>
+	                    <ul class="spa">
+	                        <li><p>Insight into the best jazz and live music venues in the city only locals know about.</p></li>
+	                        <li>Clear description of the best wine and select gastropubs in the city you won't find on Yelp.</li>
+	                        <li>Best kept secrets on the romantic, quiet yet atmospheric hideaways off the beaten path of Boston.</li>
+	                        <li>Historical walks and tours that cover the major sights, but leave out the tourist traps.</li>
+	                    </ul>
+	                    <h3>Local Interest</h3>
+	                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus adipiscing, orci eget tincidunt cursus, purus lorem pharetra erat, at bibendum leo sem vel sapien. Duis feugiat, ante et sodales volutpat, purus nisi interdum eros, vel lobortis massa orci non sem. Quisque eget blandit ante. Praesent vel justo vitae ligula luctus ultrices. Integer quis mi magna. Aliquam erat volutpat. Integer at massa ac elit tempor eleifend at ac odio. Suspendisse convallis sem eget nisl dapibus fringilla. Sed lacinia rutrum vestibulum. Phasellus bibendum nibh ac nunc aliquet quis sagittis massa rhoncus. Maecenas a mi tellus. Sed vestibulum neque sed nulla faucibus tempor. Vivamus et nulla felis, vitae posuere mi. </p>
+
+	                </div>
+	            </section>
+	            <section class="reference multi">
+	                <ul>
+	                    <li><a href="#">Local References</a></li>
+	                    <li class="selected"><a href="#">Traveler Reviews</a></li>
+	                </ul>
+	                <div class="reg_box">
+	                    <ul class="comments">
+	                    	<li>
+	                    		<img border="0" align="left" src="/bundles/bugglmain/images/custom/janvan_60px.jpg">
+	                    		<form>
+	                    			<textarea style="width: 612px; height: 15px;"></textarea>
+	                    			<a class="btn fl" href="#">Post Review</a>
+	                    		</form>
+	                    	</li>
+	                        <li>
+	                            <img src="{{asset('bundles/bugglmain/images/custom/janvan_60px.jpg')}}" border="0" align="left" />
+	                            <p><a href="#" class="name">Jan Van La Lou</a>Everything was all right. The room was clean and nice and Adele is very kind person. She recommended us what we needed to know.</p>
+	                        </li>
+	                        <li>
+	                            <img src="{{asset('bundles/bugglmain/images/custom/xtina_60px.jpg')}}" border="0" align="left" />
+	                            <p><a href="#" class="name">Xtina</a>This was our first time using buggl and it was a great experience! The arrangements were easy to make and all went smoothly. Adele was a wonderful host. What a sweet person and very helpful and interesting. Her apartment is in a great location.. <a href="">show more</a></p>
+	                        </li>
+	                        <li>
+	                            <img src="{{asset('bundles/bugglmain/images/custom/matt_60px.jpg')}}" border="0" align="left" />
+	                            <p><a href="#" class="name">Matt</a>This was our first time using buggl and it was a great experience! The arrangements were easy to make and all went smoothly. Adele was a wonderful host. What a sweet person and very helpful and interesting. Her apartment is in a great location.. <a href="">show more</a></p>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </section>
+	        </article>
+		{% endblock %}
+		<input type="hidden" id="soc_share_guide_overview_link" value="{{ url('buggl_eguide_overview', {'slug' : guide.slug}, true) }}" />
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.budget-chooser.js'
+		'@BugglMainBundle/Resources/public/js/Frontend/eguiderequest.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+    <script>
+	    /*$(document).ready(function() {
+	        var header = $('.sd');
+			var sideNav = $('.sd-nav');
+	        var start = $(header).offset().top;
+	        $.event.add(window, "scroll", function() {
+	            var p = $(window).scrollTop();
+	            $(header).css('position',((p)>start) ? 'fixed' : 'static');
+	            $(header).css('top',((p)>start) ? '0px' : '');
+	            $(header).css('border-bottom',((p)>start) ? '1px solid #ddd' : '');
+	            $(header).addClass("test");
+
+	            $(sideNav).css('position',((p)>start) ? 'fixed' : 'static');
+	            $(sideNav).css('top',((p)>start) ? '128px' : '');
+	        });
+	    });*/
+    </script>
+
+    <script type="text/javascript" src="{{ asset('bundles/bugglmain/js/jquery.budget-chooser.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/socialshare.js') }}"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEoojfv0KL3vIx5RQjWYIKZcqxJBH4LXc&sensor=false&libraries=places" type="text/javascript"></script>
+   
+    	<script src="{{ asset('bundles/bugglmain/js/tiny_mce/jquery.tinymce.js' | s3Cdn) }}"></script>
+    	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.googleCustomSearch.v1.0.js' | s3Cdn) }}"></script>
+    	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.eguide.v1.1.js' | s3Cdn) }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/rating.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/jquery.review-references-events.js') }}"></script>
+ <script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/eguidereq.js') }}"></script>
+    <script type="text/javascript">
+            // this identifies your website in the createToken call below
+            Stripe.setPublishableKey('pk_live_uqTpLEKNXtDd3JhQnSsebxSo');
+
+            function stripeResponseHandler(status, response) {
+                if (response.error) { 
+                    // re-enable the submit button
+                    $('.button').removeAttr("disabled");
+                    // show the errors on the form
+                    $(".payment-errors").html(response.error.message);
+                } else {
+                    var form$ = $("#request_form");
+                    // token contains id, last4, and card type
+                    var token = response['id'];
+                    // insert the token into the form so it gets submitted to the server
+                    form$.append("<input type='hidden' name='stripeToken' value='" + token + "' />");
+                    // and submit
+                    form$.get(0).submit();
+                }
+            }
+ (function($){ 
+      //  $("#userip").val(userip);
+           
+             var nb_sliders = null; // nb of range sliders
+var moving_id = null; // id of the moved slider
+var oldValue = []; // previous values of the sliders
+
+var radius = 150; // pie chart radius
+var color = d3.scale.category20(); // color scheme (10, 20, 20b, 20c ...)
+var pi = Math.PI; // 3.14
+
+// pie chart config
+var pie = d3.layout.pie()
+    .value(function (d) {
+    return d.value;
+})
+//.startAngle(-90 * (pi/180))
+//.endAngle(90 * (pi/180))
+.sort(null);
+
+// arc object
+var arc = d3.svg.arc()
+    .outerRadius(radius);
+
+// nb sliders event
+d3.select('#nbFormSubmit').on('click', function () {
+    d3.event.preventDefault();
+   
+});
+ nb_sliders = d3.select('#nbSliders')[0][0].value;
+    init();
+// initialize the sliders, events and pie chart
+function init() {
+    oldValue = [];
+    moving_id = null;
+
+    d3.select('#rangebox tbody').html('');
+
+    // append sliders to table
+    for (i = 0; i < nb_sliders; i++) {
+        var tr = d3.select('#rangebox tbody').append('tr');
+    if(i==0){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Food ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Food-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            //.attr('value', 1)
+            .attr('max', 100);
+           
+        tr.append('td')
+            .attr('id', 'range_value1')
+            .attr('class', 'range_value');
+    }
+    if(i==1){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Drinking ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Drinking-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value2')
+            .attr('class', 'range_value');
+    }
+    if(i==2){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Shopping ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Shopping-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value3')
+            .attr('class', 'range_value');
+    }
+    if(i==3){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Activities ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Activities-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+             .attr('id', 'range_value4')
+            .attr('class', 'range_value');
+    }
+    if(i==4){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Hotels ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Hotels-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value5')
+            .attr('class', 'range_value');
+    }
+    if(i==5){
+        tr.append('td')
+            .attr('class', 'edit')
+            .attr('contenteditable', false)
+            .text('Special Touches ');
+        tr.append('td')
+            .append('input')
+            .attr('type', 'range')
+            .attr('data-id', i)
+            .attr('class', 'range '+'Touches-color')
+            .attr('step', 1)
+            .attr('min', 0)
+            .attr('max', 100);
+        tr.append('td')
+            .attr('id', 'range_value6')
+            .attr('class', 'range_value');
+    }
+    }
+    d3.selectAll('#rangebox .range').each(function () {
+        var def = parseInt(100 / nb_sliders);
+        this.value = def;
+        oldValue[d3.select(this).attr('data-id')] = this.value;
+    });
+
+    //equalize();
+    showValues();
+    pieChart();
+
+    // content edit event
+    d3.selectAll('.edit').on('input', function () {
+        updateLabels();
+    });
+
+    // slider event
+    d3.selectAll('.range').on('mouseup', function () {
+        
+  // count 0 values of all element to stop chart to get blank
+  var cnt = 0;
+  d3.selectAll('#rangebox .range').each(function () {
+            
+   var r_val1 = this.value;
+   if(r_val1 == 0)
+   {
+    cnt++;
+   }
+      
+        });
+  
+  
+  if (cnt==6) {
+   // nothing will be changed in chart
+   // xyz=d3.select(this).attr('data-id');
+  //   alert($(this).closest('td').next().find(xyz).val());
+     $('td.range_value').text('0%');
+     $('#messagenotif15').text('Total = 0 %');
+          }else
+    {
+   
+   this.value = parseInt(this.value);
+        if (this.value < 0) this.value = 0;
+        else if (this.value > 100) this.value = 100;
+
+        var id = d3.select(this).attr('data-id');
+        moving_id = id;
+
+        var old_value = oldValue[moving_id];
+       var new_value = this.value;
+       var delta = (new_value - old_value) / (nb_sliders - 1);
+  var tot = 0;
+        d3.selectAll('#rangebox .range').each(function () {
+            var r_id = d3.select(this).attr('data-id');
+            var r_val = this.value;
+    
+    tot = tot + parseInt(r_val);
+   
+        });
+  
+    // code to show current total of chart
+     document.getElementById('validchart').value = tot;
+                 oldValue[moving_id] = new_value;
+                 $("#messagenotif15").text("Total=" + tot+"%");
+                 if(tot==100)
+                 {
+                 $("#messagenotif12").text("")
+                 }
+    showValues();
+          updatePieChart();
+    }
+
+       
+   
+    });
+     d3.selectAll('.range').on('mousemove', function () {
+        
+  // count 0 values of all element to stop chart to get blank
+  var cnt = 0;
+  d3.selectAll('#rangebox .range').each(function () {
+            
+   var r_val1 = this.value;
+   if(r_val1 == 0)
+   {
+    cnt++;
+   }
+      
+        });
+  
+  
+  if (cnt==6) {
+   // nothing will be changed in chart
+   // xyz=d3.select(this).attr('data-id');
+  //   alert($(this).closest('td').next().find(xyz).val());
+     $('td.range_value').text('0%');
+     $('#messagenotif15').text('Total = 0 %');
+          }else
+    {
+   
+   this.value = parseInt(this.value);
+        if (this.value < 0) this.value = 0;
+        else if (this.value > 100) this.value = 100;
+
+        var id = d3.select(this).attr('data-id');
+        moving_id = id;
+
+        var old_value = oldValue[moving_id];
+       var new_value = this.value;
+       var delta = (new_value - old_value) / (nb_sliders - 1);
+  var tot = 0;
+        d3.selectAll('#rangebox .range').each(function () {
+            var r_id = d3.select(this).attr('data-id');
+            var r_val = this.value;
+    
+    tot = tot + parseInt(r_val);
+   
+        });
+  
+    // code to show current total of chart
+     document.getElementById('validchart').value = tot;
+                 oldValue[moving_id] = new_value;
+                 $("#messagenotif15").text("Total=" + tot+"%");
+                 if(tot==100)
+                 {
+                 $("#messagenotif12").text("")
+                 }
+    showValues();
+          updatePieChart();
+    }
+
+       
+   
+    });
+     d3.selectAll('.range').on('mousedown', function () {
+        
+  // count 0 values of all element to stop chart to get blank
+  var cnt = 0;
+  d3.selectAll('#rangebox .range').each(function () {
+            
+   var r_val1 = this.value;
+   if(r_val1 == 0)
+   {
+    cnt++;
+   }
+      
+        });
+  
+  
+  if (cnt==6) {
+   // nothing will be changed in chart
+   // xyz=d3.select(this).attr('data-id');
+  //   alert($(this).closest('td').next().find(xyz).val());
+     $('td.range_value').text('0%');
+     $('#messagenotif15').text('Total = 0 %');
+          }else
+    {
+   
+   this.value = parseInt(this.value);
+        if (this.value < 0) this.value = 0;
+        else if (this.value > 100) this.value = 100;
+
+        var id = d3.select(this).attr('data-id');
+        moving_id = id;
+
+        var old_value = oldValue[moving_id];
+       var new_value = this.value;
+       var delta = (new_value - old_value) / (nb_sliders - 1);
+  var tot = 0;
+        d3.selectAll('#rangebox .range').each(function () {
+            var r_id = d3.select(this).attr('data-id');
+            var r_val = this.value;
+    
+    tot = tot + parseInt(r_val);
+   
+        });
+  
+    // code to show current total of chart
+     document.getElementById('validchart').value = tot;
+                 oldValue[moving_id] = new_value;
+                 $("#messagenotif15").text("Total=" + tot+"%");
+                 if(tot==100)
+                 {
+                 $("#messagenotif12").text("")
+                 }
+    showValues();
+          updatePieChart();
+    }
+
+       
+   
+    });
+}
+
+// get JSON data from sliders
+function getData() {
+    var json = [];
+    d3.selectAll('#rangebox .range').each(function () {
+
+        json.push({
+            label: d3.select(this.parentNode.parentNode)
+                .select('td:first-child')
+                .text(),
+            value: this.value
+        });
+    });
+    return json;
+}
+
+// compute total percentage from sliders
+function getTotal() {
+    var total = 0;
+    d3.selectAll('#rangebox .range').each(function () {
+        total = total + parseInt(this.value);
+    });
+    return total;
+}
+
+// equalize the sliders (decimal delta)
+
+// show slider value
+function showValues() {
+    d3.selectAll('#rangebox .range').each(function () {
+        var perct = this.value + '%';
+        d3.select(this.parentNode.nextSibling).html(perct);
+    });
+}
+
+// draw pie chart
+function pieChart() {
+    var json = getData();
+
+    d3.select("#pie svg").remove();
+
+    // svg canvas
+    var svg = d3.select("#pie")
+        .append("svg:svg")
+        .attr("width", radius * 2)
+        .attr("height", radius * 2)
+        .append("svg:g")
+        .attr("transform", "translate(" + radius + "," + radius + ")");
+
+    // slices
+    var arcs = svg.selectAll("path").data(pie(getData()))
+
+    // render the slices
+    arcs.enter()
+        .append('svg:path')
+        .attr("fill", function (d, i) {
+        return color(i);
+    })
+        .attr("d", arc)
+        .each(function (d) {
+        this._current = d;
+    })
+        .append('title')
+        .text(function (d, i) {
+        return json[i].value + '%';
+    });
+
+    // render the labels
+    arcs.enter()
+        .append("svg:text")
+        .attr("transform", function (d) {
+        return "translate(" + arc.centroid(d) + ")";
+    })
+        .attr("text-anchor", "middle")
+        .text(function (d, i) {
+        if (json[i].value > 1) return json[i].label;
+        else return null;
+    });
+}
+
+// update pie chart
+function updatePieChart() {
+    updateArcs();
+    updateLabels();
+}
+
+// update the slices of the pie chart
+function updateArcs() {
+    var json = getData();
+
+    d3.selectAll("#pie path title")
+        .text(function (d, i) {
+        return json[i].value + '%';
+    });
+
+    d3.selectAll("#pie path")
+        .data(pie(json))
+        .transition()
+        .duration(700)
+        .attrTween('d', arcTween);
+}
+
+// update the labels of the pie chart
+function updateLabels() {
+    d3.selectAll("#pie text")
+        .data(pie(getData()))
+        .transition()
+        .duration(700)
+        .attr("transform", function (d) {
+        return "translate(" + arc.centroid(d) + ")";
+    })
+        .text(function (d, i) {
+        if (getData()[i].value > 0) return getData()[i].label;
+        else return null;
+    });
+}
+
+// transition for the arcs
+function arcTween(a) {
+    var i = d3.interpolate(this._current, a);
+    this._current = i(0);
+    return function (t) {
+        return arc(i(t));
+    };
+}
+
+        })(jQuery);
+ $(document).ready(function(){       
+        var sum = 0;
+        $( "range" ).change(function() {
+  alert( "Handler for .change() called." );
+});
+$('.totalprice').each(function(){
+    sum += parseInt($(this).text());  //Or this.innerHTML, this.innerText
+});
+});
+</script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+								
+				$('.buyButton').each(function(){
+					analytics.trackLink($(this), 'Purchase');
+				});	
+				
+				$('.downloadButton').each(function(){
+					analytics.trackLink($(this), 'Download PDF');
+				});
+				
+				$(".budget").budgetChooser({
+					'inputname' : 'budget'
+				});
+				
+		        var info = SocialShare.getDefaultValues();
+		        info.url = $("#soc_share_guide_overview_link").val();
+		    	Facebook.enable(info);
+		    	var twInfo = {'via': 'Buggl', 'title': $('#twitter-btn').attr('tw-text'), 'hashtags' : '' };
+		    	twInfo.url = $("#soc_share_guide_overview_link").val();
+		    	twInfo.shortenedUrl = $("#soc_share_guide_overview_link").val();
+		    	Twitter.enable(twInfo);
+		    	GPlus.enable(info);
+				var pinInfo = SocialShare.getDefaultValues();
+				pinInfo.url = $("#soc_share_guide_overview_link").val();
+				pinInfo.description = $("<p>"+$('#pin-btn').attr('pin-desc')+"</p>").text();
+				Pinterest.enable(pinInfo);
+				
+	            $('a#follow').on('click',function(e){
+	                e.preventDefault();
+
+	                var slug = $(this).attr('href');
+	                var action = $(this).attr('data');
+	                var self = $(this);
+
+	                $.getJSON("{{ path('local_author_follow') }}",{follow:slug,action:action},function(data){
+	                    if(data.success){
+	                        self.html(data.text);
+	                        self.attr('data',data.value);
+							self.removeClass("follow_0");
+							self.removeClass("follow_1");
+							self.addClass("follow_"+data.value);
+	                    }
+	                });
+	            });
+
+
+            	var exists = $('#wishlistbtn').attr('value');
+
+            	if(exists==1){
+            		$('#sign').text("Remove from Wishlist");
+            		$('#wishlistbtn').addClass("remove").attr('action','{{  path('buggl_remove_from_wishlist') }}');
+            		exists=0;
+            	}
+            	else{
+            		$('#wishlistbtn').attr('action','{{  path('buggl_add_to_wishlist') }}');
+            		exists=1;
+            	}
+
+            	$('#wishlistbtn').click(function(event){
+            		event.preventDefault();
+            		$(this).toggle();
+            		if(exists==1){
+            			var url = $(this).attr('action');
+	            		var serial = $('#wishlistdiv').serialize();
+
+	            		$.post(url,serial,function(data){
+	            			$('#sign').text("Remove from Wishlist");
+	            			$('#wishlistbtn').addClass("remove").attr('action','{{  path('buggl_remove_from_wishlist') }}').toggle();
+		            		exists=0;
+		                });
+
+            		}
+            		else{
+            			var url = $(this).attr('action');
+	            		var serial = $('#wishlistdiv').serialize();
+
+	            		$.post(url,serial,function(data){
+	            			$('#sign').text("Add to Wishlist");
+	            			$('#wishlistbtn').removeClass("remove").attr('action','{{  path('buggl_add_to_wishlist') }}').toggle();
+		            		exists=1;
+		                });
+            		}
+
+            	});
+
+            	$('#post-review').on('click',function(e){
+	                e.preventDefault();
+
+	                var url = $(this).attr('href');
+
+	                var content = $('#rating-content').val();
+	                var rating = $('#rating').val();
+	                var me = $(this);
+
+	                if(content.length > 0 && rating > 0)
+	                {
+	                    $("#postReviewLoader").show();
+	                    $(".rateme > div").hide();
+	                    me.hide();
+	                    $.getJSON(url,{rating:rating, content:content, travelguide:{{ guide.id }} },function(data){
+	                        $('#rating-content').val('');
+	                        window.location.reload();
+	                    });
+	                }
+	                else{
+	                    $.fn.bugglAlert({
+	                        'title' : 'Error',
+	                        'content' : '<p>Please complete both review and rating.</p>',
+	                        'revealOptions' : {
+	                            'closeOnBackgroundClick':false
+	                        }
+	                    });
+	                }
+	            });
+
+            });
+
+			
+        })(jQuery);
+    </script>
+
+{% endblock %}
+

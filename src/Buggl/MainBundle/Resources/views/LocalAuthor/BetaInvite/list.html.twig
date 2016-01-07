@@ -1,0 +1,28 @@
+<section class="lista bugglPaginationContents">
+	<h3 class="reg_box"> {{ activeTab|capitalize }} <nav class="adminOpt"><a href="{{ path('local_author_beta_invite') }}" onclick="return false;" class="btn addButton"></span>Invite</a></nav></h3>
+	
+	{% for invite in invites %}
+		<div>
+			<img border="0" align="left" src="{{ invite.email | gravatar }}" width="60" height="60">
+			<span class="name">{{ invite.email }}</span>
+			{% if activeTab == 'pending' and invite.tokenExpiration | isExpired and false %}
+				<p><em>This invitation has expired.</em></p>
+			{% endif %}
+			{% if activeTab == 'pending' %}
+				<nav class="mini">
+					<a class="feature btn fr" href="{{ path('local_author_beta_invite_delete',{'id':invite.id}) }}">delete</a>
+		            <a class="feature btn fr" href="{{ path('local_author_beta_invite_resend',{'id':invite.id}) }}">resend</a>
+				</nav>
+			{% endif %}	
+		</div>
+	{% else %}
+		<div>
+			{% if activeTab == 'pending' %}
+				<p>You have not invited anyone yet.</p>
+			{% else %}
+				<p>Your friends have not accepted your invitation yet.</p>
+			{% endif %}	
+		</div>
+	{% endfor %}
+</section>
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'itemLimit':itemLimit,'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':invites|length,'dataUrl':dataUrl} %}

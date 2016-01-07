@@ -1,0 +1,65 @@
+{% extends "BugglMainBundle:Markup/Markup:adminLocationLayout.html.twig" %}
+
+{% block title %}Location{% endblock %}
+
+{% block list %}
+    <ul class="eguide-list site-admin-list">
+        {% for i in 0..3 %}
+        <li class="clearfix">
+            <div class="to-left">
+                <h3>country name</h3> 
+                <span>Country</span>                      
+            </div>
+            <ul class="site-admin-list-actions to-right horizontalize"> 
+                <li><a href="">approve</a></li>
+				<li><a href="">deny</a></li>
+            </ul>
+        </li>
+        {% endfor %}
+        
+        
+        
+        <!-- this is for country tabm where they can add interests, interest list only shows when 'view interests list is clicked' -->
+        <li class="clearfix">
+            <div>
+                <h3>country name</h3>  
+                <!-- if viewing the countries tab -->
+	            <span><a href="">view featured interests</a><span> <!-- location type in pending is replaced with 'view interests' -->
+	            <ul class="featured-interests horizontalize">
+	            	<li>
+	            		<a class="close" href=""></a>
+	            		<img src="" />
+	            		<span>Biking</span>                   		  
+	            	</li>
+	            	<li>
+	            		<a class="close" href=""></a>
+	            		<img src="" />
+	            		<span>Biking</span>                   		  
+	            	</li>
+	            	<li>
+	            		<a class="close" href=""></a>
+	            		<img src="" />
+	            		<span>Biking</span>                   		  
+	            	</li>
+	            	<li>
+	            		<a class="close" href=""></a>
+	            		<img src="" />
+	            		<span>Biking</span>                   		  
+	            	</li> 
+	            	<li>
+	            		<a class="close" href=""></a>
+	            		<img src="" />
+	            		<span>Biking</span>                   		  
+	            	</li>                    	                    	
+	            </ul>
+        		<!-- end -->                     
+            </div>
+            <ul class="site-admin-list-actions horizontalize"> 
+                <li><a href="">+ add interests</a></li> <!-- opens a modal to add an interest and photo for a specific country -->
+				<li><a href="">delete</a></li>
+            </ul>
+        </li>
+        
+        
+    </ul>
+{% endblock %}

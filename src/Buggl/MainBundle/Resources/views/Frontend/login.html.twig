@@ -1,0 +1,71 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Buggl Login {% endblock %}
+
+{% block main_content %}
+
+<div class="row">
+	<article id="loginModal" class="bd-reveal">
+			<h2>Login</h2>
+			<div class="fb-sign">
+    			<h4>Log in through Facebook</h4>
+    			<a href="{{ path('login_via_facebook_url') }}" id="loginViaFb">
+    				<img border="0" alt="Connect to Facebook" src="/bundles/bugglmain/images/connectfb.png">
+    			</a>
+    			{% if false %}
+    			<span>You can also login using <a href="/app_dev.php/login-via-twitter">twitter</a> and <a href="/app_dev.php/login-via-google">google</a>.</span>
+    			{% endif %}
+    		</div>
+			<div class="content">
+				{% if app.session.hasFlash('error') %}
+				    <div class="info">
+						<h3>Please re-enter your password</h3>
+						<p>
+						The password you entered is incorrect. Please try again (make sure your caps lock is off).<br/>
+						Forgot your password? <a class="new-pass" href="{{ path('buggl_password_reset_request', {'userType' : 'local-author'}) }}">Request a new one.</a>
+						</p>
+					</div>
+				{% endif %}
+
+				<h4>Login with your Buggl account</h4>
+				<form action="{{ path('login_check') }}" method="post" class="form-section form" id="loginForm">
+					<input type="text" name="_username" size="28" placeholder="Username"/>
+					<input type="password" name="_password" size="28" placeholder="Password"/>
+					<div>
+						<a href="{{ path('buggl_password_reset_request', {'userType' : 'local-author'}) }}" target="_blank">Forgot Password?</a>
+						<p>No Account? Register <a href="{{ path('registration') }}" id="signupButton">Here.</a></p>
+					</div>
+					<div class="submit-section">
+						<input class="btn msg fr" type="submit" value="login"/>
+					</div>
+
+				</form>
+			</div>
+	</article>
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+				if(window.location.href.indexOf('buy-guide')){
+					analytics.trackLink($('#loginViaFb'), 'Purchase - Login',{
+						'sign up via' : 'FB'
+					});
+					
+					analytics.trackForm($('#loginForm'), 'Purchase - Login',{
+						'sign up via' : 'Email'
+					});
+					
+					analytics.trackLink($('#signupButton'), 'Register New User');
+				}
+            });
+        })(jQuery);
+    </script>
+	
+{% endblock %}

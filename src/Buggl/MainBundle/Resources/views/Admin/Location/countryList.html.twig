@@ -1,0 +1,33 @@
+<li class="clearfix" name="country_list">
+    <div name="parent-categories">
+        <h3>{{ list.name }}</h3>  
+        <span><a href="" name="accordion">interests</a></span>
+        <ul class="featured-interests horizontalize" style="display:none"  name="category_lists">
+            {% for object in list.categories %}
+                {% include 'BugglMainBundle:Admin/Location:categoryList.html.twig' %}
+            {% else %}
+                <li name="no-entry">No Categories for this country yet</li>
+            {% endfor %}
+        </ul>
+        <span><a href="" name="accordion">featured guides</a></span>
+        <ul class="eguide-list site-admin-list horizontalize" style="display:none" name="guide_lists">
+            {% for each in featured[list.id] %}
+                <li class="clearfix" name="featured_guide_list">
+                    <div>
+                        <h3>{{ each.plainTitle }}</h3>       
+                        <span class="eguide-author">local author: {{ each.localAuthor.name }}</span>
+                        <span class="eguide-price">price: $ {{ each.price|number_format(2) }}</span>
+                    </div>
+                    <ul class="site-admin-list-actions horizontalize"> 
+                        <li><a href="{{ each.id }}" name="remove-feature">remove</a></li>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <ul class="site-admin-list-actions horizontalize"> 
+        <li><a href="{{list.id}}" name="category">+ add interests</a></li> 
+        <li><a href="{{list.id}}" name="country">edit</a></li>
+        <li><a href="{{list.id}}" name="feature">feature guide</a></li>
+    </ul>
+</li>

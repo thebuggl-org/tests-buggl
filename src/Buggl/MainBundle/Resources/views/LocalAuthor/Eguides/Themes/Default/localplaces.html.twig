@@ -1,0 +1,35 @@
+<div class="page">
+	<div class="main-page clearfix">
+		<div class="first-half half {{ (page <= 2) ? 'page-intro' : 'spot' }}">
+			{% if page <= 2 %}
+				{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:localplacesIntro.html.twig" %}
+				{% set right = (attribute(spotDetails, 0) is defined) ? attribute(spotDetails, 0) : null %}
+			{% else %}
+				{% set left = (attribute(spotDetails, 0) is defined) ? attribute(spotDetails, 0) : null %}
+				{% set right = (attribute(spotDetails, 1) is defined) ? attribute(spotDetails, 1) : null %}
+				{% if left is not null %}
+					{% set hightlighted = (cycle(['odd', 'even'], page) == 'even') ? true : false %}
+					{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:localplacesSpot.html.twig" with { 'sd' : left.detail, 'hightlighted' : hightlighted, 'eguide' : eguide, 'page' : page } %}
+				{% else %}
+					<a class="add-spot" href="" name="add-local-secret" data-page="{{ page + 1 }}" data-daynum="0">
+						<span></span>
+						ADD YOUR SECRETS
+					</a>
+				{% endif %}
+			{% endif %}
+		</div>
+		<div class="second-half half spot">
+			{% if right is not null %}
+				{% set hightlighted = (cycle(['odd', 'even'], page) == 'odd') ? true : false %}
+				{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:localplacesSpot.html.twig" with { 'sd' : right.detail, 'hightlighted' : hightlighted, 'eguide' : eguide, 'page' : page } %}
+			{% else %}
+				<a class="add-spot" href="" name="add-local-secret" data-page="{{ page + 1 }}" data-daynum="0">
+					<span></span>
+					ADD YOUR SECRETS
+				</a>
+			{% endif %}
+		</div>
+	</div>
+	{% include 'BugglMainBundle:LocalAuthor/Eguides/Themes/Default:pageNavigation.html.twig' with {'travel_guide_id':eguide.id,'prev_page':'author','next_page':'itinerary'} %}
+</div>	
+

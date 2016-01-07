@@ -1,0 +1,55 @@
+{% extends "BugglMainBundle:LocalAuthor/Payments:index.html.twig" %}
+
+{% block payment_content %}
+	<article class="grid_8 column">	
+		<section>
+			<h3>Payment Settings</h3>
+			<div class="reg_box">
+			{% if stripeInfo is not null and stripeInfo.accessToken is not null and stripeInfo.accessToken is not empty %}
+			
+				<p>
+					If you want to change the stripe account you use for payments. Disconnect your current account by clicking the link below.
+				</p>
+				<p>
+					<strong>NOTE:</strong> Once your account is disconnected, Buggl will not use it for any of your transactions anymore but you are responsible for revoking Buggl's access through your Stripe account's settings. 
+				</p>
+				<a href="{{ path('disconnect_stripe') }}" class="btn">Disconnect Stripe Account.</a>
+			{% else %}
+				<p>
+					Connect your <a href="https://stripe.com" target="_blank">stripe</a> account to start accepting payments.
+				</p>
+				<p>
+					<strong>NOTE:</strong> Users won't be able to buy your travel guides if you do not have an account connected. 
+				</p>
+				<a href="{{ path('connect_with_stripe') }}"><img src="{{ asset('bundles/bugglmain/images/connect.png') }}"/></a>
+			
+			{% endif %}
+			</div>	
+		</section>
+	</article>
+{% if app.user.isLocalAuthor %}
+<div id="reqcount" class="reveal-modal">
+<h2>  <a class="close-reveal-modal">&#215;</a> </h2>
+    <div class="content">
+   
+<a href="{{ path('e_guide_request') }}" class="guide-request {% if newRequestCount %}red{% endif %}"><span class="ico"></span> You have {{ newRequestCount }} new Itinerary Request{{ newRequestCount != 1 ? 's' : '' }}</a>
+</div></div>{% endif %}
+{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+{% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.pagination.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+		<script>
+			$(document).ready(function(){
+if({{newRequestCount}}>=1)
+{		
+	$("div#reqcount").reveal();
+}
+				$('.bugglPagination').paginate();
+			});
+		</script>
+	{% endjavascripts %}
+{% endblock %}

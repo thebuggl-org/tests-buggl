@@ -1,0 +1,90 @@
+body {
+    background-color: #fff;
+    font-family: 'Vollkorn', serif;
+    font-size: 90%;
+    color: #444;
+    min-width: 800px;
+}
+
+h2, h3, h4 {
+	font-family: Open Sans, sans-serif;
+	font-style: italic;
+	margin-bottom: 5px;
+}
+
+h2 { font-size: 24px; font-weight: 700; color: #E63A2E; margin-bottom: 3em; }
+h3 { font-size: 18px; font-weight: 600; }
+h2 a, h2 a:hover, h4 a, h4 a:hover { color: #E63A2E; }
+h3 a, h3 a:hover { color: #000; }
+
+.header * { margin-left: 18%; }
+.header img, .header h2  { margin-bottom: 1em; color: #fff; text-shadow: 1px 1px 1px #444; }
+
+.intro { font-size: 1.5em; line-height: 1.2; font-style: italic; }
+
+.sidenote {
+    clear: left;
+    float: left;
+    font-size: 0.9em;
+    font-style: normal;
+    margin: 0 0 1em -41%;
+    page-break-inside: avoid;
+    text-align: right;
+    text-indent: 0;
+    width: 37%;
+}
+
+.toc { padding: 0 2% 2% 18%; border-bottom: 2px dashed #ddd; }
+.toc ul { width: 45%; float: left; margin-right: 2em; }
+.toc ul:nth-child(2n+2) { clear:both; }
+.toc li { background: transparent url('../../images/dot.gif') repeat-x left center;  }
+.toc li:first-child { font-size: 1.5em; }
+.toc li:first-child a { color: #E63A2E; padding-left: 0; }
+.toc li:first-child a:last-child { padding-left: 1em; padding-right: 0; font-size: 16px; margin-bottom: 3px; }
+.toc li a:last-child { float: right; padding-right: 0; }
+
+.toc li a  { color: #444; padding: 0 1em; background-color: #fff;  }
+.toc li a:hover { color: #E63A2E; border-bottom: 1px dotted #E63A2E; }
+
+.chapter {
+    counter-increment: chapter;
+    overflow: visible;
+    border-bottom: 2px dashed #ddd;
+	padding: 0 2% 2% 18%;
+}
+
+.chapter > * { overflow: visible; }
+
+.chapter .list { margin-top:2em; overflow: hidden; }
+.chapter .list li { margin-bottom: 2em; overflow: hidden; padding-bottom: 1em; border-bottom: 1px solid #eee; }
+.chapter .list li:last-child { border-bottom: none; }
+.chapter .list h4 { overflow: hidden }
+.chapter .list h4 a { float: left; }
+
+.chapter .list h4 a:last-child { float:left; clear:both; font-size: 14px; color: #837f8e; font-family: "lucida grande"; font-style: normal; }
+.chapter .list h4 a:first-child { color: #E63A2E; font-family: Open Sans, sans-serif; font-size: 1.1em; }
+
+.chapter h2:before {
+    font-family: 'Vollkorn',serif;
+    font-size: 60%;
+    font-style: normal;
+    font-weight: 400;
+    margin-left: -2.5cm;
+    white-space: pre;
+    color: #777;
+    
+}
+.chapter h2:before {
+    content: "Chapter " counter(chapter, decimal) " \A ";
+}
+
+.guide_stats ul li {
+	float: left;
+	border: 1px solid #eee;
+	margin: 1px;
+	width: 45%;
+}
+
+.guide_stats ul li:nth-child(2n+2) {
+	background-color: #fff;
+}

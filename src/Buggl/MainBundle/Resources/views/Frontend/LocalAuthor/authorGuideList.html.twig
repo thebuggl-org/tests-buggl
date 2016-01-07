@@ -1,0 +1,63 @@
+	{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+	
+	{% block title %}
+		Published Guides of {{localAuthor.name}}
+	{% endblock %}
+	
+	{% block main_content %}
+		<div class="row profileInfoContainer">
+			<article class="column grid_12 all-author-guides">
+				<section>
+					<h1>Published Guides of {{localAuthor.name}} </h1>
+					<ul class="dreamlist">
+						{% include 'BugglMainBundle:Frontend/LocalAuthor:publishedGuideList.html.twig' with {"localAuthor" : localAuthor, "guides" : guides} %}
+					</ul>
+				</section>
+			</article>
+			{% if guides.count > limit %}
+			<div class="load-more-section">
+				<a href="{{ path('local_author_guide_list', {slug : localAuthor.slug, page : page + 1}) }}" id="load-more">LOAD MORE</a>
+				<span id="loader"></span>
+			</div>
+			{% endif %}
+		</div>
+	
+	{% endblock %}
+
+	{% block javascripts %}
+		{{ parent() }}
+	
+		<script type="text/javascript">
+			$().ready(function(){
+				$("#loader").hide();
+				$("a#load-more")
+				.on("click", function(e){
+					e.preventDefault();
+					var me = this;
+					var url = $(me).attr('href');
+					$.ajax({
+						url: url,
+						dataType: "json",
+						beforeSend: function(){
+							$(me).hide();
+							$("#loader").show();
+						},
+						success: function(response){
+							$("#loader").hide();
+							if( response.nextPage <= response.totalPages ){
+								$(me).show();
+								var nUrl = url.replace(/[^\/]+$/, response.nextPage);
+								$(me).attr("href", nUrl);
+							}
+							else {
+								$(me).parent().hide();
+							}
+							
+							$(".dreamlist")
+							.append(response.html);
+						}
+					})
+				});
+			});
+		</script>
+	{% endblock %}

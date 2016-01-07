@@ -1,0 +1,40 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+
+    {#<h1>Hey {{ eguiderequests.localAuthor.name }},</h1>
+        <p>You have a guide request by <a href="{{ path('local_author_profile', { slug:eguiderequests.user.slug },true) }}">{{ eguiderequests.user.name }}</a>
+        <p>With the following requirements:</p>
+
+        <ul class="eguiderequests-info">
+            <li><strong>Country:</strong> {{ eguiderequests.country.name }} </li>
+            <li><strong>Trip Theme:</strong> {{eguiderequests.triptheme.name }} </li>
+            <li><strong>Category:</strong> {{ eguiderequests.category.name }} </li>
+            <li><strong>Duration:</strong> {{ eguiderequests.duration.name }} </li>
+            <li><strong>Good For:</strong> {{ eguiderequests.goodfor.name }} </li>
+            <li><strong>Travel Budget:</strong> {{ eguiderequests.budget }} stars </li>
+            <li><strong>Guide Price Point:</strong> ${{ eguiderequests.price | number_format(2, '.', ',') }} </li>
+            <li><strong>Further Details:</strong> <p><em><q>{{ eguiderequests.message }}</q></em></p></li>
+        </ul>
+    <h1>Hey {{ eguiderequests.user.name }},</h1>#}
+    <p>you have new message from buggl </p>
+
+   
+    
+	<p>please check <a href="{{ link }}">here</a></p>
+
+    <p>With the following requirements:</p>
+
+  {#  <ul class="eguiderequests-info">
+        <li><strong>Country:</strong> {{ eguiderequests.country.name }} </li>
+        <li><strong>Trip Theme:</strong> {{eguiderequests.triptheme.name }} </li>
+        {% if eguiderequests.category is not null %}<li><strong>Category:</strong> {{ eguiderequests.category.name }} </li> {% endif %}
+        <li><strong>Good For:</strong> {{ eguiderequests.goodfor.name }} </li>
+        <li><strong>Travel Budget:</strong> {{ eguiderequests.budget }} stars </li>
+        <li><strong>Guide Price Point:</strong> ${{ eguiderequests.price | number_format(2, '.', ',') }} </li>
+        <li><strong>Further Details:</strong> <p><em><q>{{ eguiderequests.message }}</q></em></p></li>
+    </ul>#}
+
+  <p>Safe Travels,</p>
+  <p><strong>The Buggl Team</strong></p>
+{% endblock %}

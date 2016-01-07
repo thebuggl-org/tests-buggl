@@ -1,0 +1,140 @@
+
+
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Messages{% endblock %}
+
+{% block precontent_title %}
+    Messages
+{% endblock %}
+
+{% set active = 'guide_request' %}
+
+{% block main_content %}
+
+    <div class="row">
+        <aside class="admin-messages column grid_4">
+            {% include 'BugglMainBundle:LocalAuthor/Messages:messagesTabs.html.twig' with {'active':activeTab} %}
+        </aside>
+        {% block inner_content %}
+            <article class="grid_8 column">
+            <section class="inbox">
+                <h3>{% block eguide_tab_title %}Guide Request{% endblock %}</h3>
+
+			    <ul id="messageList">
+
+		    		<li class="message a">
+				            <img width="60" height="60" border="0" align="left" src="{{ asset(request.user.profile | profilePic) }}">
+				            <span class="name">{{ request.user.name }}</span>
+				        	    <p>You have a guide request made by
+									{% if request.user.isLocalAuthor %}
+										<a href="{{ path('local_author_profile', { slug:request.user.slug }) }}"> {{ request.user.name }}</a>.
+									{% else %}
+										{{ request.user.name }}
+									{% endif %}
+								</p>
+				            	<p>With the following requirements:</p>
+
+				            <ul class="request-info">
+					                <li><strong>Country:</strong>
+					                	{% if request.country is not null %}
+					                		{{ request.country.name }}
+					                	{% else %}
+					                		No Country Specified
+					                	{% endif %}
+					                </li>
+					                 <li><strong>Reason:</strong> {{ request.reason }} </li>
+					                 <li><strong>Experience:</strong> {{ request.experience }} </li>
+					                <li><strong>Pace:</strong> {{ request.pace }} </li>
+					               {# <li><strong>Trip Theme:</strong> {{request.triptheme.name }} </li>#}
+					                {% if false %}
+					                	<li><strong>Category:</strong> {{ request.category.name }} </li>
+					                	<li><strong>Duration:</strong> {{ request.duration.name }} </li>
+					                {% endif %}
+					                <li><strong>Who is going?:</strong> {{ request.goodfor.name }} </li>
+					                {#<li><strong>Trip Budget:</strong> {{ request.budget }} star{{ request.budget > 1 ? 's' : '' }} </li>#}
+					                <li><strong>Food Budget:</strong> {{ request.food }} </li>
+					                <li><strong>Drink Budget:</strong> {{ request.drinking }} </li>
+					                <li><strong>Shopping Budget:</strong> {{ request.shopping }} </li>
+					                <li><strong>Hotel Budget:</strong> {{ request.hotel }} </li>
+					                <li><strong>Special Touches Budget:</strong> {{ request.specialtouches }} </li>
+					                
+									<li><strong>What would you pay for this travel guide?:</strong> {{ request.price }} </li>
+				            </ul>
+				        <p>{{ request.message }}</p>
+
+			            <p><span class="time"><strong>{{ request.dateadded|date('m-d-Y | h:iA') }}</strong></span></p>
+		        	</li>
+
+				</ul>
+	<div class="reg_box comments">
+	            <form id="replyForm" action="{{ path('e_guide_reply_message') }}" method="POST">
+	                <textarea style="" name="message"></textarea>
+					<input class="btn" type="submit" value="Reply"/>
+					<input type='hidden' name='threadId' value="hi"/>
+	            </form>
+	        </div>
+            </section>
+        </article>
+
+        {% endblock %}
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                $('#replyForm').on('submit',function(e){
+                	e.preventDefault();
+					if($('textarea[name="message"]').val().trim() == ''){
+						return false;
+					}
+					
+					var me = $(this);
+					$.post(me.attr('action'),me.serialize(),function(reponse){
+						$('#messageList').append(reponse);
+						$('textarea[name="message"]').val('');
+					});
+                });
+				
+				$('#ignore').on('click',function(e){
+					e.preventDefault();
+					
+					$('#newMessageNotification').hide();
+				});
+				
+				checkNewMessage = function(){
+					$.getJSON($('#messageList').attr('data-new-msg-checker-url'),function(response){
+						if(response.newMessagesCount > 0){
+							$('#newMessageCount').html(response.newMessagesCount+' ');
+							$('#inbox').addClass('red');
+						}
+						else{
+							$('#newMessageCount').html('');
+							$('#inbox').removeClass('red');
+						}
+							
+						if(response.newMessageId != 0 && response.newMessageId != $('#newMessageNotification').attr('data-new-message-id')){
+							$('#newMessageNotification').attr('data-new-message-id',response.newMessageId).show();
+							/*setTimeout(function(){
+								$('#newMessageNotification').hide();
+							},8000);*/
+						}
+						setTimeout(function(){
+							checkNewMessage();
+						},5000);
+						
+					});
+				}
+				
+				setTimeout(function(){
+					checkNewMessage();
+				},5000);
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

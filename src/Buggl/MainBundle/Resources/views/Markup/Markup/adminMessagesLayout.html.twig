@@ -1,0 +1,37 @@
+{% extends 'BugglMainBundle:Markup:adminLayout.html.twig' %}
+
+{% set current = 'messages' %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+    	<section class="admin-messages">
+    		<div class="reg_box">
+                <p class="admin-breadcrumbs">
+		            <a href="">{{ 'status'|capitalize }}</a>
+		        </p>
+
+		        <div class="content">
+		            <ul class="site-admin-tabs horizontalize">
+		            	<li class="{{ status|selected('messages','active') }}">
+		                    <a href="{{ path('admin_messages') }}">User Messages</a>
+		                </li>
+		                <li class="{{ status|selected('guiderequest','active') }}">
+		                    <a href="{{ path('admin_guide_request_message') }}">Guide Requests</a>
+		                </li>
+		                <li class="{{ status|selected('locationrequest','active') }}">
+		                    <a href="{{ path('admin_local_request_message') }}">Location Requests</a>
+		                </li>
+                        <li class="{{ status|selected('contactus','active') }}">
+                            <a href="{{ path('admin_contact_us') }}">Contact Us</a>
+                        </li>
+		            </ul>
+		        </div>
+		        {% block list %}
+		        {% endblock %}
+
+                <div id="pagination">
+                </div>
+    		</div>
+    	</section>
+    </article>
+{% endblock %}

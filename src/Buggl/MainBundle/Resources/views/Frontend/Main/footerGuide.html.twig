@@ -1,0 +1,8 @@
+<div class="column grid_3">
+    <h3 class="stnd">Hottest Travels Guides<span class="ico"></span></h3>
+    <ul class="box">
+        {% for guide in guides %}
+            <li><a href="{{ path('buggl_guide_overview',{slug:guide.slug}) }}">{{ guide.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

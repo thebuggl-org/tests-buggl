@@ -1,0 +1,184 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block precontent %}
+    <div class="row">
+        <div class="alt_header column grid_12">
+            <h2 class="fl">Browse fresh guidebooks built by locals in the know.</h2>
+            <form class="fr search">
+                <input type="text" value="Search" size="30"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="row">
+        <ul class="breadcrumb column grid_12">
+            <li><a href="#">Home</a></li>
+            <li>Become of True Boracayan with Janvan</li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+   <div class="row">
+        <header class="hd column grid_12">
+            <h2>Become of True Boracayan with Janvan</h2>
+            <nav>
+                <ul>
+                    <li><a href="{{ path('guide_overview_mark_up')  }}">Overview</a></li>
+                    <li><a href="{{ path('guide_itinerary_mark_up') }}" class="selected">Itinerary</a></li>
+                    <li><a href="{{ path('guide_before_leaving_mark_up') }}">Before You Go</a></li>
+                    <li class="buynow"><a href="#">Buy Now</a></li>
+                </ul>
+            </nav>
+        </header>
+        <aside class="column grid_4">
+            <section class="carousel">
+                    <ul>
+                        <li><a href="#">Boston Map<span class="ico"></span></a></li>
+                        <li><a href="#">Day 1<span class="ico"></span></a></li>
+                        <li><a href="#">Day 2 - 3<span class="ico"></span></a></li>
+                        <li><a href="#">Day 4 - 5<span class="ico"></span></a></li>
+                        <li><a href="#">Day 6<span class="ico"></span></a></li>                                 
+                        <li><a href="#">Day 7<span class="ico"></span></a></li>                                 
+                        <li><a href="#">Day 8 - 10<span class="ico"></span></a></li>
+                    </ul>
+            </section>
+        </aside>
+        <article class="feature column grid_8">
+            <section>
+                <div class="reg_box">
+                    <h3 class="nomargin">Boston Itinerary Map</h3>
+                </div>  
+                <img src="{{ asset('bundles/bugglmain/images/custom/itinerary_map.jpg') }}" border="0" align="left"> 
+                <div class="reg_box">   
+                    <input type="submit" value="Download Boston Itinerary Map">
+                </div>
+            </section>
+            <section>
+                <div class="reg_box">
+                    <h3>Day 1 "The Arrival"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+            </section>
+            <section>
+                <div class="reg_box stnd">
+                    <h3>Day 2 "Lets Go Buggl"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+                <div class="reg_box">
+                    <h3>Day 3 "To the Mayor"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+            </section>
+            <section>
+                <div class="reg_box stnd">
+                    <h3>Day 4 "Around the City Park"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+                <div class="reg_box">
+                    <h3>Day 5 "Wonderland"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+            </section>  
+            <section>
+                <div class="reg_box">
+                    <h3>Day 6 "Meet the C"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+            </section>  
+            <section>
+                <div class="reg_box">
+                    <h3>Day 7 "Underground Tunnel"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+            </section>  
+            
+            <section>
+                <div class="reg_box stnd">
+                    <h3>Day 8 'Goodbye Party"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+                <div class="reg_box stnd">
+                    <h3>Day 9 "Another Goodbye Party"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+                <div class="reg_box">
+                    <h3>Day 10 "Bye Bye Bye"</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>                                                              
+            </section>              
+        </article>
+    </div>
+{% endblock %}

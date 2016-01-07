@@ -1,0 +1,15 @@
+<form action="{{ path('local_author_beta_invite') }}" method="POST" id="inviteForm" novalidate>
+	<div class="form-section">
+		<span>
+			<label>Email</label>
+			{{ form_widget(form.email) }}
+			{{ form_errors(form.email) }}
+		</span>
+	</div>
+	{{ form_rest( form ) }}
+
+	<div class="form-section submit-section">
+		<br/>
+		<input class="site-admin-button" type="submit" value="Invite" />					
+	</div>
+</form>

@@ -1,0 +1,62 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+	<meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block main_content %}
+		<div class="row">
+			<article class="column grid_12">
+				<div class="row">
+					<section class="column custom cpage grid_12">
+						<div class="intro">
+							<h1>Our Tribe</h1>
+							<p>Meet the people who started Buggl</p>
+						</div>
+						<div class="tribe">
+							<div class="bx">
+								<img src="/bundles/bugglmain/images/derek.jpg" border="0" align="right" alt="Derek Bugley-Africa">
+								<h2>Derek Bugley</h2>
+								<p>Derek drives the company's vision and growth.  Derek's mission is to make travel planning simple, trustworthy and a discovery engine once again. To fully live like a local when he travels, Derek wanders off each year to a new place and trusts a local to help.  He is devoted to giving each person a fresh and unique experience every time they go away.</p> 
+
+								<p>Before Buggl, Derek worked in business development and strategy, helping entrepreneurs in a variety of capacities for over 13 years. He created Buggl not for himself, but for people around the world to connect and share inside knowledge in a safe and inspiring way.</p> 
+
+								<p>Derek's not just passionate about travel; he feels it makes people better human beings when they travel the right way.  He believes that what sets his company apart is a commitment to put travelers first.  It's his goal to show travelers with the places they are going through the people who live there..</p>
+								<div class="social">
+									<a class="bug" href="{{ path('local_author_profile' , {'slug' : 'derek-bugley-5'}) }}">view profile</a>
+									<a class="tw" href="https://twitter.com/dbugley">follow me on twitter</a>
+								</div>
+							</div>
+							<div class="bx">
+								<img src="/bundles/bugglmain/images/richard.jpg" border="0" align="right" alt="Ricard Walton-Costa Rica">
+								<h2>Richard Walton</h2>
+								<p>Richard motivates and verifies our travel insiders around the world. Travel is Richard's lifeblood, having spent his teenage years jaunting through Africa.  Since then he's gone on to start a leading eco travel company, which counts employees in nearly 40 countries.  Richard is fervent about connecting Buggl's customers with meaningful and interesting local people worldwide.</p>
+
+								<p>Richard spends every waking hour scouring the globe to find the best local talent who want to share their unique stories on our platform.  He feels that current travel technology isn't yet equipped to measure and match people within travel based on their personalities.  He founded Buggl to bridge that gap.</p>
+								<div class="social">
+									<a class="bug" href="{{ path('local_author_profile' , {'slug' : 'richard-walton-4'}) }}">view profile</a>
+									<a class="tw" href="https://twitter.com/rwgvi1">follow me on twitter</a>
+								</div>
+							</div>	
+							<div class="bx">
+								<img src="/bundles/bugglmain/images/troy.jpg" border="0" align="right" alt="Troy Peden-Machu Picchu">
+								<h2>Troy Peden</h2>
+								<p>Troy motivates our company's' tribe around the world and nurtures it as it grows.  He has committed his adult life to promoting authentic travel immersion experiences around the world.</p>
+
+								<p>When he's not sitting on a plane dreaming up the next location we should launch in, he's overseeing his vision at GoAbroad, where today it's one of the most successful alternative travel sites on the web.</p>
+
+								<p>Troy has been a leader in study, volunteer and work abroad for decades leading university study abroad offices, coordinating projects around the globe and founding NGO's with sustainable development missions. He is adamant about spreading the message of Buggl to people who want to travel with a more enriching experience both during and after their trip.</p>
+								<div class="social">
+									<a class="bug" href="{{ path('local_author_profile' , {'slug' : 'troy-peden-18'}) }}">view profile</a>
+									<a class="tw" href="https://twitter.com/tpeden">follow me on twitter</a>
+								</div>
+							</div>	
+								
+						</div>
+					</section>
+				</div>
+			</article>
+		</div>
+		
+{% endblock %}

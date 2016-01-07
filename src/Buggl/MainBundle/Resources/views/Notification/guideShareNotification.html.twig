@@ -1,0 +1,21 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<h1>Hey,</h1>
+
+	<p>{{ guideInfo.guide.localAuthor.name }} published a travel guide called <a href="{{ siteUrl~''~guideInfo.guideUrl }}">"{{ guideInfo.guide.plainTitle }}"</a> on Buggl. Hey would like you to come check it out!</p>
+
+    <div style="background: #f6f6f6;padding: 30px;margin: 29px 0;">
+		<div style="text-align:center; margin: 0 auto;">
+			<a href="{{ siteUrl~'/'~guideInfo.guideUrl }}" style="display:block">
+				<img src="{{ guideInfo.photoUrl }}" border="0" alt=" " width="400"/>
+			</a><br/>
+	        <a style="margin-bottom: 10px;display:block;" class="subphoto" href="{{ siteUrl~guideInfo.authorUrl }}"><img border="0" alt=" " width="40" height="40" src="{{ siteUrl~'/'~(guideInfo.guide.localAuthor.profile | profilePic ) }}"></a>
+	        <a style="text-decoration:none;" href="{{ siteUrl~guideInfo.authorUrl }}" class="subtext">{{ guideInfo.guide.localAuthor.name }}</a> - <span class="subtext">{{ guideInfo.guide.localAuthor.profile | nullObjectPlaceHolder('getWork') }}</span>
+		</div>	
+    </div>
+
+
+	<p>Thanks,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

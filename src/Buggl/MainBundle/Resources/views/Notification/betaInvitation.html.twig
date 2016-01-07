@@ -1,0 +1,19 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+	<p style="text-align:center; font-size: 13px; ">You've been invited to join Buggl, an exclusive community of local experts.</p>
+	<p style="padding:20px 0;text-align:center;">
+		<img src="http://www.buggl.com/bundles/bugglmain/images/buggl-big.png" />
+	</p>	
+	<h1>This is a private invitation</h1>
+	<p>We're officially launching in South Africa!  We need your help to make Buggl the go to platform for travelers around the world.</p>
+	<p> This is an opportunity for a select group of insiders to share their knowledge, build travel guides and earn income.   We're starting privately in what's called 'beta' for the next few weeks as we onboard the best experts and work out the kinks of the system. Then we hit GO for the world to see.</p>
+	<p>Enjoy the ride with us...</p>
+	<p>
+		Use the following token:<br/> 
+		<strong>{{ invite.token }}</strong>
+	</p>
+	<p style="text-align:center;padding-bottom:40px;">
+		<a style="background:#ccc;display:inline-block;padding:8px 10px;color:#fff;margin-top:10px;text-decoration:none;border-radius:5px;" href="http://beta.buggl.com">Become an Expert</a>
+	</p>	
+{% endblock %}

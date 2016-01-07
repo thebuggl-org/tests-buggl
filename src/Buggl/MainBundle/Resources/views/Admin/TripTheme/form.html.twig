@@ -1,0 +1,11 @@
+<form method="post" action="{{ path('admin_trip_theme_save') }}" novalidate>
+    <ul>
+        <li>
+            <label>Name</label>
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </li>
+        {{ form_rest(form) }}
+    </ul>
+    <input type="submit">
+</form>

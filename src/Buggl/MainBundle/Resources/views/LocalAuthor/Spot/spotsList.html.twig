@@ -1,0 +1,27 @@
+<div id="spot-list-wrapper" class="modal-spot-gallery">
+	<h1>Select Place</h1>
+	<div class="row">
+		<ul class="column menu grid_8 spotlist-filter">
+			<li class="{{ activeType | selected('all','selected') }}"><a href="" onclick="return false" name="spot-type" data-spot-type="all" data-page="0" data-has-next="0">View All</a></li>
+			{% for type in spotTypes %}
+				<li class="{{ activeType | selected(type.name|slugify,'selected') }}"><a href="" onclick="return false" name="spot-type" data-spot-type="{{ type.name|slugify }}" data-page="0" data-has-next="0">{{ type.name }}</a></li>
+			{% endfor %}  
+        </ul>
+	</div>
+	<div id="loaderContainer"></div>	
+	<!-- cutom image -->
+	<p class="required-message" style="color: red; display:none;">No spot selected!</p>
+	<!-- cutom image end -->	
+	<ul id="spot-gallery" class="admin-gallery clearfix" data-guideid="{{eguide.id}}">
+		{% include "BugglMainBundle:LocalAuthor/Spot:spotItems.html.twig" with { 'spotDetails' : spotDetails } %}
+	</ul>
+	<div class="show-more" style="display:none">
+		<a id="show-more" href="">Show more</a>
+	</div>
+	<div class="form-section spotlist-action">
+		<form id="spot-gallery-setting-form" style="display:none;"></form>
+		<button class="admin-button" id="spot-gallery-save-changes">Save Changes</button>
+		<button class="admin-button modal-cancel" name="modal-cancel-btn">Cancel</button>	
+		<a class="admin-button forgot-spot" href="" data-daynum="{{ daynum }}" data-pagename="itinerary" id="forgot-a-spot">Add A Place</a>
+	</div>
+</div>

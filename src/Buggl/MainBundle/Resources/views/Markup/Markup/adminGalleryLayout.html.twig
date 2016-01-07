@@ -1,0 +1,115 @@
+{% extends "BugglMainBundle:Markup:adminLayout.html.twig" %}
+
+{% set current = 'gallery' %}
+
+{% block title %}Media Gallery{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+        <section>
+
+        	<div class="reg_box">
+		        <p class="admin-breadcrumbs">
+		            <a href="">Media Gallery</a>
+		        </p>
+
+		        <div class="content">
+		            <ul class="site-admin-tabs horizontalize">
+		                <li class="{{ status|selected('images','active') }}"><a href="">Images</a></li>
+                        {#
+		                <li class="{{ status|selected('videos','active') }}"><a href="">Videos</a></li>
+		                <li class="{{ status|selected('spot','active') }}"><a href="">Spots</a></li>
+                        #}
+		            </ul>
+		            <ul class="site-admin-filter horizontalize">
+		           		<li id="country">
+		           		</li>
+		           		<li id="city">
+		           		</li>
+		            </ul>
+		        </div>
+
+                <div class="fb-clone-modal" id="fullview" style="display:none">
+                </div>
+
+		        <div id="main_content">
+		        </div>
+
+			    <div id="pagination">
+			    </div>
+		    </div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block script_template %}
+	<script type="text/template" id="country_template">
+		<div class="select">
+			<select>
+				<option value="0">All</option>
+				<% _.each( countries, function(country){ %>
+					<option value="{{ '<%= country.id %>' }}">{{ '<%= country.name %>' }}</option>
+				<% }); %>
+			</select>
+		</div>
+	</script>
+
+	<script type="text/template" id="city_template">
+		<div class="select">
+			<select>
+				<option value="0">All</option>
+				<% _.each( cities, function(city){ %>
+					<option value="{{ '<%= city.id %>' }}">{{ '<%= city.name %>' }}</option>
+				<% }); %>
+			</select>
+		</div>
+	</script>
+
+	<script type="text/template" id="pagination_template">
+        <section class="page bugglPagination">
+            <nav>
+                <% if(totalPages > 0){ %>
+                    <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                    <% if(startPage > 1) { %>
+                        <a href="1" class="bugglPaginationLink">1</a>
+                        <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                    <% } %>
+
+                    <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                        <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                    <% }); %>
+
+                    <% if (endPage < totalPages) { %>
+                        <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                        <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                    <% } %>
+                    <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                <% } %>
+            </nav>
+        </section>
+    </script>
+
+    <script type="text/template" id="fullview_template">
+        <div class="clearfix">
+            <div class="img-container">
+                <img width="800px" src="{{ asset('') }}<%= source %>" />
+            </div>
+            <div class="site-admin-spot-details">
+                <a class="close" href="">close</a>
+            </div>
+        </div>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src='{{ asset('bundles/bugglmain/js/Admin/underscore-min.js') }}' type='text/javascript'> </script>
+    <script src='{{ asset('bundles/bugglmain/js/Admin/backbone.js') }}' type='text/javascript'> </script>
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/backbone.gallery.js' filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+

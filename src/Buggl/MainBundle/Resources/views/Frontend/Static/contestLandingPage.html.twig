@@ -1,0 +1,89 @@
+{% extends "BugglMainBundle::foodContestLayout.html.twig" %}
+
+{% block title %}Create a Guide | Make $50 Instantly - Buggl Travel Contest{% endblock %}
+
+{% block meta_tags %}
+	<meta name="description" content="Design a guide on anywhere in the world and get $50 immediately. Only at Buggl.com">
+{% endblock %}
+
+{% block og_meta %}
+	<meta property="og:title" content="Design a travel guide, make $50 instantly" />
+    <meta property="og:description" content="Enter Buggl's most recent travel contest - Design a guide on anywhere in the world and get $50 immediately. Create up to ten guides and make $500. Every guide gets you cash, so the more you make the more you earn!" />
+	<meta property="og:image" content="http://buggl.com{{ asset('/bundles/bugglmain/images/contest/for-homepage.jpg') }}"/>
+	<link rel="icon" type="image/png" href="http://buggl-assets.s3.amazonaws.com/bundles/bugglmain/images/favicon.png">
+{% endblock%}
+
+{% block body %}
+	<div class="eat-and-drink">
+		<div class="header">
+			<ul class="social">
+				<li class="fb"><a href='javascript:void(0)' id="facebook-btn"></a></li>
+				<li class="twt"><a href='javascript:void(0)' id="twitter-btn" tw-text="Enter Buggl's most recent travel contest - Design a travel guide, make $50 instantly!"></a></li></li>
+			</ul>
+			<h1>Eat Drink And Design A Guide</h1>
+		</div>
+		<div class="details">
+			<p>Design a guide on anywhere in the world and get $50 immediately.<br/>Create three guides for $100 or 10 for $250.</p>
+			<h2>Every guide gets you cash,<br/>so the more you make<br/>the more you earn!</h2>
+			<p>Get your friends, family and travel bums you know involved, it’s easy money! Everyone is eligible to get some free cash for sharing knowledge about where they’ve traveled to or live.</p>
+		</div>
+		<div class="design design-button">
+			<button name="design-a-guide-btn" class="" data-link="{{ path('add_travel_guide_info') }}">DESIGN A GUIDE</button>
+			<p class="signup">Not an Insider? <a href="{{ path('registration') }}" style="text-decoration: none;">Sign Up Today!</a></p>
+		</div>
+		<div class="design samples">	
+			<p>Need some inspiration? Here are some of the top guides:<p>
+			<ul>
+				<li><a href="http://www.buggl.com/the-ultimate-48-hours-of-eating-experiencing-maui-like-a-local-533/overview"><img src="{{ asset('bundles/bugglmain/images/contest/maui.png') }}" width="198" height="329" alt="Brooklyn"></a></li>
+				<li><a href="http://www.buggl.com/reliving-the-life-and-times-of-nelson-mandela-192/overview"><img src="{{ asset('bundles/bugglmain/images/contest/nelson.png') }}" width="198" height="329" alt="Genoa"></a></li>
+				<li><a href="http://www.buggl.com/48-hours-in-wollongong-a-weekend-away-from-sydney-that-couldnt-be-closer-619/overview"><img src="{{ asset('bundles/bugglmain/images/contest/wollongong.png') }}" width="198" height="329" alt="Istanbul"></a></li>
+				<li><a href="http://www.buggl.com/explore-the-pleasantly-quirky-side-of-northern-thailand-498/overview"><img src="{{ asset('bundles/bugglmain/images/contest/thailand.png') }}" width="198" height="329" alt="San Diego"></a></li>								
+			</ul>
+		</div>
+		<div class="footer-top">
+		</div>	
+		<div class="fine-print">
+			<h3>THE FINE PRINT</h3>
+			<ul>
+				<li>You must be 18 years of age or older.</li>
+				<li>Each guide has to be original content.</li>
+				<li>Each guide must be published onto the platform, with at least one social network share by you.</li>
+				<li>No offensive content, refer to our terms of service and privacy policy for more details.</li>
+				<li>Payment will happen 24 hours after you’ve published your guide, please ensure on your Buggl dashboard PayPal is integrated so we can give you your cash.</li>
+				<li>Promotion is subject to a cap of 500 guides or at Buggl’s discretion.</li>
+				<li>Create up to ten travel guides per user, with a chance to make $500 in total (10 travel guides).</li>
+				<li>If you build ten, one of the ten must include an itinerary.</li>
+				<li>Void where prohibited.</li>
+				<li>Please refer to our terms of service and privacy policy, as well as FAQ’s for anymore questions related to safety, security, etc.</li>	
+				<li>Each travel guide built must include at least 3 places (secrets) within it.</li>
+				<li>If you create ten, at least one must include a 3 day itinerary.</li>
+				<li>Each guide must include 5 places or 'secrets'.</li>
+			</ul>	
+			<img src="{{ asset('bundles/bugglmain/images/contest/buggl-logo.png') }}" width="148" height="39" alt="Buggl Logo">
+		</div>	
+	</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+	
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/socialshare.js' | s3Cdn) }}"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+		        var info = SocialShare.getDefaultValues();
+		    	Facebook.enable(info);
+		    	var twInfo = {'via': 'Buggl', 'title': $('#twitter-btn').attr('tw-text'), 'hashtags' : '' };
+		    	Twitter.enable(twInfo);
+
+		    	$("button[name='design-a-guide-btn']")
+		    		.on("click", function(){
+		    			window.location.href = $(this).data("link");
+		    		});
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

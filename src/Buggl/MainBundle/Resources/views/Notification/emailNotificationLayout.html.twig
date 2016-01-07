@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <style>
+            body{
+                margin: 0;
+                padding: 30px 0;
+                background: #000000;
+                font-family: Arial;
+                color: #333333;
+            }
+			p{
+				margin:14px 0; 
+				line-height: 14px;
+			}
+        </style>
+    </head>
+    <body style="background: #f2f2f2; padding: 20px 0;">
+        <table width="600px" style="margin:0 auto;border:1px solid #cccccc;font-size: 14px;line-height: 18px;" cellpadding="0" cellspacing="0" >
+            <tr>
+                <td>
+                    <div>
+                        <img src="http://www.buggl.com/bundles/bugglmain/images/email-header.png" style="display:block;"/>    
+                    </div>
+                    <hr size="1" style="color: #cccccc;margin:0;"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+					<div style="padding: 20px;background: #ffffff; color: #555555;">
+						{% block content %}
+	                        <h1>Hi Buggl User!</h1>
+	                        <p>
+	                            We hope for the best of you.
+	                        </p>
+						{% endblock %}
+					</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="background: #f2f2f2;">
+						<p style="text-align:center;margin:15px 0 0 0;">
+							<a href="https://www.facebook.com/mybuggl"><img width="30" src="http://www.buggl.com/bundles/bugglmain/images/nl-fb.png" alt="join us on facebook"/></a>
+							<a href="https://twitter.com/Buggl"><img width="30" src="http://www.buggl.com/bundles/bugglmain/images/nl-twt.png" alt="follow us on twitter" /></a>	
+						</p>
+                        <p style="background: none repeat scroll 0% 0% rgb(85, 85, 85); text-align: center; padding: 5px 0px 10px; color: rgb(242, 242, 242); margin-bottom: 0px;"><a href="http://www.buggl.com" style="color: #f2f2f2;text-decoration: none;font-size:13px;">buggl.com &copy;</a></p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

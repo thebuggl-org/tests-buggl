@@ -1,0 +1,200 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Local Places Markup {% endblock %}
+
+{% block breadcrumbs %}
+    <div class="row">
+            <ul class="breadcrumb column grid_12">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Become of True Boracayan with Janvan</a></li>
+                <li>Local Places</li>
+            </ul>
+        </div>
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <header class="hd sd column grid_12">
+            <h2>Local Places</h2>
+            <nav>
+         		<a href="{{ path('guide_overview_mark_up')  }}">Overview</a>
+                <a href="{{ path('full_page_local_places_mark_up')  }}" class="selected">Local Secrets</a>
+                <a href="{{ path('full_page_mark_up')  }}">Itinerary</a>
+                <a href="#" class="buynow"><span>$9.99 Buy</span></a>
+            </nav> 	
+        </header>
+        <aside class="column grid_4">
+                	<section class="preview">
+		            	<div class="reg_box">
+		                	<a href="#" class="subphoto"><img border="0" src="/bundles/bugglmain/images/custom/janvan_60px.jpg" alt=" "></a>
+		                    	<h3 class="title"><a href="/markup/profile">Noel Bacarisas</a></h3>
+		                    <a class="subtext" href="#"><em>Professional Driver</em></a>
+		                </div>
+		                <div class="other">
+		                    <ul class="infr">
+		                	    <li class="loc"><span class="ico"></span>Manila - Cebu - Tacloban</li>
+		                        <li class="str"><span class="ico"></span>123 References</li>
+		                        <li class="trav"><span class="ico"></span>1356 Downloads</li>
+		                    </ul>
+		                </div>
+		                <div class="other">
+			             	<a class="btn msg fl" href="#"><span class="ico"></span>Message</a>
+		                </div>
+		            </section>
+		            <section class="guide_stats">
+		            	<h3>Is this GuideBook for me?</h3>
+		            	<ul>
+		                    <li>
+		                        <h4>Trip Theme</h4>
+		                        <em>Only Local. Romatics</em>
+		                    </li>
+		                    <li>
+		                        <h4>Activities</h4>
+		                        <em>Nightlife, Historical, Food &amp; Wine</em>
+		                    </li>
+		                    <li>
+		                        <h4>Good for</h4>
+		                        <em>Solo, Couples, Family</em>
+		                    </li>
+		                    <li class="star">
+		                        <h4>Budget</h4>
+		                        <span class="ico"></span>
+		                        <span class="ico"></span>
+		                        <span class="ico"></span>                           
+		                    </li>                       
+		                </ul>
+		            </section>							            
+            	  	<section class="list">
+		                <h3>My Other Guides</h3>
+		                <ul>
+		                    <li>
+		                        <img width="120" border="0" align="left" src="/bundles/bugglmain/images/custom/dancing_144px.jpg" class="fl">
+		                        <h4><a href="#">Ultra Electro Magnetic Guidebook 2012</a></h4>
+		                        <p class="price fl">$9.99</p>
+		                    </li>
+		                    <li>
+		                        <img width="120" border="0" align="left" src="/bundles/bugglmain/images/custom/dancing_144px.jpg" class="fl">
+		                        <h4><a href="#">Ultra Electro Magnetic Guidebook 2012</a></h4>
+		                        <p class="price fl">$9.99</p>
+		                    </li>
+		                    <li>
+		                        <img width="120" border="0" align="left" src="/bundles/bugglmain/images/custom/dancing_144px.jpg" class="fl">
+		                        <h4><a href="#">Ultra Electro Magnetic Guidebook 2012</a></h4>
+
+		                    </li>                                               
+		                </ul>                   
+		            </section>
+                </aside>        
+		        <article class="column spotlist grid_8">
+		        	<div class="row">
+		        		<ul class="column menu grid_8">
+                        	<li class="selected"><a href="#">Local Places</a></li>
+                        	<li><a href="#">See and Do</a></li>
+                        	<li><a href="#">Eat</a></li>    
+                        	<li><a href="#">Drink</a></li>
+                        	<li><a href="#">Sleep</a></li>  
+                        	<li class="map_link"><a href="#"><span class="ico"></span>Map</a></li>     
+                        </ul>
+		        	</div>
+		        	<div class="row">
+		        		<section class="column map grid_4">
+		        			<img border="0" src="/bundles/bugglmain/images/map.png" alt="amp">
+		        		</section>
+		        		<section class="column discover grid_4">
+		                	<div class="reg_box clearfix">
+		                		<a class="fr" href="/app_dev.php/"><img width="80" border="0" src="/bundles/bugglmain/images/buggl_logo.png" alt="Buggl.com"></a>
+			                	<h4>Discover secrets <br>freshly chosen by local experts.</h4>
+			                	<p>The names are hidden until purchase.</p>
+			                	<p>Gather real knowledge from peole who live there, not from reviews online from travelers.</p>
+			                </div>
+				        </section>
+		                <section class="column grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200b.jpg">
+			                <div class="reg_box clearfix">
+			                	<h4><a href="/app_dev.php/markup/guide-overview">Clarence Buckingham Memorial Fount...</a></h4>
+			                	<ul class="tag">
+			                		<li>shopping</li>
+			                		<li>people watching</li>
+			                		<li>food</li>
+			                		<li>sightseeing</li>
+			                	</ul>
+			                </div>
+				        </section>
+				        <section class="column locked grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200c.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>
+				        <section class="column locked grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200d.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>					        	
+				        <section class="feature locked column grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>
+				        <section class="feature locked column grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>	
+				        <section class="feature locked column grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>	
+				        <section class="feature locked column grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>	
+				        <section class="feature locked column grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>
+				        <section class="feature locked column grid_4">
+		                	<img border="0" align="left" alt=" " src="/bundles/bugglmain/images/custom/300_200.jpg">
+			                <div class="reg_box clearfix">
+			                	<div class="locked"><span class="ico"></span></div>
+			                	<h4>The names are hidden until purchase</h4>
+			                </div>
+				        </section>				        					        				        				        				        	
+	                </div>    	
+	            </article>
+            </div>
+        </article>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var header = $('.sd');
+            var start = $(header).offset().top;
+            $.event.add(window, "scroll", function() {
+                var p = $(window).scrollTop();
+                $(header).css('position',((p)>start) ? 'fixed' : 'static');
+                $(header).css('top',((p)>start) ? '0px' : '');
+                $(header).css('border-bottom',((p)>start) ? '1px solid #ddd' : '');
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "BugglMainBundle:Markup/Markup:adminBillingLayout.html.twig" %}
+
+{% block title %}Billing History{% endblock %}
+
+{% block billing_lists %}
+    <ul class="billing-list" id="history_lists">
+        {% include "BugglMainBundle:Admin/Billing:list.html.twig" %}
+    </ul>
+{% endblock %}
+
+{% block script_template %}
+    <script type="text/template" id="history_lists_template">
+    <% if(objects.length > 0) { %>
+        <li class="billing-item">
+            <ul class="clearfix">
+                <li class="">
+                    Guide
+                </li>
+                <li class="">
+                    Author
+                </li>
+                <li>
+                    Buyer
+                </li>
+                <li class="">
+                    Price
+                </li>   
+                <li class="">
+                    Buggl Fee
+                </li>   
+                <li class="">
+                    Net Amt
+                </li>
+                <li class="">
+					{{ 'Date' }}
+                </li>               
+            </ul>   
+        </li>
+        <% _.each(objects, function(object) { %>
+            <li class="billing-item">
+                <ul class="clearfix">
+                    <li class="">
+                        {{ "<%= object.guide_title %>" }}
+                    </li>
+                    <li class="">
+                        {{ "<%= object.author  %>" }}
+                    </li>
+                    <li>
+                        {{ "<%= object.buyer %>" }}
+                    </li>
+                    <li class="">
+						<% if (object.price == 0) { %>
+						    <span>FREE</span>
+						<% } else { %>
+							<span>$ {{ "<%= object.price %>" }}</span>
+                        <% } %>
+                    </li>   
+                    <li class="">
+						<% if (object.price == 0) { %>
+						    <span>FREE</span>
+						<% } else { %>
+							<span>$ {{ "<%= object.fee %>" }}</span>
+	                    <% } %>
+                    </li>   
+                    <li class="">
+						<% if (object.price == 0) { %>
+						    <span>FREE</span>
+						<% } else { %>
+							<span>$ {{ "<%= object.net_amount %>" }}</span>
+	                    <% } %>
+                    </li>
+                    <li class="">
+						<span>{{ "<%= object.date_of_transaction %>" }}</span>
+                    </li>               
+                </ul>   
+            </li>
+        <% }); %>
+    <% } else { %>
+            <li>No Results</li>
+    <% } %>
+    </script>
+
+    <script type="text/template" id="pagination_template">
+        <section class="page bugglPagination">
+            <nav class="fr">
+                <% if(totalPages > 0){ %>
+                    <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                    <% if(startPage > 1) { %>
+                        <a href="1" class="bugglPaginationLink">1</a>
+                        <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                    <% } %>
+
+                    <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                        <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                    <% }); %>
+
+                    <% if (endPage < totalPages) { %>
+                        <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                        <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                    <% } %>
+                    <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                <% } %>
+            </nav>
+        </section>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src='{{ asset('bundles/bugglmain/js/Admin/underscore-min.js' ) }}' type='text/javascript'> </script>
+    <script src='{{ asset('bundles/bugglmain/js/Admin/backbone.js') }}' type='text/javascript'> </script>
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/Admin/backbone.billing.js' filter='?yui_js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+                SearchParameters = Backbone.Model.extend({
+                    initialize: function(){
+
+                        this.set({
+                            filter: 0,
+                            key: '',
+                            page: 1
+                        });
+                    }
+                });
+
+                $(document).ready(function(){
+                    $.billing({
+                        searchUrl: "{{ path('admin_billing_search') }}", 
+                    });
+
+                    var pagination = new PaginationModel({
+                        limit: "{{ limit }}",
+                        totalCount: "{{ totalCount }}"
+                    });
+                    var parameters = new SearchParameters();
+                    var collection = new BillingsHistory();
+                    var view = new BillingHistoryView({
+                        parameters: parameters,
+                        collection: collection,
+                        pagination: pagination
+                    });
+
+
+                    var view = new PaginationView({
+                        model: pagination,
+                        parameters: parameters
+                    });
+
+                });
+            })(jQuery);
+        </script>
+    {% endjavascripts %}
+{% endblock %}

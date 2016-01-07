@@ -1,0 +1,180 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %} Full Page Markup {% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <header class="hd sd column grid_12">
+            <h2>My French Country Home, French Living</h2>
+         	<nav>
+         		<a href="{{ path('guide_overview_mark_up')  }}" class="selected">Overview</a>
+                <a href="{{ path('full_page_local_places_mark_up')  }}">Local Secrets</a>
+                <a href="{{ path('full_page_mark_up')  }}">Itinerary</a>
+                <a href="#" class="buynow"><span>$9.99 Buy</span></a>
+                  <!-- AddThis Button BEGIN -->
+					<div class="addthis_toolbox addthis_default_style">
+						<a class="addthis_button_pinterest_pinit"></a>
+						<a class="addthis_button_tweet"></a>
+						<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+					</div>
+					<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-516cea5d7df5c16e"></script>
+				<!-- AddThis Button END -->	
+            </nav>  
+        </header>
+        <aside class="column grid_4">
+        	<section class="preview">
+            		<div class="reg_box">
+                        <a href="#" class="subphoto"><img border="0" src="/bundles/bugglmain/images/custom/janvan_60px.jpg" alt=" "></a>
+                        <h3 class="title"><a href="/markup/profile">Noel Bacarisas</a></h3>
+                        <a class="subtext" href="#"><em>Professional Driver</em></a>
+            		</div>
+                    <div class="other">
+                        <ul class="infr">
+                            <li class="loc"><span class="ico"></span>Paris - Vezac</li>
+                            <li class="str"><span class="ico"></span>123 References</li>
+                            <li class="trav"><span class="ico"></span>1356 Downloads</li>
+                        </ul>
+                    </div>
+                    <div class="other">
+	                	<a class="btn msg fl" href="#"><span class="ico"></span>Message</a>
+                    </div>
+            </section>
+            <section class="guide_stats">
+                <h3>Is this GuideBook for me?</h3>
+                <ul>
+                    <li>
+                        <h4>Trip Theme</h4>
+                        <em>Only Local. Romatics</em>
+                    </li>
+                    <li>
+                        <h4>Activities</h4>
+                        <em>Nightlife, Historical, Food &amp; Wine</em>
+                    </li>
+                    <li>
+                        <h4>Good for</h4>
+                        <em>Solo, Couples, Family</em>
+                    </li>
+                    <li class="stars">
+                        <h4>Budget</h4>
+                        <span class="ico"></span>
+                        <span class="ico"></span>
+                        <span class="ico"></span>                           
+                    </li>                       
+                </ul>
+            </section>
+            <section class="best_time">
+                <h3>Best time to go</h3>
+                <ul>
+                    <li>
+                        <h3>May</h3>
+                    </li>
+                    <li>
+                        <h3>June</h3>
+                    </li>
+                    <li>
+                        <h3>July</h3>
+                    </li>
+                    <li>
+                        <h3>Sept</h3>
+                    </li>
+                    <li>
+                        <h3>Oct</h3>
+                    </li>
+                    <li>
+                        <h3>Jan</h3>
+                    </li>                                                                                                   
+                </ul>                   
+            </section>
+            <section class="list">
+                <h3>My Other Guides</h3>
+                <ul>
+                    <li>
+                        <img width="120" border="0" align="left" class="fl" src="{{asset('bundles/bugglmain/images/custom/dancing_144px.jpg')}}">
+                        <h4><a href="#">Ultra Electro Magnetic Guidebook 2012</a></h4>
+                        <p class="price fl">$9.99</p>
+                    </li>
+                    <li>
+                        <img width="120" border="0" align="left" class="fl" src="{{ asset('bundles/bugglmain/images/custom/dancing_144px.jpg') }}">
+                        <h4><a href="#">Ultra Electro Magnetic Guidebook 2012</a></h4>
+                        <p class="price fl">$9.99</p>
+                    </li>
+                    <li>
+                        <img width="120" border="0" align="left" class="fl" src="{{asset('bundles/bugglmain/images/custom/dancing_144px.jpg')}}">
+                        <h4><a href="#">Ultra Electro Magnetic Guidebook 2012</a></h4>
+                        <p class="price fl">$9.99</p>
+                    </li>                                               
+                </ul>                   
+            </section>   
+                <section>
+    	<h2>Request a custom guide</h2>
+    	<p>Hand crafted by a local expert just for you!</p>
+    	<a href="#" class="btn fr">Click Here</a>
+    </section>               
+        </aside>
+        <article class="column grid_8">
+	        <section>
+            	<img src="{{ asset('bundles/bugglmain/images/custom/random1_620px.jpg') }}" border="0" align="left" alt=" "/>
+            </section>
+            <section>
+                <div class="reg_box">
+                    <h2>About the Guidebook</h2>
+                    <p>You're not going to be placed in any sort of pre-packaged experience or guided to the "top" hotels or restaurants. You'll kick off your adventure touring one of the cities oldest and most undervisited parts of town where it's currently experiencing a great resurgence of growth - from new bars and restaurants, to building out of new cool and unique buildings that have stood there for hundreds of years. After pounding the pavement for a few hours, get ready to experience an interesting brewery tour and sit atop of the cities newest bar and restaurant to get a flavor for what Boston is known for; it's seafood and craft beers that make it a wold class destination. If you see another tourist, its merely by accident, because at all costs this local knowledge is going to bring you closer to the city that most people miss.</p>
+                    <h3>Local Knowledge &amp; Cool Perks</h3>
+                    <ul class="spa">
+                        <li><p>Insight into the best jazz and live music venues in the city only locals know about.</p></li>
+                        <li>Clear description of the best wine and select gastropubs in the city you won't find on Yelp.</li>
+                        <li>Best kept secrets on the romantic, quiet yet atmospheric hideaways off the beaten path of Boston.</li>
+                        <li>Historical walks and tours that cover the major sights, but leave out the tourist traps.</li>
+                    </ul>
+                    <h3>Local Interest</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus adipiscing, orci eget tincidunt cursus, purus lorem pharetra erat, at bibendum leo sem vel sapien. Duis feugiat, ante et sodales volutpat, purus nisi interdum eros, vel lobortis massa orci non sem. Quisque eget blandit ante. Praesent vel justo vitae ligula luctus ultrices. Integer quis mi magna. Aliquam erat volutpat. Integer at massa ac elit tempor eleifend at ac odio. Suspendisse convallis sem eget nisl dapibus fringilla. Sed lacinia rutrum vestibulum. Phasellus bibendum nibh ac nunc aliquet quis sagittis massa rhoncus. Maecenas a mi tellus. Sed vestibulum neque sed nulla faucibus tempor. Vivamus et nulla felis, vitae posuere mi. </p>
+                    
+                </div>
+            </section>
+            <section class="reference multi">
+                <ul>
+                    <li class="selected"><a href="#">The Local Chatter</a></li>
+                </ul>
+                <div class="reg_box">
+                    <ul class="comments">
+                    	<li>
+                    		<img border="0" align="left" src="/bundles/bugglmain/images/custom/janvan_60px.jpg">
+                    		<form>
+                    			<textarea style="width: 612px; height: 15px;"></textarea>
+                    			<a class="btn fl" href="#">Post Review</a>
+                    		</form>
+                    	</li>
+                        <li>
+                            <img src="{{asset('bundles/bugglmain/images/custom/janvan_60px.jpg')}}" border="0" align="left" />
+                            <p><a href="#" class="name">Jan Van La Lou</a>Everything was all right. The room was clean and nice and Adele is very kind person. She recommended us what we needed to know.</p>
+                        </li>
+                        <li>
+                            <img src="{{asset('bundles/bugglmain/images/custom/xtina_60px.jpg')}}" border="0" align="left" />
+                            <p><a href="#" class="name">Xtina</a>This was our first time using buggl and it was a great experience! The arrangements were easy to make and all went smoothly. Adele was a wonderful host. What a sweet person and very helpful and interesting. Her apartment is in a great location.. <a href="">show more</a></p>
+                        </li>
+                        <li>
+                            <img src="{{asset('bundles/bugglmain/images/custom/matt_60px.jpg')}}" border="0" align="left" />
+                            <p><a href="#" class="name">Matt</a>This was our first time using buggl and it was a great experience! The arrangements were easy to make and all went smoothly. Adele was a wonderful host. What a sweet person and very helpful and interesting. Her apartment is in a great location.. <a href="">show more</a></p>
+                        </li>                       
+                    </ul>   
+                </div>  
+            </section>  
+        </article>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var header = $('.sd');
+            var start = $(header).offset().top;
+            $.event.add(window, "scroll", function() {
+                var p = $(window).scrollTop();
+                $(header).css('position',((p)>start) ? 'fixed' : 'static');
+                $(header).css('top',((p)>start) ? '0px' : '');
+                $(header).css('border-bottom',((p)>start) ? '1px solid #ddd' : '');
+            });
+        });
+    </script>
+{% endblock %}

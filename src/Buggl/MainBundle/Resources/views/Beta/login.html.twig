@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} Buggl Beta Authentication {% endblock %}
+
+{% block body %}
+	<div class="beta-login">
+		<span class="beta-icon">
+			<img src="{{ asset('/bundles/bugglmain/images/buggl_logo.png') }}" />
+		</span>
+	    <form method="POST">
+	    	<div>
+		    	<label>Email Address</label>
+		        <input type="text" name="email"><br/>
+		    </div>    
+		    <div>
+		        <label>Token</label>	
+		        <input type="text" name="token"><br/>
+	    	</div>
+			<input type="checkbox" name="agree" /> By selecting, you agree to the <a href="{{ path('buggl_static_terms') }}">terms and conditions</a> of Buggl.com <br/><br/>
+	        <input type="submit" value="Visit Site" />
+			<br/><br/><a href="{{ path('request_beta_token') }}">need a token?</a>
+	    </form>
+	</div>    
+{% endblock %}

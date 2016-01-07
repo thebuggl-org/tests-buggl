@@ -1,0 +1,120 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %}Result Page Markup{% endblock %}
+    
+{% block breadcrumbs %}
+    <div class="row">
+        <ul class="breadcrumb column grid_12">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Buggl Result Page</a></li>
+            <li>About 44 Results</li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+
+        <aside class="column grid_4">
+            {#
+            <section>
+                <img src="{{ asset('bundles/bugglmain/images/custom/googlemap.jpg') }}" border="0" align="left" alt=" "/>
+            </section>
+            #}
+            {% block search_fields %}
+                <section class="search">
+               		<form>
+        	    	    <input type="text" class="trans_wid" placeholder="Select Country" size="22">
+        	    	    <input type="text" class="trans_wid" placeholder="What do you want to do?" size="22">
+        	    		<input type="text" class="trans_wid" placeholder="Budget" size="22">
+        	    	    <input type="text" class="trans_wid" placeholder="Durations" size="22">
+        	    	    <input type="text" class="trans_wid" placeholder="Theme" size="22">
+        	    	    <a class="btn fr" href="#">Search</a>
+                    </form>
+                </section>
+            {% endblock %}
+        </aside>
+        <article class="column grid_8">
+            <section class="page">
+            	{#<div class="sort">
+                                    <a class="btn fl" href="#"><span class="ico"></span>Sort by</a>
+                                </div>#}
+                {% block result_pagination %}
+            	<div class="fr">
+	            	<a href="#"><span class="ico"></span></a>
+	            	<a href="#">1</a>
+	            	<a href="#">2</a>
+	            	<a href="#">3</a>
+	            	<a href="#" class="selected">4</a>
+	            	<a href="#">5</a>
+	            	<a href="#" class="more">...</a>    
+	            	<a href="#"><span class="ico"></span></a>
+            	</div>
+                {% endblock %}		
+            </section>
+            {% block result_guides %}  
+            <section>
+                <div class="reg_box clearfix">
+                	<h2 class="title"><a href="#">The Rural Jungles of Northern Thailand</a></h2>    
+                    <ul class="rating"><li class="star fl"><span class="ico"></span><span class="ico"></span><span class="ico"></span><span class="ico"></span></li><li class="price">$9.99</li></ul>
+                    <p><img border="0" align="left" class="fr" alt=" " src="/bundles/bugglmain/images/custom/220_136.jpg">Quisque vestibulum sem eget odio tempor tincidunt. Nunc quis neque eros, quis elementum ante. Ut imperdiet risus ut diam semper non dictum tortor tincidunt. Fusce congue bibendum laoreet. Nunc id nisl est, nec iaculis erat. Fusce semper, purus a dictum blandit, lectus nunc fringilla leo, non lacinia nulla nisl at erat. Praesent congue euismod magna sed consequat.</p>
+                </div>
+                <div class="sml_box"> 
+	                <div class="facts fl">
+			       		<a href="#">Chiang Mai, Thailand<span>Location</span></a>
+			       		<a href="#">300 hrs<span>Duration</span></a>
+			       		<a href="#">Adventure, Tour, Cool, Famous ...<span>trip theme</span></a><a href="#">365 days<span>good for</span></a>
+			        </div> 
+			    </div> 
+                <div class="reg_box">
+                    <a href="#" class="subphoto"><img src="{{ asset('bundles/bugglmain/images/custom/janvan_60px.jpg') }}" border="0" alt=" " width="40"/></a>
+                    <h4 class="title"><a href="#">Roberto Duran</a></h4>
+                    <a class="subtext fl" href="#">Boxer</a>
+                    <a class="sclink fr" href="#">view more<span class="ico"></span></a>
+                </div>
+            </section>
+            <section>
+                <div class="reg_box clearfix">
+                	<h2 class="title"><a href="#">The Rural Jungles of Northern Thailand</a></h2>    
+                    <ul class="rating"><li class="star fl"><span class="ico"></span><span class="ico"></span><span class="ico"></span><span class="ico"></span></li><li class="price">$9.99</li></ul>
+                    <p><img border="0" align="left" class="fr" alt=" " src="/bundles/bugglmain/images/custom/220_136.jpg">Quisque vestibulum sem eget odio tempor tincidunt. Nunc quis neque eros, quis elementum ante. Ut imperdiet risus ut diam semper non dictum tortor tincidunt. Fusce congue bibendum laoreet. Nunc id nisl est, nec iaculis erat. Fusce semper, purus a dictum blandit, lectus nunc fringilla leo, non lacinia nulla nisl at erat. Praesent congue euismod magna sed consequat.</p>
+                </div>
+                <div class="sml_box"> 
+	                <div class="facts fl">
+			       		<a href="#">Chiang Mai, Thailand<span>Location</span></a>
+			       		<a href="#">300 hrs<span>Duration</span></a>
+			       		<a href="#">Adventure, Tour, Cool, Famous ...<span>trip theme</span></a><a href="#">365 days<span>good for</span></a>
+			        </div> 
+			    </div> 
+                <div class="reg_box">
+                    <a href="#" class="subphoto"><img src="{{ asset('bundles/bugglmain/images/custom/janvan_60px.jpg') }}" border="0" alt=" " width="40"/></a>
+                    <h4 class="title"><a href="#">Roberto Duran</a></h4>
+                    <a class="subtext fl" href="#">Boxer</a>
+                    <a class="sclink fr" href="#">view more<span class="ico"></span></a>
+                </div>
+            </section>
+            <section>
+                <div class="reg_box clearfix">
+                	<h2 class="title"><a href="#">The Rural Jungles of Northern Thailand</a></h2>    
+                    <ul class="rating"><li class="star fl"><span class="ico"></span><span class="ico"></span><span class="ico"></span><span class="ico"></span></li><li class="price">$9.99</li></ul>
+                    <p><img border="0" align="left" class="fr" alt=" " src="/bundles/bugglmain/images/custom/220_136.jpg">Quisque vestibulum sem eget odio tempor tincidunt. Nunc quis neque eros, quis elementum ante. Ut imperdiet risus ut diam semper non dictum tortor tincidunt. Fusce congue bibendum laoreet. Nunc id nisl est, nec iaculis erat. Fusce semper, purus a dictum blandit, lectus nunc fringilla leo, non lacinia nulla nisl at erat. Praesent congue euismod magna sed consequat.</p>
+                </div>
+                <div class="sml_box"> 
+	                <div class="facts fl">
+			       		<a href="#">Chiang Mai, Thailand<span>Location</span></a>
+			       		<a href="#">300 hrs<span>Duration</span></a>
+			       		<a href="#">Adventure, Tour, Cool, Famous ...<span>trip theme</span></a><a href="#">365 days<span>good for</span></a>
+			        </div> 
+			    </div> 
+                <div class="reg_box">
+                    <a href="#" class="subphoto"><img src="{{ asset('bundles/bugglmain/images/custom/janvan_60px.jpg') }}" border="0" alt=" " width="40"/></a>
+                    <h4 class="title"><a href="#">Roberto Duran</a></h4>
+                    <a class="subtext fl" href="#">Boxer</a>
+                    <a class="sclink fr" href="#">view more<span class="ico"></span></a>
+                </div>
+            </section>
+
+            {% endblock %}
+        </article>
+    </div>
+{% endblock %}

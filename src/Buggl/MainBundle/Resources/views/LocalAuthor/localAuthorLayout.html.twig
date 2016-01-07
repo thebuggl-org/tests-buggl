@@ -1,0 +1,110 @@
+{% extends "BugglMainBundle::layout.html.twig" %}
+
+{% block modal %}
+    {% render 'BugglMainBundle:LocalAuthor/EGuideRequest:eGuideRequestModal' with {'id':null,'email':null} %}
+	{% include 'BugglMainBundle:LocalAuthor/Profile:modals.html.twig' with {'title':'','includeProfilePicModal':true} %}
+{% endblock %}
+
+{% block meta %}
+	<!--[if gt IE 8]><!--> <html class="admin no-js"> <!--<![endif]-->
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Questrial' type='text/css'>
+{% endblock %}
+
+{% block title %}
+	Buggl Profile Html Markup
+{% endblock %}
+
+{% block header %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% embed 'BugglMainBundle::headerEmbed.html.twig' with { active: active } %}
+            {% block local_author_navigation %}
+                {% include 'BugglMainBundle:LocalAuthor:localauthorNavigation.html.twig' %}
+            {% endblock %}
+        {% endembed %}
+    {% else %}
+        {% include 'BugglMainBundle:Frontend/Main:navigation.html.twig' %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<header class="admin-alt-header column grid_12">
+            <h2>
+				{% block precontent_title %}
+					My Buggl Profile
+				{% endblock %}
+			</h2>
+            <nav class="infoContainer">
+            	{% if app.user.isLocalAuthor %}
+					{% if false %}
+						<a class="btn create-guide fr" href="{{ path('add_travel_guide_info')}}"><span class="ico"></span>Create Travel Guide</a>
+					{% endif %}
+            	{% else %}
+					<!-- <a class="btn create-guide fr editInfo" data-success-behavior="reload" data-modal-title="Be a Travel Insider" onclick="return false" href="{{ path('get_profile_form',{'buildFor':'location' }) }}"><span class="ico"></span>Be a Travel Insider</a> -->
+					<a class="btn create-guide fr" data-success-behavior="reload" data-modal-title="Be a Travel Insider" href="{{ path('account_upgrade') ~ '?redirect=' ~ url('local_author_dashboard', {}, true) }}"><span class="ico"></span>Be a Travel Insider</a>
+            	{% endif %}
+            </nav>
+        </header>
+	</div>
+
+	{% block main_content %}
+	{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<!-- this is key for local -->
+	
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEoojfv0KL3vIx5RQjWYIKZcqxJBH4LXc&sensor=false&libraries=places" type="text/javascript"></script>
+
+	<!-- this is key for prod -->
+	{#<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBfQzUarCd2GZfDNBFj87Z53alxKLgcHs&sensor=false&libraries=places" type="text/javascript"></script>#}
+	
+	<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+	{#% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.iframe-post-form.js'
+		'@BugglMainBundle/Resources/public/js/jquery.modal.js'
+		'@BugglMainBundle/Resources/public/js/LocalAuthor/Profile/jquery.profile-info-v2.js'
+		'@BugglMainBundle/Resources/public/js/LocalAuthor/Profile/jquery.modal-edit.js'
+		'@BugglMainBundle/Resources/public/js/Frontend/eguiderequest.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+	
+
+	<script src="{{ asset('bundles/bugglmain/js/jquery.iframe-post-form.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/jquery.modal.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/LocalAuthor/Profile/jquery.profile-info-v2.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/LocalAuthor/Profile/jquery.modal-edit.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/Frontend/eguiderequest.js' | s3Cdn) }}"></script>
+	
+	
+	<script type="text/javascript">
+	    (function($){
+			$().ready(function(){
+			
+		        var msie6 = $.browser == 'msie' && $.browser.version < 7;
+
+		        if (!msie6) {
+		            var top = $('.hd-floater').offset().top - parseFloat($('.hd-floater').css('margin-top').replace(/auto/, 0));
+		            $(window).scroll(function (event) {
+		                var y = $(this).scrollTop();
+
+		                if (y >= top) {
+		                // if so, ad the fixed class
+		                $('.hd-floater').addClass('fixed');
+		                } else {
+		                // otherwise remove it
+		                $('.hd-floater').removeClass('fixed');
+		                }
+		            });
+		        }
+			})
+	    })(jQuery);
+	</script>
+{% endblock %}

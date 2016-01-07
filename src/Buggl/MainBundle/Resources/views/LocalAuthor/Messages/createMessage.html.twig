@@ -1,0 +1,79 @@
+{% extends "BugglMainBundle:LocalAuthor/Messages:messages.html.twig" %}
+{% set activeTab = '' %}
+
+{% block inner_content %}
+<article class="grid_8 column">
+	<section class="inbox">
+		<h3>New Message</h3>
+		<form action="" method="POST" class="new_msg" novalidate>
+			<div>
+				{% if recipient is not null %}
+				<div class="chzn-container chzn-container-single">
+					<div class="chzn-single">
+						<span>{{ recipient.name }}</span>
+					</div>
+				</div>	
+				{% endif %}
+			    {{ form_widget(form.recipient) }}
+			    <div class="err">
+				    {{ form_errors(form.recipient) }}
+				</div>    
+			</div>
+			<div>
+				<div class="err ovr">
+					{{ form_errors(form.subject) }}
+				</div>	
+				{{ form_widget(form.subject) }}	
+			</div>
+			<div>
+				<div class="err ovr">
+				    {{ form_errors(form.message) }}
+			    </div> 
+			    {{ form_widget(form.message) }}
+			</div>
+			<div>	
+				{{ form_rest(form) }}
+			<input type="submit" value="Send">
+			</div>
+		</form>
+	</section>	
+</article>	
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/bugglmain/js/chosen.jquery.min.js' | s3Cdn) }}"></script>
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                $('select#form_recipient').chosen({
+					allow_single_deselect: true,
+					no_results_text: "No results matched",
+				});
+            });
+        })(jQuery);
+    </script>
+    {#% javascripts '@BugglMainBundle/Resources/public/js/chosen.jquery.min.js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+                $(document).ready(function(){
+                    $('select#form_recipient').chosen({
+						allow_single_deselect: true,
+						no_results_text: "No results matched",
+					});
+                });
+            })(jQuery);
+        </script>
+    {% endjavascripts %#}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#% stylesheets 
+        '@BugglMainBundle/Resources/public/css/chosen.css'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %#}
+    <link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/chosen.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}

@@ -1,0 +1,16 @@
+<section class="profile">
+	<nav class="clearfix">
+		{% if app.user.isLocalAuthor %}
+			<a href="{{ path('local_author_eguides', {'status':'published'}) }}" class="{{active|selected('published','active')}}"><span class="ico"></span>{{counts.published}} Published</a>
+			<a href="{{ path('local_author_eguides', {'status':'unpublished'}) }}" class="{{active|selected('unpublished','active')}}"><span class="ico"></span>{{counts.unpublished}} Requested guide</a>
+			{#<a href="{{ path('local_author_eguides', {'status':'featured'}) }}" class="{{active|selected('featured','active')}}"><span class="ico"></span>{{ counts.featured }} Featured</a>#}
+			<a href="{{ path('local_author_eguides', {'status':'draft'}) }}" class="{{active|selected('draft','active')}}"><span class="ico"></span>{{ counts.draft }} Drafts</a>
+			<a href="{{ path('local_author_eguides', {'status':'archived'}) }}" class="{{active|selected('archived','active')}}"><span class="ico"></span>{{ counts.archived }} Archived</a>
+			<a href="{{ path('local_author_eguides', {'status':'denied'}) }}" class="{{active|selected('denied','active')}}"><span class="ico"></span>{{ counts.denied }} Denied</a>
+		{% endif %}
+        <a class="{{ active | selected('purchased','active') }}" href="{{ path('local_author_payments_purchased') }}"><span class="ico"></span>Guides I Purchased</a>
+		{#{% if app.user.isLocalAuthor %}
+			<a class="{{ active | selected('sold','active') }}" href="{{ path('local_author_payments_sold') }}"><span class="ico"></span>Sold</a>
+		{% endif %}#}
+	</nav>
+</section>

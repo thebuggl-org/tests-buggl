@@ -1,0 +1,137 @@
+{% extends "BugglMainBundle:Frontend/Guide:guideLayout.html.twig" %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+{% block og_meta %}
+	{{ parent() }}
+	<meta property="og:title" content="{{ guide.plainTitle }} | Local Secrets" />
+{% endblock%}
+
+{% block modal %}
+	{{ parent() }}
+    <div id="bugglBuyGuideConfirmation" class="reveal-modal" data-show="{{ sold }}">
+    	<h2>Let the Adventure Begin!<a class="close-reveal-modal login">&#215;</a></h2>
+    	
+    	<div class="content">
+    		<h2 style="text-align:center;text-align: center;font-size: 26px;margin-bottom: 20px;">This guide has been added to <a href="{{ path('local_author_eguides', {'status':'purchased'}) }}">Your Travel Guides.</a></h2>
+			<p style="text-align: center;font-size: 19px;line-height: 23px;">
+				You can now view this unlocked guide<br/>by closing this window.
+				<br/>To download your guide, please click <a target="_blank" href="{{ path('eguide_download', {'slug' : guide.slug})}}">here</a>.
+			</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% set activeTab = 'local-secrets' %}
+
+{% block guidePageContent %}
+	<article class="column spotlist grid_8">
+		{% block spot_nav %}
+		<div class="row">
+			<ul class="column menu grid_8">
+				{#<li class="{{ activeType | selected('all','selected') }}"><a href="{{ path('buggl_eguide_secrets',{'slug':guide.slug,'type':'all'}) }}">View All</a></li>#}
+				<li class="{{ activeType | selected('all','selected') }}" name="all"><a href="#all">View All</a></li>
+				{% for type in spotTypes %}
+					{#<li class="{{ activeType | selected(type.name|slugify,'selected') }}"><a href="{{ path('buggl_eguide_secrets',{'slug':guide.slug,'type':type.name|slugify}) }}">{{ type.name }}</a></li>#}
+					<li class="{{ activeType | selected(type.name|slugify,'selected') }}" name="{{type.name|slugify}}"><a href="{{'#' ~ type.name|slugify}}">{{ type.name }}</a></li>
+				{% endfor %}  
+	        	<li class="map_link"><a href="" onclick="return false;" id="mapLink" onclick="return" class="maplink"><span class="ico"></span><span id="mapLinkLabel">Map</span></a></li>     
+	        </ul>
+		</div>
+		{% endblock %}
+		<div class="row" id="spotsGridView">
+			{% include 'BugglMainBundle:Frontend/Guide:localPlacesData.html.twig' 
+				with { 
+					'eguideToSpotDetails' : eguideToSpotDetails,
+					'guide':guide,
+					'activeType':activeType,
+					'googleMapsApiKey':googleMapsApiKey
+				} %}
+	        {% include 'BugglMainBundle:Frontend/Guide:ratingSection.html.twig'  with {guide:guide} %}
+	    </div>    	
+	</article>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{#<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Frontend/spots-map.js') }}"></script>#}
+
+	{% javascripts 
+		'@BugglMainBundle/Resources/public/js/markerclusterer_compiled.js'
+		'@BugglMainBundle/Resources/public/js/Frontend/spots-map.js'
+		filter='?yui_js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+	<script>
+		(function($){
+			$(document).ready(function(){
+				
+				if($('#bugglBuyGuideConfirmation').attr('data-show')){
+					$('#bugglBuyGuideConfirmation').reveal();
+				}
+				
+				$('#mapLink').on('click',function(e){
+					e.preventDefault();
+					$('#mapContainer').slideToggle('fast',function(){
+						$('#spotsGrid').fadeToggle();
+						resizeMap();
+						if($('#mapLinkLabel').html() == 'Map') {
+							$('#mapLink').addClass('gridlink');
+							$('#mapLink').removeClass('maplink');
+							$('#mapLinkLabel').html('Grid');
+						} else {
+							$('#mapLink').addClass('maplink');
+							$('#mapLink').removeClass('gridlink');
+							$('#mapLinkLabel').html('Map');
+						}	
+					});
+				});
+
+				$(window)
+					.on('hashchange', function(e){
+						var hash = window.location.hash.replace('#', '');
+						var link = window.location.href;
+						
+						var parts = link.split("#");
+						
+						var loader = "<p class='ld align-center'><img src='{{ asset('bundles/bugglmain/images/ajax-loader-1.gif') }}' /></p>";
+
+						$.ajax({
+							url : parts[0] + '/' + hash,
+							dataType: 'json',
+							beforeSend: function(){
+								$("#spotsGridView")
+									.empty()
+									.append(loader);
+
+								if( $(".spotlist ul.menu li[name='"+hash+"']").length > 0 ){
+									$(".spotlist ul.menu li.selected").removeClass('selected');
+									$(".spotlist ul.menu li[name='"+hash+"']").addClass('selected');
+								}
+							},
+							success: function(data){
+								$("#spotsGridView")
+									.empty()
+									.append(data.html);
+
+								if($('#mapLinkLabel').html() == 'Grid') {
+									$('#mapLink').addClass('maplink');
+									$('#mapLink').removeClass('gridlink');
+									$('#mapLinkLabel').html('Map');
+								}
+								loadScript();
+							}
+						})
+					});
+				
+				if( 0 < window.location.hash.length )
+					$(window).trigger('hashchange');
+
+			});
+		})(jQuery);
+	</script>
+{% endblock %}

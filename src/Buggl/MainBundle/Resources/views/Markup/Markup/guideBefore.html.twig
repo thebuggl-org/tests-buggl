@@ -1,0 +1,139 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block precontent %}
+    <div class="row">
+        <div class="alt_header column grid_12">
+            <h2 class="fl">Browse fresh guidebooks built by locals in the know.</h2>
+            <form class="fr search">
+                <input type="text" value="Search" size="30"/>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="row">
+        <ul class="breadcrumb column grid_12">
+            <li><a href="#">Home</a></li>
+            <li>Become of True Boracayan with Janvan</li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <header class="hd column grid_12">
+            <h2>Become of True Boracayan with Janvan</h2>
+            <nav>
+                <ul>
+                    <li><a href="{{ path('guide_overview_mark_up')  }}">Overview</a></li>
+                    <li><a href="{{ path('guide_itinerary_mark_up') }}">Itinerary</a></li>
+                    <li><a href="{{ path('guide_before_leaving_mark_up') }}" class="selected">Before You Go</a></li>
+                    <li class="buynow"><a href="#">Buy Now</a></li>
+                </ul>
+            </nav>
+        </header>
+        <aside class="column grid_4">
+            <section class="carousel">
+                    <ul>
+                        <li><a href="#">Travel Details<span class="ico"></span></a></li>
+                        <li><a href="#">Economy<span class="ico"></span></a></li>
+                        <li><a href="#">Culture<span class="ico"></span></a></li>
+                        <li><a href="#">Music<span class="ico"></span></a></li>
+                        <li><a href="#">History<span class="ico"></span></a></li>                                   
+                        <li><a href="#">Religion<span class="ico"></span></a></li>                                  
+                        <li><a href="#">Newspaper<span class="ico"></span></a></li>
+                        <li><a href="#">Radio<span class="ico"></span></a></li>                                 
+                    </ul>
+            </section>
+        </aside>
+        <article class="feature column grid_8">
+            <section>
+                <div class="reg_box">
+                    <h3>Travel Details</h3>
+                    <p>If you have booked this trip or are curious about all of the details, you can download this trip's information 
+as a PDF.</p>       
+                    <input type="submit" value="Download Travel Details">
+                </div>
+            </section>
+            <section>
+                <div class="reg_box">
+                    <h3>Economy</h3>
+                    <p>Encompassing $363 billion, the Greater Boston metropolitan area has the sixth-largest economy in the 
+country and 12th-largest in the world.</p>
+                    <p>Boston's colleges and universities have a significant effect on the regional economy, with students  
+contributing an estimated $4.8 billion annually to the city's economy. Boston's schools are major 
+employers and attract industries to the city and surrounding region. Boston is home to a number of 
+technology companies and is a hub for biotechnology, with the Milken Institute rating Boston as the top life
+sciences cluster in the country. Boston also receives the highest absolute amount of annual funding from 
+the National Institutes of Health of all cities in the United States.</p>
+                </div>
+            </section>  
+            <section>
+                <div class="reg_box">
+                    <h3>Culture</h3>
+                    <p>Boston shares many cultural roots with greater New England, including a dialect of the non-rhotic Eastern 
+New England accent known as Boston English, and a regional cuisine with a large emphasis on seafood, 
+salt, and dairy products. Irish Americans are a major influence on Boston's politics and religious 
+institutions. Boston also has its own collection of neologisms known as Boston slang.</p>
+                    <h3>Music</h3>
+                    <p>The city has a number of ornate theatres, including the Cutler Majestic Theatre, Boston Opera House, Citi 
+Performing Arts Center, the Colonial Theater, and the Orpheum Theatre. Renowned performing-arts 
+organizations include the Boston Symphony Orchestra, Boston Ballet, Boston Early Music Festival, Boston 
+Lyric Opera Company, OperaBoston, Boston Baroque, and the Handel and Haydn Society (one of the 
+oldest 1 choral companies in the United States). The city is also a major center for contemporary classical 
+music, with a number of performing groups, some of which are associated with the city's conservatories 
+and universities. These include Boston Modern Orchestra Project, Boston Musica Viva, Calluthumpian 
+Consort, and Dinosaur Annex. There are also many major annual events such as First Night, which occurs 
+on New Year's Eve, the annual Boston Arts Festival at Christopher Columbus Waterfront Park, Italian 
+summer feasts in the North End honoring Catholic saints, and several events during the Fourth of July 
+period. These events include the week-long Harborfest festivities and a Boston Pops concert accompanied 
+by fireworks on the banks of the Charles River.</p>
+                    <h3>History</h3>
+                    <p>Because of the city's prominent role in the American Revolution, several historic sites relating to that 
+period are preserved as part of the Boston National Historical Park. Many are found along the Freedom 
+Trail, which is marked by a red line of bricks embedded in the ground. The city is also home to several 
+prominent art museums, including the Museum of Fine Arts and the Isabella Stewart Gardner Museum. 
+In December 2006, the Institute of Contemporary Art moved from its Back Bay location to a new 
+contemporary building designed by Diller Scofidio + Renfro located in the Seaport District. The University 
+of Massachusetts Boston campus on Columbia Point houses the John F. Kennedy Library. The Boston 
+Athenaeum (one of the oldest independent libraries in the United States), Boston Children's Museum, 
+Bull & Finch Pub (whose building is known from the television show Cheers), Museum of Science, and the 
+New England Aquarium are within the city.</p>
+                    <h3>Religion</h3>
+                    <p>Boston has been a noted religious center from its earliest days. The Roman Catholic Archdiocese of Boston 
+serves nearly 300 parishes and is based in the Cathedral of the Holy Cross (1875) in the South End, while 
+the Episcopal Diocese of Massachusetts, with the Cathedral Church of St. Paul (1819) as its episcopal seat, 
+serves just under 200 congregations. Two Protestant faiths are headquartered in Boston: Unitarian 
+Universalism, with its headquarters on Beacon Hill, and the Christian Scientists, headquartered in Back 
+Bay at the Mother Church (1894). The oldest church in Boston is King's Chapel, the city's first Anglican 
+church, founded in 1686 and converted to Unitarianism in 1785. Other notable churches include Christ 
+Church (better known as Old North Church, 1723), the oldest church building in the city, Trinity Church 
+(1733), Park Street Church (1809), First Church in Boston (congregation founded 1630, building raised 
+1868), Old South Church (1874), Jubilee Christian Church and Basilica and Shrine of Our Lady of Perpetual 
+Help on Mission Hill (1878).</p>
+                </div>
+            </section>
+            <section>
+                <div class="reg_box">
+                    <h3>Newspaper</h3>
+                    <p>The Boston Globe and the Boston Herald are two of Boston's major daily newspapers. The city is also 
+served by other publications such as The Boston Phoenix, Boston magazine, The Improper Bostonian, 
+Boston's Weekly Dig, and the Boston edition of Metro. The Christian Science Monitor, headquartered in 
+Boston, was formerly a worldwide daily newspaper but ended publication of daily print editions in 2009, 
+switching to continuous online and weekly magazine format publications. The Boston Globe also releases a 
+teen publication to the city's public high schools. The newspaper Teens in Print or T.i.P. is written by the 
+city's teens and delivered quarterly within the school year.</p>
+                    <h3>Radio</h3>
+                    <p>Boston has the largest broadcasting market in New England, with the Boston radio market being the 
+eleventh largest in the United States. Several major AM stations include talk radio WRKO 680 AM, 
+sports/talk station WEEI 850 AM, and news radio WBZ 1030 AM. A variety of FM radio formats serve the 
+area, as do NPR stations WBUR and WGBH. College and university radio stations include WERS 
+(Emerson), WHRB (Harvard), WUMB (UMass Boston), WMBR (M.I.T.), WZBC (Boston College), 
+WMFO (Tufts University), WBRS (Brandeis University), WTBU (Boston University, campus and 
+web only), WRBB (Northeastern University) and WMLN (Curry College).</p>
+                </div>
+            </section>
+        </article>
+    </div>
+{% endblock %}

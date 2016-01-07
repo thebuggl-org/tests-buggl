@@ -1,0 +1,32 @@
+{% extends "BugglMainBundle:Markup/Markup:admintravelguides.html.twig" %}
+
+{% block title %}Admin Travel Guides{% endblock %}
+
+{% block list %}
+    <div id="guides_container">
+    </div>
+{% endblock %}
+
+{% block script_template %}
+    {{ parent() }}
+
+    <script type="text/template" id="eguide_list_container">
+        <ul class="eguide-list site-admin-list">
+        </ul>
+    </script>
+
+    <script type="text/template" id="eguide_list">
+        <div>
+            <h3>{{ '<%= title %>' }}</h3>
+            <span class="eguide-author">local author: {{ '<%= author %>' }}</span>
+            <span class="eguide-country">country: {{ '<%= country %>' }}</span>
+            <span class="eguide-duration">duration: {{ '<%= duration %>' }}</span>
+            <span class="eguide-downloads">downloads: {{ '<%= dlCount %>' }} </span>
+            <span class="eguide-price">price: $ {{ '<%= whole %>' }}.<span class="cents">{{ '<%= decimal %>' }}</span></span>
+        </div>
+        <ul class="site-admin-list-actions horizontalize">
+            <li><a href="<%= path %>" target="_blank">view</a></li>
+			<li><a href="" name="message">message guide author</a></li>
+        </ul>
+    </script>
+{% endblock %}

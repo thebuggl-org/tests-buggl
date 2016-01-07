@@ -1,0 +1,46 @@
+<header class="header client-admin-header">
+    <div class="row">
+        <nav class="column grid_12">
+            <h2><a href="{{ path('buggl_homepage') }}"><img src="{{ asset('bundles/bugglmain/images/buggl_logo.png') }}"  border="0" align="" width="120" alt="Buggl.com"></a></h2>
+             <div class="dmy">
+             	{% render 'BugglMainBundle:Frontend/Main:searchBar' %}
+             	{% block local_author_navigation_links %}
+                 <ul class="fr">
+                    <li class="menu down">
+                        <a href="{{ path('local_author_dashboard') }}"><span class=""></span><img class="profilePicture" src="{{ asset(app.user.profile | profilePic) }}" width="30" height="30" alt="{{ app.user.name }}"></a>
+                        <ul>
+                            <li><a href="{{ path('local_author_dashboard') }}">Dashboard</a></li>
+							{% set travelGuidesSlug = app.user.isLocalAuthor ? 'published' : 'purchased' %}
+                            <li><a href="{{ path('local_author_eguides', {'status':travelGuidesSlug}) }}">Your Travel Guides</a></li>
+
+							{% if app.user.isLocalAuthor %}
+                            <li><a href="{{ path('local_author_gallery_spots') }}">Your Places</a></li>
+							<li><a href="{{ path('buggl_earn_more') }}">Earn More</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('buggl_display_wishlist') }}">My Wishlist</a></li>
+                            {% if app.user.isLocalAuthor %}
+                            <li><a href="{{ path('local_author_profile' , {'slug' : app.user.slug}) }}">Edit Profile</a></li>
+							<li><a href="{{ path('local_author_references') }}">References</a></li>
+                            {% endif %}
+                            <li><a href="{{ path('local_author_payments') }}">Account</a></li>
+                            <li><a href="{{ path('logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% render 'BugglMainBundle:LocalAuthor/Messages:checkMessages' %}
+					{% if app.user %}
+						{% if app.user.isLocalAuthor %}
+							<li><a class="design-a-guide" href="{{ path('add_travel_guide_info') }}">Design A guide</a></li>
+						{% else %}
+							<li><a class="design-a-guide" href="{{ path('buggl_write_a_guide') }}">Design A guide</a></li>
+						{% endif %}
+					{% else %}
+					    <li><a class="design-a-guide" href="{{ path('buggl_write_a_guide') }}">Design A guide</a></li>
+					{% endif %}
+                 </ul>
+                {% endblock %}
+             </div>
+        </nav>
+    </div>
+</header>
+{% block local_author_navigation %}
+{% endblock %}

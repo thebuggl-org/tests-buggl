@@ -1,0 +1,112 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Buggl | Secrets & Spots | {{ spot.name }}{% endblock %}
+
+{% block precontent_title %}
+{% endblock %}
+
+{% set active = 'gallery' %}
+
+{% block main_content %}
+<div class="row spot-full-view">
+	<header class="hd column grid_12">
+		<h2>{{ spot.name }}</h2>
+		<div class="spot-description-details">
+			<span>Location: <strong>{{ spot.address }}</strong></span><br/>
+			{% if spot.contactNumber|length > 0 %}
+			<span>Contact Number: <strong>{{ spot.contactNumber }}</strong></span><br/>
+			{% endif %}
+			{% if spot.website|length > 0 %}
+			<span>Website: <strong><a href="{{ spot.website }}" target="_blank" rel="nofollow">{{ spot.website }}</a></strong></span>
+			{% endif %} 
+		</div>	
+	</header>
+	<article class="column grid_12">
+		<div class="row spot-description-container">
+			{% for detail in spotDetails %}
+			<section class="column grid_12 spot-full-view-item">
+				<div class="row">
+					<section class="column grid_8">
+						<div class="db_box img-cont">
+							<img src="{{ detail.photo }}" id="desc_photo_{{ detail.id }}" border="0" alt="" style="max-height: 365px;">
+						</div>
+						<div class="db_box spot-full-view-detail">
+							{% if detail.spotCategories|length > 0 %}
+							<p class="category-list item-p-list">
+								<strong>CATEGORY</strong> 
+								{% for cat in detail.spotCategories %}
+								<span>{{ cat.name }}</span>
+								{% endfor %}
+							</p>
+							{% endif %}
+							<p class="tags-list  item-p-list">
+								<strong>HOW ITS LIKE</strong> 
+								{% for like in detail.spotLikes %}
+								<span>{{ like.name }}</span>
+								{% endfor %}								
+							</p>
+							<div id="spot-description-{{detail.id}}">
+								{{detail.description|raw}}
+							</div>
+							{#
+							<p class="used-in">
+								<strong>USED IN</strong> 
+								{% for like in detail.spotLikes %}
+								<span>{{ like.name }}</span>
+								{% endfor %}
+							</p>
+							#}
+						</div>
+					</section>
+					<aside class="column grid_4">
+						<section class="sidelist">
+							<ul>
+								<li>
+									<a href="{{ detail.photo }}" name="multidesc-edit-photo" data-spotid="{{ spot.id }}" data-descid="{{ detail.id }}">
+										<span class="ico"></span>Edit Photo
+									</a>
+								</li>
+								<li>
+									<a href="#" name="multidesc-description" data-spotid="{{ spot.id }}" data-descid="{{ detail.id }}" data-content="{{ detail.description }}">
+										<span class="ico"></span>Edit Description
+									</a>
+								</li>
+								<!-- <li>
+									<a href="#" name="multidesc-tags" data-spotid="{{ spot.id }}" data-descid="{{ detail.id }}">
+										<span class="ico"></span>Edit Categories and Tags
+									</a>
+								</li> -->
+							</ul>
+						</section>
+					</aside>
+				</div>
+			</section>
+			{% endfor %}
+		</div>
+	</article>
+</div>	
+
+{% endblock %}
+
+{% block modal %}
+	<div id="multi-spot-description" class="multi-spot-modal-container reveal-modal xlarge">
+		<a class="close-reveal-modal">&#215;</a>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel='stylesheet' href="{{ asset('bundles/bugglmain/css/jcrop/jquery.Jcrop.css' | s3Cdn) }}" type='text/css'>
+{% endblock %}
+
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/bugglmain/js/jcrop/jquery.Jcrop.min.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/jquery.iframe-post-form.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/tiny_mce/jquery.tinymce.js' | s3Cdn) }}"></script>
+	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.googleCustomSearch.v1.0.js' | s3Cdn) }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.multispot-description-v1.0.js' | s3Cdn) }}"></script>
+	{#<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.multispot-tags-v1.0.js') }}"></script>#}
+	
+{% endblock %}

@@ -1,0 +1,15 @@
+<section class="step-2 steps">
+	<div class="create-guide-pages clearfix">
+		
+		{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:guidePageSections.html.twig" with { 'travel_guide_id' : eguide.id, name : 'back-cover'} %}
+
+		<div class="pages">
+			<div class="page">
+				<div class="main-page cover clearfix">
+					<div class="half cover" style="background: url({{asset('bundles/bugglmain/images/custom/back-cover.jpg')}}) #ffffff;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

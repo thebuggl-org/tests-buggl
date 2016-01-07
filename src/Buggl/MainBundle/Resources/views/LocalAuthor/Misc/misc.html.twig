@@ -1,0 +1,5 @@
+{% if isLocalAuthor %}
+    <a href="" onclick="return false" style="cursor:default">{{ soldCount }}<span>sold guide{{ (soldCount > 1 or soldCount == 0) ? 's' : '' }}</span></a>
+    <a href="" onclick="return false" style="cursor:default">{{ referenceCount }}<span>local reference{{ (referenceCount > 1 or referenceCount == 0) ? 's' : '' }}</span></a>
+{% endif %}
+<a href="" onclick="return false" style="cursor:default">{{ followers }} <span>follower{{ (followers > 1 or followers == 0) ? 's' : '' }}</span></a>

@@ -1,0 +1,41 @@
+<table class="payments-list bugglPaginationContents" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<th width="50%">Guide</th>
+		<th width="10%">Type</th>
+		<th width="15%">Price</th>
+		<th width="15%">Buggl Fee</th>
+		<th width="10%">Net Amt</th>
+	</tr>
+	{% for payment in payments %}
+		<tr>
+			<div>
+				<td class="payment-item">
+					<a href="{{ path('buggl_eguide_overview',{'slug':payment.eguide.slug}) }}">{{ payment.eguide.plainTitle  }}</a>
+					<span>{{ payment.dateOfTransaction | convertDateTime('M j, Y') }}</span>
+				</td>
+				<td>
+					<span class="{{ payment.seller|transactionType(app.user,payment) }}">{{ payment.seller|transactionType(app.user,payment) }}</span>
+				</td>
+				<td class="payment-price">
+					<span>{{ payment.amount | renderPrice  }}</span>
+				</td>
+				<td class="payment-fee">
+					<span>${{ payment.bugglFee | number_format(2, '.', ',')  }}</span>
+				</td>
+				<td class="payment-net">
+					<strong>${{ payment.netAmount | number_format(2, '.', ',')  }}</strong>
+				</td>
+			</div>
+		</tr>
+	{% else %}
+		<tr>
+			<div>
+				<td class="" colspan="5">
+					<span>No purchases yet.</span>
+				</td>
+			</div>
+		</tr>
+	{% endfor %}
+</table>
+
+{% render 'BugglMainBundle:LocalAuthor/Pagination:pagination' with {'currentPage':currentPage,'softPageLimit':softPageLimit,'hardPageLimit':hardPageLimit,'itemCount':payments|length,'dataUrl':dataUrl,'itemLimit':itemLimit} %}

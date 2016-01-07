@@ -1,0 +1,76 @@
+{% extends "BugglMainBundle:LocalAuthor:localAuthorLayout.html.twig" %}
+
+{% block title %}Vouch{% endblock %}
+
+{% block precontent_title %}
+	Vouch
+{% endblock %}
+
+{% set active = 'references' %}
+
+{% block main_content %}	
+	<div class="row">
+		{% if not hasAccess %}
+		    <article class="column grid_8 email-client-chooser">
+		    	<section>
+				{% if type == 'gmail' %}
+					<a href="{{ authUrl }}" id="getGmailContact" class="gmail">Gmail</a>
+					<p>We need to access your Gmail contacts. <br>Click the gmail link to allow access.</p>
+					<p><a href="{{ authUrl }}" id="getGmailContact" class="btn">Import Here</a></p>
+				{% elseif type == 'yahoomail' %}
+					<a href="{{ authUrl }}" id="getGmailContact" class="ymail">Yahoo Mail</a>
+					<p>We need to access your YahooMail contacts.<br>Click the link to allow access.</p>
+					<p><a href="{{ authUrl }}" id="getGmailContact" class="btn">Import Here</a></p>
+				{% endif%}
+				</section>
+			</article>
+		{% else %}	
+			<div class="row">
+		        <article class="column grid_8">
+					<section>
+						<h3>Import 
+							{% if type == 'gmail' %}
+							<span class="mini-gmail">Gmail</span>
+							{% elseif type == 'yahoomail' %}
+							<span class="mini-ymail">Yahoomail</span>
+							{% endif%} 
+							Contacts</h3>
+						
+						<form action="{{ path('send_local_reference_request',{'type':type}) }}" method="POST">
+							<div class="contact-control">
+								<input type='checkbox' id="checkAll">
+								<p>Select All</p>
+							</div>	
+							<ul class="contact-list clear">	
+								{% for email, name in contacts %}
+									<li>
+										<input type='checkbox' name="contacts[]" value="{{ email~'|'~name }}" class="fl"/>
+										<p>{{ email }}</p>
+										<span>{{ name }}</span>
+									</li>
+								{% endfor %}
+							</ul>
+							
+							<p><input type="submit" value="Send Local Reference Request" class="btn fr"/></p>
+						</form>
+					</section>
+				</article>	
+			</div>	
+		{% endif %}
+	</div>	
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	
+	<script>
+		$(document).ready(function(){			
+			$('#checkAll').on('click',function(){
+				var checked = $(this).is(':checked');
+				$('input:checkbox').each(function(){
+					$(this).prop('checked',checked);
+				});
+			});
+		});
+	</script>
+{% endblock %}

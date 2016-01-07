@@ -1,0 +1,10 @@
+<div class="guide-page-navi">
+	{% if prev_page is defined %}
+		<a class="admin-button" href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : prev_page}) }}"><span class="prev-section">prev</span></a>
+	{% endif %}
+	{% set status = (status == 2) ? 'published' : 'draft' %}
+	<a class="admin-button save" href="{{ path('local_author_eguides', {'status': status}) }}">Save Draft & Exit</a>
+	{% if next_page is defined %}
+		<a class="admin-button" name="{{next_page}}" href="{{ path('travel_guide_cover_page', {'travel_guide_id' : travel_guide_id, 'page_name' : next_page}) }}"><span class="next-section">prev</span></a>					
+	{% endif %}
+</div>

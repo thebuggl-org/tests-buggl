@@ -1,0 +1,30 @@
+{% extends 'BugglMainBundle:Frontend/Guide:guideOverview.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block reviews %}
+{% endblock %}
+
+{% block guideNavigation %}
+    <nav>
+        <a href="{{ path('admin_buggl_eguide_overview',{'slug':guide.slug}) }}" class="{{ activeTab | selected('overview','selected') }}">Overview</a>
+        <a href="{{ path('admin_buggl_eguide_secrets',{'slug':guide.slug,'type':'all'}) }}" class="{{ activeTab | selected('local-secrets','selected') }}">Local Secrets</a>
+		{% set itinerary = guide | getItinerary %}
+		{% if itinerary is not empty %}
+			<a href="{{ path('admin_buggl_eguide_full',{'slug':guide.slug}) }}" class="{{ activeTab | selected('full-guidebook','selected') }}">Itinerary</a>
+		{% endif %}
+        {% render 'BugglMainBundle:Frontend/Main:renderPaymentForm' with {'eguideId':guide.id}%}
+        <div class="addthis_toolbox addthis_default_style">
+            <a class="addthis_button_pinterest_pinit"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+        </div>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-516cea5d7df5c16e"></script>
+    </nav>
+
+{% endblock %}
+
+
+{% block footer %}
+{% endblock %}

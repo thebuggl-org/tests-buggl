@@ -1,0 +1,52 @@
+{% if forWishlist %}
+	<a class="wishlist-buynow buynow buyButton" href="{{ path('buggl_buy_guide',{'eguideId':eguide.id}) }}" ><span>{{ eguide.price | renderPrice }}</span> Buy Guide</a>
+{% else %}
+	{% if okToRender %}
+		{% if purchased %}
+			<div class="download-pdf">
+				<a class="buynow downloadButton" target="_blank" href="{{ path('eguide_download', {'slug' : eguide.slug})}}"><span></span>Download PDF</a>
+			</div>
+			{#<div class="purchased">
+				<span>Purchased</span>
+			</div>#}
+			{#{% if(eguide.isRequestId !=0 )%}
+			<div class="download-pdf">
+				<a class="buynow downloadButton" target="_blank" href="{{ path('eguide_download', {'slug' : eguide.slug})}}"><span></span>Download PDF</a>
+			</div>{% endif %}#}
+		{% elseif ownGuide %}
+			<div class="download-pdf">
+				<a class="buynow downloadButton" target="_blank" href="{{ path('eguide_download', {'slug' : eguide.slug})}}"><span></span>Download PDF</a>
+			</div>
+			{#<div class="owned">
+				<span>Owned</span>
+			</div>#}
+		{% else %}
+			{% if false %}
+				<form action="{{ path('pay_with_stripe') }}" method="POST" class="fr">
+					<input type='hidden' value="{{ amount * 100 }}" name="amount" />
+					<input type='hidden' value="{{ paymentDescription }}" name="description" />
+					<input type='hidden' value="{{ eguideId }}" name="eguideId" />
+					<script
+					  src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+					  data-key="{{ pubKey }}"
+					  data-amount="{{ amount * 100 }}"
+					  data-name="Buggl"
+					  data-description="{{ description }}"
+					  data-image="{{ asset('bundles/bugglmain/images/buggl-logo-r1.png') }}"
+					  data-label="{{ '$'~amount~' Buy' }}"
+					>
+					</script>
+				</form>
+			{% endif %}
+			<a class="buynow buyButton" href="{{ path('buggl_buy_guide',{'eguideId':eguide.id}) }}"><img src="{{ asset('bundles/bugglmain/images/buy-icon.png') }}">Buy Guide</a>
+			{#<div class="purchased">
+				<span>{{ eguide.price | renderPrice }}</span>
+			</div>#}
+		{% endif%}
+	{% else %}	
+		<a class="buynow buyButton" href="{{ path('buggl_buy_guide',{'eguideId':eguide.id}) }}" ><img src="{{ asset('bundles/bugglmain/images/buy-icon.png') }}">Buy Guide</a>
+		{#<div class="purchased">
+			<span>{{ eguide.price | renderPrice }}</span>
+		</div>#}
+	{% endif %}
+{% endif %}

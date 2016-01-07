@@ -1,0 +1,14 @@
+{% extends "BugglMainBundle:Notification:emailNotificationLayout.html.twig" %}
+
+{% block content %}
+    <h1>Well Done.</h1>
+    		
+	<p>Your travel guide “{{ guide.plainTitle }}” was downloaded.</p>
+
+	<p>To view the details of the transaction, go to your transaction history in your account settings. Log into your account by clicking <a href="{{ link }}">here</a></p>
+
+	<p>Keep writing more guides!</p>
+
+	<p>Best,</p>
+	<p><strong>The Buggl Team</strong></p>
+{% endblock %}

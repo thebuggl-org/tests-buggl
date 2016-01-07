@@ -1,0 +1,83 @@
+{% extends "BugglMainBundle:Markup/Markup:homepage.html.twig" %}
+
+{% block title %} {{ metas.title }} {% endblock %}
+{% block meta_tags %}
+    <meta name="description" content="{{ metas.description|raw }}">
+{% endblock %}
+
+
+{% block featured_guides %}
+    {% if guides %}
+        {% include 'BugglMainBundle:Frontend/Main:featuredGuide.html.twig' with {'guides':guides,'spotlight':spotlight} %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script type="text/javascript">
+		(function($) {
+            function extractLast(term) {
+                return split( term ).pop();
+            }
+
+            function split(val) {
+                return val.split( /,\s*/ );
+                // return val.split(" ");
+            }
+
+			$("input[name=location]").autocomplete({
+				source: "{{ path('suggest_location') }}",
+				minLength: 1
+			});
+
+            // $("input[name=activity]").autocomplete({
+            //     source: "{{ path('suggest_activity') }}",
+            //     minLength: 2
+            // });
+
+            $("input[name=activity]")
+                .bind( "keydown", function( event ) {
+                    if (event.keyCode === $.ui.keyCode.TAB && $(this).data( "ui-autocomplete" ).menu.active) {
+                            event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    source: function( request, response ) {
+                        $.getJSON( "{{ path('suggest_activity') }}", {
+                            term: extractLast( request.term )
+                        }, response );
+                    },
+                    search: function() {
+                        // custom minLength
+                        var term = extractLast( this.value );
+                        if ( term.length < 1 ) {
+                            return false;
+                        }
+                    },
+                    focus: function() {
+                        // prevent value inserted on focus
+                        return false;
+                    },
+                    select: function( event, ui ) {
+                        var terms = split( this.value );
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push( ui.item.value );
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push("");
+                        this.value = terms.join(", ");
+                        return false;
+                    }
+                });
+		})(jQuery);
+	</script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/bugglmain/css/chosen.css' | s3Cdn ) }}" type="text/css" >
+{% endblock %}

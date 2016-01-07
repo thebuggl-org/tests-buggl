@@ -1,0 +1,36 @@
+<div class="reg_box clearfix">
+    <img src="{{ asset(payment.eguide | getEguidePhoto) }}" border="0" align="right" alt=" " width="140" height="210" class="fr">
+    <h2 class="title"><a href="{{ path('buggl_eguide_overview', {'slug': payment.eguide.slug}) }}">{{ payment.eguide.plainTitle }} </a></h2>
+	
+	<ul class="location">
+	{% for location in payment.eguide.getLocations %}
+		<li>{{location.address}}</li>
+	{% endfor %}
+	</ul>
+	
+    <ul class="rating">
+        <li class="star fl">
+            <span class="ico"></span>
+            <span class="ico"></span>
+            <span class="ico"></span>
+            <span class="ico"></span>
+        </li>
+        <li class="price">{{ payment.eguide.price | renderPrice }}</li>
+    </ul>
+    {{ payment.eguide.excerpts|raw }}
+</div>
+<div class="sml_box">
+    <div class="facts fl">
+		{% set duration = ( 0 < payment.eguide.realDuration ) ? payment.eguide.realDuration ~ " Days" : "N/A" %}
+        <a href="#"><span>Duration:</span>{{ duration }}</a>
+        <a href="#"><span>Trip Theme:</span>{{ payment.eguide.tripTheme.name }}</a>
+        <a href="#"><span>Good For:</span>{{ payment.eguide | getGoodFor }}</a>
+        <a href="#"><span>Date Updated:</span>{{ payment.eguide.dateUpdated|date('M d, Y')}}</a>
+    </div>
+</div>
+<div class="reg_box">
+    <nav class="mini">
+		<a href="{{ path('pdf_preview', {'filename' : payment.eguide.pdfFilename}) }}" target="_blank" class="btn fr">PDF Preview</a>
+        <a href="{{ path('eguide_download', {'slug' : payment.eguide.slug})}}" class="btn fr">Download PDF</a>
+    </nav>
+</div>

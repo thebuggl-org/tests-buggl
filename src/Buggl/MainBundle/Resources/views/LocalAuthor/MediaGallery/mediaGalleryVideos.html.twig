@@ -1,0 +1,18 @@
+{% extends "BugglMainBundle:LocalAuthor/MediaGallery:mediaGallery.html.twig" %}
+
+{% block galleryList %}
+	<article class="grid_8 column">
+		<section>
+			<h3>Videos <nav class="adminOpt"><a href="" class="btn">Add Video</a></nav></h3>
+			<ul class="admin-gallery clearfix">
+				{% for i in 1..15 %}
+					<li class="column grid_4">
+						<img src="{{ asset('bundles/bugglmain/images/custom/adele_320.jpg') }}" />
+						{% include 'BugglMainBundle:LocalAuthor/MediaGallery:mediaGalleryActions.html.twig' %}
+					</li>
+				{% endfor %}		
+			</ul>	
+		</section>
+		{% include 'BugglMainBundle:LocalAuthor:pagination.html.twig' with {'totalPages':10,'dataUrl':'','currentPage':1,'startPage':1,'endPage':10} %}
+	</article>	
+{% endblock %}

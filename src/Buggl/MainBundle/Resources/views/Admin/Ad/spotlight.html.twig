@@ -1,0 +1,129 @@
+{% extends 'BugglMainBundle:Admin/Ad:ad.html.twig' %}
+
+{% block modal %}
+
+{% endblock %}
+
+
+{% block section_title %} 
+	Spotlight Guide 
+{% endblock %}
+
+{% block main_content %}
+	<form action="" class="spot-light-form" method="POST" {{ form_enctype(form) }} novalidate>
+		<img id="loader" src="/bundles/bugglmain/images/ajax-loader-1.gif" width="25" height="25" style="display:none; margin: 5px 5px 0 0"/>
+		<div class="form-section">
+			{{ form_widget(form.guide) }}
+			{{ form_errors(form.guide) }}
+		</div>
+		<div class="form-section">
+			{{ form_widget(form.photo, { 'attr': {'accept': "image/*", 'style':'display:none'} }) }}
+			<a class="site-admin-button blue" href="" id="selectPhoto" onclick="return false;"> Select Photo </a>
+			{{ form_errors(form.photo) }}
+		</div>
+		
+	   	{% if spotlight %}
+	        <div class="main-spotlight-admin clearfix" style="min-height:314px">
+	            <img id="spotlightPic" border="0" width="100%" align="left" alt=" " src={{ asset(spotlight.spotlightPhotoWebPath)}} width="590px" height="314px" />
+	            <div class="box">
+	                <a class="subphoto" href="" onclick="return false"><img id="authorProfilePic" border="0" alt=" " src="{{ asset(spotlight.localAuthor.profile | profilePic) }}" width="60px" height="60px"/></a>
+	                <h3 class="title" id="spotlightTitle">{{ spotlight.plainTitle }}</h3>
+	                <span class="subtext" id="spotlightAuthorName">{{ spotlight.localAuthor.name }}</span><br/>
+	            </div>
+	        </div>
+	    {% else %}
+		    <div class="main-spotlight-admin clearfix" style="min-height:314px">
+		        <img id="spotlightPic" border="0" width="100%" align="left" alt=" " src="" width="590px" height="314px"/>
+		        <div class="box">
+		            <a class="subphoto" href="" onclick="return false"><img id="authorProfilePic" width="60px" height="60px" border="0" alt=" " src="{{ asset(app.user|userPic)}}" width="60px" height="60px" /></a>
+		            <h3 class="title" id="spotlightTitle">Title here</h3>
+		            <span class="subtext" id="spotlightAuthorName">Name here</span><br/>
+		        </div>
+		    </div>
+	    {% endif %}
+		{{ form_rest(form) }}
+		<div class="form-section">
+			<input class="site-admin-button blue" type="submit" value="Save">
+			{% if default != '' %}
+				<a class="site-admin-button to-right" id="removeSpotlight" href="{{ path('remove_spotlight') }}" onclick="return false;">Remove Spotlight</a>
+			{% endif %}
+			{% if false %}
+				<a class="site-admin-button blue" id="preview" href="" onclick="return false;">Preview Actual Size</a>
+			{% endif %}
+		</div>
+	</form>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts '@BugglMainBundle/Resources/public/js/chosen.jquery.min.js' %}
+        <script src="{{ asset_url }}"></script>
+        <script type="text/javascript">
+            (function($){
+                $(document).ready(function(){
+                    $('select#form_guide').chosen().trigger('liszt:updated');
+					
+					$('#form_guide').on('change',function(){
+						var me = $(this);
+						$("#loader").show();
+						$.getJSON(me.attr('data-url'),{'guideId':me.val()},function(response){
+							$('#spotlightTitle').empty().html(response.guideTitle);
+							$('#spotlightAuthorName').empty().html(response.authorName);
+							$('#authorProfilePic').attr('src',response.authorPic);
+							
+							$('#previewSpotlightTitle').empty().html(response.guideTitle);
+							$('#previewSpotlightAuthorName').empty().html(response.authorName);
+							$('#previewAuthorProfilePic').attr('src',response.authorPic);
+							
+							if(response.spotlightPhoto != null && response.spotlightPhoto != ''){
+								$('#spotlightPic').attr('src',response.spotlightPhoto);
+							}
+							else{
+								$('#spotlightPic').attr('src','').hide();
+							}
+							$("#loader").hide();
+						});
+					});
+					
+					$('#preview').on('click',function(e){
+						e.preventDefault();
+						$('#previewModal').reveal({'closeOnBackgroundClick':false});
+					});
+					
+	                $('#selectPhoto').on('click',function(event){
+	                    event.preventDefault();
+	                    $('#form_photo').trigger('click');
+	                });
+
+	                $('#form_photo').on('change',function(event){
+	                    var reader = new FileReader();
+						var file = $(event.currentTarget)[0].files[0];
+						
+	                    reader.onload = function(e){
+							$('#spotlightPic').attr('src',e.target.result).show();
+	                    }
+						reader.readAsDataURL(file);
+	                });
+					
+					$('#removeSpotlight').on('click',function(){
+						var me = $(this);
+						$.fn.bugglConfirm({
+							'onConfirm' : function(){
+								window.location.replace(me.attr('href'));
+							}
+						});
+					});
+                });
+            })(jQuery);
+        </script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 
+        '@BugglMainBundle/Resources/public/css/chosen.css'
+    %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+{% endblock %}

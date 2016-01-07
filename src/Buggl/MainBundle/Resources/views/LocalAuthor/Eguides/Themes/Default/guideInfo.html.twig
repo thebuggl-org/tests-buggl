@@ -1,0 +1,270 @@
+{% extends "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:create.html.twig" %}
+
+{% block title %}
+	Add Travel Guide Info
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	<script src="{{ asset('bundles/bugglmain/js/eguide_themes/default/jquery.guideInfo.v2.0.js') }}"></script>
+	{% javascripts
+		'@BugglMainBundle/Resources/public/js/jquery.budget-chooser.js'
+		filter='?yui_js'
+	%}
+
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+	
+	<script>
+		$(document).ready(function(){
+			$(".budget").budgetChooser({
+				'inputname' : 'budget'
+			});
+			
+			analytics.trackForm($('#guide-info-form'), 'Let’s Do This');
+		});
+	</script>
+{% endblock %}
+
+{% block create_eguide_page %}
+	
+	{% set guide_id = (0 < travel_guide_id) ? travel_guide_id : null %}
+	{% set frm_action = (0 < travel_guide_id) ? path('update_travel_guide_info', {'travel_guide_id' : guide_id}) : path('add_travel_guide_info') %}
+	{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:steps.html.twig" with {'travel_guide_id' : guide_id, 'step' : 1} %}
+
+	<section class="step-1 steps">
+ 		<form class="clearfix" action="{{ frm_action }}" method="POST" id="guide-info-form" name="guide-info-form">
+			<h2>GUIDE INFO</h2>
+			<div class="sidebar to-left">
+				<div class="form-section location">
+					<h3>Choose Country<span class="guide-required">*</span> <span class="form-field-error" id="country-search-error-msg">This field is required.</span></h3>
+					{% set eguideCountry = (guide_id is not null) ? eguide.country.name : "" %}
+					{%if(request_guide_id !='')%}
+					{% set eguideCountry = (request_guide_id is not null) ? messagerequest.country.name : "" %} 
+					{% endif %}
+					<input type="text" name="country" value="{{eguideCountry}}" id="country-search" placeholder="Enter the country Name" required="required">
+					{#
+					<div class="select">
+						<select name="country">
+							<option value="">Select a country</option>
+							{% set selected_country = (eguide.country is not null and location.city.country.id == eguide.country.id) ? "selected" : ""  %}
+							<option value="{{ location.city.country.id }}" {{ selected_country }}>{{ location.city.country.name }}</option>
+						</select>
+					</div>
+					#}
+				</div>	
+				<div class="form-section">	
+					<h3>Choose Location<span class="guide-required">*</span> <span class="form-field-error" id="locations-error-msg">This field is required.</span></h3>
+					<div class="guide-add-city">
+						<div class="clearfix">
+							<input class="to-left" type="text" id="google-place-search" placeholder="Press Enter after each location"  />
+						
+							<!-- <div class="select to-left">
+								<select name="cities[]" >
+									<option value="">Select a City</option>
+								</select>
+							</div> -->
+						
+							<input type="button" class="add-city to-left" value="ADD TO GUIDE" />
+						</div>
+						{% if((request_user !=0)  and (messagerequest.destination==0) and (messagerequest.destination!='')) %}
+						<ul class="eguide-city-list">
+							
+								<li class="clearfix">
+									<input type="hidden" name="locations[]" value="{{ messagerequest.destination }}"/>
+									<div class="to-left">{{ messagerequest.destination }}</div>
+									<a class="to-right" href="" name="remove-location">remove</a>
+								</li>
+							
+						</ul>{% else %}
+						<ul class="eguide-city-list">
+
+							{% for location in eguide.getLocations %}
+								<li class="clearfix">
+									<input type="hidden" name="locations[]" value="{{ location.address }}"/>
+									<div class="to-left">{{ location.address }}</div>
+									<a class="to-right" href="" name="remove-location">remove</a>
+								</li>
+							{% endfor %}
+						</ul>
+						
+						{% endif%}
+					</div>
+				</div>
+				<hr size='1' />
+				<div class="form-section checkbox-section">
+					<h3>Give Your Travel Guide a Name<span class="guide-required">*</span> <span class="form-field-error" id="title-error-msg">This field is required.</span><span>Introduce a traveler to your guide; be creative, cool and different!</span></h3>
+					<textarea width="100" name="title" id="titleTextArea" required data-char-limit="80">{{ eguide.title }}</textarea>
+					<input type="text" id="titleTextArea-char-count" value="80" disabled/>
+				</div>
+				<hr size='1' />				
+				<div class="form-section checkbox-section">
+					<h3>Travel Guide Teaser<span class="guide-required">*</span> <span class="form-field-error" id="teaser-error-msg">This field is required.</span> <span>You're introducing your story and your travel guide here.  Hopefully, what you share here will pull the user in. Be creative!</span></h3>		
+					<textarea width="100" name="eguide-teaser" id="teaserTextArea" required data-char-limit="130">{{ eguide.excerpts }}</textarea>
+					<input type="text" id="teaserTextArea-char-count" value="130" disabled/>
+				</div>
+				<hr size='1' />				
+				<div class="form-section">
+					<h3>Travel Guide Theme<span class="guide-required">*</span> <span class="form-field-error" id="trip-theme-error-msg">This field is required.</span></h3>
+					<div class="select">
+						<select name="trip-theme" >
+							<option value="">Select a trip theme</option>
+							{% for theme in tripThemes %}
+								{% set selected_theme = (eguide.tripTheme is not null and theme.id == eguide.tripTheme.id) ? "selected" : ""  %}
+								{%if(request_guide_id !='')%}						
+								{% set selected_theme = (messagerequest.tripTheme is not null and theme.id == messagerequest.tripTheme.id) ? "selected" : ""  %} {% endif %}
+								<option value="{{ theme.id }}" {{ selected_theme }}>{{ theme.name }}</option>
+							{% endfor %}
+						</select>
+						<input type="text" name="new-trip-theme" value="" style="display:none;" placeholder="A Guide to South Africa’s Beaches" required>
+					</div>
+				</div>
+				<hr size='1' />	
+						
+				<div class="form-section">
+					<h3>Interests<span class="guide-required">*</span> <span class="form-field-error" id="interests-error-msg">This field is required.</span></h3>
+					<div class="guide-add-interest">
+						<div class="clearfix">
+							<input class="to-left" type="text" id="interests-search" placeholder="Press Enter after each interest" />
+							<input type="button" class="add-interest to-left" value="ADD TO GUIDE" />
+						</div>
+						<ul class="eguide-interest-list">
+							{% for interest in egInterests %}
+								<li class="clearfix">
+									<input type="hidden" name="interests[]" value="{{ interest.category.name }}"/>
+									<div class="to-left">{{ interest.category.name }}</div>
+									<a class="to-right" href="" name="remove-interest">remove</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+					
+				</div>
+				<hr size='1' />				
+				<div class="form-section checkbox-section" name="good-for-section">
+					<h3>Who is this travel guide best for?<span class="guide-required">*</span> <span class="form-field-error" id="good_for-error-msg">This field is required.</span><span>Select at most 3.</span></h3>
+					{% for item in goodFor %}
+						<label>
+							{% set checked = (item.id in eguide.getGoodForIds) ? 'checked="checked"' : '' %}
+							{%if(request_guide_id !='')%}
+							{% set checked = (item.id in messagerequest.getGoodFor) ? 'checked="checked"' : '' %}
+							{% endif %}
+							<input type="checkbox" value="{{ item.id }}" name="good_for[]" {{checked}}>
+							<span>{{ item.name }}</span>
+						</label>
+					{% endfor %}
+					
+				</div>
+				{#<p>{{eguide.getGoodForIds}}</p>#}
+				{# <p>{{messagerequest.getGoodFor}}</p>
+				<hr size='1' />
+				<div class="form-section">
+					<h3>Duration<span class="guide-required">*</span> <span class="form-field-error" id="duration-error-msg">This field is required.</span></h3>
+					<div class="select">
+						<select name="duration" >
+							<option value="">Select a duration</option>
+							{% for duration in durations %}
+							{% set selected_duration = (eguide.duration is not null and duration.id == eguide.duration.id) ? "selected" : ""  %}
+					                 {% set selected_duration = (messagerequest.duration is not null and duration.id == messagerequest.duration.id) ? "selected" : ""  %}
+							<option value="{{ duration.id }}" {{ selected_duration }}>{{ duration.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				#}
+				<hr size='1' />					
+				<div class="form-section best-time">
+					<h3>Best time to go<span class="guide-required">*</span> <span class="form-field-error" id="best-time-to-go-error-msg">This field is required.</span></h3>
+					<ul class="horizontalize" name="best-time-to-go">
+						<li>
+							<a class="{{ ('JAN' in bestTimes) ? 'selected' : ''}}" href="">JAN</a>
+							{% if 'JAN' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="JAN" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('FEB' in bestTimes) ? 'selected' : ''}}" href="">FEB</a>
+							{% if 'FEB' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="FEB" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('MAR' in bestTimes) ? 'selected' : ''}}" href="">MAR</a>
+							{% if 'MAR' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="MAR" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('APR' in bestTimes) ? 'selected' : ''}}" href="">APR</a>
+							{% if 'APR' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="APR" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('MAY' in bestTimes) ? 'selected' : ''}}" href="">MAY</a>
+							{% if 'MAY' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="MAY" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('JUN' in bestTimes) ? 'selected' : ''}}" href="">JUN</a>
+							{% if 'JUN' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="JUN" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('JUL' in bestTimes) ? 'selected' : ''}}" href="">JUL</a>
+							{% if 'JUL' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="JUL" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('AUG' in bestTimes) ? 'selected' : ''}}" href="">AUG</a>
+							{% if 'AUG' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="AUG" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('SEP' in bestTimes) ? 'selected' : ''}}" href="">SEP</a>
+							{% if 'SEP' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="SEP" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('OCT' in bestTimes) ? 'selected' : ''}}" href="">OCT</a>
+							{% if 'OCT' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="OCT" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('NOV' in bestTimes) ? 'selected' : ''}}" href="">NOV</a>
+							{% if 'NOV' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="NOV" >
+							{% endif %}
+						</li>
+						<li>
+							<a class="{{ ('DEC' in bestTimes) ? 'selected' : ''}}" href="">DEC</a>
+							{% if 'DEC' in bestTimes %}
+								<input type="hidden" readonly="true" name="best-time-to-go[]" value="DEC" >
+							{% endif %}
+						</li>
+					</ul>
+				</div>
+				<hr size='1' />				
+				<div class="form-section">
+					<h3>Budget<span class="guide-required">*</span> <span class="form-field-error" id="budget-error-msg">This field is required.</span></h3>
+					{% include 'BugglMainBundle:LocalAuthor/Misc:budgetChooser.html.twig' with { 'defaultSelect' : eguide.budget  } %}
+				</div>	
+				
+				<input type="hidden" value={{request_user}} name="requestUser">
+				{% if(messagerequest != '')%}
+				<input type="hidden" value={{messagerequest.price}} name="price">
+				{% endif%}
+				<input type="hidden" value={{request_guide_id}} name="requestGuide">
+				<div class="form-section">
+					<a class="start-create-button" id="guide-info-form-save" href="">Let's do this!</a>
+				</div>
+			</div>
+		</form>
+	</section>	
+{% endblock %}

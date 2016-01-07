@@ -1,0 +1,137 @@
+<section class="step-2 steps" id="{{ eguide.slug }}" data-hasitinerary="{{hasItinerary}}">
+	<div class="create-guide-pages clearfix">
+		
+		{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:guidePageSections.html.twig" with { 'travel_guide_id' : eguide.id, name : 'before-you-go'} %}
+
+		<div class="pages">
+			
+			<div class="page">				
+				<div class="main-page clearfix">
+					<div class="first-half half to-left generic">
+						<div class="page-shading"></div>
+						<div class="generic-header">
+							<h1>BEFORE YOU GO</h1>									
+						</div>
+						<div class="generic-content">
+							<h3 class="entitler">I. What To Take</h3>
+							{% set what_to_take = (contents is null) ? "" : contents.whatToTake %}
+							<div class="what-to-take generic-sections" name="before-you-go-content-holder" data-title="What to Take" data-fieldname="whatToTake" data-content="{{ what_to_take }}">
+								{% if what_to_take|length == 0 %}
+									<p>
+										<em>
+											Include in here what the traveler should bring on their journey to where you live. These are the essentials! Think about what you would want if you were visiting your country for the first time during the time frame you've chosen.
+										</em>
+									</p>
+								{% else %}
+									{{what_to_take|raw}}
+								{% endif %}
+								<a class="editable">
+									<strong>EDIT.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+								
+							</div>
+							<h3 class="entitler">II. Getting Around</h3>
+							{% set getting_around = (contents is null) ? "" : contents.gettingAround %}
+							<div class="what-to-take generic-sections" name="before-you-go-content-holder" data-title="Getting Around" data-fieldname="gettingAround" data-content="{{getting_around}}">
+								{% if getting_around|length == 0 %}
+								<p>
+									<em>
+										Transportation is a confusing thing in some cities and countries. You know it better than the traveler does so make sure you put important country specific information. For example: Do buses run on Sundays? Where can they download useful transit maps? What taxi service do you recommend they take from the airport? Be helpful here!
+									</em>
+								</p>
+								{% else %}
+									{{ getting_around|raw }}
+								{% endif %}
+								<a class="editable">
+									<strong>EDIT.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+
+							</div>
+							<h3 class="entitler">III. Money and Tipping</h3>
+							{% set money_tipping = (contents is null) ? "" : contents.moneyTipping %}
+							<div class="what-to-take generic-sections" name="before-you-go-content-holder" data-title="Money and Tipping" data-fieldname="moneyTipping" data-content="{{ money_tipping }}">
+								{% if money_tipping|length == 0 %}
+								<p>
+									<em>
+										Where is the best place to exchange currency? What are customary tipping rates? Are credit cards accepted in most places? Are ATM's safe and within close distances to the places you've recommended. The more specific and helpful you are, the better you're servicing the travelers!
+									</em>
+								</p>
+								{% else %}
+									{{ money_tipping|raw }}
+								{% endif %}
+								<a class="editable">
+									<strong>EDIT.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="second-half half to-left generic">
+						<div class="page-shading"></div>
+						<div class="generic-header">									
+						</div>
+						<div class="generic-content">
+							<h3 class="entitler">IV. Safety and Security</h3>
+							{% set safety = (contents is null) ? "" : contents.safety %}
+							<div class="what-to-take generic-sections" name="before-you-go-content-holder" data-title="Safety and Security" data-fieldname="safety" data-content="{{ safety }}">	
+								{% if safety|length == 0 %}
+								<p>
+									<em>
+										What areas of the city or region should people avoid? What scams happen to travelers? Tell the travelers how to blend in and stay safe - wouldn't you want them to do the same for you? Try to keep this information fresh and updated because it's always changing!
+									</em>
+								</p>
+								{% else %}
+									{{ safety|raw }}
+								{% endif %}
+								<a class="editable">
+									<strong>EDIT.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							</div>
+							
+							<h3 class="entitler">V. Useful Phone Number, Websites and Local Apps</h3>
+							{% set usefulInfo = (contents is null) ? "" : contents.usefulInfo %}
+							<div class="what-to-take generic-sections" name="before-you-go-content-holder" data-title="Useful Phone Number, Websites and Local Apps" data-fieldname="usefulInfo" data-content="{{ usefulInfo }}">
+								{% if usefulInfo|length == 0 %}
+								<p>
+									<em>
+									Think about things here that you would want to know if you were in a jam or visiting for the first time. The best rated taxis, good local hospitals and doctors, dentists - again what would you want!
+									</em>
+								</p>
+								{% else %}
+									{{ usefulInfo|raw }}
+								{% endif %}
+								<a class="editable">
+									<strong>EDIT.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							</div>
+							
+							<h3 class="entitler">VI. Local Notes</h3>
+							{% set localNotes = (contents is null) ? "" : contents.localNotes %}
+							<div class="what-to-take generic-sections" name="before-you-go-content-holder" data-title="Local Notes" data-fieldname="localNotes" data-content="{{ localNotes }}">	
+								{% if localNotes|length == 0 %}
+								<p>
+									<em>
+									Is there anything else you want to let the traveler know about before they visit your country?
+									</em>
+								</p>
+								{% else %}
+									{{ localNotes|raw }}
+								{% endif %}
+								<a class="editable">
+									<strong>EDIT.</strong>
+									<span class="client-edit-button">EDIT</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% set pagination_opts = (completeProfile != 1) ? {'travel_guide_id' : eguide.id,'prev_page':'overview', 'next_page':'author', 'status' : eguide.status} : {'travel_guide_id' : eguide.id,'prev_page':'overview', 'status' : eguide.status} %}
+				{% include 'BugglMainBundle:LocalAuthor/Eguides/Themes/Default:pageNavigation.html.twig' with pagination_opts %}
+			</div>	
+		</div>
+	</div>
+</section>

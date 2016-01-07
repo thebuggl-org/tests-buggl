@@ -1,0 +1,23 @@
+<ul class="theme-list site-admin-list">
+    {% for list in lists %}
+    <li class="clearfix">
+        <div>
+            <h3 class="to-left">{{ list.name }}</h3>
+            <div class="input-edit to-left" style="display:none">
+                <input type="text" name="category_name" value="{{ list.name }}" style="border:none" />
+                <a href="" class="cancel-edit">x</a>
+            </div>
+            <ul class="site-admin-list-actions to-right horizontalize">
+                <li>
+                    <a name="publish" href="{{ path('admin_trip_theme_publish',{id:list.id} ) }}" data-value="{{ list.status }}">{{ list.status ? 'unpublish' : 'publish' }}</a>
+                </li>
+                <li>
+                    <a class="edit-category" href="">edit</a>
+                    <a class="save-category" href="{{ path('admin_trip_theme_save',{id:list.id}) }}" style="display:none">save</a>
+                </li>
+            </ul>
+        </div>
+        <span class="loader" style="display:none">Saving</span>
+    </li>
+    {% endfor %}
+</ul>

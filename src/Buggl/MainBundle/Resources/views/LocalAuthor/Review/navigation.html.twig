@@ -1,0 +1,12 @@
+<aside class="admin-messages column grid_4">
+    <section class="profile">
+        <nav class="clearfix clear">
+        	{% if false %}
+            <a class="{{ active == 'new_guide_review' ? 'active' : ''}}{{ travelGuideReviewCount > 0 ? ' red' : '' }}" href="{{ path('local_author_new_travel_guides_reviews') }}"><span class="ico"></span>{{travelGuideReviewCount > 0 ? travelGuideReviewCount : ''}} New travel guide review</a>
+            <a class="{{ active == 'new_author_review' ? 'active' : ''}}{{ localAuthorReviewCount > 0 ? ' red' : '' }}" href="{{ path('local_author_new_reviews') }}"><span class="ico"></span>{{localAuthorReviewCount > 0 ? localAuthorReviewCount : ''}} New author review</a>
+            {% endif %}
+            <a class="{{ active == 'approved' ? 'active' : ''}}" href="{{ path('local_author_reviews') }}"><span class="ico"></span>Approved Reviews</a>
+            <a class="{{ active == 'denied' ? 'active' : ''}}" href="{{ path('local_author_denied_reviews') }}"><span class="ico"></span>Denied Reviews</a>
+        </nav>
+    </section>
+</aside>

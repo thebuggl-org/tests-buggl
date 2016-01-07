@@ -1,0 +1,104 @@
+
+
+<div class="page" id="itinerary-day-{{ day }}">
+	<div class="main-page clearfix">
+		<div class="first-half half to-left {{ (page <= 2) ? 'page-intro day-intro' : 'spot' }}">
+			{% if page <= 2 %}
+				{% include "BugglMainBundle:LocalAuthor/Eguides/Themes/Default:itineraryDailyIntro.html.twig" %}
+			{% else %}
+				{% if oddPageObjects|length > 1 %}
+					<div class="page-shading"></div>
+					<div class="day-time {{ oddPageObjects.period_of_day }}">
+						<span></span>
+					</div>
+					{% for oddDetail in oddPageObjects.details %}
+						{% set spot_type_cls = oddDetail.spotType.name|replace(" ", "-")|lower %}
+						<div class="itinerary-item">
+							<div class="clearfix">
+								<h3 class="spot-location">{{ oddDetail.spot.name }}</h3>
+							</div>
+							<div class="clearfix">
+								<div class="itinerary-image to-right">
+									<img src="{{ oddDetail.photo }}" width="400" />	
+								</div>
+								<div class="itinerary-details to-left">
+									<div class="itinerary-type {{spot_type_cls}}">
+										<span class="spot-type-ico"></span>
+										<h5>{{oddDetail.spotType.name}}</h5>
+									</div>
+									<ul>
+										<li>{{ oddDetail.spot.address }}</li>
+										<li>{{ oddDetail.spot.contactNumber }}</li>
+									</ul>
+								</div>
+							</div>
+							<ul class="itinerary-item-action horizontalize">
+								<li><a name="edit-spot" data-page="{{ page }}" data-pagename="itinerary" data-spotid="{{ oddDetail.spot.id }}" data-detailid="{{oddDetail.id}}" data-daynum="{{ 0 }}" href="">edit</a></li>
+								<li><a href="{{ path('remove_spot', {'spot_id' : oddDetail.spot.id, 'type' : 'itinerary', 'guide_id' : eguide.id, 'day_num' : day})}}" name="remove-spot">remove</a></li>
+							</ul>	
+						</div>
+					{% endfor %}
+
+				{% else %}
+					<a class="add-spot" href="" name="add-daily-spot"  data-page="{{ page + 1 }}" data-daynum="{{ day }}">
+						<span></span>
+						ADD SPOT :)
+					</a>
+				{% endif %}
+			{% endif %}
+			
+		</div>
+		<div class="second-half half spot to-left">
+				<div class="page-shading"></div>
+		
+			{% if evenPageObjects|length > 1 %}
+				<div class="day-time {{ evenPageObjects.period_of_day }}">
+					<span></span>
+				</div>
+				{% for evenDetail in evenPageObjects.details %}
+				
+					{% set spot_type_cls = evenDetail.spotType.name|replace(" ", "-")|lower %}
+				
+					<div class="itinerary-item">
+						<div class="clearfix">
+							<h3 class="spot-location">{{ evenDetail.spot.name }}</h3>
+						</div>
+						<div class="clearfix">
+							<div class="itinerary-image to-left">
+								<img src="{{ evenDetail.photo }}" width="400" />	
+							</div>
+							<div class="itinerary-details to-right">
+								<div class="itinerary-type {{spot_type_cls}}">
+									<span class="spot-type-ico"></span>
+									<h5>{{evenDetail.spotType.name}}</h5>
+								</div>
+								<ul>
+									<li>{{ evenDetail.spot.address }}</li>
+									<li>{{ evenDetail.spot.contactNumber }}</li>
+								</ul>
+<!--								<ul>
+									{% for like in evenDetail.spotLikes %}
+									<li>{{ like.name }}</li>
+									{% endfor %}
+								</ul> -->
+							</div>
+						</div>
+						<ul class="itinerary-item-action horizontalize">
+							<li><a name="edit-spot" data-page="{{ page }}" data-pagename="itinerary" data-spotid="{{ evenDetail.spot.id }}" data-detailid="{{evenDetail.id}}" data-daynum="{{ 0 }}" href="">edit</a></li>
+							<li><a href="{{ path('remove_spot', {'spot_id' : evenDetail.spot.id, 'type' : 'itinerary', 'guide_id' : eguide.id, 'day_num' : day})}}" name="remove-spot">remove</a></li>
+						</ul>	
+					</div>
+				{% endfor %}
+				
+			{% else %}
+				<a class="add-spot" href="" name="add-daily-spot"  data-page="{{ page + 1 }}" data-daynum="{{ day }}">
+					<span></span>
+					ADD SPOT :)
+				</a>
+			{% endif %}
+		
+		</div>
+		
+	</div>
+	{% include 'BugglMainBundle:LocalAuthor/Eguides/Themes/Default:pageNavigation.html.twig' with {'travel_guide_id':eguide.id,'prev_page':'localplaces','next_page':'before-you-go'} %}
+</div>

@@ -1,0 +1,87 @@
+{% extends "BugglMainBundle:LocalAuthor/Messages:messages.html.twig" %}
+
+{% block inner_content %}
+	<article class="grid_8 column">	
+		<section class="inbox">
+			<h3>{{ messageThreadToUser.thread.subject }} 
+				<nav class="adminOpt">
+					{% if activeTab == 'inbox' %}
+						<a href="{{ path('local_author_messages_archive',{'messageThreadToUserId':messageThreadToUser.id}) }}" class="btn">Archive</a>
+					{% else %}
+						<a href="{{ path('local_author_messages_unarchive',{'messageThreadToUserId':messageThreadToUser.id}) }}" class="btn">Unarchive</a>
+					{% endif %}
+					<a href="{{ path('local_author_messages_create') }}" class="btn messages"><span class="ico"></span>New Message</a>	
+				</nav>
+			</h3>
+			<ul id="messageList" data-new-msg-checker-url="{{ path('local_author_check_new_message',{'userId':app.user.id,'threadId':messageThreadToUser.thread.id}) }}">
+				{% include 'BugglMainBundle:LocalAuthor/Messages:messagesList.html.twig' %}
+			</ul>
+			<div id="newMessageNotification" style="display:none;" data-new-message-id="0" class="reg_box">
+				You have a new message. <a href="" id="showNotification" data-id="" >Show</a> <a href="" id='ignore'>Ignore</a>
+			</div>
+			<div class="reg_box comments">
+	            <form id="replyForm" action="{{ path('local_author_messages_reply') }}" method="POST">
+	                <textarea style="" name="message"></textarea>
+					<input class="btn" type="submit" value="Reply"/>
+					<input type='hidden' name='threadId' value="{{ messageThreadToUser.thread.id }}"/>
+	            </form>
+	        </div>
+		</section>	
+	</article>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                $('#replyForm').on('submit',function(e){
+                	e.preventDefault();
+					if($('textarea[name="message"]').val().trim() == ''){
+						return false;
+					}
+					
+					var me = $(this);
+					$.post(me.attr('action'),me.serialize(),function(reponse){
+						$('#messageList').append(reponse);
+						$('textarea[name="message"]').val('');
+					});
+                });
+				
+				$('#ignore').on('click',function(e){
+					e.preventDefault();
+					
+					$('#newMessageNotification').hide();
+				});
+				
+				checkNewMessage = function(){
+					$.getJSON($('#messageList').attr('data-new-msg-checker-url'),function(response){
+						if(response.newMessagesCount > 0){
+							$('#newMessageCount').html(response.newMessagesCount+' ');
+							$('#inbox').addClass('red');
+						}
+						else{
+							$('#newMessageCount').html('');
+							$('#inbox').removeClass('red');
+						}
+							
+						if(response.newMessageId != 0 && response.newMessageId != $('#newMessageNotification').attr('data-new-message-id')){
+							$('#newMessageNotification').attr('data-new-message-id',response.newMessageId).show();
+							/*setTimeout(function(){
+								$('#newMessageNotification').hide();
+							},8000);*/
+						}
+						setTimeout(function(){
+							checkNewMessage();
+						},5000);
+						
+					});
+				}
+				
+				setTimeout(function(){
+					checkNewMessage();
+				},5000);
+            });
+        })(jQuery);
+    </script>
+{% endblock %}

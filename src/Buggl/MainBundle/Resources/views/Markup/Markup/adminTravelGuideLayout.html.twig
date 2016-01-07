@@ -1,0 +1,159 @@
+{% extends 'BugglMainBundle:Markup:adminLayout.html.twig' %}
+
+{% set current = 'e-guide' %}
+
+{% block modal %}
+	<div id="main_content" style="display:none" class="reveal-modal">
+		<div class="content">
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <article class="site-admin-content column grid_8">
+        <section>
+        	<div class="reg_box">
+		        <p class="admin-breadcrumbs">
+		            <a href="">{{ status|capitalize }}</a>
+		            {% if status == "active" %}
+		            <a class="csv" target="_blank" href="{{ path('admin_export_guide_to_csv')}}">Export to CSV</a>
+		            {% endif %}
+		        </p>
+
+		        <div class="content">
+		            <ul class="site-admin-tabs horizontalize">
+						{#
+		            	<li class="{{ status|selected('approval','active') }}">
+		                    <a href="{{ path('admin_travel_guides') }}">for approval</a>
+		                </li>
+						#}
+		                <li class="{{ status|selected('active','active') }}">
+		                    <a href="{{ path('admin_travel_guides_active') }}">active</a>
+		                </li>
+		                <li class="{{ status|selected('denied','active') }}">
+                            <a href="{{ path('admin_travel_guides_denied') }}">denied</a>
+                        </li>
+		                <li class="{{ status|selected('archived','active') }}">
+                            <a href="{{ path('admin_travel_guides_archived') }}">archived</a>
+                        </li>
+		            </ul>
+		            <ul class="site-admin-filter horizontalize">
+		           		<li>
+		           			<div class="select">
+		           				{% render 'BugglMainBundle:Admin/Main:getCountryOptions' %}
+		           			</div>
+		           		</li>
+		           		<li>
+		           			<div class="select">
+			           			{% render 'BugglMainBundle:Admin/Main:getCategoryOptions' %}
+		           			</div>
+		           		</li>
+		           		<li>
+	           				<input type="text" id="searchGuideQString" placeholder="Search by Title" autocomplete="off" />
+		           		</li>
+		            </ul>
+		        </div>
+		        {% block list %}
+		        {% endblock %}
+		        <div id="pagination">
+		        </div>
+        	</div>
+        </section>
+    </article>
+{% endblock %}
+
+{% block script_template %}
+	<script type="text/template" id="message_template">
+		<form action="/app_dev.php/admin/eguide/message" method="post">
+			<span>To: </span> {{ '<%= name %>' }}
+			<input type="hidden" value="{{ '<%= id %>' }}" name="recipient"/>
+			<br/>
+			Subject:
+			<input type="text" name="subject"/>
+			<textarea name="message" required></textarea>
+			<input type="submit" value="message"/>
+			<a class="close-reveal-modal">&#215;</a>
+		</form>
+	</script>
+
+	<script type="text/template" id="pagination_template">
+        <section class="page bugglPagination">
+            <nav>
+                <% if(totalPages > 0){ %>
+                    <a href="{{ '<%= prev %>' }}" class="bugglPaginationLink">&lsaquo;</a>
+                    <% if(startPage > 1) { %>
+                        <a href="1" class="bugglPaginationLink">1</a>
+                        <a href="{{ '<%= startPage - 1 %>' }}" class="bugglPaginationLink">...</a>
+                    <% } %>
+
+                    <% _.each(_.range(startPage,endPage+1), function(page){ %>
+                        <a href="{{ '<%= page %>' }}" class="bugglPaginationLink {{ '<%= page == currentPage? "selected" : "" %>' }}">{{ '<%= page  %>' }}</a>
+                    <% }); %>
+
+                    <% if (endPage < totalPages) { %>
+                        <a href="{{ '<%= endPage + 1 %>' }}" class="bugglPaginationLink">...</a>
+                        <a href="{{ '<%= totalPages %>' }}" class="bugglPaginationLink"> {{  '<%= totalPages %>' }}</a>
+                    <% } %>
+                    <a href="{{ '<%= next %>' }}" class="bugglPaginationLink">&rsaquo;</a>
+                <% } %>
+            </nav>
+        </section>
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+
+	<script src='{{ asset('bundles/bugglmain/js/Admin/underscore-min.js' ) }}' type='text/javascript'> </script>
+    <script src='{{ asset('bundles/bugglmain/js/Admin/backbone.js') }}' type='text/javascript'> </script>
+
+
+    {#% javascripts '@BugglMainBundle/Resources/public/js/Admin/backbone.travelguide_v2.js' filter='?yui_js' %}
+	    <script src="{{ asset_url }}"></script>
+	{% endjavascripts %#}
+	<script type="text/javascript" src="{{ asset('bundles/bugglmain/js/Admin/backbone.travelguide_v2.js' | s3Cdn) }}"></script>
+
+	    <script type="text/javascript">
+	        (function($){
+
+	        	$.travelguide({
+                    fetchUrl: "{{ path('admin_travel_guide_fetch',{ 'status' : guideStatus }) }}"
+                });
+
+	        	$(document).ready(function(){
+                    var eventListener = new EventListener();
+	        		var parameters = new Parameters();
+		    		new FilterView({
+		    			parameters: parameters
+		    		});
+
+                    var pagination = new PaginationModel({
+                        limit: {{ limit }}
+                    });
+                    new PaginationView({
+                        model: pagination,
+                        parameters: parameters
+                    })
+
+		    		var guides = new TravelGuides();
+
+		    		new TravelGuidesView({
+		    			collection: guides,
+                        pagination: pagination,
+                        parameters: parameters,
+                        eventListener: eventListener
+		    		});
+
+		    		var data = parameters.toJSON();
+		    		guides.fetch({
+		    			data: data,
+                        type: "post"
+		    		});
+	        	});
+	    	})(jQuery);
+	    </script>
+	
+
+{% endblock %}
+
+

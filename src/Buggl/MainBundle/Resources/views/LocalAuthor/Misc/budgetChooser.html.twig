@@ -1,0 +1,28 @@
+{% if defaultSelect is not defined or defaultSelect == '' %}
+	{% set defaultSelect = 3 %}
+{% endif %}
+
+{% if inputname is not defined or inputname == '' %}
+	{% set inputname = 'budget' %}
+{% endif %}
+
+{% 
+	set textValues = {
+		'1': 'Cheap',
+		'2': 'Value',
+		'3': 'Mid-range',
+		'4': 'Expensive',
+		'5': 'Luxury',
+	} 
+%}
+
+<ul class="budget horizontalize">
+	<li><a href="" data-budget='1' class="{{ (defaultSelect >= 1) ? 'active' : '' }}" onclick="return false" title="Cheap"></a></li>
+	<li><a href="" data-budget='2' class="{{ (defaultSelect >= 2) ? 'active' : '' }}" onclick="return false" title="Value"></a></li>
+	<li><a href="" data-budget='3' class="{{ (defaultSelect >= 3) ? 'active' : '' }}" onclick="return false" title="Mid-range"></a></li>
+	<li><a href="" data-budget='4' class="{{ (defaultSelect >= 4) ? 'active' : '' }}" onclick="return false" title="Expensive"></a></li>
+	<li><a href="" data-budget='5' class="{{ (defaultSelect >= 5) ? 'active' : '' }}" onclick="return false" title="Luxury"></a></li>		
+	<li class="budget-text-value" data-text-value="{{ textValues[defaultSelect] }}"><span style="background:none">{{ textValues[defaultSelect] }}</span></li>
+</ul>
+
+<input type="hidden" readonly="true" name="{{ inputname }}" value="{{ defaultSelect }}" >

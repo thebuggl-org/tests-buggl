@@ -1,0 +1,212 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block breadcrumbs %}
+    <div class="row">
+        <ul class="breadcrumb column grid_12">
+            <li><a href="#">Home</a></li>
+            <li>Adele Laurie Blue Adkins</li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <article class="profile column grid_12">
+            <div class="row">
+            	<section class="bio column grid_12">
+            		<div class="row">
+            			<section class="column grid_4 pics">
+            				<div class="reg_box">
+	  	        				{% block profile_pic %}<img border="0" align="left" alt=" " src="{{ asset('bundles/bugglmain/images/custom/adele_320.jpg') }}" width="320"> {% endblock %}
+	  	        			</div>
+   	        			</section>
+            			<section class="column grid_8">
+            				<div class="reg_box">
+	            				<h1 class="title">{% block name %}Adele{% endblock %}{% block work %} LOL Warrior {% endblock %}</h1>
+	            				<p class="sp">{% block about_you %}Editor of Lifestyle Magazine, Sydney local since 1999, likes fine wine, local cuisine, speak english and some french.
+		Crossing Cultures and Bridging Divides in the Information Age. Strategic communications, marketing, pr, social media &amp; tech from the Prairie to the World.{% endblock %}</p>
+				                <p>{% block self_comment %}I love to share my knowledge about the city, give recommendations and info. I'm a traveler too and I know how important it is to have tips from locals... I'm also a yoga teacher and I love all outdoor activities. I love to cook and drink good wine, maybe while listening to some good jazz music!{% endblock %}</p>
+			                </div>
+			            </section>
+			            <section class="column grid_12 facts">
+                            {% render 'BugglMainBundle:LocalAuthor/Misc:misc' with {'localAuthor' : localAuthor} %}
+                           	{% render 'BugglMainBundle:Frontend/LimitedView:addRequestButton' with {'slug':localAuthor.slug} %}
+			            </section>
+			         </div>
+			    </section>
+			 </div>
+        </article>
+        <aside class="column grid_4">
+			<section class="guide_stats" id="profileContent_guideInfo">
+				<h3>Guide Info</h3>
+				<ul>
+					<li class="age">
+						<span class="ico"></span>
+						<h4>Age</h4>
+						{{ localAuthor.profile | nullObjectPlaceHolder('getAge','')|raw }}
+					</li>
+					<li class="current-location">
+						<span class="ico"></span>
+						<h4>Current Location</h4>
+						<p>{{ localAuthor.location }}</p>
+					</li>
+					<li class="children">
+						<span class="ico"></span>
+						<h4>Last Active</h4>
+						<p>{{ localAuthor.lastActive|showTimeElapsed }}</p>
+					</li>
+				</ul>
+			</section>
+            <section class="guide_stats">
+                <h3>My Stats</h3>
+                <ul>
+                    <li class="local">
+                        <span class="ico"></span>
+                        <h4>Traveler Since</h4>
+                        <p>{% block school_name %} {% endblock %}</p>
+                    </li> 
+                    <li class="interest">
+                        <span class="ico"></span>
+                        <h4>Interest and Activities</h4>
+                        <p>{% block interest %}  {% endblock %}</p>
+                    </li>
+                    <li class="accomplishments">
+                        <span class="ico"></span>
+                        <h4>Accomplishments</h4>
+                        <p>{% block languages %} {% endblock %}</p>
+                    </li>
+                </ul>
+            </section>
+            
+			{% block verification %}
+				<h3>Local Verified</h3>
+                <ul>
+                    <li class="facebook">
+                        <span class="ico"></span>
+                        <a href="#" class="ico verify" title="Verified"></a>
+                        <h4>Facebook Connected</h4>
+                        <div href="" onclick="return false;"><em> 300 Friends</em></div>
+                    </li>
+                    <li class="email">
+                        <span class="ico"></span>
+                        <a href="#" class="ico verify" title="Verified"></a>
+                        <h4>Email</h4>
+                        <em>email@gmail.com</em>
+                    </li>
+                    <li class="phone">
+                        <span class="ico"></span>
+                        <a href="#" class="ico verify" title="Verified"></a>
+                        <h4>Phone Number</h4>
+                        <span>X</span><span>X</span><span>X</span><span>X</span><span>X</span><span>X</span><span>X</span><span>X</span><span>X</span><span>X</span>-22
+                    </li>
+                </ul>
+			{% endblock %}
+
+			{% if false %}
+	            <section>
+	                <h3>My Local Travel Guides</h3>
+	                <img src="{{ asset('bundles/bugglmain/images/custom/googlemap.jpg') }}" border="0" align="left" alt=" "/>
+	            </section>
+			{% endif %}
+        </aside>
+        <article class="column grid_8">
+            <section class="list">
+                <h3>My Experience</h3>
+                {% block local_interest %}
+                <ul>
+                    <li>
+                        <img src="{{ asset('bundles/bugglmain/images/custom/dancing_144px.jpg') }}" border="0" align="left" class="fr" width="120"/>
+                        <h4><a href="#">This is the Moment</a></h4>
+                        <p>Don't miss your favourite of jogging, roller-blade or cycling, along the 6 km long Beach Drive, From Moulie Point, all the way to Bantry Bay. My best time of day is
+before sunset. </p>
+                    </li>
+                    <li>
+                        <img src="{{ asset('bundles/bugglmain/images/custom/running_144px.jpg') }}" border="0" align="left" class="fr" width="120"/>
+                        <h4><a href="#">This is the Moment</a></h4>
+                        <p>Don't miss your favourite of jogging, roller-blade or cycling, along the 6 km long Beach Drive, From Moulie Point, all the way to Bantry Bay. My best time of day is
+before sunset. </p>
+                    </li>
+                    <li>
+                        <img src="{{ asset('bundles/bugglmain/images/custom/climbing_144px.jpg') }}" border="0" align="left" class="fr" width="120"/>
+                        <h4><a href="#">This is the Moment</a></h4>
+                        <p>Don't miss your favourite of jogging, roller-blade or cycling, along the 6 km long Beach Drive, From Moulie Point, all the way to Bantry Bay. My best time of day is
+before sunset. </p>
+                    </li>
+                </ul>
+                {% endblock %}
+            </section>
+
+            {#<section class="photolist">
+                            <h3>My Photos</h3>
+                            <ul class="">
+                                <li><a href="#"><img src="{{  asset('bundles/bugglmain/images/custom/random1_144px.jpg') }}" border="0" align="left" alt=" "/></a></li>
+                                <li><a href="#"><img src="{{ asset('bundles/bugglmain/images/custom/random2_144px.jpg') }}" border="0" align="left" alt=" "/></a></li>
+                                <li><a href="#"><img src="{{ asset('bundles/bugglmain/images/custom/random3_144px.jpg') }}" border="0" align="left" alt=" "/></a></li>
+                                <li><a href="#"><img src="{{ asset('bundles/bugglmain/images/custom/random4_144px.jpg') }}" border="0" align="left" alt=" "/></a></li>
+                            </ul>
+                        </section>#}
+
+			{% block featured_guides %}
+	            <section>
+	                <h3>Featured Guides</h3>
+	                <ul class="dreamlist reg_box">
+	                    <li>
+	                        <img border="0" align="left" alt=" " src="{{ asset('bundles/bugglmain/images/custom/220_136.jpg')}}" width="186"/>
+	                        <ul class="inf clear">
+	                            <li><a href="#" class="title">Pikopiko Island Beach Resort</a></li>
+	                            <li><em>Panama Island</em></li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <img border="0" align="left" alt=" " src="{{ asset('bundles/bugglmain/images/custom/pyramid_220_136px.jpg') }}" width="186"/>
+	                        <ul class="inf clear">
+	                            <li><a href="#" class="title">Great Pyramid of Giza</a></li>
+	                            <li><em>Cairo, Egypt</em></li>
+	                        </ul>
+	                    </li>
+	                    <li>
+	                        <img border="0" align="left" alt=" " src="{{ asset('bundles/bugglmain/images/custom/house_220_136px.jpg') }}" width="186"/>
+	                        <ul class="inf clear">
+	                            <li><a href="#" class="title">My Dream House</a></li>
+	                            <li><em>Boston, MA</em></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	            </section>
+			{% endblock %}
+            <section class="reference multi">
+                <ul>
+                    <li class="selected"><a href="#" id="reviews">Customer Reviews</a></li>
+					<li><a href="#" id="references">My References</a></li>
+                </ul>
+                <div id="reviewContainer" data-page="1">
+                    <ul class="comments">
+                        {% block post_review %}
+                    	<li>
+                    		<img border="0" align="left" src="/bundles/bugglmain/images/custom/janvan_60px.jpg">
+                    		<form>
+                    			<textarea></textarea>
+                    			<a href="#" class="btn fl">Post Review</a>
+                    		</form>
+                    	</li>
+                        {% endblock %}
+                        {% block review_list %}
+                         <li><span>No Review Yet</span></li>
+                        {% endblock %}
+						<a href="" onclick="return false" id="moreReviews" style="display:none"> Load More </a>
+                    </ul>
+                </div>
+                <div id="referenceContainer" style="display:none;" data-page="1">
+                    <ul class="comments">
+                        {% block references %}
+
+                        {% endblock %}
+                    </ul>
+					<span class="loader" style="display:none"> Loading... </span>
+					<a href="" onclick="return false" id="moreReferences" style="display:none"> Load More </a>
+                </div>
+            </section>
+
+        </article>
+    </div>
+{% endblock %}

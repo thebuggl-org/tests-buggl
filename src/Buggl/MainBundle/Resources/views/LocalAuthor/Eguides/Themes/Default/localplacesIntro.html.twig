@@ -1,0 +1,30 @@
+{% set bgphoto = (eguidePhoto is not null) ? eguidePhoto.photo : asset('bundles/bugglmain/images/custom/cover-guide.jpg') %}
+<ul class="spot-actions clearfix">
+	<li class="edit"><a title="CHANGE PHOTO" href="{{bgphoto}}" name="change-background-image" data-eguideid="{{eguide.id}}" data-phototype="{{ constant('Buggl\\MainBundle\\Entity\\EGuidePhoto::LOCAL_SECRET_PHOTO') }}" ><span>ADD COVER IMAGE</span></a></li>
+</ul>
+
+<div style="background: url({{bgphoto}}) no-repeat #ffffff;"> 
+	<h1 class="local-secret-intro-title">Local Secrets</h1>
+	{#
+	<div name="intro-text" data-title="Local Secret Intro"  data-fieldname="localSecretIntro" data-content="{{ eguide.localSecretIntro }}" >
+		{% if eguide.localSecretIntro is not null %}
+			{{ eguide.localSecretIntro|raw }}
+			<a class="editable">
+				<strong>EDIT.</strong>
+				<span class="client-edit-button">EDIT</span>
+			</a>
+		{% else %}
+			<a class="editable">
+				<em>Describe the places that you are going to share...</em>
+				<strong>INTRODUCE YOUR LOCAL SECRETS.</strong>
+				<span class="client-edit-button">EDIT</span>
+			</a>
+		{% endif %}
+		<!-- <p>Add your intro here. very benevolent countenance then; but how hard he breathes, he's heaving himself; get off, Queequeg, you are heavy, it's grinding the face of the poor. Get off, Queequeg! Look, he'll twitch you off soon. I wonder he don't wake." Queequeg removed himself to just beyond the head of the sleeper.</p>
+		<a class="editable">
+			<strong>EDIT.</strong>
+			<span class="client-edit-button">EDIT</span>
+		</a> -->
+	</div>	
+	#}
+</div>

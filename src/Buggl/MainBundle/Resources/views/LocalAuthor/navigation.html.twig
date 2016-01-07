@@ -1,0 +1,70 @@
+<header class="header client-admin-header">
+    <div class="row">
+        <nav class="column grid_12">
+            <h1><a href="{{path('buggl_homepage')}}"><img src="{{ asset('bundles/bugglmain/images/buggl_logo.png') }}"  border="0" align="" width="120" alt="Buggl.com"></a></h1>
+             <div class="dmy">
+             	{% block local_author_navigation_links %}
+                {% render 'BugglMainBundle:Frontend/Main:searchBar' %}
+                 <ul class="fr">
+                 	<li class="menu down">
+                 		<a href="#"><span class="ico"></span></a>
+		            	<ul>
+		            		<li><a href="{{ path('local_author_dashboard') }}">Dashboard</a></li>
+					        {% if app.user.isLocalAuthor %}
+					        <li><a href="{{ path('local_author_eguides', {'status':'published'}) }}">Your Travel Guides</a></li>
+					        {#<li class="{{ active | selected('gallery','active') }}"><a href="{{ path('local_author_gallery') }}">My Secrets &amp; Photos</a></li>#}
+					        <li><a href="{{ path('local_author_gallery_spots') }}">Secrets &amp; Photos</a></li>
+					        {% endif %}
+					        <li><a href="{{ path('local_author_payments_purchased') }}">Wishlist</a></li>
+					        {% if app.user.isLocalAuthor %}
+							<li><a href="{{ path('buggl_display_wishlist'}) }}">Edit Profile</a></li>
+					        {% endif %}
+					        <li><a href="#">Account</a></li>
+					        <li><a href="{{ path('logout') }}">Logout</a></li>
+					    </ul>
+		            </li>
+                    <li class="messages"><a href="{{ path('local_author_messages', {'type':'inbox'}) }}"><span class="ico"></span></a></li>
+                    <li><a class="design-a-guide" href="http://buggl.com.local/app_dev.php/write-a-guide">Write a Guide</a></li>
+                 </ul>
+                {% endblock %}
+             </div>
+        </nav>
+    </div>
+</header>
+<div class="header">
+	<div class="row">
+	<ul class="fl client-profile-nav">
+    	<li class="{{ active | selected('dashboard','active') }}"><a href="{{ path('local_author_dashboard') }}">Dashboard</a></li>
+        {% if app.user.isLocalAuthor %}
+        <li class="{{ active | selected('eguides','active') }}"><a href="{{ path('local_author_eguides', {'status':'published'}) }}">Your Travel Guides</a></li>
+        {#<li class="{{ active | selected('gallery','active') }}"><a href="{{ path('local_author_gallery') }}">My Secrets &amp; Photos</a></li>#}
+        <li class="{{ active | selected('gallery','active') }}"><a href="{{ path('local_author_gallery_spots') }}">Secrets &amp; Photos</a></li>
+        {% endif %}
+
+        <li class="{{ active | selected('payments','active') }}"><a href="{{ path('local_author_payments_purchased') }}">Wishlist</a></li>
+        {% if app.user.isLocalAuthor %}
+		<li><a href="{{ path('local_author_profile' , {'slug' : app.user.slug}) }}">Edit Profile</a></li>
+        {% endif %}
+		<li class="{{ active | selected('payments','active') }} multi">
+			<a href="#">Account</a>
+            	<ul class="profile-settings">
+            		<li><a href="{{ path('local_author_payments_purchased') }}">Transaction History</a></li>
+                	<li><a href="{{ path('local_author_payments_purchased') }}">Payment Setting</a></li>
+                    {% if app.user.isLocalAuthor %}
+                    <li><a href="{{ path('local_author_references') }}">References</a></li>
+                    {% endif %}
+                	<li><a href="{{ path('local_author_social_media') }}">Social Connect</a></li>
+                    <li><a href="{{ path('local_author_login_details') }}">Settings</a></li>
+                </ul>
+		</li>
+        <li><a href="{{ path('logout') }}">Logout</a></li>
+        <li>
+        	{% if app.user.isLocalAuthor %}
+				<img class="profilePicture" src="{{ asset(app.user.profile | profilePic) }}" width="30" height="30" /><span></span>
+			{% else %}
+			   	<img class="profilePicture" src="{{ asset(app.user.profile | profilePic) }}" width="30" height="30" /><span></span>
+			{% endif %}
+        </li>
+    </ul>
+	</div>
+</div>

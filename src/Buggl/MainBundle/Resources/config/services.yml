@@ -1,0 +1,586 @@
+parameters:
+#    buggl_main.example.class: Buggl\MainBundle\Example
+    # router.options.generator_base_class: Buggl\MainBundle\Routing\Generator\UrlGenerator
+    # router.class: Buggl\MainBundle\Routing\Router
+
+services:
+
+## TWIG EXTENSIONS - START ##
+    buggl.twig.buggl_css_selected_extension:
+        class: Buggl\MainBundle\Twig\BugglCssSelectedExtension
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_travel_info_extension:
+        class: Buggl\MainBundle\Twig\TravelInfoExtension
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_string_helper_extension:
+        class: Buggl\MainBundle\Twig\StringHelperExtension
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_slugify_extension:
+        class: Buggl\MainBundle\Twig\BugglSlugifyExtension
+        arguments:
+            slugifier: "@buggl_main.slugifier"
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_query_extension:
+        class: Buggl\MainBundle\Twig\BugglQueryExtension
+        arguments:
+            service: "@buggl_main.entity_repository"
+            ratingService: "@buggl_main.rating"
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_date_helper_extension:
+        class: Buggl\MainBundle\Twig\DateHelperExtension
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_image_helper_extension:
+        class: Buggl\MainBundle\Twig\ImageHelperExtension
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_message_helper_extension:
+        class: Buggl\MainBundle\Twig\MessageHelperExtension
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+        tags:
+            - { name: twig.extension }
+
+    buggl.twig.buggl_eguide_helper_extension:
+        class: Buggl\MainBundle\Twig\EguideHelperExtension
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            eguideAndSpotsNativeQuery: "@buggl_main.eguide_and_spots_native_query"
+        tags:
+            - { name: twig.extension }
+
+    buggl.twig.buggl_activity_helper_extension:
+        class: Buggl\MainBundle\Twig\ActivityHelperExtension
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            router: "@router"
+        tags:
+            - { name: twig.extension }
+
+    buggl.twig.buggl_constant_extension:
+        class: Buggl\MainBundle\Twig\BugglConstantExtension
+        arguments:
+            constants: "@buggl_main.constants"
+        tags:
+            - { name: twig.extension }
+    buggl.twig.buggl_cdn_extension:
+        class: Buggl\MainBundle\Twig\BugglCdnExtension
+        # scope: request
+        arguments:
+            service_container: "@service_container"
+        tags:
+            - { name: twig.extension }
+
+## TWIG EXTENSIONS - END ##
+
+## SERVICES - START ##
+    buggl_main.url_encoder:
+        class: Buggl\MainBundle\Helper\BugglSearchUrlEncoder
+
+    buggl_main.breadcrumbs:
+        class: Buggl\MainBundle\Service\BreadcrumbService
+        arguments:
+            breadcrumbsFactory: "@buggl_main.breadcrumbs_factory"
+
+    buggl_main.breadcrumbs_factory:
+        class: Buggl\MainBundle\Factory\BreadcrumbsFactory
+
+    buggl_main.constants:
+        class: Buggl\MainBundle\Helper\BugglConstant
+
+    buggl_main.slugifier:
+        class: Buggl\MainBundle\Helper\BugglSlugifier
+
+    buggl_main.login_handler:
+        class: Buggl\MainBundle\Handler\LoginHandler
+        arguments:
+            router: "@router"
+            security: "@security.context"
+
+    buggl_main.admin_login_handler:
+        class: Buggl\MainBundle\Handler\AdminLoginHandler
+        arguments:
+            router: "@router"
+            security: "@security.context"
+
+    buggl_main.registration_service:
+        class: Buggl\MainBundle\Service\RegistrationService
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            slugifier: "@buggl_main.slugifier"
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            router: "@router"
+            socialMedia: "@buggl_main.socialMedia"
+            service_container: "@service_container"
+
+    buggl_main.environment_variables:
+        class: Buggl\MainBundle\Service\EnvironmentVariablesService
+
+    buggl_main.entity_repository:
+        class: Buggl\MainBundle\Service\EntityRepositoryService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.facebook_service:
+        class: Buggl\MainBundle\Service\FacebookService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+            entityManager: "@doctrine.orm.entity_manager"
+            router: "@router"
+
+    buggl_main.twitter_service:
+        class: Buggl\MainBundle\Service\TwitterService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.profile_service:
+        class: Buggl\MainBundle\Service\ProfileService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.local_author_service:
+        class: Buggl\MainBundle\Service\LocalAuthorService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            mailer: "@mailer"
+            templating: "@templating"
+            router: "@router"
+            contants: "@buggl_main.constants"
+
+    buggl_main.googleanalytics_service:
+        class: Buggl\MainBundle\Service\GoogleAnalyticsService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+
+    buggl_main.password_reset_service:
+        class: Buggl\MainBundle\Service\PasswordResetService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            contants: "@buggl_main.constants"
+            profileService: "@buggl_main.local_author_service"
+
+    buggl_main.oauth_service:
+        class: Buggl\MainBundle\Service\OAuthService
+
+    buggl_main.oauth2_service:
+        class: Buggl\MainBundle\Service\OAuth2Service
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+
+    buggl_main.gmail_contacts_service:
+        class: Buggl\MainBundle\Service\GmailContactsService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+
+    buggl_main.google_plus_service:
+        class: Buggl\MainBundle\Service\GooglePlusService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.yahoomail_contacts_service:
+        class: Buggl\MainBundle\Service\YahooMailContactsService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+
+    buggl_main.local_reference_service:
+        class: Buggl\MainBundle\Service\LocalReferenceService
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            constants: "@buggl_main.constants"
+            entityManager: "@doctrine.orm.entity_manager"
+            router: "@router"
+
+    buggl_main.eguide_request_service:
+        class: Buggl\MainBundle\Service\EGuideRequestEmailService
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            constants: "@buggl_main.constants"
+            entityManager: "doctrine.orm.entity_manager"
+            router: "@router"
+
+    buggl_main.message_service:
+        class: Buggl\MainBundle\Service\MessageService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            contants: "@buggl_main.constants"
+            mailer: "@mailer"
+            templating: "@templating"
+            router: "@router"
+
+    buggl_main.bit_url:
+        class: Buggl\MainBundle\Service\BitUrlService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            router: "@router"
+
+    buggl_main.category:
+        class: Buggl\MainBundle\Service\CategoryService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            dispatcher: "@event_dispatcher"
+
+    buggl_main.trip_theme:
+        class: Buggl\MainBundle\Service\TripThemeService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.review:
+        class: Buggl\MainBundle\Service\ReviewService
+        arguments:
+            constants: "@buggl_main.constants"
+            entityManager: "@doctrine.orm.entity_manager"
+            securityContext: "@security.context"
+
+    buggl_main.review_native_query:
+        class: Buggl\MainBundle\Service\ReviewNativeQueryService
+        arguments:
+            connection: "@database_connection"
+
+    buggl_main.follow:
+        class: Buggl\MainBundle\Service\FollowService
+        arguments:
+            entityRepositoryService: "@buggl_main.entity_repository"
+
+    buggl_main.socialMedia:
+        class: Buggl\MainBundle\Service\SocialMediaService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.location:
+        class: Buggl\MainBundle\Service\LocationService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            templating: "@templating"
+
+    buggl_main.photo_uploader:
+        class: Buggl\MainBundle\Service\BugglPhotoUploaderService
+        arguments:
+            photoUploader: "@buggl_photo.uploader"
+
+    buggl_main.category_photo:
+        class: Buggl\MainBundle\Service\BugglCategoryPhotoService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.local_author_to_json:
+        class: Buggl\MainBundle\Service\BugglLocalAuthorToArray
+        arguments:
+            router: "@router"
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.search_local:
+        class: Buggl\MainBundle\Service\BugglSearchLocalAuthor
+        arguments:
+            repositoryService: "@buggl_main.entity_repository"
+
+    buggl_main.email_verification_service:
+        class: Buggl\MainBundle\Service\EmailVerificationService
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            slugifier: "@buggl_main.slugifier"
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            router: "@router"
+
+    buggl_main.stripe_service:
+        class: Buggl\MainBundle\Service\StripeService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.paypal_service:
+        class: Buggl\MainBundle\Service\PaypalService
+        arguments:
+            environmentVars: "@buggl_main.environment_variables"
+            service_container: "@service_container"
+
+    buggl_main.buggl_payment_service:
+        class: Buggl\MainBundle\Service\BugglPaymentService
+        arguments:
+            paypalService: "@buggl_main.paypal_service"
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            environmentVars: "@buggl_main.environment_variables"
+            router: "@router"
+            purchaseMailerService: "@buggl_main.purchase_mailer_service"
+
+    buggl_main.purchase_service:
+        class: Buggl\MainBundle\Service\PurchaseService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.search_pictures:
+        class: Buggl\MainBundle\Service\LocalAuthorPhotoService
+        arguments:
+            service: "@buggl_main.entity_repository"
+
+    buggl_main.flickr_photo_search:
+        class: Buggl\MainBundle\Service\FlickrPhotoSearchService
+
+    buggl_main.activity_service:
+        class: Buggl\MainBundle\Service\ActivityService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.stats_native_query:
+        class: Buggl\MainBundle\Service\StatsNativeQuery
+        arguments:
+            connection: "@database_connection"
+            constants: "@buggl_main.constants"
+
+    buggl_main.admin_stats:
+        class: Buggl\MainBundle\Service\AdminStatsService
+        arguments:
+            statsQuery: "@buggl_main.stats_native_query"
+
+    buggl_main.eguide_and_spots_native_query:
+        class: Buggl\MainBundle\Service\EguideAndSpotsNativeQuery
+        arguments:
+            connection: "@database_connection"
+
+    buggl_main.rating:
+        class: Buggl\MainBundle\Service\RatingService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.beta_invite_service:
+        class: Buggl\MainBundle\Service\BetaInviteService
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            router: "@router"
+
+    buggl_main.share:
+        class: Buggl\MainBundle\Service\ShareService
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            constants: "@buggl_main.constants"
+            entityManager: "@doctrine.orm.entity_manager"
+            router: "@router"
+
+    buggl_main.purchase_mailer_service:
+        class: Buggl\MainBundle\Service\PurchaseMailerService
+        arguments:
+            messageBuilder: "@buggl_main.mail_message_builder"
+            dispatcher: "@event_dispatcher"
+
+    buggl_main.mail_message_builder:
+        class: Buggl\MainBundle\Service\MessageBuilder
+        arguments:
+            templating: "@templating"
+            router: "@router"
+            constants: "@buggl_main.constants"
+    buggl_main.word_press_service:
+        class: Buggl\MainBundle\Service\WordPressService
+        file: "%kernel.root_dir%/../web/blog/wp-config.php"
+        #file: "%kernel.root_dir%/../web/blog/wp-blog-header.php"
+
+    buggl_main.account_notification_service:
+        class: Buggl\MainBundle\Service\AccountNotificationService
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            slugifier: "@buggl_main.slugifier"
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            router: "@router"
+
+    buggl_main.guide_share_service:
+        class: Buggl\MainBundle\Service\GuideShareService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+            contants: "@buggl_main.constants"
+            mailer: "@mailer"
+            templating: "@templating"
+            router: "@router"
+
+    buggl_main.free_search_raw_sql:
+        class: Buggl\MainBundle\Service\FreeSearchQueryService
+        arguments:
+            connection: "@database_connection"
+
+    buggl_main.guide_free_search:
+        class: Buggl\MainBundle\Service\FreeSearchService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.street_credit:
+        class: Buggl\MainBundle\Service\StreetCreditService
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+    buggl_main.guide_search:
+        class: Buggl\MainBundle\Helper\BugglSearchHelper
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+
+## SERVICES - END ##
+
+## BETA SERVICES ##
+    # buggl_main.beta_login_service:
+    #     class: Buggl\MainBundle\Service\Beta\BetaLoginService
+    #     arguments:
+    #         entityManager: "@doctrine.orm.entity_manager"
+    #         session: "@session"
+    #         constants: "@buggl_main.constants"
+## END
+
+## LISTENERS - START ##
+
+    buggl_main.listener.registration:
+        class: Buggl\MainBundle\EventListener\RegistrationListener
+        arguments:
+            registrationService: "@buggl_main.registration_service"
+        tags:
+            - { name: kernel.event_listener, event: buggl.local_author_registration, method: mailPostRegister }
+            - { name: kernel.event_listener, event: buggl.local_author_registration, method: update }
+            - { name: kernel.event_listener, event: buggl.verify_email, method: sendMail }
+
+    buggl_main.listener.activity:
+        class: Buggl\MainBundle\EventListener\ActivityListener
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_listener, event: buggl.activity, method: handleActivity }
+
+    buggl_main.listener.password_reset:
+        class: Buggl\MainBundle\EventListener\PasswordResetListener
+        arguments:
+            mailer: "@mailer"
+            templating: "@templating"
+            entityManager: "@doctrine.orm.entity_manager"
+            contants: "@buggl_main.constants"
+            router: "@router"
+        tags:
+            - { name: kernel.event_listener, event: buggl.password_reset_request, method: sendPasswordResetEmail }
+
+    buggl_main.listener.eguide_category:
+        class: Buggl\MainBundle\EventListener\EguideListener
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_listener, event: buggl.eguide_update_category, method: updateEguideCategoryNames }
+
+    buggl_main.listener.local_reference:
+        class: Buggl\MainBundle\EventListener\LocalReferenceListener
+        arguments:
+            localReferenceService: "@buggl_main.local_reference_service"
+        tags:
+            - { name: kernel.event_listener, event: buggl.local_reference_response, method: updateLocalReferenceRequestStatus }
+
+    buggl.authenticate.action_listener:
+        class: Buggl\MainBundle\EventListener\SecurePageListener
+        arguments:
+            securityContext: "@security.context"
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    buggl_main.listener.follow:
+        class: Buggl\MainBundle\EventListener\FollowListener
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_listener, event: buggl.follow_user, method: update }
+
+    buggl_main.mail_notification:
+        class: Buggl\MainBundle\EventListener\MailNotificationListener
+        arguments:
+            mailer: "@mailer"
+        tags:
+            - { name: kernel.event_listener, event: buggl.republish_eguide, method: sendMail }
+            - { name: kernel.event_listener, event: buggl.denied_eguide, method: sendMail }
+            - { name: kernel.event_listener, event: buggl.approve_eguide, method: sendMail }
+            - { name: kernel.event_listener, event: buggl.contact_us, method: sendMail }
+            - { name: kernel.event_listener, event: buggl.review, method: sendMail }
+            - { name: kernel.event_listener, event: buggl.purchase, method: sendMail }
+            - { name: kernel.event_listener, event: buggl.notify_buyer, method: sendMail }
+            - { name: kernel.event_listener, event: buggl.account_suspended, method: sendMail }
+
+
+    buggl_main.post_filter_last_active:
+        class: Buggl\MainBundle\EventListener\LastActiveFilterListener
+        arguments:
+            securityContext: "@security.context"
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    buggl_main.free_search:
+        class: Buggl\MainBundle\EventListener\FreeSearchEventListener
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: kernel.event_listener, event: buggl.update_free_search, method: updateFreeSearchField }
+
+    buggl_main.photo_cropper:
+        class: Buggl\MainBundle\Helper\BugglPhotoCropper
+
+    buggl_main.pdf_creator:
+        # class: Buggl\MainBundle\Helper\BugglPdfcrowdWrapper
+        class: Buggl\MainBundle\Helper\BugglPdfCreator
+        arguments:
+            knpSnappyPdf: "@knp_snappy.pdf"
+            root_dir: %kernel.root_dir%
+            s3: "@buggl_aws.wrapper"
+            constants: "@buggl_main.constants"
+   
+    buggl_mail.export_local_author_to_csv:
+        class: Buggl\MainBundle\Service\ExportLocalAuthorToCsvService
+        arguments:
+            mailer: "@mailer"
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            router: "@router"
+            root_dir: %kernel.root_dir%
+
+    buggl_mail.export_guides_to_csv:
+        class: Buggl\MainBundle\Service\ExportGuideToCsvService
+        arguments:
+            mailer: "@mailer"
+            entityManager: "@doctrine.orm.entity_manager"
+            constants: "@buggl_main.constants"
+            router: "@router"
+            root_dir: %kernel.root_dir%
+    
+    buggl_main.sitemap_builder:
+        class: Buggl\MainBundle\Helper\BugglSitemapHelper
+        arguments:
+            router: "@router"
+            root_dir: %kernel.root_dir%
+            entityManager: "@doctrine.orm.entity_manager"
+            slugifier: "@buggl_main.slugifier"
+            constants: "@buggl_main.constants"
+
+    # buggl_main.beta_invite_login:
+    #     class: Buggl\MainBundle\EventListener\BugglInviteLoginListener
+    #     arguments:
+    #         router: "@router"
+    #     tags:
+    #         - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+## LISTENERS - END ##
+
+    # buggl_main.custom_exception:
+    #         class: Buggl\MainBundle\EventListener\ExceptionListener
+    #         arguments:
+    #             templating: "@templating"
+    #         tags:
+    #             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }>>>>>>> .r541

@@ -1,0 +1,121 @@
+	<ul class="spot-actions clearfix">
+		<li class="edit"><a title="CHANGE PHOTO" href=""><span>EDIT</span></a></li>
+		<li class="edit"><a title="CHANGE PHOTO" href=""><span>DELETE</span></a></li>		
+	</ul>
+	{% if hightlighted %}
+	<div class="with-highlight"></div>
+	{% endif %}
+	<div class="page-shading"></div>
+	
+	
+	
+	<div class="day-time {#{ page.getDay }#}">
+		<span></span>
+	</div>	
+	<div class="itinerary-item">
+		<h3 class="spot-location">{{ sd.spot.name }}</h3>
+		<div class="clearfix">
+		
+			<div class="itinerary-image to-left">
+				<span></span>
+				<img src="{{ sd.photo }}" height="300" />	
+			</div>
+			<div class="itinerary-details to-right">
+				<div class="itinerary-type">
+					<span></span>
+					<h5>SEE AND DO</h5>			
+				</div>
+				<ul>
+					<li>{{ sd.spot.address }}</li>
+					<li>{{ sd.spot.contactNumber }}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="itinerary-item">
+		<h3 class="spot-location">{{ sd.spot.name }}</h3>
+		<div class="clearfix">
+			<div class="itinerary-image to-left">
+				<span></span>			
+				<img src="{{ sd.photo }}" height="300" />	
+			</div>
+			<div class="itinerary-details to-right">
+				<div class="itinerary-type">
+					<span></span>
+					<h5>SEE AND DO</h5>			
+				</div>
+				<ul>
+					<li>{{ sd.spot.address }}</li>
+					<li>{{ sd.spot.contactNumber }}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--
+	<div class="day-time">
+		<span class="day">{#{ page.getDay }#}</span>
+		<span class="time">{{ period }}</span>
+	</div>	
+	<div class="title">
+		<h1>{{ sd.title }}</h1>
+		<span class="liner"></span>
+		<h3 class="spot-type">{{ sd.spotType.name }}</h3>
+	</div>
+	<div class="spot-image">
+		<img src="{{ sd.photo }}" height="380" />
+	</div>
+	<div class="clearfix">
+		<div class="side">
+			<section class="guide-widget rating">
+				<h3>RATING</h3>
+				<div>
+					<ul>
+						<li><span class="{{ (sd.rating >= 1) ? 'active' : '' }}"></span></li>
+						<li><span class="{{ (sd.rating >= 2) ? 'active' : '' }}"></span></li>
+						<li><span class="{{ (sd.rating >= 3) ? 'active' : '' }}"></span></li>
+						<li><span class="{{ (sd.rating >= 4) ? 'active' : '' }}"></span></li>
+						<li><span class="{{ (sd.rating >= 5) ? 'active' : '' }}"></span></li>
+					</ul>
+				</div>	
+			</section>
+			<section class="guide-widget tags">
+				<h3>CATEGORY</h3>
+				<div>
+					<ul>
+						<li>{{ sd.spotCategory.name }}</li>
+					</ul>
+				</div>	
+			</section>
+			<section class="guide-widget tags">
+				<h3>WHAT ITS LIKE</h3>
+				<div>
+					<ul>
+						{% for like in sd.spotLikes %}
+						<li>{{ like.name }}</li>
+						{% endfor %}
+					</ul>
+				</div>	
+			</section>
+		</div>
+		<div class="content">
+			<h3 class="spot-location">{{ sd.spot.name }}</h3>
+			<span class="spot-contact">
+				{{ sd.spot.address }} {{ sd.spot.contactNumber }}
+			</span>
+			{{ sd.description|raw }}
+			<div class="best-thing">
+				<h3>BEST THING ABOUT THE SPOT</h3>
+				<p>{{ sd.bestThing }}</p>
+			</div>
+		</div>
+	</div>
+	-->

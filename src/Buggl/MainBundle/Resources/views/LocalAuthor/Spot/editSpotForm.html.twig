@@ -1,0 +1,204 @@
+<div id="edit-spot-wrapper">
+	<ul class="spots-nav horizontalize">
+		<li class="active"><a href=""><span class="number">1</span>SPOT INFO</a></li>
+		<li><a href=""><span class="number">2</span>ADD PHOTO</a></li>
+		<li><a href=""><span class="number">3</span>TAGS</a></li>
+		<li><a href=""><span class="number">4</span>DESCRIPTION</a></li>
+	</ul>
+	
+	<div class="add-spot-step-1 add-spot-modal">
+		<div class="clearfix">
+			<div id="google-map"></div>
+			<div>
+				<form id="spot-info-form" name="spot-info" class="clearfix"> 
+					<p class="required-message" style="color: red; display:none;">Please fill out the required fields.</p>
+					<input type="text" name="title" placeholder="Spot-Title" value="{{ spotDetail.title }}" data-required="true"/>
+					<input type="text" name="name" placeholder="Name of Place" value="{{ spotDetail.spot.name }}" data-required="true" />
+					<!-- <input type="text" name="city" placeholder="City" /> -->
+					<div class="select">
+						<select name="city" data-required="true">
+							<option value=""></option>
+							{% for city in cities %}
+							<option value="{{ city.id }}" {{ (city.id == spotDetail.spot.city.id) ? 'selected="selected"' : '' }}>{{ city.name }}, {{ city.country.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					
+					<input type="text" name="address" value="{{ spotDetail.spot.address }}" placeholder="Address" data-required="true" />
+					<input type="text" name="contact_number" value="{{ spotDetail.spot.contactNumber }}" placeholder="Contact Number" />
+
+					<input type="hidden" name="latitude" readonly='true' class="to-left" placeholder="latitude" value="{{ spotDetail.spot.latitude }}"/>
+					<input type="hidden" name="longitude" readonly='true' class="to-left" placeholder="longitude" value="{{ spotDetail.spot.longitude }}" />
+					<input type="hidden" name="spotId" value="{{ spotDetail.spot.id }}">
+					<input type="hidden" name="spotDetailId" value="{{ spotDetail.id }}">
+				</form>
+			</div>
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="cancel" /><input type="button" class="admin-button" value="next" data-step="1"/></p>
+	</div>
+	
+	<!-- <div class="add-spot-verify-step add-spot-modal">
+		<div class="clearfix">
+			<h2>Already Added</h2>
+			 <h4>the place you are about ot add in the city guide seems to have been added by another user.</h4>	
+			 <div>
+			 	<p>Please look below and see if any of the shown places matches the one you wish to add.</p>
+			 	<ul>
+			 		<li class="clearfix">
+			 			<input type="radio" class="to-left" />
+			 			<div class="to-left">
+				 			<h4>Name of PLace</h4>
+				 			<span>Tacloban City, Philippines</span>
+			 			</div>
+			 		</li>
+					<li class="clearfix">
+			 			<input type="radio" class="to-left" />
+			 			<div class="to-left">
+				 			<h4>Name of PLace</h4>
+				 			<span>Tacloban City, Philippines</span>
+			 			</div>
+			 		</li>
+					<li class="clearfix">
+			 			<input type="radio" class="to-left" />
+			 			<div class="to-left">
+				 			<h4>None of them</h4>
+			 			</div>
+			 		</li>
+			 	</ul>
+			 </div>
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="cancel" /><input type="button" class="admin-button" value="next" data-step="1"/></p>
+	</div> -->
+	
+	
+	
+	<div class="add-spot-step-2 add-spot-modal" style="display:none;">
+		<div class="clearfix">
+			<div class="to-left">
+				<p class="required-message" style="color: red; display:none;">Please add a photo to your spot.</p>
+				<h2>Add Photo to your Spot</h2>
+				<div id="spot-photo-holder" style="height:317px;width:514px;">
+					<img id="spot-photo-img" src="{{ spotDetail.photo }}" height="317" />
+				</div>
+				<form class="file" id="spot-photo-ifrm" method="POST" enctype="multipart/form-data" action="{{ path('upload_spot_photo') }}">
+			        <button>Upload Photo</button>
+					<input type="file" name="spot-photo" id="origin" class="origin" style="left: 19px;" />
+					<input type="hidden" name="photo-url" readonly='true' data-required="true" value="{{ spotDetail.photo }}" />
+				</form>
+				
+			</div>
+			<div class="to-right">
+				<div class="search-google-image">
+					<div class="custom-search"><input type="text" placeholder="google it here!" id="google_search_box"/><input type="button" name="google_search_btn" value="search" /></div>
+					<ul class="horizontalize" id="google_search_results">
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>
+						<li><a href=""><img src="/buggl/images/sample-spot.png" /></a></li>																										
+					</ul>
+					<ul class="google-search-nav horizontalize">
+						<li><a href="" id="google-search-prev">&lt;</a></li>
+						<li><a href="" id="google-search-next">&gt;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="prev" /><input type="button" class="admin-button" value="next" data-step="2" /></p>
+	</div>
+
+	<div class="add-spot-step-3 add-spot-modal" style="display:none;">
+		<label>Spot Secret Type</label>
+		<form style="display:none;" id="spot-step-3-frm">
+			<input type="text" name="spot-secret" value="{{ spotDetail.spotType.id }}">
+			<input type="text" name="spot-category" value="{{ spotDetail.spotCategory.id }}">
+			{% for spotLike in spotLikes %}
+				<input type="text" id="spot-like-{{ spotLike.id }}" name="spot-likes[]" value="{{ spotLike.id }}">
+			{% endfor %}
+		</form>
+		<ul class="secret-type-select spot-select horizontalize" name="spot-secret-type">
+			{% for type in types %}
+				<li class="{{ (type.id == spotDetail.spotType.id) ? 'selected' : '' }}"><a href="" data-typeid="{{ type.id }}">{{ type.name }}</a></li>
+			{% endfor %}
+			<!-- <li class="selected"><a href="">Local Secrets</a></li>
+			<li><a href="">See and Do</a></li>
+			<li><a href="">Eat</a></li>
+			<li><a href="">Sleep</a></li>
+			<li><a href="">Drink</a></li> -->
+		</ul> 
+		<div class="cateogry-select">
+			<label>Spot Category</label>
+			<ul class="spot-select horizontalize" name="spot-category">
+				{% for cat in categories %}
+					<li class="{{ (cat.id == spotDetail.spotCategory.id) ? 'selected' : '' }}"><a href="" data-categoryid="{{ cat.id }}">{{ cat.name }}</a></li>
+				{% endfor %}
+				<!-- <li><a href="">Church</a></li>
+				<li><a href="">Monastery</a></li>
+				<li class="selected" ><a href="">Mess Hall</a></li>
+				<li><a href="">Restaurant</a></li>
+				<li><a href="">Office Building</a></li>
+				<li><a href="">Church</a></li>
+				<li><a href="">Monastery</a></li>
+				<li><a href="">Mess Hall</a></li>
+				<li><a href="">Restaurant</a></li>
+				<li><a href="">Office Building</a></li>
+				<li><a href="">Church</a></li>
+				<li><a href="">Monastery</a></li>
+				<li><a href="">Mess Hall</a></li>
+				<li><a href="">Restaurant</a></li>
+				<li><a href="">Office Building</a></li>	-->
+			</ul> 
+			<input type="text" name="new-category" placeholder="Add Category Here" /><button>Save</button>
+		</div>
+		<div class="what-like">
+			<div>
+				<label>What Its Like<span>Pick at most 3 KEYWORDS that best describes the spot.</span></label>
+				<ul class="category-select spot-select horizontalize" name="spot-like">
+					{% for like in likes %}
+						<li class="{{ (like.id in spotLikes|keys) ? 'selected' : '' }}"><a href="" data-likeid="{{ like.id }}">{{ like.name }}</a></li>
+					{% endfor %}
+					<!-- <li><a href="">Church</a></li>
+					<li><a href="">Monastery</a></li>
+					<li><a href="">Mess Hall</a></li>
+					<li><a href="">Restaurant</a></li>
+					<li><a href="">Office Building</a></li>
+					<li class="selected"><a href="">Church</a></li>
+					<li><a href="">Monastery</a></li>
+					<li><a href="">Mess Hall</a></li>
+					<li><a href="">Restaurant</a></li>
+					<li class="selected"><a href="">Office Building</a></li>
+					<li><a href="">Church</a></li>
+					<li class="selected"><a href="">Monastery</a></li>
+					<li><a href="">Mess Hall</a></li>
+					<li><a href="">Restaurant</a></li>
+					<li><a href="">Office Building</a></li>	 -->																
+				</ul>
+				<input type="text" name="new-spot-like" placeholder="Add More Here" /><button>Save</button>
+			</div> 
+		</div>
+		<p class="prev-next"><input type="button" class="admin-button" value="prev" /><input type="button" class="admin-button" value="next" data-step="3" /></p>
+	</div>
+	
+	<div class="add-spot-step-4 add-spot-modal" style="display:none;">
+		<p class="required-message" style="color: red; display:none;">Please rate your spot and add a description.</p>
+		<form>
+			<div class="form-section spot-title">
+				<label>Spot Rating</label>
+				<ul class="add-spot-rating horizontalize">
+					<li class="{{ (spotDetail.rating >= 1) ? 'active' : '' }}"><a href="" data-spotrating="1"></a></li>
+					<li class="{{ (spotDetail.rating >= 2) ? 'active' : '' }}"><a href="" data-spotrating="2"></a></li>
+					<li class="{{ (spotDetail.rating >= 3) ? 'active' : '' }}"><a href="" data-spotrating="3"></a></li>
+					<li class="{{ (spotDetail.rating >= 4) ? 'active' : '' }}"><a href="" data-spotrating="4"></a></li>
+					<li class="{{ (spotDetail.rating >= 5) ? 'active' : '' }}"><a href="" data-spotrating="5"></a></li>																				
+				</ul>
+				<input type="hidden" readonly="true" name="spot-rating" data-required="true" value="{{ spotDetail.rating }}" >
+				<label>Best Thing on this spot:</label>
+				<input type="text" name="best-thing" value="{{ spotDetail.bestThing }}" />
+				<label>Desciption</label>
+				<textarea name="spot-description" data-required="true">{{ spotDetail.description }}</textarea>					
+			</div>
+		</form>
+		<p class="prev-next"><input type="button" class="admin-button" value="prev" /><input type="button" class="admin-button" value="save" data-step="4" /></p>
+	</div>
+</div>

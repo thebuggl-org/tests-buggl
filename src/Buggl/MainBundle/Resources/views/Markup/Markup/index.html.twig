@@ -1,0 +1,14 @@
+{% extends "BugglMainBundle:Markup:frontendLayout.html.twig" %}
+
+{% block title %}Markups{% endblock %}
+
+
+{% block main_content %}
+    <ul>
+        {% for markup in markups %}
+            <li>
+                <a href="{{ path(markup.route) }}">{{ markup.name }}</a>    
+            </li> 
+        {% endfor %}
+    </ul>
+{% endblock %}
